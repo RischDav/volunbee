@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: MyString
+  title: MyString
+  description: MyText
+  is_active: false
+  created_at: 2024-12-08
+  updated_at: 2024-12-08
+  organization: one
+
+two:
+  id: MyString
+  title: MyString
+  description: MyText
+  is_active: false
+  created_at: 2024-12-08
+  updated_at: 2024-12-08
+  organization: two

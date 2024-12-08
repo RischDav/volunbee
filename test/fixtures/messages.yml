@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: MyString
+  sender_email: MyString
+  sender_phone: MyString
+  position: one
+  sent_at: 2024-12-08 12:56:55
+
+two:
+  content: MyString
+  sender_email: MyString
+  sender_phone: MyString
+  position: two
+  sent_at: 2024-12-08 12:56:55
