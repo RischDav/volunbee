@@ -45,3 +45,9 @@ end
 
 
 gem "devise", "~> 4.9"
+gem "tailwindcss-rails", "~> 3.0"
+
+gem 'sprockets-rails'
+gem 'sass-rails'
+gem 'uglifier'
+gem 'coffee-rails'
