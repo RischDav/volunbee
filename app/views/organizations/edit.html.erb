@@ -1,0 +1,33 @@
+<h1 class="text-3xl">Bearbeiten Sie Ihre Organisation</h1>
+<div class="mt-8 p-6 bg-white rounded-lg shadow-md border broder-slate-200">
+  <%= form_for @organization, url: organization_path, html: { method: :put, class: "space-y-4" } do |f| %>
+    <div class="field">
+      <%= f.label :name, "Name", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :name, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :email, "Email", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.email_field :email, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :contact_number, "Contact Number", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :contact_number, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :is_approved, "Approved", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.check_box :is_approved %>
+    </div>
+
+    <div class="field">
+      <%= f.label :is_deactivated, "Deactivated", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.check_box :is_deactivated %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Save", class: "w-full py-2 px-4 bg-blue-600 text-white font-medium text-sm rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+    </div>
+  <% end %>
+</div>
