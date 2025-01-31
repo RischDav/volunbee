@@ -1,33 +1,88 @@
 <h1 class="text-3xl">Bearbeiten Sie Ihre Organisation</h1>
 <div class="mt-8 p-6 bg-white rounded-lg shadow-md border broder-slate-200">
   <%= form_for @organization, url: organization_path, html: { method: :put, class: "space-y-4" } do |f| %>
+<div class="bg-slate-100 rounded-lg p-6">
+<h2 class="text-2xl font-bold">Allgemeine Informationen</h2>
+<div class="grid grid-cols-3 gap-4">
+
     <div class="field">
-      <%= f.label :name, "Name", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_field :name, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+      <%= f.label :name, "Name", class: "block text-lg font-medium text-gray-700" %>
+      <%= f.text_field :name, class: "w-full my-3 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+      <p class="text-sm text-gray-700">Bitte geben sie den vollen Namen mit Rechtsform an (zum Beispiel gGmbH oder e.V.)</p>
     </div>
 
     <div class="field">
-      <%= f.label :email, "Email", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.email_field :email, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+      <%= f.label :email, "Kontakt-Email", class: "block text-lg font-medium text-gray-700" %>
+      <%= f.email_field :email, class: "w-full my-3 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 
     <div class="field">
-      <%= f.label :contact_number, "Contact Number", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_field :contact_number, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+      <%= f.label :contact_number, "Telefonnummer", class: "block text-lg font-medium text-gray-700" %>
+      <%= f.text_field :contact_number, class: "w-full my-3 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+      <p class="text-sm text-gray-700">Bitte geben Sie die Landesvorwahl mit ein (Deutschland: +49 1775 123103)</p>
+    </div>
+            <div class="field">
+      <%= f.label :description, "Beschreibung", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_area :description, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+</div>
+</div>
+
+<div class="bg-slate-100 rounded-lg p-6">
+<h2 class="text-2xl font-bold">Adresse</h2>
+<div class="grid grid-cols-3 gap-4">
+
+
+    <div class="field">
+      <%= f.label :city, "Stadt", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :city, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 
     <div class="field">
-      <%= f.label :is_approved, "Approved", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.check_box :is_approved %>
+      <%= f.label :zip, "Postleitzahl", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :zip, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 
     <div class="field">
-      <%= f.label :is_deactivated, "Deactivated", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.check_box :is_deactivated %>
+      <%= f.label :street, "Strasse", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :street, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 
+    <div class="field">
+      <%= f.label :housenumber, "Hausnummer", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :housenumber, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+</div>
+</div>
+<div class="bg-slate-100 rounded-lg p-6">
+        <h2 class="text-2xl font-bold">Social Media & Web</h2>
+<div class="grid grid-cols-3 gap-4">
+
+    <div class="field">
+      <%= f.label :website, "Website", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.url_field :website, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :instagram_url, "Instagram URL", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :instagram_url, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :linkedin_url, "LinkedIn URL", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :linkedin_url, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :facebook_link, "Facebook URL", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :facebook_link, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+</div>
+</div>
+<div class="my-3">
     <div class="actions">
-      <%= f.submit "Save", class: "w-full py-2 px-4 bg-blue-600 text-white font-medium text-sm rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+      <%= f.submit "Speichern", class: " py-2 px-4 bg-blue-600 text-white font-medium text-lg rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2", data: { confirm: 'Sind die angegebenen Daten richtig?' } %>
     </div>
+</div>
   <% end %>
 </div>

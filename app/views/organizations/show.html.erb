@@ -1,0 +1,46 @@
+<h1 class="text-3xl">Organisation Details</h1>
+<div class="mt-8 p-6 bg-white rounded-lg shadow-md border broder-slate-200">
+    <div class="field">
+        <label class="block text-sm font-medium text-gray-700">Name</label>
+        <p class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm"><%= @organization.name %></p>
+    </div>
+
+    <div class="field">
+        <label class="block text-sm font-medium text-gray-700">Email</label>
+        <p class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm"><%= @organization.email %></p>
+    </div>
+
+    <div class="field">
+        <label class="block text-sm font-medium text-gray-700">Contact Number</label>
+        <p class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm"><%= @organization.contact_number %></p>
+    </div>
+
+    <div class="flex flex-col field">
+        <p class="mt-1 text-sm text-gray-900">Approved: <%= @organization.is_approved ? 'Yes' : 'No' %></p>
+    </div>
+
+    <div class="field">
+        <label class="block text-sm font-medium text-gray-700">City</label>
+        <p class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm"><%= @organization.city %></p>
+    </div>
+
+    <div class="field">
+        <label class="block text-sm font-medium text-gray-700">ZIP Code</label>
+        <p class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm"><%= @organization.zip %></p>
+    </div>
+
+    <div class="field">
+        <label class="block text-sm font-medium text-gray-700">Street</label>
+        <p class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm"><%= @organization.street %></p>
+    </div>
+
+    <div class="field">
+        <label class="block text-sm font-medium text-gray-700">House Number</label>
+        <p class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm"><%= @organization.housenumber %></p>
+    </div>
+
+    <div class="field">
+        <label class="block text-sm font-medium text-gray-700">Website</label>
+        <p class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm"><%= @organization.website %></p>
+    </div>
+</div>
