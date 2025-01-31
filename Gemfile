@@ -7,7 +7,7 @@ gem "pg"
 
 gem "cssbundling-rails", "~> 1.0"
 gem "jsbundling-rails", "~> 1.0"
-gem "tailwindcss-rails", "~> 3.0"
+gem "tailwindcss-rails", "~> 3.3"
 gem "sprockets-rails", "~> 3.4"
 gem "image_processing", "~> 1.2"
 gem "bootsnap", require: false
