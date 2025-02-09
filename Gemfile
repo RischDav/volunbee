@@ -1,19 +1,27 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 7.2.2"
-gem "sqlite3", ">= 1.4"
-gem "puma", ">= 5.0"
+gem "rails"
+gem "sqlite3"
+gem "puma"
 gem "pg"
+gem "sidekiq"
+gem "devise"
 
-gem "cssbundling-rails", "~> 1.0"
-gem "jsbundling-rails", "~> 1.0"
-gem "tailwindcss-rails", "~> 3.0"
-gem "sprockets-rails", "~> 3.4"
-gem "image_processing", "~> 1.2"
+gem "mini_magick"
+gem "cssbundling-rails"
+gem "jsbundling-rails"
+gem "tailwindcss-rails"
+gem "sprockets-rails"
+gem 'sprockets', '>= 4.0.0'
+gem "image_processing"
 gem "bootsnap", require: false
 gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "foreman", github: "ddollar/foreman"
+gem "simple_form", "~> 5.2"
+gem "stimulus-rails"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "brakeman", require: false
+  gem 'listen', '~> 3.3'
 end
