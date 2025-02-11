@@ -1,6 +1,6 @@
 class PositionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_position, only: [ :edit, :update, :destroy ]
+  before_action :set_position, only: [:edit, :update, :destroy]
 
   def index
     if user_signed_in?
@@ -21,11 +21,12 @@ class PositionsController < ApplicationController
 
   def create
     @position = Position.new(position_params)
+    puts params[:position][:frequently_asked_questions_attributes]
     @position.organization_id = current_user.organization_id
 
     if @position.save
-      @position.pictures.each do |picture|
-        ProcessPictureJob.perform_later(picture)
+      [@position.mainPicture, @position.picture1, @position.picture2, @position.picture3].each do |picture|
+        ProcessPictureJob.set(wait: 10.seconds).perform_later(picture.blob.id) if picture.attached?
       end
       redirect_to positions_path, notice: "Position was successfully created."
     else
@@ -39,8 +40,8 @@ class PositionsController < ApplicationController
 
   def update
     if @position.update(position_params)
-      @position.pictures.each do |picture|
-        ProcessPictureJob.perform_later(picture)
+      [@position.mainPicture, @position.picture1, @position.picture2, @position.picture3].each do |picture|
+        ProcessPictureJob.set(wait: 10.seconds).perform_later(picture.blob.id) if picture.attached?
       end
       redirect_to positions_path, notice: "Position was successfully updated."
     else
@@ -60,6 +61,6 @@ class PositionsController < ApplicationController
   end
 
   def position_params
-    params.require(:position).permit(:title, :description, :is_active, pictures: [])
+    params.require(:position).permit(:title, :description, :benefits, :mainPicture, :picture1, :picture2, :picture3, frequently_asked_questions_attributes: [:id, :question, :answer, :_destroy])
   end
 end

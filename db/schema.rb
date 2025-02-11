@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_09_210841) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_11_183141) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_09_210841) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_admins_on_organization_id"
+  end
+
+  create_table "frequently_asked_questions", force: :cascade do |t|
+    t.string "question"
+    t.text "answer"
+    t.bigint "position_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["position_id"], name: "index_frequently_asked_questions_on_position_id"
   end
 
   create_table "images", force: :cascade do |t|
@@ -100,6 +109,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_09_210841) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "benefits"
+    t.integer "creative_skills"
+    t.integer "technical_skills"
+    t.integer "social_skills"
+    t.integer "language_skills"
+    t.integer "flexibility"
     t.index ["organization_id"], name: "index_positions_on_organization_id"
   end
 
@@ -121,6 +135,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_09_210841) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "admins", "organizations"
+  add_foreign_key "frequently_asked_questions", "positions"
   add_foreign_key "images", "positions"
   add_foreign_key "messages", "positions"
   add_foreign_key "positions", "organizations"
