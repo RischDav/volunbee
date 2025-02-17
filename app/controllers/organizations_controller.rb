@@ -1,6 +1,6 @@
 class OrganizationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_organization, only: [ :show, :edit, :update ], unless: -> { current_user.admin? }
+  before_action :set_organization, only: [:show, :edit, :update, :release, :lock], unless: -> { current_user.admin? }
 
   def index
     if current_user.admin?
@@ -14,8 +14,6 @@ class OrganizationsController < ApplicationController
   end
 
   def show
-  end
-  def show
     @organization = Organization.find(params[:id])
   end
 
@@ -27,6 +25,18 @@ class OrganizationsController < ApplicationController
     end
   end
 
+  def release
+    organization = Organization.find(params[:id])
+    organization.update(released: true)
+    redirect_to organizations_path, notice: 'Organisation wurde freigegeben.'
+  end
+
+  def lock
+    organization = Organization.find(params[:id])
+    organization.update(released: false)
+    redirect_to organizations_path, notice: 'Organisation wurde gesperrt.'
+  end
+
   private
 
   def set_organization
@@ -34,6 +44,6 @@ class OrganizationsController < ApplicationController
   end
 
   def organization_params
-  params.require(:organization).permit(:name, :email, :contact_number, :profile_picture, :is_approved, :city, :zip, :street, :housenumber, :website)
+    params.require(:organization).permit(:name, :email, :contact_number, :profile_picture, :is_approved, :city, :zip, :street, :housenumber, :website)
   end
 end

@@ -1,6 +1,6 @@
 class PositionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_position, only: [:edit, :update, :destroy]
+  before_action :set_position, only: [:edit, :update, :destroy, :release, :lock]
 
   def index
     if user_signed_in?
@@ -21,7 +21,6 @@ class PositionsController < ApplicationController
 
   def create
     @position = Position.new(position_params)
-    puts params[:position][:frequently_asked_questions_attributes]
     @position.organization_id = current_user.organization_id
 
     if @position.save
@@ -35,7 +34,6 @@ class PositionsController < ApplicationController
   end
 
   def edit
-    # @position wird durch before_action :set_position gesetzt
   end
 
   def update
@@ -52,6 +50,30 @@ class PositionsController < ApplicationController
   def destroy
     @position.destroy
     redirect_to positions_path, notice: "Position was successfully deleted."
+  end
+
+  def release
+    position = Position.find(params[:id])
+    position.update(released: true)
+    redirect_to positions_path, notice: 'Position wurde freigegeben.'
+  end
+
+  def offline
+    position = Position.find(params[:id])
+    position.update(online: false)
+    redirect_to positions_path, notice: 'Position wurde offline gestellt.'
+  end
+
+  def online
+    position = Position.find(params[:id])
+    position.update(online: true)
+    redirect_to positions_path, notice: 'Position wurde online gestellt.'
+  end
+
+  def lock
+    position = Position.find(params[:id])
+    position.update(released: false)
+    redirect_to positions_path, notice: 'Position wurde gesperrt.'
   end
 
   private

@@ -7,20 +7,20 @@
           <div class="flex space-x-4">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
             <% if user_signed_in? %>
-
             <% if current_user.admin?%>
-            <%= link_to "Alle Organisationen", organizations_path, class:"rounded-md bg-gray-900 px-3 py-2 text-md font-medium text-white"%>
-            <%= link_to "Alle Stellen", positions_path, class:"rounded-md bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
-            <%= link_to "Verwaltung", admin_index_path, class:"rounded-md bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
+            <%= link_to "Organisationen", organizations_path, class:"rounded-md bg-gray-900 px-3 py-2 text-md font-medium text-white"%>
+            <%= link_to "Stellen", positions_path, class:"rounded-md bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
+            <%= link_to "User-Verwaltung", admin_index_path, class:"rounded-md bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
+            <% elsif !current_user.released? %>
             <% else %>
-            <%= link_to "Organisation", organizations_path, class:"rounded-md bg-gray-900 px-3 py-2 text-md font-medium text-white"%>
+             <%= link_to "Organisation", organizations_path, class:"rounded-md bg-gray-900 px-3 py-2 text-md font-medium text-white"%>
             <%= link_to "Offene Stellen", positions_path, class:"rounded-md bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
             <% end %>
+            <%= button_to 'Sign Out', destroy_user_session_path, class: "rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white bg-red-300 color-white", method: :delete %>
             <% end %>
           </div>
         </div>
         <div>
-        <%= button_to 'Sign Out', destroy_user_session_path, class: "rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white bg-red-300 color-white", method: :delete %>
         </div>
       </div>
     </div>

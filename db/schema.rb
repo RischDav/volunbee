@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_11_183141) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_16_221500) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -99,6 +99,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_11_183141) do
     t.string "instagram_url"
     t.string "linkedin_url"
     t.string "facebook_link"
+    t.boolean "released", default: false
   end
 
   create_table "positions", force: :cascade do |t|
@@ -114,6 +115,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_11_183141) do
     t.integer "social_skills"
     t.integer "language_skills"
     t.integer "flexibility"
+    t.boolean "released", default: false
+    t.boolean "online"
     t.index ["organization_id"], name: "index_positions_on_organization_id"
   end
 
@@ -127,6 +130,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_11_183141) do
     t.datetime "updated_at", null: false
     t.integer "organization_id"
     t.integer "role", default: 0
+    t.boolean "released", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

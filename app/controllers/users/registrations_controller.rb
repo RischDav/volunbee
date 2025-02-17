@@ -53,6 +53,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def authorize_admin
+    unless current_user.admin?
+      redirect_to root_path, alert: "Access Denied"
+    end
+  end
+
   private
 
   # Definiert die erlaubten Parameter, die beim Registrieren eines Benutzers übermittelt werden dürfen.
