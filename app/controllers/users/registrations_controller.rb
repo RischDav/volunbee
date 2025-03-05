@@ -40,6 +40,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         end
       else
         # Wenn der Benutzer nicht erfolgreich gespeichert wurde:
+        organization.destroy!
         clean_up_passwords resource # Bereinigt die Passwortdaten (z.B. entfernt Passworthashes).
         set_minimum_password_length # Setzt die Mindestpasswortlänge.
         respond_with resource # Gibt den Benutzer zurück (z.B. um Fehler anzuzeigen).

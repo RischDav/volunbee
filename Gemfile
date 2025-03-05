@@ -1,7 +1,7 @@
 source "https://rubygems.org"
+ruby '3.2.2'
 
 gem "rails"
-gem "sqlite3"
 gem "puma"
 gem "pg"
 gem "sidekiq"
