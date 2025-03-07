@@ -7,8 +7,9 @@ class AdminController < ApplicationController
   end
 
   def release_user
-    user = User.find(params[:id])
-    user.update(released: true)
+    @user = User.find(params[:id])
+    @user.update(released: true)
+    UserMailer.unlocked_welcome_email(@user).deliver_later
     redirect_to admin_index_path, notice: 'Benutzer wurde freigegeben.'
   end
 

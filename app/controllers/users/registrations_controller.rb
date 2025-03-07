@@ -46,6 +46,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         respond_with resource # Gibt den Benutzer zurück (z.B. um Fehler anzuzeigen).
       end
     else
+      UserMailer.with(user: sign_up_params.email).welcome_email.deliver_later
       # Wenn die Organisation nicht gespeichert werden konnte:
       clean_up_passwords resource # Bereinigt die Passwortdaten.
       set_minimum_password_length # Setzt die Mindestpasswortlänge.
