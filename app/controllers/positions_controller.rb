@@ -1,6 +1,6 @@
 class PositionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_position, only: [:edit, :update, :destroy, :release, :lock]
+  before_action :set_position, only: [:show, :edit, :update, :destroy, :release, :lock]
 
   def index
     if user_signed_in?
@@ -34,6 +34,9 @@ class PositionsController < ApplicationController
   end
 
   def edit
+  end
+
+  def show
   end
 
   def update

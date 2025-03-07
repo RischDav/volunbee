@@ -11,10 +11,9 @@
 
 
 <% if current_user.admin? && @positions.where(released: false).exists? %>
-  <% @positions_not_released = @positions.where(released: false) %>
   <div class="bg-yellow-600 p-4 rounded-md">
     <div class="text-xl">Es gibt einige noch nicht freigegebene Positionen!</div>
-    <% @positions_not_released.each do |position| %>
+    <% @positions.where(released: false).each do |position| %>
       <div class="bg-white shadow-md rounded-lg p-6 my-6 border border-gray-200">
         <h2 class="text-2xl font-semibold mb-2"><%= position.title %></h2>
         <p class="text-gray-700 mb-4"><%= position.description %></p>
@@ -33,7 +32,7 @@
           <% end %>
         </div>
         <div class="flex space-x-4 mt-5">
-          <%= link_to 'Ansehen', edit_position_path(position), class: 'inline-block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700' %>
+          <%= link_to 'Ansehen', position_path(position), class: 'inline-block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700' %>
           <%= button_to 'Freigeben', release_position_path(position), method: :patch, class: 'inline-block bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700' %>
         </div>
       </div>
@@ -44,7 +43,7 @@
 
 <% if @positions.present? %>
   <div>
-    <% @positions.each do |position| %>
+    <% @positions.where(released: true).each do |position| %>
       <div class="bg-white shadow-md rounded-lg p-6 my-6 border border-gray-200">
         <h2 class="text-2xl font-semibold mb-2"><%= position.title %></h2>
         <p class="text-gray-700 mb-4"><%= position.description %></p>
@@ -63,8 +62,9 @@
           <% end %>
         </div>
         <div class="flex space-x-4 mt-5">
-          <%= link_to 'Ansehen', edit_position_path(position), class: 'inline-block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700' %>
+          <%= link_to 'Ansehen', position_path(position), class: 'inline-block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700' %>
             <% if !current_user.admin? %>
+            <%= link_to 'Bearbeiten', edit_position_path(position), class: 'inline-block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700' %>
             <% if position.online %>
             <%= button_to 'Offline nehmen', offline_position_path(position), method: :patch, class: 'inline-block bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700' %>
             <% else %>

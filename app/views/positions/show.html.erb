@@ -1,0 +1,75 @@
+<h1 class="text-3xl">Position Details</h1>
+<div class="mt-8 p-6 bg-white rounded-lg shadow-md border broder-slate-200">
+    <div class="flex flex-col my-3 field">
+        <p class="mt-1 text-sm text-gray-900">
+            <span class="<%= @position.released ? 'text-green-500' : 'text-red-500' %>">
+                <%= @position.released ? 'Position ist freigegeben und sichtbar.' : 'Die Position wird demnächst freigegeben. Bis dahin ist sie nicht sichtbar.' %>
+            </span>
+        </p>
+    </div>
+    <div class="field my-3">
+        <label class="block text-sm font-medium text-gray-700">Title</label>
+        <p class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm">
+            <%= @position.title.present? ? @position.title : 'Title not available, please add one.' %>
+        </p>
+    </div>
+
+    <div class="field my-3">
+        <label class="block text-sm font-medium text-gray-700">Description</label>
+        <p class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm">
+            <%= @position.description.present? ? @position.description : 'Description not available, please add one.' %>
+        </p>
+    </div>
+
+    <div class="field my-3">
+        <label class="block text-sm font-medium text-gray-700">Benefits</label>
+        <p class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm">
+            <%= @position.benefits.present? ? @position.benefits : 'Benefits not available, please add one.' %>
+        </p>
+    </div>
+
+    <div class="field my-3">
+        <label class="block text-sm font-medium text-gray-700">Creative Skills</label>
+        <p class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm">
+            <%= @position.creative_skills.present? ? @position.creative_skills : 'Creative skills not available, please add one.' %>
+        </p>
+    </div>
+
+    <div class="field my-3">
+        <label class="block text-sm font-medium text-gray-700">Technical Skills</label>
+        <p class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm">
+            <%= @position.technical_skills.present? ? @position.technical_skills : 'Technical skills not available, please add one.' %>
+        </p>
+    </div>
+
+    <div class="field my-3">
+        <label class="block text-sm font-medium text-gray-700">Social Skills</label>
+        <p class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm">
+            <%= @position.social_skills.present? ? @position.social_skills : 'Social skills not available, please add one.' %>
+        </p>
+    </div>
+
+    <div class="field my-3">
+        <label class="block text-sm font-medium text-gray-700">Language Skills</label>
+        <p class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm">
+            <%= @position.language_skills.present? ? @position.language_skills : 'Language skills not available, please add one.' %>
+        </p>
+    </div>
+
+    <div class="field my-3">
+        <label class="block text-sm font-medium text-gray-700">Flexibility</label>
+        <p class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm">
+            <%= @position.flexibility.present? ? @position.flexibility : 'Flexibility not available, please add one.' %>
+        </p>
+    </div>
+
+    <div class="field my-3">
+        <label class="block text-sm font-medium text-gray-700">Online</label>
+        <p class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm">
+            <%= @position.online ? 'Yes' : 'No' %>
+        </p>
+    </div>
+    <div class="my-3">
+        <%= link_to 'Zurück', positions_path, class: "mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
+    </div>
+</div>
