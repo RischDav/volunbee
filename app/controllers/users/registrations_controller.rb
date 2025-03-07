@@ -30,6 +30,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
           sign_up(resource_name, resource)
           # Leitet den Benutzer zur `after_sign_up_path_for`-Methode weiter.
           respond_with resource, location: after_sign_up_path_for(resource)
+          UserMailer.welcome_email(resource).deliver_later
+          AdminMailer.new_registration_email.deliver_later
         else
           # Wenn der Benutzer nicht aktiv ist, zeigt eine andere Nachricht an (z.B. bei Bestätigung erforderlich).
           set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
@@ -46,7 +48,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
         respond_with resource # Gibt den Benutzer zurück (z.B. um Fehler anzuzeigen).
       end
     else
-      UserMailer.with(user: sign_up_params.email).welcome_email.deliver_later
       # Wenn die Organisation nicht gespeichert werden konnte:
       clean_up_passwords resource # Bereinigt die Passwortdaten.
       set_minimum_password_length # Setzt die Mindestpasswortlänge.

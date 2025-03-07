@@ -20,6 +20,7 @@ class OrganizationsController < ApplicationController
   def update
     if @organization.update(organization_params)
       redirect_to organization_path, notice: "Organization was successfully updated."
+      AdminMailer.organization_change_email.deliver_later
     else
       render :edit
     end

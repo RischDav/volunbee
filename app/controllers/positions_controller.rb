@@ -28,12 +28,14 @@ class PositionsController < ApplicationController
         ProcessPictureJob.set(wait: 10.seconds).perform_later(picture.blob.id) if picture.attached?
       end
       redirect_to positions_path, notice: "Position was successfully created."
+      AdminMailer.new_position_email.deliver_later
     else
       render :new
     end
   end
 
   def edit
+    AdminMailer.position_change_email.deliver_later
   end
 
   def show
