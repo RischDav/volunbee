@@ -1,2 +1,47 @@
-<h1> Das ist eine Testmail, die man bekommt, wenn man freigeschaltet wird</h1>
-<%= @email %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body {
+        background-color: #f7fafc;
+        color: #2d3748;
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+      .header {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 16px;
+        color: #E37222;
+      }
+      .content {
+        margin-bottom: 16px;
+      }
+      .footer {
+        margin-top: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">Dein Account wurde freigeschaltet!</div>
+      <div class="content">
+        <p>Hallo <%= @user.email %>,</p>
+        <p>Dein Account wurde erfolgreich freigeschaltet. Du kannst dich jetzt mit deiner E-Mail-Adresse und deinem Passwort anmelden.</p>
+      </div>
+      <div class="footer">
+        <p>Vielen Dank,</p>
+        <p>Das VolunteerHeilbronn-Team</p>
+      </div>
+    </div>
+  </body>
+</html>

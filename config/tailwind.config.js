@@ -9,8 +9,19 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+      colors: {
+        tumblack: "#000000",
+        tumwhite: "#ffffff",
+        tumlightblue: "#98C6FE",
+        tummediumblue: "#0065BD",
+        tumdarkblue: "#003359",
+        tumorange: "#E37222",
+      },
+      screens: {
+        sm: "480px",
+        md: "768px",
+        lg: "976px",
+        xl: "1440px",
       },
     },
   },

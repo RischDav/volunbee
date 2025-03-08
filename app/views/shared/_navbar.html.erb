@@ -1,22 +1,22 @@
-<nav class="bg-white rounded-lg shadow dark:bg-gray-900 m-4">
+<nav class="rounded-lg shadow bg-[#003359] m-4">
   <div class="w-full md:py-8">
     <div class="sm:flex">
       </div>
       <div class="flex justify-between md:mx-5">
         <div>
-          <div class="flex space-x-4">
+          <div class="flex space-x-4 align-middle">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
             <% if user_signed_in? %>
             <% if current_user.admin?%>
-            <%= link_to "Organisationen", organizations_path, class:"rounded-md bg-gray-900 px-3 py-2 text-md font-medium text-white"%>
-            <%= link_to "Stellen", positions_path, class:"rounded-md bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
-            <%= link_to "User-Verwaltung", admin_index_path, class:"rounded-md bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
+            <%= link_to "Organisationen", organizations_path, class:"rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white"%>
+            <%= link_to "Stellen", positions_path, class:"rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
+            <%= link_to "User-Verwaltung", admin_index_path, class:"rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
             <% elsif !current_user.released? %>
             <% else %>
-             <%= link_to "Organisation", organizations_path, class:"rounded-md bg-gray-900 px-3 py-2 text-md font-medium text-white"%>
-            <%= link_to "Offene Stellen", positions_path, class:"rounded-md bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
+             <%= link_to "Organisation", organizations_path, class:"rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white"%>
+            <%= link_to "Offene Stellen", positions_path, class:"rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
             <% end %>
-            <%= button_to 'Sign Out', destroy_user_session_path, class: "rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white bg-red-300 color-white", method: :delete %>
+            <%= button_to 'Sign Out', destroy_user_session_path, class: "rounded-md px-3 py-2 text-md font-medium text-white bg-[#ef4444] color-white", method: :delete %>
             <% end %>
         <div>
         </div>
