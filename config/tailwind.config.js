@@ -5,7 +5,7 @@ module.exports = {
     './public/*.html',
     './app/helpers/**/*.rb',
     './app/javascript/**/*.js',
-    './app/views/**/*',
+    './app/views/**/*.{erb,html,html.erb}',
   ],
   theme: {
     extend: {
@@ -16,12 +16,6 @@ module.exports = {
         tummediumblue: "#0065BD",
         tumdarkblue: "#003359",
         tumorange: "#E37222",
-      },
-      screens: {
-        sm: "480px",
-        md: "768px",
-        lg: "976px",
-        xl: "1440px",
       },
     },
   },

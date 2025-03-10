@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!
   before_action :check_user_released, unless: -> { devise_controller? }
 
   private
