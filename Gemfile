@@ -20,6 +20,7 @@ gem "foreman", github: "ddollar/foreman"
 gem "simple_form", "~> 5.2"
 gem "stimulus-rails"
 gem "mail", '~> 2.7'
+gem "aws-sdk-s3", require: false
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
