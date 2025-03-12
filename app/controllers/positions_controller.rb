@@ -88,6 +88,6 @@ class PositionsController < ApplicationController
   end
 
   def position_params
-    params.require(:position).permit(:title, :description, :benefits, :mainPicture, :picture1, :picture2, :picture3, frequently_asked_questions_attributes: [:id, :question, :answer, :_destroy])
+    params.require(:position).permit(:title, :description, :benefits, :mainPicture, :picture1, :picture2, :picture3, :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility, :released, :online, frequently_asked_questions_attributes: [:id, :question, :answer, :_destroy])
   end
 end
