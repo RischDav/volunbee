@@ -62,65 +62,25 @@
     </div>
   </div>
 
-      <h2 class="text-2xl font-bold">Score</h2>
+    <h2 class="text-2xl font-bold">Score</h2>
     <div class="bg-slate-100 rounded-lg p-6 p-3">
       <p class="text-sm text-gray-700">Auf unserer Plattform bieten wir einen Algorithmus an, der es Usern ermöglicht durch die beantwortung weniger Fragen die passende Stelle zu finden. Um dies für Ihre Stelle ebenfalls zu ermöglichen, benötigen wir in Folgenden einen "Score". Es funktioneirt ganz einfach: sie haben fünf eigenschaften und 15 verfügbare Punkte. Verteilen sie die punkte über die eigenschaften. Welche eigenschaften werden für die ausgeschriebene position besonders benötigt, welche eher weniger?</p>
       <div id="remaining-points" class="my-4 text-lg font-medium text-gray-700">Verbleibende Punkte: 15</div>
       <div class="gap-4">
-      <div class="field">
-        <%= f.label :creative_skills, "Kreativität", class: "block text-sm font-medium text-gray-700" %>
-        <div>
-          <% (1..5).each do |i| %>
-        <label>
-          <%= f.radio_button :creative_skills, i, class: "rating-input" %> <%= i %>
-        </label>
-          <% end %>
-        </div>
+        <% { creative_skills: "Kreativität", technical_skills: "Technische Skills", social_skills: "Soziale Skills", language_skills: "Sprachliche Skills", flexibility: "Flexibilität" }.each do |skill, label| %>
+          <div class="field">
+            <%= f.label skill, label, class: "block text-sm font-medium text-gray-700" %>
+            <div>
+              <% (1..5).each do |i| %>
+                <label>
+                  <%= f.radio_button skill, i, class: "rating-input" %> <%= i %>
+                </label>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
       </div>
-
-      <div class="field">
-        <%= f.label :technical_skills, "Technische Skills", class: "block text-sm font-medium text-gray-700" %>
-        <div>
-          <% (1..5).each do |i| %>
-        <label>
-          <%= f.radio_button :technical_skills, i, class: "rating-input" %> <%= i %>
-        </label>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="field">
-        <%= f.label :social_skills, "Soziale Skills", class: "block text-sm font-medium text-gray-700" %>
-        <div>
-          <% (1..5).each do |i| %>
-        <label>
-          <%= f.radio_button :social_skills, i, class: "rating-input" %> <%= i %>
-        </label>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="field">
-        <%= f.label :language_skills, "Sprachliche Skills", class: "block text-sm font-medium text-gray-700" %>
-        <div>
-          <% (1..5).each do |i| %>
-        <label>
-          <%= f.radio_button :language_skills, i, class: "rating-input" %> <%= i %>
-        </label>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="field">
-        <%= f.label :flexibility, "Flexibilität", class: "block text-sm font-medium text-gray-700" %>
-        <div>
-          <% (1..5).each do |i| %>
-        <label>
-          <%= f.radio_button :flexibility, i, class: "rating-input" %> <%= i %>
-        </label>
-          <% end %>
-        </div>
-      </div>
+    </div>
 
       <h2 class="text-2xl font-bold">Fragen und Antworten</h2>
     <div class="bg-slate-100 rounded-lg p-6">
