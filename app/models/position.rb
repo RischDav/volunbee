@@ -18,6 +18,13 @@ class Position < ApplicationRecord
 
   after_commit :process_pictures, on: [:create, :update]
 
+  def picture_urls
+    pictures = [:mainPicture, :picture1, :picture2, :picture3]
+    pictures.each_with_object({}) do |picture, urls|
+      urls[picture] = Rails.application.routes.url_helpers.rails_blob_url(send(picture), only_path: true) if send(picture).attached?
+    end
+  end
+
   private
 
   def pictures_size

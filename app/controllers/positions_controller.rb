@@ -40,6 +40,11 @@ class PositionsController < ApplicationController
     AdminMailer.position_change_email.deliver_later
   end
 
+  def json_output
+    positions = Position.where(released: true, online: true)
+    render json: positions.as_json(methods: :picture_urls)
+  end
+
   def show
   end
 
