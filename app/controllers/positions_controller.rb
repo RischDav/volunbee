@@ -19,8 +19,6 @@ class PositionsController < ApplicationController
     @position = Position.new
   end
 
-  
-
   def create
     @position = Position.new(position_params)
     @position.organization_id = current_user.organization_id
