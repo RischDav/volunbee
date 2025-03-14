@@ -1,0 +1,190 @@
+<h1 class="text-3xl">Position bearbeiten</h1>
+<div class="mt-8 p-6 bg-white rounded-lg shadow-md border broder-slate-200 w-1/2">
+  <%= form_for @position, url: position_path(@position), html: { class: "space-y-4", multipart: true }, method: :patch do |f| %>
+    <h2 class="text-2xl font-bold my-4 text-red-600">Bitte achten Sie darauf, dass alle Felder in englischer Sprache ausgefüllt werden!</h2>
+    <h2 class="text-2xl font-bold">Allgemeine Informationen</h2>
+    <div class="bg-slate-100 rounded-lg p-6">
+      <div>
+        <div class="field m-3">
+          <%= f.label :title, "Bezeichnung der Position", class: "block text-lg font-medium text-gray-700 w-50%" %>
+          <p class="text-sm text-gray-700">Bitte geben Sie eine Bezeichnung für die Position an. Statt einfach die Bezeichnung "Volunteer" zu nutzen, nutzen Sie bitte eine ausführliche Bezeichnung, wie zum Beispiel "Volunteer in the field of web design", damit sich interessenten mit den gewünschten Interessen angesprochener fühlen.</p>
+          <%= f.text_field :title, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+        </div>
+        <div id="word-count-title" class="mt-1 mx-3 rounded-md focus:outline-none"></div>
+
+        <div class="field m-3">
+          <%= f.label :description, "Beschreibung der Position", class: "block text-lg font-medium text-gray-700" %>
+          <p class="text-sm text-gray-700">Bitte geben Sie eine ausführliche Beschreibung der Position an. Stellen Sie sicher, dass die Beschreibung alle wichtigen Informationen enthält, die für die Volunteers relevant sind und das Interesse an Ihrem Verein wecken</p>
+          <%= f.text_area :description, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+        </div>
+        <div id="word-count-description" class="mt-1 mx-3 rounded-md focus:outline-none"></div>
+
+        <div class="field m-3">
+          <%= f.label :benefits, "Benefits für Ehrenamtliche", class: "block text-lg font-medium text-gray-700" %>
+          <p class="text-sm text-gray-700">Welche Benefits erwarten Volunteers in Ihrem Verein?</p>
+          <%= f.text_area :benefits, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+        </div>
+        <div id="word-count-benefits" class="mt-1 mx-3 rounded-md focus:outline-none"></div>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold">Bilder</h2>
+    <div class="bg-slate-100 rounded-lg p-6">
+      <div class="gap-4">
+        <% [:mainPicture, :picture1, :picture2, :picture3].each do |picture| %>
+          <div class="field m-3">
+            <%= f.label picture, picture.to_s.humanize, class: "block text-lg font-medium text-gray-700" %>
+            <p class="text-sm text-gray-700">Laden Sie ein Bild hoch, welches die Stelle repräsentiert. Achten Sie bitte darauf, dass die Nutzungsrechte des Hochgeladenen Bildes bei Ihnen liegen.</p>
+            <div class="border-2 border-gray-300 p-4 rounded-md my-3">
+              <%= f.file_field picture, accept: 'image/*' %>
+              <p class="text-sm text-gray-500">Bitte ein Bild hochladen</p>
+              <% if @position.send(picture).attached? %>
+                <div class="mt-4">
+                  <%= image_tag @position.send(picture), style: "max-width: 200px;", class: "rounded" %>
+                  <%= link_to 'Bild löschen', delete_picture_position_path(@position, picture_type: picture), method: :delete, class: "inline-block mt-2 px-4 py-2 rounded-md bg-red-500 text-white border border-slate-200 hover:bg-red-700" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold">Score</h2>
+    <div class="bg-slate-100 rounded-lg p-6 p-3">
+      <p class="text-sm text-gray-700">Auf unserer Plattform bieten wir einen Algorithmus an, der es Usern ermöglicht durch die beantwortung weniger Fragen die passende Stelle zu finden. Um dies für Ihre Stelle ebenfalls zu ermöglichen, benötigen wir in Folgenden einen "Score". Es funktioneirt ganz einfach: sie haben fünf eigenschaften und 15 verfügbare Punkte. Verteilen sie die punkte über die eigenschaften. Welche eigenschaften werden für die ausgeschriebene position besonders benötigt, welche eher weniger?</p>
+      <div id="remaining-points" class="my-4 text-lg font-medium text-gray-700">Verbleibende Punkte: 15</div>
+      <div class="gap-4">
+        <% { creative_skills: "Kreativität", technical_skills: "Technische Skills", social_skills: "Soziale Skills", language_skills: "Sprachliche Skills", flexibility: "Flexibilität" }.each do |skill, label| %>
+          <div class="field">
+            <%= f.label skill, label, class: "block text-sm font-medium text-gray-700" %>
+            <div>
+              <% (1..5).each do |i| %>
+                <label>
+                  <%= f.radio_button skill, i, class: "rating-input" %> <%= i %>
+                </label>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold">Fragen und Antworten</h2>
+    <div class="bg-slate-100 rounded-lg p-6">
+      <div class="gap-4">
+        <p class="text-sm text-gray-700">
+          Mithilfe eines FAQ-Bereichs können sie auf häufig gestellte Fragen antworten. Zum Beispiel: "Wie lange dauert ein Einsatz?" oder "Welche Voraussetzungen muss ich erfüllen?". Bitte geben Sie hier die häufigsten Fragen und Antworten an. Unser Tipp: fügen Sie mindestens drei Fragen und Antworten hinzu.
+        </p>
+        <div id="faqs">
+          <%= f.fields_for :frequently_asked_questions do |faq_form| %>
+            <div class="faq-item border rounded border-slate-400">
+              <div class="field">
+                <%= faq_form.label :question, "Frage", class: "block text-sm font-medium text-gray-700" %>
+                <%= faq_form.text_field :question, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+              </div>
+              <div class="field">
+                <%= faq_form.label :answer, "Antwort", class: "block text-sm font-medium text-gray-700" %>
+                <%= faq_form.text_area :answer, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+              </div>
+              <%= faq_form.hidden_field :_destroy %>
+              <%= link_to "Entfernen", "#", class: "remove_faq inline-block my-3 px-4 py-2 rounded-md bg-red-500 text-white border border-slate-200 hover:bg-red-700", role: 'button' %>
+            </div>
+          <% end %>
+        </div>
+        <%= link_to "Frage und Antwort hinzufügen", "#", id: "add_faq", class: "mt-5 inline-block mb-8 px-4 py-2 rounded-md bg-green-500 text-black border border-slate-200 hover:bg-green-700", role: 'button' %>
+      </div>
+    </div>
+
+    <div class="actions my-10">
+      <%= f.submit "Speichern", class: "w-full py-2 bg-blue-600 text-white font-medium text-sm rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  document.addEventListener("turbolinks:load", function() {
+    function updateWordCount(field, counter, minLength, goodLength, perfectLength) {
+      const charCount = field.value.length;
+
+      if (charCount < minLength) {
+        counter.textContent = `Du benötigst noch mindestens ${minLength - charCount} Buchstaben`;
+        counter.style.color = 'red';
+      } else if (charCount < goodLength) {
+        counter.textContent = `Gute Länge (${minLength} - ${goodLength} Buchstaben)`;
+        counter.style.color = 'yellow';
+      } else if (charCount < perfectLength) {
+        counter.textContent = `Perfekte Länge (${goodLength} - ${perfectLength} Buchstaben)`;
+        counter.style.color = 'green';
+      } else {
+        counter.textContent = 'Zu viele Buchstaben';
+        counter.style.color = 'red';
+      }
+    }
+
+    const titleField = document.querySelector('input[name="position[title]"]');
+    const descriptionField = document.querySelector('textarea[name="position[description]"]');
+    const benefitsField = document.querySelector('textarea[name="position[benefits]"]');
+    const maxPoints = 15;
+    const ratingInputs = document.querySelectorAll('.rating-input');
+    const remainingPointsDisplay = document.getElementById('remaining-points');
+
+    const wordCountTitle = document.getElementById('word-count-title');
+    const wordCountDescription = document.getElementById('word-count-description');
+    const wordCountBenefits = document.getElementById('word-count-benefits');
+
+    titleField.addEventListener('input', function() {
+      updateWordCount(titleField, wordCountTitle, 10, 20, 75);
+    });
+
+    descriptionField.addEventListener('input', function() {
+      updateWordCount(descriptionField, wordCountDescription, 300, 700, 1000);
+    });
+
+    benefitsField.addEventListener('input', function() {
+      updateWordCount(benefitsField, wordCountBenefits, 300, 700, 1000);
+    });
+
+    function updateRemainingPoints() {
+      let totalPoints = 0;
+      ratingInputs.forEach(input => {
+        if (input.checked) {
+          totalPoints += parseInt(input.value);
+        }
+      });
+
+      const remainingPoints = maxPoints - totalPoints;
+      remainingPointsDisplay.textContent = `Verbleibende Punkte: ${remainingPoints}`;
+
+      if (remainingPoints < 0) {
+        remainingPointsDisplay.style.color = 'red';
+      } else {
+        remainingPointsDisplay.style.color = 'black';
+      }
+    }
+
+    ratingInputs.forEach(input => {
+      input.addEventListener('change', updateRemainingPoints);
+    });
+
+    updateRemainingPoints();
+
+    document.getElementById("add_faq").addEventListener("click", function(e) {
+      e.preventDefault();
+      var new_id = new Date().getTime();
+      var regexp = new RegExp("new_faqs", "g");
+      var new_faq = document.createElement("div");
+      new_faq.classList.add("faq-item");
+      new_faq.innerHTML = '<div class="my-3 p-3 border rounded border-slate-400"><div class="field"><label class="block text-sm font-medium text-gray-700" for="position_frequently_asked_questions_attributes_' + new_id + '_question">Frage</label><input class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" type="text" name="position[frequently_asked_questions_attributes][' + new_id + '][question]" id="position_frequently_asked_questions_attributes_' + new_id + '_question"></div><div class="field"><label class="block text-sm font-medium text-gray-700" for="position_frequently_asked_questions_attributes_' + new_id + '_answer">Antwort</label><textarea class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" name="position[frequently_asked_questions_attributes][' + new_id + '][answer]" id="position_frequently_asked_questions_attributes_' + new_id + '_answer"></textarea></div><input type="hidden" name="position[frequently_asked_questions_attributes][' + new_id + '][_destroy]" id="position_frequently_asked_questions_attributes_' + new_id + '__destroy"><%= link_to "Entfernen", "#", class: "remove_faq inline-block my-3 px-4 py-2 rounded-md bg-red-500 text-white border border-slate-200 hover:bg-red-700", role: "button" %></div>';
+      document.getElementById("faqs").appendChild(new_faq);
+    });
+
+    document.getElementById("faqs").addEventListener("click", function(e) {
+      if (e.target && e.target.classList.contains("remove_faq")) {
+        e.preventDefault();
+        e.target.previousElementSibling.value = "1";
+        e.target.closest(".faq-item").style.display = "none";
+      }
+    });
+  });
+</script>

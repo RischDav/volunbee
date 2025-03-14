@@ -12,12 +12,14 @@ Rails.application.routes.draw do
     end
   end
 
+
   resources :positions do
     member do
       patch 'release'
       patch 'lock'
       patch 'online'
       patch 'offline'
+      delete 'delete_picture/:picture_type', to: 'positions#delete_picture', as: 'delete_picture'
     end
   end
 

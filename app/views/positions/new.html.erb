@@ -68,60 +68,59 @@
       <div id="remaining-points" class="my-4 text-lg font-medium text-gray-700">Verbleibende Punkte: 15</div>
       <div class="gap-4">
       <div class="field">
-        <label class="block text-sm font-medium text-gray-700">Kreativität</label>
+        <%= f.label :creative_skills, "Kreativität", class: "block text-sm font-medium text-gray-700" %>
         <div>
           <% (1..5).each do |i| %>
-            <label>
-              <input type="radio" name="input1" value="<%= i %>" class="rating-input"> <%= i %>
-            </label>
+        <label>
+          <%= f.radio_button :creative_skills, i, class: "rating-input" %> <%= i %>
+        </label>
           <% end %>
         </div>
       </div>
 
       <div class="field">
-        <label class="block text-sm font-medium text-gray-700">Technische Skills</label>
+        <%= f.label :technical_skills, "Technische Skills", class: "block text-sm font-medium text-gray-700" %>
         <div>
           <% (1..5).each do |i| %>
-            <label>
-              <input type="radio" name="input2" value="<%= i %>" class="rating-input"> <%= i %>
-            </label>
+        <label>
+          <%= f.radio_button :technical_skills, i, class: "rating-input" %> <%= i %>
+        </label>
           <% end %>
         </div>
       </div>
 
       <div class="field">
-        <label class="block text-sm font-medium text-gray-700">Soziale Skills</label>
+        <%= f.label :social_skills, "Soziale Skills", class: "block text-sm font-medium text-gray-700" %>
         <div>
           <% (1..5).each do |i| %>
-            <label>
-              <input type="radio" name="input3" value="<%= i %>" class="rating-input"> <%= i %>
-            </label>
+        <label>
+          <%= f.radio_button :social_skills, i, class: "rating-input" %> <%= i %>
+        </label>
           <% end %>
         </div>
       </div>
 
       <div class="field">
-        <label class="block text-sm font-medium text-gray-700">Sprachliche Skills</label>
+        <%= f.label :language_skills, "Sprachliche Skills", class: "block text-sm font-medium text-gray-700" %>
         <div>
           <% (1..5).each do |i| %>
-            <label>
-              <input type="radio" name="input4" value="<%= i %>" class="rating-input"> <%= i %>
-            </label>
+        <label>
+          <%= f.radio_button :language_skills, i, class: "rating-input" %> <%= i %>
+        </label>
           <% end %>
         </div>
       </div>
 
       <div class="field">
-        <label class="block text-sm font-medium text-gray-700">Flexibilität</label>
+        <%= f.label :flexibility, "Flexibilität", class: "block text-sm font-medium text-gray-700" %>
         <div>
           <% (1..5).each do |i| %>
-            <label>
-              <input type="radio" name="input5" value="<%= i %>" class="rating-input"> <%= i %>
-            </label>
+        <label>
+          <%= f.radio_button :flexibility, i, class: "rating-input" %> <%= i %>
+        </label>
           <% end %>
         </div>
       </div>
-      </div></div>
 
       <h2 class="text-2xl font-bold">Fragen und Antworten</h2>
     <div class="bg-slate-100 rounded-lg p-6">

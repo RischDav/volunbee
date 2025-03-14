@@ -1,6 +1,6 @@
 class PositionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_position, only: [:show, :edit, :update, :destroy, :release, :lock]
+  before_action :set_position, only: [:show, :edit, :update, :destroy, :release, :lock, :delete_picture]
 
   def index
     if user_signed_in?
@@ -18,6 +18,8 @@ class PositionsController < ApplicationController
   def new
     @position = Position.new
   end
+
+  
 
   def create
     @position = Position.new(position_params)
@@ -79,6 +81,16 @@ class PositionsController < ApplicationController
     position = Position.find(params[:id])
     position.update(released: false)
     redirect_to positions_path, notice: 'Position wurde gesperrt.'
+  end
+
+  def delete_picture
+    picture_type = params[:picture_type]
+    if @position.respond_to?(picture_type) && @position.send(picture_type).attached?
+      @position.send(picture_type).purge
+      redirect_to edit_position_path(@position), notice: "#{picture_type.humanize} wurde gelöscht."
+    else
+      redirect_to edit_position_path(@position), alert: "Bild konnte nicht gelöscht werden."
+    end
   end
 
   private
