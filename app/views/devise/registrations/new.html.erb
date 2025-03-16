@@ -10,7 +10,7 @@
     </div>
 
     <div class="field">
-      <%= f.label :password, "Password", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :password, "Passwort", class: "block text-sm font-medium text-gray-700" %>
       <% if @minimum_password_length %>
         <em class="text-sm text-gray-500">(<%= @minimum_password_length %> characters minimum)</em>
       <% end %>
@@ -18,14 +18,14 @@
     </div>
 
     <div class="field">
-      <%= f.label :password_confirmation, "Password Confirmation", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :password_confirmation, "Password bestätigen", class: "block text-sm font-medium text-gray-700" %>
       <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 
-    <h3 class="text-xl font-semibold text-gray-700 mt-4">Organization Details</h3>
     <div class="field">
-      <%= f.label :organization_name, "Organization Name", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :organization_name, "Name Ihrer Organisation", class: "block text-sm font-medium text-gray-700" %>
       <%= f.text_field :organization_name, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+      <p class="text-sm text-gray-700">Bitte geben sie den vollen Namen mit Rechtsform an (zum Beispiel gGmbH oder e.V.)</p>
     </div>
 
     <div class="actions">
