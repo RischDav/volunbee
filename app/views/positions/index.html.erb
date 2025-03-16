@@ -69,12 +69,12 @@
             <% if !current_user.admin? %>
             <%= button_to "Löschen", position_path(position), method: :delete, class: "inline-block bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700" %>
             <%= link_to 'Bearbeiten', edit_position_path(position), class: 'inline-block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700' %>
+          <% else %>
             <% if position.online %>
             <%= button_to 'Offline nehmen', offline_position_path(position), method: :patch, class: 'inline-block bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700' %>
             <% else %>
             <%= button_to 'Online nehmen', online_position_path(position), method: :patch, class: 'inline-block bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700' %>
             <% end %>
-          <% else %>
             <%= button_to 'Sperren', lock_position_path(position), method: :patch, class: 'inline-block bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700' %>
           <% end %>
         </div>

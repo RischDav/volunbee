@@ -116,7 +116,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_16_221500) do
     t.integer "language_skills"
     t.integer "flexibility"
     t.boolean "released", default: false
-    t.boolean "online"
+    t.boolean "online", default: true
     t.index ["organization_id"], name: "index_positions_on_organization_id"
   end
 

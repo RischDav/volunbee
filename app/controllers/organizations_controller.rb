@@ -20,6 +20,7 @@ class OrganizationsController < ApplicationController
   def update
     if @organization.update(organization_params)
       redirect_to organization_path, notice: "Organization was successfully updated."
+      ProcessPictureJob.set(wait: 5.seconds).perform_later(@organization.logo.blob.id) if @organization.logo.attached?
       AdminMailer.organization_change_email.deliver_later
     else
       render :edit
@@ -45,6 +46,6 @@ class OrganizationsController < ApplicationController
   end
 
   def organization_params
-    params.require(:organization).permit(:name, :email, :contact_number, :profile_picture, :is_approved, :city, :zip, :street, :housenumber, :website)
+    params.require(:organization).permit(:logo, :name, :email, :contact_number, :profile_picture, :is_approved, :city, :zip, :street, :housenumber, :website)
   end
 end
