@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   get "static_pages/privacy"
   get "static_pages/imprint"
   devise_for :users, controllers: {
-    registrations: "users/registrations"
+    registrations: "users/registrations",
+    confirmations: "users/confirmations"
   }
 
   resources :organizations do

@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_16_221500) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_16_213610) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -116,7 +116,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_16_221500) do
     t.integer "language_skills"
     t.integer "flexibility"
     t.boolean "released", default: false
-    t.boolean "online", default: true
+    t.boolean "online"
     t.index ["organization_id"], name: "index_positions_on_organization_id"
   end
 
@@ -131,6 +131,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_16_221500) do
     t.integer "organization_id"
     t.integer "role", default: 0
     t.boolean "released", default: false
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
