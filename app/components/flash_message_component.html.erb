@@ -1,0 +1,7 @@
+<!-- app/components/flash_message/component.html.erb -->
+<div class='relative flex px-4 py-3 space-x-2 border <%= color_classes %>' role='alert'>
+  <strong class='font-bold'><%= message[:title] %></strong>
+  <span class='pl-5'>
+    <%= heroicon 'x-mark', options: { 'data-action': 'click->flash-message#close', class: 'w-6 h-6 fill-current', role: 'button' } %>
+  </span>
+</div>

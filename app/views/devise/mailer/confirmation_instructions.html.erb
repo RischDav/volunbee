@@ -1,5 +1,48 @@
-<p>Welcome <%= @email %>!</p>
-
-<p>You can confirm your account email through the link below:</p>
-
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                background-color: #f7fafc;
+                color: #2d3748;
+                font-family: Arial, sans-serif;
+            }
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #ffffff;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+            }
+            .header {
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 16px;
+                color: #E37222;
+            }
+            .content {
+                margin-bottom: 16px;
+            }
+            .footer {
+                margin-top: 24px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">Willkommen bei LetsGoVolunteer!</div>
+            <div class="content">
+                <p>Hallo <%= @email %>,</p>
+                <p>Du kannst deine E-Mail-Adresse über den folgenden Link bestätigen:</p>
+                <p><%= link_to 'Bestätige meinen Account', confirmation_url(@resource, confirmation_token: @token) %></p>
+            </div>
+            <div class="footer">
+                <p>Vielen Dank,</p>
+                <p>Das VolunteerHeilbronn-Team</p>
+            </div>
+        </div>
+    </body>
+</html>

@@ -7,6 +7,8 @@ import { application } from "./application"
 import AutosubmitController from "./autosubmit_controller"
 application.register("autosubmit", AutosubmitController)
 
+import FlashMessageController from "./flash_message_controller"
+application.register("flash-message", FlashMessageController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
-

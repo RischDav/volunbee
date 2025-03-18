@@ -164,6 +164,7 @@ GEM
       net-pop
       net-smtp
     marcel (1.0.4)
+    method_source (1.1.0)
     mini_magick (5.2.0)
       benchmark
       logger
@@ -300,6 +301,10 @@ GEM
       concurrent-ruby (~> 1.0)
     uri (1.0.3)
     useragent (0.16.11)
+    view_component (3.21.0)
+      activesupport (>= 5.2.0, < 8.1)
+      concurrent-ruby (~> 1.0)
+      method_source (~> 1.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     websocket-driver (0.7.7)
@@ -348,6 +353,7 @@ DEPENDENCIES
   stimulus-rails
   tailwindcss-rails
   tzinfo-data
+  view_component
 
 RUBY VERSION
    ruby 3.2.2p53
