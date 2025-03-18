@@ -1,50 +1,48 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  # Überschreibt die `create`-Methode, die aufgerufen wird, wenn ein neuer Benutzer sich registrieren möchte.
   def create
-    # Erstellt ein neues User-Objekt mit den Registrierungsparametern.
     build_resource(sign_up_params)
 
-    # Erstellt ein neues Organization-Objekt basierend auf dem übergebenen Namen.
+    # Erstelle zuerst die Organisation
     organization = Organization.new(
       name: params[:user][:organization_name]
     )
 
-    # Prüft, ob die Organisation erfolgreich gespeichert werden konnte.
     if organization.save
-      # Wenn die Organisation erfolgreich gespeichert wurde, wird sie dem Benutzer zugewiesen.
+      # Wenn die Organisation erfolgreich gespeichert wurde, weise sie dem Benutzer zu
       resource.organization_id = organization.id
-      resource.save # Speichert den Benutzer in der Datenbank.
+      resource.save
 
-      # Falls ein Block an die Methode übergeben wurde, wird dieser hier ausgeführt.
       yield resource if block_given?
 
-      # Prüft, ob der Benutzer erfolgreich gespeichert wurde.
       if resource.persisted?
-        # Setze Erfolgsmeldung je nach Status (bestätigt/nicht bestätigt)
+        # Setze Flash-Nachrichten je nach Aktivierungsstatus
         if is_flashing_format?
           flash_key = resource.active_for_authentication? ? :signed_up : :"signed_up_but_#{resource.inactive_message}"
           set_flash_message! :notice, flash_key
         end
 
-        # Wenn der Benutzer aktiv ist, melde ihn an
+        # Wenn der Benutzer sofort aktiviert werden kann, melde ihn an
         sign_up(resource_name, resource) if resource.active_for_authentication?
         
         # Sende E-Mails
-        #UserMailer.welcome_email(resource).deliver_later
+        UserMailer.welcome_email(resource).deliver_later
         AdminMailer.new_registration_email.deliver_later
         
-        # Leite direkt zur locked-Seite weiter, unabhängig vom Bestätigungsstatus
+        # WICHTIG: Setze temporären Token in der Session
+        session[:temp_email_access] = resource.email
+        
+        # Leite direkt zur locked-Seite weiter, mit Email-Parameter
         redirect_to user_locked_path(email: resource.email)
         return # Wichtig: Beendet die Methode hier
       else
-        # Wenn der Benutzer nicht erfolgreich gespeichert wurde:
-        organization.destroy!
+        # Wenn der Benutzer nicht erstellt werden konnte
+        organization.destroy! # Lösche auch die Organisation
         clean_up_passwords resource
         set_minimum_password_length
         respond_with resource
       end
     else
-      # Wenn die Organisation nicht gespeichert werden konnte:
+      # Wenn die Organisation nicht erstellt werden konnte
       clean_up_passwords resource
       set_minimum_password_length
       respond_with resource, location: new_registration_path(resource_name)
@@ -67,5 +65,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
       :password_confirmation,
       :organization_name
     )
+  end
+
+  protected
+
+  # Diese Methode wird aufgerufen, wenn ein User sich registriert hat,
+  # aber nicht aktiv ist (z.B. wegen fehlender Email-Bestätigung)
+  def after_inactive_sign_up_path_for(resource)
+    # Setze auch hier den temporären Token (falls die andere Methode nicht greift)
+    session[:temp_email_access] = resource.email if resource
+    user_locked_path(email: resource.email)
+  end
+
+  # Diese Methode wird aufgerufen, wenn ein User sich registriert hat
+  # und sofort aktiv ist
+  def after_sign_up_path_for(resource)
+    user_locked_path
   end
 end

@@ -33,6 +33,18 @@ class User < ApplicationRecord
     end
   end
 
+  # Neue Methode zur Prüfung, ob der User vollen Zugriff haben soll
+  # Voller Zugriff bedeutet: Email bestätigt und Account freigegeben
+  # oder Admin-Rechte
+  def full_access?
+    admin? || (confirmed? && released?)
+  end
+
+  # Prüft, ob der Nutzer auf besondere Informationen zugreifen darf
+  def restricted_access?
+    !confirmed? || !released?
+  end
+  
   private
 
   def organization_presence_for_user_role

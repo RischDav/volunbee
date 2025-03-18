@@ -5,26 +5,42 @@
 <h2 class="text-2xl font-bold">Allgemeine Informationen</h2>
 <div class="grid grid-cols-3 gap-4">
 
-    <div class="field">
-      <%= f.label :name, "Name", class: "block text-lg font-medium text-gray-700" %>
-      <%= f.text_field :name, class: "w-full my-3 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
-      <p class="text-sm text-gray-700">Bitte geben sie den vollen Namen mit Rechtsform an (zum Beispiel gGmbH oder e.V.)</p>
-    </div>
+  <div class="field">
+    <%= f.label :name, "Name", class: "block text-lg font-medium text-gray-700" %>
+    <%= f.text_field :name, class: "w-full my-3 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+    <p class="text-sm text-gray-700">Bitte geben sie den vollen Namen mit Rechtsform an (zum Beispiel gGmbH oder e.V.)</p>
+  </div>
 
-    <div class="field">
-      <%= f.label :email, "Kontakt-Email", class: "block text-lg font-medium text-gray-700" %>
-      <%= f.email_field :email, class: "w-full my-3 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
-    </div>
+  <div class="field">
+    <%= f.label :email, "Kontakt-Email", class: "block text-lg font-medium text-gray-700" %>
+    <%= f.email_field :email, class: "w-full my-3 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+  </div>
 
+  <div class="field">
+    <%= f.label :contact_number, "Telefonnummer", class: "block text-lg font-medium text-gray-700" %>
+    <%= f.text_field :contact_number, class: "w-full my-3 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+    <p class="text-sm text-gray-700">Bitte geben Sie die Landesvorwahl mit an (Deutschland: +49)</p>
+  </div>
+
+
+</div>
+</div>
+<div class="bg-slate-100 rounded-lg p-6">
+<h2 class="text-2xl font-bold">Beschreibung</h2>
+<div class="gap-4">
     <div class="field">
-      <%= f.label :contact_number, "Telefonnummer", class: "block text-lg font-medium text-gray-700" %>
-      <%= f.text_field :contact_number, class: "w-full my-3 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
-      <p class="text-sm text-gray-700">Bitte geben Sie die Landesvorwahl mit ein (Deutschland: +49 1775 123103)</p>
-    </div>
-            <div class="field">
-      <%= f.label :description, "Beschreibung", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_area :description, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
-    </div>
+    <%= f.text_area :description, class: "w-full mt-2 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+    <p class="text-sm text-gray-700">Bitte beschreiben Sie Ihre Organisation <b>auf Englisch</b>. Welche Schwerpunkte verfolgen Sie? Welchen Mehrwert bieten Sie? Denken Sie daran, dass Leserinnen und Leser Ihre Organisation möglicherweise noch nicht kennen.</p>
+  </div>
+</div>
+</div>
+<div class="bg-slate-100 rounded-lg p-6">
+<h2 class="text-2xl font-bold">Admin-Email</h2>
+<div class="grid grid-cols-3 gap-4">
+  <div class="field">
+    <%= f.text_field :admin_email, value: User.find_by(organization_id: @organization.id)&.email, disabled: true, class: "w-full my-3 px-3 py-2 border rounded-md shadow-sm bg-gray-100 text-gray-500 cursor-not-allowed" %>
+    <p class="text-sm text-gray-700">Die Admin-Email ist unveränderlich und entspricht der Email, mit der Sie sich anmelden. Im Gegensatz zur angegebenen Kontakt-Email ist sie nicht öffentlich sichtbar.</p>
+  </div>
 </div>
 </div>
 <div class="bg-slate-100 rounded-lg p-6">
@@ -96,10 +112,13 @@
     </div>
 </div>
 </div>
-<div class="my-3">
-    <div class="actions">
-      <%= f.submit "Speichern", class: " py-2 px-4 bg-blue-600 text-white font-medium text-lg rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"%>
-    </div>
+<div class="my-3 flex space-x-4">
+  <div class="actions">
+    <%= f.submit "Speichern", class: "py-2 px-4 bg-blue-600 text-white font-medium text-lg rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+  </div>
+  <div>
+    <%= link_to "Zurück ohne zu speichern", organizations_path, class: "py-2 px-4 bg-slate-600 text-white font-medium text-lg rounded-md shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+  </div>
 </div>
   <% end %>
 </div>

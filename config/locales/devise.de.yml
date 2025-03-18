@@ -1,0 +1,66 @@
+# Zusätzliche Übersetzungen bei https://github.com/heartcombo/devise/wiki/I18n
+
+de:
+  devise:
+    confirmations:
+      confirmed: "Ihre E-Mail-Adresse wurde erfolgreich bestätigt."
+      send_instructions: "Sie erhalten in wenigen Minuten eine E-Mail mit Anweisungen, wie Sie Ihre E-Mail-Adresse bestätigen können."
+      send_paranoid_instructions: "Falls Ihre E-Mail-Adresse in unserer Datenbank existiert, erhalten Sie in wenigen Minuten eine E-Mail mit Anweisungen zur Bestätigung Ihrer E-Mail-Adresse."
+    failure:
+      already_authenticated: "Sie sind bereits angemeldet."
+      inactive: "Ihr Konto ist noch nicht aktiviert."
+      invalid: "Ungültige %{authentication_keys} oder Passwort."
+      locked: "Ihr Konto ist gesperrt."
+      last_attempt: "Sie haben noch einen Versuch, bevor Ihr Konto gesperrt wird."
+      not_found_in_database: "Ungültige %{authentication_keys} oder Passwort."
+      timeout: "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an."
+      unauthenticated: "Sie müssen sich anmelden oder registrieren, bevor Sie fortfahren können."
+      unconfirmed: "Sie müssen Ihre E-Mail-Adresse bestätigen, bevor Sie fortfahren können."
+      not_approved: "Ihr Konto wurde noch nicht freigegeben."
+    mailer:
+      confirmation_instructions:
+        subject: "Anleitung zur Bestätigung Ihres Kontos"
+      reset_password_instructions:
+        subject: "Anleitung zum Zurücksetzen Ihres Passworts"
+      unlock_instructions:
+        subject: "Anleitung zur Entsperrung Ihres Kontos"
+      email_changed:
+        subject: "E-Mail-Adresse geändert"
+      password_change:
+        subject: "Passwort geändert"
+    omniauth_callbacks:
+      failure: "Sie konnten nicht mit Ihrem %{kind}-Konto authentifiziert werden, weil \"%{reason}\"."
+      success: "Erfolgreich mit Ihrem %{kind}-Konto authentifiziert."
+    passwords:
+      no_token: "Sie können auf diese Seite nur über den Link aus einer E-Mail zum Zurücksetzen des Passworts zugreifen. Wenn Sie über einen solchen Link hierher gekommen sind, stellen Sie sicher, dass Sie die vollständige URL verwendet haben."
+      send_instructions: "Sie erhalten in wenigen Minuten eine E-Mail mit Anweisungen zum Zurücksetzen Ihres Passworts."
+      send_paranoid_instructions: "Falls Ihre E-Mail-Adresse in unserer Datenbank existiert, erhalten Sie in wenigen Minuten eine E-Mail mit Anweisungen zum Zurücksetzen Ihres Passworts."
+      updated: "Ihr Passwort wurde erfolgreich geändert. Sie sind jetzt angemeldet."
+      updated_not_active: "Ihr Passwort wurde erfolgreich geändert."
+    registrations:
+      destroyed: "Auf Wiedersehen! Ihr Konto wurde erfolgreich gekündigt. Wir hoffen, Sie bald wiederzusehen."
+      signed_up: "Willkommen! Sie haben sich erfolgreich registriert."
+      signed_up_but_inactive: "Sie haben sich erfolgreich registriert. Wir konnten Sie jedoch nicht anmelden, da Ihr Konto noch nicht aktiviert ist."
+      signed_up_but_locked: "Sie haben sich erfolgreich registriert. Wir konnten Sie jedoch nicht anmelden, da Ihr Konto gesperrt ist."
+      signed_up_but_unconfirmed: "Eine Nachricht mit einem Bestätigungslink wurde an Ihre E-Mail-Adresse gesendet. Bitte folgen Sie dem Link, um Ihr Konto zu aktivieren."
+      update_needs_confirmation: "Sie haben Ihre Kontodaten erfolgreich aktualisiert, wir müssen jedoch Ihre neue E-Mail-Adresse überprüfen. Bitte prüfen Sie Ihre E-Mails und folgen Sie dem Bestätigungslink, um Ihre neue E-Mail-Adresse zu bestätigen."
+      updated: "Ihre Kontodaten wurden erfolgreich aktualisiert."
+      updated_but_not_signed_in: "Ihre Kontodaten wurden erfolgreich aktualisiert, da jedoch Ihr Passwort geändert wurde, müssen Sie sich erneut anmelden."
+    sessions:
+      signed_in: "Erfolgreich angemeldet."
+      signed_out: "Erfolgreich abgemeldet."
+      already_signed_out: "Erfolgreich abgemeldet."
+    unlocks:
+      send_instructions: "Sie erhalten in wenigen Minuten eine E-Mail mit Anweisungen zur Entsperrung Ihres Kontos."
+      send_paranoid_instructions: "Falls Ihr Konto existiert, erhalten Sie in wenigen Minuten eine E-Mail mit Anweisungen zur Entsperrung."
+      unlocked: "Ihr Konto wurde erfolgreich entsperrt. Bitte melden Sie sich an, um fortzufahren."
+  errors:
+    messages:
+      already_confirmed: "wurde bereits bestätigt, bitte versuchen Sie, sich anzumelden"
+      confirmation_period_expired: "muss innerhalb von %{period} bestätigt werden, bitte fordern Sie eine neue an"
+      expired: "ist abgelaufen, bitte fordern Sie eine neue an"
+      not_found: "nicht gefunden"
+      not_locked: "war nicht gesperrt"
+      not_saved:
+        one: "1 Fehler verhinderte das Speichern dieses %{resource}:"
+        other: "%{count} Fehler verhinderten das Speichern dieses %{resource}:"
