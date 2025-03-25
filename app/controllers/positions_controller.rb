@@ -30,6 +30,7 @@ class PositionsController < ApplicationController
       redirect_to positions_path, notice: "Position was successfully created."
       AdminMailer.new_position_email.deliver_later
     else
+      Rails.logger.error("Position nicht gespeichert: #{@position.errors.full_messages}")
       render :new
     end
   end
@@ -40,7 +41,90 @@ class PositionsController < ApplicationController
 
   def json_output
     positions = Position.where(released: true, online: true)
-    render json: positions.as_json(methods: :picture_urls)
+    
+    formatted_positions = positions.map do |position|
+      organization = position.organization
+      
+      # Kontaktdaten: explizit null für fehlende Werte, mit existierenden Attributen
+      contact = {
+        name: "",  # Kein contact_person in Schema
+        phone: organization.contact_number.presence || nil,
+        email: organization.email.presence || nil,
+        instagram: organization.instagram_url.presence || nil,
+        facebook: organization.facebook_link.presence || nil,
+        tiktok: nil,  # Existiert nicht
+        linkedin: organization.linkedin_url.presence || nil,
+        x_account: nil,  # Existiert nicht
+        website: organization.website.presence || nil,
+        linktree: nil  # Existiert nicht
+      }
+      
+      # Fotos: Nur vorhandene Bilder in der richtigen Reihenfolge ausgeben
+      photos = {}
+      
+      # mainPicture ist immer photo1, wenn vorhanden
+      if position.mainPicture.attached?
+        photos[:photo1] = {
+          url: rails_blob_url(position.mainPicture, only_path: false),
+          author: ""  # main_picture_author existiert nicht
+        }
+      end
+      
+      # Die anderen Bilder in der Reihenfolge hinzufügen
+      photo_counter = 2
+      [position.picture1, position.picture2, position.picture3].each_with_index do |picture, index|
+        if picture.attached?
+          photos[:"photo#{photo_counter}"] = {
+            url: rails_blob_url(picture, only_path: false),
+            author: ""  # picture_author Felder existieren nicht
+          }
+          photo_counter += 1
+        end
+      end
+      
+      {
+        id: position.id,
+        organization_code: "",  # code existiert nicht
+        position_code: "",  # code existiert nicht
+        position_temporary: false,  # temporary existiert nicht
+        duration: "",  # duration existiert nicht
+        weekly_time_commitment: "",  # weekly_time_commitment existiert nicht
+        organization_name: organization.name || "",
+        project_or_local_group: "",  # project_name existiert nicht
+        role: position.title,
+        organization_description: organization.description || "",
+        tasks_description: position.description,
+        benefits: position.benefits || "",
+        faq: position.respond_to?(:frequently_asked_questions) ? 
+             position.frequently_asked_questions.map do |faq|
+               { question: faq.question, answer: faq.answer }
+             end : [],
+        address: {
+          postal_code: organization.zip.presence || nil,  # postal_code → zip
+          city: organization.city.presence || nil,
+          street: organization.street.presence || nil,
+          house_number: organization.housenumber.presence || nil,  # house_number → housenumber
+          additional_info: nil  # Existiert nicht
+        },
+        contact: contact,
+        materials: {
+          authors: false,  # display_author_names existiert nicht
+          logo: organization.respond_to?(:logo) && organization.logo.attached? ? 
+                rails_blob_url(organization.logo, only_path: false) : nil,
+          photos: photos
+        },
+        ratings: {
+          "Creative Skills": position.creative_skills || 0,
+          "Technical Skills": position.technical_skills || 0,
+          "Social Skills": position.social_skills || 0,
+          "Language Skills": position.language_skills || 0,
+          "Flexibility": position.flexibility || 0
+        },
+        tags: []  # tags existiert nicht
+      }
+    end
+  
+    render json: JSON.pretty_generate(formatted_positions)
   end
 
   def show

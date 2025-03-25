@@ -1,4 +1,5 @@
 class Position < ApplicationRecord
+  belongs_to :organization
   has_one_attached :mainPicture
   has_one_attached :picture1
   has_one_attached :picture2
