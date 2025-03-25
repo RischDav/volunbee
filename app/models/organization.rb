@@ -17,6 +17,7 @@ class Organization < ApplicationRecord
         zip.present? && 
         street.present? && 
         housenumber.present? && 
+        contact_person.present? && 
         description.present?
     end
       
@@ -30,6 +31,7 @@ class Organization < ApplicationRecord
         fields << "Straße" unless street.present?
         fields << "Hausnummer" unless housenumber.present?
         fields << "Beschreibung" unless description.present?
+        fields << "Anprechperson" unless contact_person.present?
         fields
     end
 

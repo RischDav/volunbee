@@ -1,5 +1,5 @@
 class PositionsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:json_output]
   before_action :set_position, only: [:show, :edit, :update, :destroy, :release, :lock, :delete_picture]
 
   def index
@@ -154,7 +154,7 @@ class PositionsController < ApplicationController
         id: position.id,
         organization_code: organization.organization_code || "",  # code existiert nicht
         position_code: position.position_code || "",  # code existiert nicht
-        position_temporary: position.temporary || "",  # temporary existiert nicht
+        position_temporary: position.position_temporary || "",  # temporary existiert nicht
         duration: "",  # duration existiert nicht
         weekly_time_commitment: position.weekly_time_commitment,  # weekly_time_commitment existiert nicht
         organization_name: organization.name || "",
@@ -217,6 +217,7 @@ class PositionsController < ApplicationController
   def release
     position = Position.find(params[:id])
     position.update(released: true)
+    position.update(online: true)
     redirect_to positions_path, notice: 'Position wurde freigegeben.'
   end
 
@@ -235,6 +236,7 @@ class PositionsController < ApplicationController
   def lock
     position = Position.find(params[:id])
     position.update(released: false)
+    position.update(online: false)
     redirect_to positions_path, notice: 'Position wurde gesperrt.'
   end
 
