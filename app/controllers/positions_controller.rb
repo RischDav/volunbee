@@ -22,6 +22,7 @@ class PositionsController < ApplicationController
   def create
     @position = Position.new(position_params)
     @position.organization_id = current_user.organization_id
+    @position.position_code = @position.title.downcase.gsub(/[^a-z0-9\s]/, '').gsub(/\s+/, '_')
   
     if @position.save
       [@position.mainPicture, @position.picture1, @position.picture2, @position.picture3].each do |picture|
@@ -114,16 +115,16 @@ class PositionsController < ApplicationController
       
       # Kontaktdaten: explizit null für fehlende Werte, mit existierenden Attributen
       contact = {
-        name: "",  # Kein contact_person in Schema
+        name: organization.contact_person.presence || nil,  # Kein contact_person in Schema
         phone: organization.contact_number.presence || nil,
         email: organization.email.presence || nil,
         instagram: organization.instagram_url.presence || nil,
         facebook: organization.facebook_link.presence || nil,
-        tiktok: nil,  # Existiert nicht
+        tiktok: organization.tiktok_url.presence || nil,  # Existiert nicht
         linkedin: organization.linkedin_url.presence || nil,
         x_account: nil,  # Existiert nicht
         website: organization.website.presence || nil,
-        linktree: nil  # Existiert nicht
+        linktree: organization.linktree_url.presence || nil # Existiert nicht
       }
       
       # Fotos: Nur vorhandene Bilder in der richtigen Reihenfolge ausgeben
@@ -151,11 +152,11 @@ class PositionsController < ApplicationController
       
       {
         id: position.id,
-        organization_code: "",  # code existiert nicht
-        position_code: "",  # code existiert nicht
-        position_temporary: false,  # temporary existiert nicht
+        organization_code: organization.organization_code || "",  # code existiert nicht
+        position_code: position.position_code || "",  # code existiert nicht
+        position_temporary: position.temporary || "",  # temporary existiert nicht
         duration: "",  # duration existiert nicht
-        weekly_time_commitment: "",  # weekly_time_commitment existiert nicht
+        weekly_time_commitment: position.weekly_time_commitment,  # weekly_time_commitment existiert nicht
         organization_name: organization.name || "",
         project_or_local_group: "",  # project_name existiert nicht
         role: position.title,
@@ -254,6 +255,6 @@ class PositionsController < ApplicationController
   end
 
   def position_params
-    params.require(:position).permit(:title, :description, :benefits, :mainPicture, :picture1, :picture2, :picture3, :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility, :released, :online, frequently_asked_questions_attributes: [:id, :question, :answer, :_destroy])
+    params.require(:position).permit(:title, :position_temporary, :weekly_time_commitment, :description, :benefits, :mainPicture, :picture1, :picture2, :picture3, :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility, :released, :online, frequently_asked_questions_attributes: [:id, :question, :answer, :_destroy])
   end
 end

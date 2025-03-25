@@ -12,6 +12,12 @@
   </div>
 
   <div class="field">
+    <%= f.label :contact_person, "Ansprechpartner:in", class: "block text-lg font-medium text-gray-700" %>
+    <%= f.text_field :contact_person, class: "w-full my-3 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+    <p class="text-sm text-gray-700">Geben Sie den Vor und Nachnamen der Ansprechpartner:in für interessierte ein.</p>
+  </div>
+
+  <div class="field">
     <%= f.label :email, "Kontakt-Email", class: "block text-lg font-medium text-gray-700" %>
     <%= f.email_field :email, class: "w-full my-3 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
   </div>
@@ -111,6 +117,17 @@
       <%= f.label :facebook_link, "Facebook URL", class: "block text-sm font-medium text-gray-700" %>
       <%= f.text_field :facebook_link, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
+
+    <div class="field">
+      <%= f.label :tiktok_url, "TikTok URL", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :tiktok_url, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :linktree_url, "LinkTree URL", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :linktree_url, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+
 </div>
 </div>
 <div class="my-3 flex space-x-4">

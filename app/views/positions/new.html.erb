@@ -25,6 +25,20 @@
           <p class="text-sm text-gray-700">Welche Benefits erwarten Volunteers in Ihrem Verein?</p>
           <%= f.text_area :benefits, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
         </div>
+
+        <div class="field m-3">
+          <%= f.label :weekly_time_commitment, "Wöchentlicher Zeitaufwand (in Stunden)", class: "block text-lg font-medium text-gray-700" %>
+          <p class="text-sm text-gray-700">Bitte wählen Sie aus, wie viele Stunden pro Woche für diese Position benötigt werden.</p>
+          <%= f.select :weekly_time_commitment, (1..12).map { |h| [h, h] }, {}, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+        </div>
+
+        <div class="field m-3">
+          <%= f.label :position_temporary, "Ist die Position zeitlich begrenzt?", class: "block text-lg font-medium text-gray-700" %>
+          <p class="text-sm text-gray-700">Bitte wählen Sie aus, ob die Position zeitlich begrenzt ist.</p>
+          <%= f.select :position_temporary, [["Ja", true], ["Nein", false]], {}, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500", id: "position_temporary_select" %>
+          <p id="temporary-info-text" class="text-sm text-red-600 mt-2 hidden">Bitte vergessen Sie nicht, in der Beschreibung der Position anzugeben, wann genau die Hilfe benötigt wird.</p>
+        </div>
+
         <div id="word-count-benefits" class="mt-1 mx-3 rounded-md focus:outline-none"></div>
       </div>
     </div>
@@ -116,89 +130,115 @@
   <% end %>
 </div>
 
-<script>
-  document.addEventListener("turbolinks:load", function() {
-    function updateWordCount(field, counter, minLength, goodLength, perfectLength) {
-      const charCount = field.value.length;
+      <script>
+        document.addEventListener("turbolinks:load", function() {
+          // Handle position temporary select
+          const temporarySelect = document.getElementById("position_temporary_select");
+          const infoText = document.getElementById("temporary-info-text");
 
-      if (charCount < minLength) {
-        counter.textContent = `Du benötigst noch mindestens ${minLength - charCount} Buchstaben`;
-        counter.style.color = 'red';
-      } else if (charCount < goodLength) {
-        counter.textContent = `Gute Länge (${minLength} - ${goodLength} Buchstaben)`;
-        counter.style.color = 'orange';
-      } else if (charCount < perfectLength) {
-        counter.textContent = `Perfekte Länge (${goodLength} - ${perfectLength} Buchstaben)`;
-        counter.style.color = 'green';
-      } else {
-        counter.textContent = 'Zu viele Buchstaben';
-        counter.style.color = 'red';
-      }
-    }
+          temporarySelect.addEventListener("change", function() {
+            if (temporarySelect.value === "true") {
+              infoText.classList.remove("hidden");
+            } else {
+              infoText.classList.add("hidden");
+            }
+          });
 
-    const titleField = document.querySelector('input[name="position[title]"]');
-    const descriptionField = document.querySelector('textarea[name="position[description]"]');
-    const benefitsField = document.querySelector('textarea[name="position[benefits]"]');
-    const maxPoints = 15;
-    const ratingInputs = document.querySelectorAll('.rating-input');
-    const remainingPointsDisplay = document.getElementById('remaining-points');
+          // Word count logic
+          function updateWordCount(field, counter, minLength, goodLength, perfectLength) {
+            const charCount = field.value.length;
 
-    const wordCountTitle = document.getElementById('word-count-title');
-    const wordCountDescription = document.getElementById('word-count-description');
-    const wordCountBenefits = document.getElementById('word-count-benefits');
+            if (charCount < minLength) {
+              counter.textContent = `Du benötigst noch mindestens ${minLength - charCount} Buchstaben`;
+              counter.style.color = 'red';
+            } else if (charCount < goodLength) {
+              counter.textContent = `Gute Länge (${minLength} - ${goodLength} Buchstaben)`;
+              counter.style.color = 'orange';
+            } else if (charCount < perfectLength) {
+              counter.textContent = `Perfekte Länge (${goodLength} - ${perfectLength} Buchstaben)`;
+              counter.style.color = 'green';
+            } else {
+              counter.textContent = 'Zu viele Buchstaben';
+              counter.style.color = 'red';
+            }
+          }
 
-    titleField.addEventListener('input', function() {
-      updateWordCount(titleField, wordCountTitle, 10, 20, 75);
-    });
+          const titleField = document.querySelector('input[name="position[title]"]');
+          const descriptionField = document.querySelector('textarea[name="position[description]"]');
+          const benefitsField = document.querySelector('textarea[name="position[benefits]"]');
+          const wordCountTitle = document.getElementById('word-count-title');
+          const wordCountDescription = document.getElementById('word-count-description');
+          const wordCountBenefits = document.getElementById('word-count-benefits');
 
-    descriptionField.addEventListener('input', function() {
-      updateWordCount(descriptionField, wordCountDescription, 300, 700, 1000);
-    });
+          titleField.addEventListener('input', function() {
+            updateWordCount(titleField, wordCountTitle, 10, 20, 75);
+          });
 
-    benefitsField.addEventListener('input', function() {
-      updateWordCount(benefitsField, wordCountBenefits, 300, 700, 1000);
-    });
+          descriptionField.addEventListener('input', function() {
+            updateWordCount(descriptionField, wordCountDescription, 300, 700, 1000);
+          });
 
-    function updateRemainingPoints() {
-      let totalPoints = 0;
-      ratingInputs.forEach(input => {
-        if (input.checked) {
-          totalPoints += parseInt(input.value);
-        }
-      });
+          benefitsField.addEventListener('input', function() {
+            updateWordCount(benefitsField, wordCountBenefits, 300, 700, 1000);
+          });
 
-      const remainingPoints = maxPoints - totalPoints;
-      remainingPointsDisplay.textContent = `Verbleibende Punkte: ${remainingPoints}`;
+          // Rating points logic
+          const maxPoints = 15;
+          const ratingInputs = document.querySelectorAll('.rating-input');
+          const remainingPointsDisplay = document.getElementById('remaining-points');
 
-      if (remainingPoints < 0) {
-        remainingPointsDisplay.style.color = 'red';
-      } else {
-        remainingPointsDisplay.style.color = 'black';
-      }
-    }
+          function updateRemainingPoints() {
+            let totalPoints = 0;
+            ratingInputs.forEach(input => {
+              if (input.checked) {
+                totalPoints += parseInt(input.value);
+              }
+            });
 
-    ratingInputs.forEach(input => {
-      input.addEventListener('change', updateRemainingPoints);
-    });
+            const remainingPoints = maxPoints - totalPoints;
+            remainingPointsDisplay.textContent = `Verbleibende Punkte: ${remainingPoints}`;
 
-    updateRemainingPoints();
+            if (remainingPoints < 0) {
+              remainingPointsDisplay.style.color = 'red';
+            } else {
+              remainingPointsDisplay.style.color = 'black';
+            }
+          }
 
-    document.getElementById("add_faq").addEventListener("click", function(e) {
-      e.preventDefault();
-      var new_id = new Date().getTime();
-      var regexp = new RegExp("new_faqs", "g");
-      var new_faq = document.createElement("div");
-      new_faq.classList.add("faq-item");
-      new_faq.innerHTML = '<div class="my-3 p-3 border rounded border-slate-400"><div class="field"><label class="block text-sm font-medium text-gray-700" for="position_frequently_asked_questions_attributes_' + new_id + '_question">Frage</label><input class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" type="text" name="position[frequently_asked_questions_attributes][' + new_id + '][question]" id="position_frequently_asked_questions_attributes_' + new_id + '_question"></div><div class="field"><label class="block text-sm font-medium text-gray-700" for="position_frequently_asked_questions_attributes_' + new_id + '_answer">Antwort</label><textarea class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" name="position[frequently_asked_questions_attributes][' + new_id + '][answer]" id="position_frequently_asked_questions_attributes_' + new_id + '_answer"></textarea></div><input type="hidden" name="position[frequently_asked_questions_attributes][' + new_id + '][_destroy]" id="position_frequently_asked_questions_attributes_' + new_id + '__destroy"><a href="#" class="remove_faq inline-block mb-8 mt-2 px-4 py-2 rounded-md bg-red-500 text-white border border-slate-200 hover:bg-red-700" role="button">Entfernen</a></div>';
-      document.getElementById("faqs").appendChild(new_faq);
-    });
+          ratingInputs.forEach(input => {
+            input.addEventListener('change', updateRemainingPoints);
+          });
 
-    document.getElementById("faqs").addEventListener("click", function(e) {
-      if (e.target && e.target.classList.contains("remove_faq")) {
-        e.preventDefault();
-        e.target.previousElementSibling.value = "1";
-        e.target.closest(".faq-item").style.display = "none";
-      }
-    });
-  });
-</script>
+          updateRemainingPoints();
+
+          // FAQ logic
+          document.getElementById("add_faq").addEventListener("click", function(e) {
+            e.preventDefault();
+            var new_id = new Date().getTime();
+            var new_faq = document.createElement("div");
+            new_faq.classList.add("faq-item");
+            new_faq.innerHTML = `
+              <div class="my-3 p-3 border rounded border-slate-400">
+                <div class="field">
+                  <label class="block text-sm font-medium text-gray-700" for="position_frequently_asked_questions_attributes_${new_id}_question">Frage</label>
+                  <input class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" type="text" name="position[frequently_asked_questions_attributes][${new_id}][question]" id="position_frequently_asked_questions_attributes_${new_id}_question">
+                </div>
+                <div class="field">
+                  <label class="block text-sm font-medium text-gray-700" for="position_frequently_asked_questions_attributes_${new_id}_answer">Antwort</label>
+                  <textarea class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" name="position[frequently_asked_questions_attributes][${new_id}][answer]" id="position_frequently_asked_questions_attributes_${new_id}_answer"></textarea>
+                </div>
+                <input type="hidden" name="position[frequently_asked_questions_attributes][${new_id}][_destroy]" id="position_frequently_asked_questions_attributes_${new_id}__destroy">
+                <a href="#" class="remove_faq inline-block mb-8 mt-2 px-4 py-2 rounded-md bg-red-500 text-white border border-slate-200 hover:bg-red-700" role="button">Entfernen</a>
+              </div>`;
+            document.getElementById("faqs").appendChild(new_faq);
+          });
+
+          document.getElementById("faqs").addEventListener("click", function(e) {
+            if (e.target && e.target.classList.contains("remove_faq")) {
+              e.preventDefault();
+              e.target.previousElementSibling.value = "1";
+              e.target.closest(".faq-item").style.display = "none";
+            }
+          });
+        });
+      </script>

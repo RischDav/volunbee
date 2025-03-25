@@ -4,7 +4,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     # Erstelle zuerst die Organisation
     organization = Organization.new(
-      name: params[:user][:organization_name]
+      name: params[:user][:organization_name],
+      organization_code: params[:user][:organization_name].downcase.gsub(/[^a-z0-9\s]/, '').gsub(/\s+/, '_')
     )
 
     if organization.save

@@ -46,6 +46,6 @@ class OrganizationsController < ApplicationController
   end
 
   def organization_params
-    params.require(:organization).permit(:logo, :name, :email, :contact_number, :profile_picture, :description, :is_approved, :city, :zip, :street, :housenumber, :website)
+    params.require(:organization).permit(:logo, :name, :email, :contact_person, :instagram_url, :facebook_link, :linkedin_url, :tiktok_url, :linktree_url, :contact_number, :profile_picture, :description, :is_approved, :city, :zip, :street, :housenumber, :website)
   end
 end
