@@ -8,6 +8,32 @@ class Organization < ApplicationRecord
     validate :pictures_size
     after_commit :process_pictures, on: [:update]
 
+    def complete_profile?
+        # Prüfe, ob alle notwendigen Felder ausgefüllt sind
+        name.present? && 
+        email.present? && 
+        contact_number.present? && 
+        city.present? && 
+        zip.present? && 
+        street.present? && 
+        housenumber.present? && 
+        description.present?
+    end
+      
+    def incomplete_fields
+        fields = []
+        fields << "Name" unless name.present?
+        fields << "E-Mail" unless email.present?
+        fields << "Telefonnummer" unless contact_number.present?
+        fields << "Stadt" unless city.present?
+        fields << "Postleitzahl" unless zip.present?
+        fields << "Straße" unless street.present?
+        fields << "Hausnummer" unless housenumber.present?
+        fields << "Beschreibung" unless description.present?
+        fields
+    end
+
+
     private
 
     def pictures_size

@@ -22,15 +22,69 @@ class PositionsController < ApplicationController
   def create
     @position = Position.new(position_params)
     @position.organization_id = current_user.organization_id
-
+  
     if @position.save
       [@position.mainPicture, @position.picture1, @position.picture2, @position.picture3].each do |picture|
         ProcessPictureJob.set(wait: 10.seconds).perform_later(picture.blob.id) if picture.attached?
       end
-      redirect_to positions_path, notice: "Position was successfully created."
+      redirect_to positions_path, notice: "Position wurde erfolgreich erstellt."
       AdminMailer.new_position_email.deliver_later
     else
-      Rails.logger.error("Position nicht gespeichert: #{@position.errors.full_messages}")
+      # Benutzerfreundliche Fehlermeldungen generieren
+      error_messages = []
+      
+      if @position.errors.include?(:title)
+        if @position.title.blank?
+          error_messages << "Der Titel darf nicht leer sein."
+        else
+          error_messages << "Der Titel muss zwischen 10 und 50 Zeichen lang sein (aktuell: #{@position.title.length} Zeichen)."
+        end
+      end
+      
+      if @position.errors.include?(:mainPicture)
+        error_messages << "Ein Hauptbild muss hochgeladen werden."
+      end
+      
+      if @position.errors.include?(:benefits)
+        if @position.benefits.blank?
+          error_messages << "Die Vorteile dürfen nicht leer sein."
+        else
+          error_messages << "Die Vorteile müssen zwischen 30 und 300 Zeichen lang sein (aktuell: #{@position.benefits.length} Zeichen)."
+        end
+      end
+      
+      if @position.errors.include?(:description)
+        if @position.description.blank?
+          error_messages << "Die Beschreibung darf nicht leer sein."
+        else
+          error_messages << "Die Beschreibung muss zwischen 30 und 300 Zeichen lang sein (aktuell: #{@position.description.length} Zeichen)."
+        end
+      end
+      
+      skill_namen = {
+        creative_skills: "Kreative Fähigkeiten", 
+        technical_skills: "Technische Fähigkeiten", 
+        social_skills: "Soziale Fähigkeiten", 
+        language_skills: "Sprachfähigkeiten", 
+        flexibility: "Flexibilität"
+      }
+      
+      skill_namen.each do |skill, name|
+        if @position.errors.include?(skill)
+          error_messages << "#{name} muss eine ganze Zahl zwischen 1 und 5 sein."
+        end
+      end
+      
+      if @position.errors.include?(:pictures)
+        error_messages << "Die Bilder müssen kleiner als 5MB sein."
+      end
+      
+      # Wenn keine detaillierten Fehler gefunden wurden, generische Meldung anzeigen
+      if error_messages.empty?
+        error_messages = @position.errors.full_messages
+      end
+      
+      flash.now[:alert] = error_messages.join("<br><br> ->").html_safe
       render :new
     end
   end
@@ -40,7 +94,20 @@ class PositionsController < ApplicationController
   end
 
   def json_output
-    positions = Position.where(released: true, online: true)
+    positions = Position.joins(:organization)
+                     .where(released: true, online: true)
+                     .where.not(
+                       organizations: {
+                         name: [nil, ""],
+                         email: [nil, ""],
+                         contact_number: [nil, ""],
+                         city: [nil, ""],
+                         zip: [nil, ""],
+                         street: [nil, ""],
+                         housenumber: [nil, ""],
+                         description: [nil, ""]
+                       }
+                     )
     
     formatted_positions = positions.map do |position|
       organization = position.organization

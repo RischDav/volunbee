@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_16_213610) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_25_145618) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -100,6 +100,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_16_213610) do
     t.string "linkedin_url"
     t.string "facebook_link"
     t.boolean "released", default: false
+    t.string "organization_code", default: ""
+    t.string "contact_person", default: ""
+    t.string "tiktok_url", default: ""
+    t.string "linktree_url", default: ""
   end
 
   create_table "positions", force: :cascade do |t|
@@ -117,6 +121,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_16_213610) do
     t.integer "flexibility"
     t.boolean "released", default: false
     t.boolean "online"
+    t.boolean "position_temporary"
+    t.integer "weekly_time_commitment"
+    t.string "position_code"
     t.index ["organization_id"], name: "index_positions_on_organization_id"
   end
 
