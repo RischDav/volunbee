@@ -1,6 +1,23 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   def create
+
     build_resource(sign_up_params)
+
+    unless password_strong_enough?(params[:user][:password])
+      # Setze die Fehlermeldung für das Passwort
+      resource.errors.add(get_password_requirements_message)
+      
+      # Bereite die Ressource für die Anzeige vor
+      clean_up_passwords(resource)
+      set_minimum_password_length
+      
+      # Stelle die organization_name zurück in das Resource-Objekt
+      @organization_name = params[:user][:organization_name]
+      
+      # Rendere das Formular erneut, anstatt umzuleiten
+      respond_with(resource)
+      return
+    end
 
     # Erstelle zuerst die Organisation
     organization = Organization.new(
@@ -66,6 +83,29 @@ class Users::RegistrationsController < Devise::RegistrationsController
       :password_confirmation,
       :organization_name
     )
+  end
+
+  def password_strong_enough?(password)
+    return false if password.nil? || password.length < 8
+    
+    # Prüfe auf Großbuchstaben
+    return false unless password =~ /[A-Z]/
+    
+    # Prüfe auf Kleinbuchstaben
+    return false unless password =~ /[a-z]/
+    
+    # Prüfe auf Zahlen
+    return false unless password =~ /[0-9]/
+    
+    # Prüfe auf Sonderzeichen
+    return false unless password =~ /[^A-Za-z0-9]/
+    
+    true
+  end
+  
+  def get_password_requirements_message
+    "Das Passwort muss mindestens 8 Zeichen lang sein und mindestens einen Großbuchstaben, " +
+    "einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten."
   end
 
   protected
