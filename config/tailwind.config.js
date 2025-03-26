@@ -8,25 +8,9 @@ module.exports = {
     './app/assets/stylesheets/**/*.css',
   ],
   safelist: [
-    {
-      pattern: /grid-cols-\d+/,
-      variants: ['md', 'lg', 'sm']
-    },
-    {
-      pattern: /gap-\d+/,
-    },
-    {
-      pattern: /(bg|text|border)-.+/,
-    },
-    {
-      pattern: /p-.+/,
-    },
-    {
-      pattern: /m-.+/,
-    },
-    {
-      pattern: /rounded.*/,
-    }
+    { pattern: /^bg-/ },  // Matches all bg-* classes
+    { pattern: /^border-/ },  // Matches all border-* classes
+    { pattern: /^text-/ },  // Matches all text-* classes
   ],
   theme: {
     extend: {
