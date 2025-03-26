@@ -8,6 +8,14 @@ module.exports = {
     './app/views/**/*.{erb,html,html.erb}',
     './app/views/**/*.html.erb'
   ],
+  safelist: [
+    'grid-cols-1',
+    'grid-cols-2',
+    'md:grid-cols-1',
+    'md:grid-cols-2',
+    'gap-4',
+    'mt-4'
+  ],
   theme: {
     extend: {
       colors: {
