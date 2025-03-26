@@ -1,4 +1,4 @@
 class ApplicationComponent < ViewComponent::Base
-  include ::ApplicationHelper
-  include ::HeroiconHelper
+  #include ::ApplicationHelper
+  #include ::HeroiconHelper
 end
