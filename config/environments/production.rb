@@ -5,6 +5,7 @@ Rails.application.configure do
 
   # Code is not reloaded between requests.
   config.enable_reloading = false
+  config.assets.compile = true # This is important for Heroku
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
@@ -83,7 +84,7 @@ Rails.application.configure do
   config.active_support.report_deprecations = false
 
   config.action_mailer.default_url_options = { host: "letsgovolunteer-540e129e3acc.herokuapp.com", protocol: 'https' }
-  
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
