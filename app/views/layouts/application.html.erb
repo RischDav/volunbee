@@ -15,14 +15,12 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "application.tailwind", "data-turbo-track": "reload" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= render partial: "shared/navbar" %>
         <% if current_user && !current_user.admin? && current_user.organization && !current_user.organization.complete_profile? %>
-  <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4" role="alert">
+  <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 m-2 p-6 mb-4" role="alert">
     <p class="font-bold">Achtung</p>
     <p>
       Ihre Organisation hat noch unvollständige Informationen. 
@@ -35,6 +33,7 @@
     </p>
   </div>
 <% end %>
+    <%= render partial: "shared/navbar" %>
     <%= render partial: "shared/flash_messages" %>
     <main class="m-20">
       <%= yield %>
