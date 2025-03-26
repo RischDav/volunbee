@@ -6,6 +6,7 @@ gem "puma"
 gem "pg"
 gem "sidekiq"
 gem "devise"
+gem 'heroicon'
 
 gem "mini_magick"
 gem "cssbundling-rails"
