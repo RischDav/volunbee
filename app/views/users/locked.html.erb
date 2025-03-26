@@ -5,23 +5,24 @@
   <% if user_signed_in? %>
     <% if !current_user.confirmed? %>
       <div class="bg-yellow-100 p-4 rounded-lg mb-4">
-        <p class="text-yellow-700 font-semibold">⚠️ Sie müssen Ihre E-Mail-Adresse bestätigen</p>
-        <p class="mt-2">Eine Bestätigungs-E-Mail wurde an <%= current_user.email %> gesendet.</p>
-        <p class="mt-2">
-          <%= link_to "Bestätigungs-E-Mail erneut senden", new_confirmation_path(resource_name), class: "text-blue-600 underline" %>
-        </p>
+        <p class="text-yellow-700 font-semibold">⚠️ Danke für Ihre Registrierung!</p>
+        <p class="mt-2">Es sind noch zwei Schritte notwendig, bevor Sie Ihre erste Stelle veröffentlichen können:</p>
+        <ol class="list-decimal list-inside mt-2">
+          <li>Wir haben an Ihre angegebene E-Mail-Adresse eine Bestätigungsmail geschickt. Bitte bestätigen Sie, dass die E-Mail Ihnen gehört. Keine Mail erhalten? <%= link_to "Bestätigungsmail erneut schicken", new_confirmation_path(resource_name), class: "text-blue-600 underline" %>.</li>
+          <li class="mt-2">Nach Ihrer Bestätigung erfolgt die Freigabe durch einen Administrator. Sobald dies geschehen ist, erhalten Sie eine E-Mail. Ab dann können Sie sich einloggen und Stellen veröffentlichen.</li>
+        </ol>
       </div>
     <% end %>
     
     <% if !current_user.released? %>
       <div class="bg-yellow-100 p-4 rounded-lg">
         <p class="text-yellow-700 font-semibold">⏳ Ihr Account wartet auf Freigabe</p>
-        <p class="mt-2">Ein Administrator wird Ihren Account in Kürze freischalten.</p>
+        <p class="mt-2">Ein Administrator wird Ihren Account in Kürze freischalten. Sie erhalten eine E-Mail, sobald dies geschehen ist.</p>
       </div>
     <% end %>
     
     <div class="mt-6">
-      <%= button_to "Abmelden", destroy_user_session_path, method: :delete, class: "px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300" %>
+      <%= button_to "Zurück zum Login", destroy_user_session_path, method: :delete, class: "px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300" %>
     </div>
   <% else %>
     <p>Bitte <a href="<%= new_user_session_path %>" class="text-blue-600 underline">melden Sie sich an</a> oder 
