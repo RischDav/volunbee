@@ -4,10 +4,11 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
-  config.enable_reloading = false
+  config.enable_reloading = true
   config.assets.compile = true # This is important for Heroku
   config.assets.css_compressor = nil
-  
+  config.assets.digest = true
+
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
