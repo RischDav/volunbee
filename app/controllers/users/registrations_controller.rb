@@ -5,7 +5,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     unless password_strong_enough?(params[:user][:password])
       # Setze die Fehlermeldung für das Passwort
-      resource.errors.add(get_password_requirements_message)
+      resource.errors.add(:password, get_password_requirements_message)
       
       # Bereite die Ressource für die Anzeige vor
       clean_up_passwords(resource)
