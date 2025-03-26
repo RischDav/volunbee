@@ -1,2 +1,4 @@
-web: bin/rails server
+
 css: bin/rails tailwindcss:watch
+web: bundle exec rails server -p $PORT
+release: bundle exec rails assets:precompile && yarn build:css

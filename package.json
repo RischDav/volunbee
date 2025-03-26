@@ -1,9 +1,15 @@
 {
   "name": "app",
   "private": true,
+
+  "engines": {
+    "node": "22.x",
+    "npm": "10.x"
+  },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
-    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css"
+    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css",
+    "heroku-postbuild": "yarn build && yarn build:css"
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
