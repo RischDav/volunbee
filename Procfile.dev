@@ -1,4 +1,2 @@
-
-css: bin/rails tailwindcss:watch
-web: bundle exec rails server -p $PORT
-release: bundle exec rails assets:precompile && yarn build:css
+web: bundle exec puma -C config/puma.rb
+release: bundle exec rake assets:precompile

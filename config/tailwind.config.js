@@ -2,11 +2,10 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   content: [
-    './public/*.html',
+'./app/views/**/*.{html,html.erb,erb}',
     './app/helpers/**/*.rb',
     './app/javascript/**/*.js',
-    './app/views/**/*.{erb,html,html.erb}',
-    './app/views/**/*.html.erb'
+    './app/assets/stylesheets/**/*.css',
   ],
   safelist: [
     'grid-cols-1',
