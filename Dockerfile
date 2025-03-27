@@ -1,16 +1,18 @@
 # syntax = docker/dockerfile:1
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
-ARG RUBY_VERSION=3.3.5
+ARG RUBY_VERSION=3.2.2
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
 WORKDIR /rails
 
-# Install base packages including Node.js and Yarn for Tailwind
+# Install base packages including Node.js, Yarn, and PostgreSQL client
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libvips sqlite3 \
-    nodejs npm && \
+    apt-get install --no-install-recommends -y \
+    curl libjemalloc2 libvips sqlite3 libpq-dev && \
+    curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
+    apt-get install -y nodejs && \
     npm install -g yarn && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
@@ -20,7 +22,8 @@ ENV RAILS_ENV="production" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development" \
     RAILS_LOG_TO_STDOUT="1" \
-    RAILS_SERVE_STATIC_FILES="1"
+    RAILS_SERVE_STATIC_FILES="1" \
+    SECRET_KEY_BASE="dummy_secret_key_base"
 
 # Throw-away build stage to reduce size of final image
 FROM base AS build
@@ -57,15 +60,4 @@ COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /rails /rails
 
 # Run and own only the runtime files as a non-root user for security
-RUN groupadd --system --gid 1000 rails && \
-    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
-USER 1000:1000
-
-# Entrypoint prepares the database.
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
-
-# Start the server by default, this can be overwritten at runtime
-# For Heroku, use PORT environment variable
-EXPOSE 3000
 CMD bundle exec rails server -b 0.0.0.0 -p ${PORT:-3000}
