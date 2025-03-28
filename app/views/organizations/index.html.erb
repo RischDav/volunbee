@@ -1,12 +1,12 @@
 <% if current_user.admin? %>
   <h1 class="text-3xl my-4">Informationen zu Organisationen</h1>
   
-  <%= render 'unreleased_organizations', organizations: @organizations.where(released: false) if @organizations.where(released: false).exists? %>
+  <%= render partial: 'unreleased_organizations', organizations: @organizations.where(released: false) if @organizations.where(released: false).exists? %>
   
   <% @organizations.where(released: true).each do |organization| %>
-    <%= render 'organization_card_admin', organization: organization %>
+    <%= render partial: 'organization_card_admin', organization: organization %>
   <% end %>
 <% else %>
   <h1 class="text-3xl">Informationen zu Ihrer Organisation</h1>
-  <%= render 'organization_details', organization: @organization %>
+  <%= render partial: 'organization_details', organization: @organization %>
 <% end %>

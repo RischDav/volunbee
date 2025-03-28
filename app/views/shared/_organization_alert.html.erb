@@ -1,0 +1,14 @@
+<% if current_user && !current_user.admin? && current_user.organization && !current_user.organization.complete_profile? %>
+  <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 m-2 p-6 mb-4" role="alert">
+    <p class="font-bold">Achtung</p>
+    <p>
+      Ihre Organisation hat noch unvollständige Informationen. 
+      Ihre Stellen können nicht veröffentlicht werden, bis alle erforderlichen Felder ausgefüllt sind.
+      <br>
+      <strong>Fehlende Informationen:</strong> <%= current_user.organization.incomplete_fields.join(", ") %>
+    </p>
+    <p class="mt-2">
+      <%= link_to "Organisationsprofil bearbeiten", edit_organization_path(current_user.organization), class: "underline text-blue-600 hover:text-blue-800" %>
+    </p>
+  </div>
+<% end %>
