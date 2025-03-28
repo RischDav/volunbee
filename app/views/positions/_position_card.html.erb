@@ -3,7 +3,7 @@
     <span style="color: orange;">Die Position wurde von uns noch nicht freigegeben und wird dem Endnutzer dementsprechend nicht angezeigt.</span>
   <% end %>
   <h2 class="text-2xl font-semibold mb-2"><%= position.title %></h2>
-  <p class="text-gray-700 mb-4 whitespace-normal"><%= position.description %></p>
+  <p class="text-gray-700 mb-4 break-words whitespace-normal"><%= position.description %></p>
   <%= render partial: 'position_images', locals: { position: position } %>
   <%= render partial: 'position_actions', locals: { position: position } %>
 </div>
