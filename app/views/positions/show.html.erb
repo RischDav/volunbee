@@ -7,10 +7,10 @@
         <h3 class="text-xl font-bold mb-2">Allgemeine Informationen</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="bg-gray-100 p-4 rounded">
-                <p class="text-gray-700"><strong>Beschreibung:</strong> <%= @position.description.present? ? @position.description : 'Nicht vorhanden' %></p>
+                <p class="text-gray-700 whitespace-normal"><strong>Beschreibung:</strong> <%= @position.description.present? ? @position.description : 'Nicht vorhanden' %></p>
             </div>
             <div class="bg-gray-100 p-4 rounded">
-                <p class="text-gray-700"><strong>Vorteile:</strong> <%= @position.benefits.present? ? @position.benefits : 'Nicht vorhanden' %></p>
+                <p class="text-gray-700 whitespace-normal"><strong>Vorteile:</strong> <%= @position.benefits.present? ? @position.benefits : 'Nicht vorhanden' %></p>
             </div>
             <div class="bg-gray-100 p-4 rounded">
                 <p class="text-gray-700"><strong>Wöchentlicher Zeitaufwand:</strong> <%= @position.weekly_time_commitment.present? ? "#{@position.weekly_time_commitment} Stunden" : 'Nicht vorhanden' %></p>
