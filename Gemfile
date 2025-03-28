@@ -11,7 +11,7 @@ gem 'heroicon'
 gem "mini_magick"
 gem "cssbundling-rails"
 gem "jsbundling-rails"
-gem "tailwindcss-rails"
+
 gem "sprockets-rails"
 gem 'sprockets', '>= 4.0.0'
 gem "image_processing"
