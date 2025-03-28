@@ -6,8 +6,8 @@
     </div>
   <% end %>
   
-  <%= render partial: 'organization_info_grid', organization: organization %>
-  <%= render partial: 'social_media_links', organization: organization %>
+  <%= render partial: 'organization_info_grid', locals: { organization: organization } %>
+  <%= render partial: 'social_media_links', locals: { organization: organization } %>
   
   <div class="mt-6 flex justify-end">
     <%= link_to 'Daten bearbeiten', edit_organization_path(organization), class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>

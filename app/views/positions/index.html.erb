@@ -7,7 +7,7 @@
 <% if @positions.present? %>
   <div>
     <% @positions.each do |position| %>
-      <%= render partial: 'position_card', position: position %>
+      <%= render partial: 'position_card', locals: { position: position }%>
     <% end %>
   </div>
 <% else %>
