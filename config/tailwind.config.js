@@ -9,6 +9,8 @@ module.exports = {
     './app/helpers/**/*.rb',
     './app/javascript/**/*.js',
     './app/assets/stylesheets/**/*.css',
+    './app/components/*.{html,html.erb,erb,haml,slim}',
+    './public/*.html',
   ],
   safelist: [
   { pattern: /^bg-/ },
