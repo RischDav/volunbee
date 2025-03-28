@@ -5,12 +5,6 @@ module.exports = {
     preflight: false,
   },
   content: [
-'./app/views/**/*.{html,html.erb,erb}',
-    './app/helpers/**/*.rb',
-    './app/javascript/**/*.js',
-    './app/assets/stylesheets/**/*.css',
-    './app/components/*.{html,html.erb,erb,haml,slim}',
-    './public/*.html',
   ],
   safelist: [
   { pattern: /^bg-/ },
