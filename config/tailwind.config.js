@@ -18,6 +18,8 @@ module.exports = {
   { pattern: /^m-/ },    // Margin
   { pattern: /^mb-/ },   // Margin bottom
   { pattern: /underline/ }, // Underline class
+  'grid-cols-2',
+  'grid-cols-3',
   'font-bold',
   'hover:text-blue-800'
   ],
