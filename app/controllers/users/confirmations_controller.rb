@@ -22,7 +22,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     if resource.released?
       root_path # Oder dashboard_path
     else
-      user_locked_path
+      users_locked_path
     end
   end
 
