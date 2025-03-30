@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   get "static_pages/imprint"
   devise_for :users, controllers: {
     registrations: "users/registrations",
-    confirmations: "users/confirmations"
+    confirmations: "users/confirmations",
+    sessions: 'users/sessions'
   }
 
   resources :organizations do
@@ -34,7 +35,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'users/locked', to: 'users#locked', as: 'user_locked'
+  get 'users/locked', to: 'users#locked', as: 'users_locked'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
