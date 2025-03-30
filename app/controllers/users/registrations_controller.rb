@@ -50,7 +50,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         session[:temp_email_access] = resource.email
         
         # Leite direkt zur locked-Seite weiter, mit Email-Parameter
-        redirect_to user_locked_path(email: resource.email)
+        redirect_to users_locked_path(email: resource.email)
         return # Wichtig: Beendet die Methode hier
       else
         # Wenn der Benutzer nicht erstellt werden konnte
