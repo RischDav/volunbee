@@ -10,9 +10,9 @@ class Position < ApplicationRecord
 
   validates :title, presence: true
   validates :mainPicture, presence: true
-  validates :title, length: { in: 10..50 }
-  validates :benefits, length: { in: 30..300 }
-  validates :description, length: { in: 30..300 }
+  validates :title, length: { in: 15..75 }
+  validates :benefits, length: { in: 300..1000 }
+  validates :description, length: { in: 300..1000 }
   validates :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }
 
   validate :pictures_size

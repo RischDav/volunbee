@@ -38,7 +38,7 @@ class PositionsController < ApplicationController
         if @position.title.blank?
           error_messages << "Der Titel darf nicht leer sein."
         else
-          error_messages << "Der Titel muss zwischen 10 und 50 Zeichen lang sein (aktuell: #{@position.title.length} Zeichen)."
+          error_messages << "Der Titel muss zwischen 15 und 75 Zeichen lang sein (aktuell: #{@position.title.length} Zeichen)."
         end
       end
       
@@ -50,7 +50,7 @@ class PositionsController < ApplicationController
         if @position.benefits.blank?
           error_messages << "Die Vorteile dürfen nicht leer sein."
         else
-          error_messages << "Die Vorteile müssen zwischen 30 und 300 Zeichen lang sein (aktuell: #{@position.benefits.length} Zeichen)."
+          error_messages << "Die Vorteile müssen zwischen 300 und 1000 Zeichen lang sein (aktuell: #{@position.benefits.length} Zeichen)."
         end
       end
       
@@ -58,7 +58,7 @@ class PositionsController < ApplicationController
         if @position.description.blank?
           error_messages << "Die Beschreibung darf nicht leer sein."
         else
-          error_messages << "Die Beschreibung muss zwischen 30 und 300 Zeichen lang sein (aktuell: #{@position.description.length} Zeichen)."
+          error_messages << "Die Beschreibung muss zwischen 300 und 1000 Zeichen lang sein (aktuell: #{@position.description.length} Zeichen)."
         end
       end
       

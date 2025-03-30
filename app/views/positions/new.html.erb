@@ -34,9 +34,9 @@
         </div>
 
         <div class="field m-3">
-          <%= f.label :position_temporary, "Ist die Position zeitlich begrenzt?", class: "block text-lg font-medium text-gray-700" %>
-          <p class="text-sm text-gray-700">Bitte wählen Sie aus, ob die Position zeitlich begrenzt ist.</p>
-          <%= f.select :position_temporary, [["Ja", true], ["Nein", false]], {}, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500", id: "position_temporary_select" %>
+          <%= f.label :position_temporary, "Ist die Position temporär?", class: "block text-lg font-medium text-gray-700" %>
+          <p class="text-sm text-gray-700">Bitte wählen Sie aus, ob die Position temporär ist, also ob Sie nur für einen Zeitraum die Unterstützung benötigen.</p>
+            <%= f.select :position_temporary, [["Nein", false], ["Ja", true]], { selected: false }, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500", id: "position_temporary_select" %>
           <p id="temporary-info-text" class="text-sm text-red-600 mt-2 hidden">Bitte vergessen Sie nicht, in der Beschreibung der Position anzugeben, wann genau die Hilfe benötigt wird.</p>
         </div>
 
