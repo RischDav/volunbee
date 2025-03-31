@@ -12,13 +12,13 @@ class User < ApplicationRecord
   validate :organization_presence_for_user_role
 
   # Überschreibt Devise's Standardverhalten für die Authentifizierung
-  # Ein User kann sich einloggen, wenn er released ist (unabhängig von email confirmation)
+  # Ein User kann sich einloggen, wenn er bestätigt ist
   def active_for_authentication?
     # Für Admins keine Beschränkungen
     return true if admin?
     
-    # Für normale User: veröffentlicht sein
-    super && released?
+    # Für normale User: nur Email-Bestätigung prüfen
+    super
   end
 
   # Diese Methode bestimmt die Nachricht, die angezeigt wird,
@@ -26,23 +26,20 @@ class User < ApplicationRecord
   def inactive_message
     if !confirmed?
       :unconfirmed
-    elsif !released?
-      :not_approved
     else
       super
     end
   end
 
   # Neue Methode zur Prüfung, ob der User vollen Zugriff haben soll
-  # Voller Zugriff bedeutet: Email bestätigt und Account freigegeben
-  # oder Admin-Rechte
+  # Voller Zugriff bedeutet: Email bestätigt oder Admin-Rechte
   def full_access?
-    admin? || (confirmed? && released?)
+    admin? || confirmed?
   end
 
   # Prüft, ob der Nutzer auf besondere Informationen zugreifen darf
   def restricted_access?
-    !confirmed? || !released?
+    !confirmed?
   end
   
   private

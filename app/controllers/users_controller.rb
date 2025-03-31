@@ -8,14 +8,12 @@ class UsersController < ApplicationController
       # Angemeldeter Benutzer, zeige seinen Status
       @email = current_user.email
       @email_confirmed = current_user.confirmed?
-      @user_released = current_user.released?
     elsif params[:email].present?
       # E-Mail-Parameter: Nur für spezifische Fälle erlauben (z.B. nach Registrierung)
       @email = params[:email]
       @user = User.find_by(email: @email)
       if @user && session[:temp_email_access] == @email
         @email_confirmed = @user.confirmed?
-        @user_released = @user.released?
       else
         # Nicht authentifizierter Zugriff ohne Session-Token
         redirect_to new_user_session_path, alert: "Bitte melden Sie sich an"

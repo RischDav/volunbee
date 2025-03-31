@@ -19,11 +19,11 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
   # Wohin nach Bestätigung der E-Mail
   def after_confirmation_path_for(resource_name, resource)
-    if resource.released?
+    #if resource.released?
       root_path # Oder dashboard_path
-    else
-      users_locked_path
-    end
+    #else
+    #  users_locked_path
+    #end
   end
 
   # Wohin nach erneutem Senden der Bestätigungs-E-Mail

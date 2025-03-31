@@ -33,12 +33,22 @@
     </head>
     <body>
         <div class="container">
+            <!-- Header -->
             <div class="header">Willkommen bei LetsGoVolunteer!</div>
+
+            <!-- Confirmation Instructions -->
             <div class="content">
                 <p>Hallo <%= @email %>,</p>
                 <p>Du kannst deine E-Mail-Adresse über den folgenden Link bestätigen:</p>
                 <p><%= link_to 'Bestätige meinen Account', confirmation_url(@resource, confirmation_token: @token) %></p>
             </div>
+
+            <!-- Welcome Email Content -->
+            <div class="content">
+                <p>Du hast dich gerade mit deiner E-Mail registriert. Wir werden deine Registrierung prüfen und dich dann demnächst freischalten. Du bekommst eine E-Mail, sobald die Prüfung durch ist!</p>
+            </div>
+
+            <!-- Footer -->
             <div class="footer">
                 <p>Vielen Dank,</p>
                 <p>Das VolunteerHeilbronn-Team</p>

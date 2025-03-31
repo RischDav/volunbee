@@ -1,35 +1,67 @@
 <nav class="rounded-lg shadow bg-[#003359] m-4">
   <div class="w-full md:py-8">
-    <div class="sm:flex">
-      </div>
-      <div class="flex justify-between md:mx-5">
-        <div>
-          <div class="flex space-x-4 align-middle">
-            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <% if user_signed_in? %>
-              <% if current_user.admin?%>
-              <%= link_to "Organisationen", organizations_path, class:"rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white"%>
-              <%= link_to "Stellen", positions_path, class:"rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
-              <%= link_to "User-Verwaltung", admin_index_path, class:"rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
-              <% elsif !current_user.released? %>
-              <% else %>
-              <%= link_to "Organisation", organizations_path, class:"rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white"%>
-              <%= link_to "Offene Stellen", positions_path, class:"rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
-              <% end %>
-              <%= button_to 'Sign Out', destroy_user_session_path, class: "rounded-md px-3 py-2 text-md font-medium text-white bg-[#ef4444] color-white", method: :delete %>  
-          <% else%>
-          <div class="flex items-center mb-4 sm:mb-0">
-            <a href="/" class="flex items-center space-x-2">
-              <span class="self-center text-xl md:text-2xl font-bold text-white">
-                <span class="text-[#4a9bd1]">Dashboard.Volunteer</span><span class="text-white">Heilbronn</span>
-              </span>
-            </a>
-          </div>
+    <div class="flex justify-between items-center md:mx-5">
+      <!-- Linksbündiges Menü -->
+      <div class="flex space-x-4 align-middle">
+        <% if user_signed_in? %>
+          <% if current_user.admin? %>
+            <%= link_to "Organisationen", organizations_path, class: "rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
+            <%= link_to "Stellen", positions_path, class: "rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
+            <%= link_to "User-Verwaltung", admin_index_path, class: "rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
+          <% elsif current_user.released? && current_user.organization.complete_profile? %>
+          <%= link_to "Organisation", organizations_path, class: "rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
+            <%= link_to "Offene Stellen", positions_path, class: "rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
           <% end %>
+          <% else %>
+        <% end %>
+      </div>
 
-        <div>
-        </div>
+      <!-- Rechtsbündiger Bereich -->
+      <div class="flex items-center space-x-4">
+        <% if user_signed_in? %>
+          <!-- Profilbild mit Dropdown -->
+          <div class="relative">
+  <button id="profile-menu" class="flex items-center focus:outline-none cursor-pointer">
+    <img src="<%= asset_path('pb-placeholder.png') %>" alt="Profilbild" style="border-radius: 9999px; width: 50px; height: 50px;">
+  </button>
+  <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+    <%= link_to "Profil bearbeiten", edit_user_registration_path, class: "block px-4 py-2 text-gray-700 hover:bg-gray-100" %>
+    <%= button_to 'Ausloggen', destroy_user_session_path, method: :delete, class: "block w-full text-left px-4 py-2 text-red-700 hover:bg-gray-100" %>
+  </div>
+</div>
+        <% else %>
+          <!-- Login-Button -->
+          <%= link_to "Login", new_user_session_path, class: "rounded-md px-4 py-2 text-md font-medium text-white bg-[#4a9bd1] hover:bg-[#3578a8]" %>
+        <% end %>
       </div>
     </div>
   </div>
-  </nav>
+</nav>
+
+<script>
+  document.addEventListener('turbolinks:load', () => {
+  console.log('Turbolinks:load ausgelöst');
+  const profileMenu = document.getElementById('profile-menu');
+  const profileDropdown = document.getElementById('profile-dropdown');
+  console.log("ProfileMenu:" + profileMenu);
+  console.log("ProfileDropdown:" + profileDropdown);
+
+  if (profileMenu && profileDropdown) {
+    // Klick-Event für das Profilbild
+    profileMenu.addEventListener('click', () => {
+      if (profileDropdown.style.display === 'none' || profileDropdown.style.display === '') {
+        profileDropdown.style.display = 'block'; // Dropdown anzeigen
+      } else {
+        profileDropdown.style.display = 'none'; // Dropdown ausblenden
+      }
+    });
+
+    // Klick außerhalb des Dropdowns schließt es
+    document.addEventListener('click', (event) => {
+      if (!profileMenu.contains(event.target) && !profileDropdown.contains(event.target)) {
+        profileDropdown.style.display = 'none'; // Dropdown ausblenden
+      }
+    });
+  }
+});
+</script>

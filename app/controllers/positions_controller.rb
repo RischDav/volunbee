@@ -46,20 +46,20 @@ class PositionsController < ApplicationController
         error_messages << "Ein Hauptbild muss hochgeladen werden."
       end
       
-      if @position.errors.include?(:benefits)
-        if @position.benefits.blank?
-          error_messages << "Die Vorteile dürfen nicht leer sein."
-        else
-          error_messages << "Die Vorteile müssen zwischen 300 und 1000 Zeichen lang sein (aktuell: #{@position.benefits.length} Zeichen)."
-        end
-      end
+      # if @position.errors.include?(:benefits)
+      #   if @position.benefits.blank?
+      #     error_messages << "Die Vorteile dürfen nicht leer sein."
+      #   else
+      #     error_messages << "Die Vorteile müssen zwischen 300 und 1000 Zeichen lang sein (aktuell: #{@position.benefits.length} Zeichen)."
+      #   end
+      # end
       
-      if @position.errors.include?(:description)
-        if @position.description.blank?
-          error_messages << "Die Beschreibung darf nicht leer sein."
-        else
-          error_messages << "Die Beschreibung muss zwischen 300 und 1000 Zeichen lang sein (aktuell: #{@position.description.length} Zeichen)."
-        end
+      # if @position.errors.include?(:description)
+      #   if @position.description.blank?
+      #     error_messages << "Die Beschreibung darf nicht leer sein."
+      #   else
+      #     error_messages << "Die Beschreibung muss zwischen 300 und 1000 Zeichen lang sein (aktuell: #{@position.description.length} Zeichen)."
+      #   end
       end
       
       skill_namen = {
@@ -88,7 +88,6 @@ class PositionsController < ApplicationController
       flash.now[:alert] = error_messages.join("<br><br> ->").html_safe
       render :new
     end
-  end
 
   def edit
     AdminMailer.position_change_email.deliver_later

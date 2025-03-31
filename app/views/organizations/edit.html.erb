@@ -37,7 +37,7 @@
 <div class="gap-4">
     <div class="field">
     <%= f.text_area :description, class: "w-full mt-2 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
-    <div id="word-count-description" class="mt-1 text-sm rounded-md focus:outline-none"></div>
+    <!-- <div id="word-count-description" class="mt-1 text-sm rounded-md focus:outline-none"></div> -->
     <p class="text-sm text-gray-700">Bitte beschreiben Sie Ihre Organisation <b>auf Englisch</b>. Welche Schwerpunkte verfolgen Sie? Welchen Mehrwert bieten Sie? Denken Sie daran, dass Leserinnen und Leser Ihre Organisation möglicherweise noch nicht kennen.</p>
   </div>
 </div>
@@ -150,12 +150,6 @@
       if (charCount < minLength) {
         counter.textContent = `Sie benötigen noch mindestens ${minLength - charCount} Zeichen`;
         counter.style.color = 'red';
-      } else if (charCount < goodLength) {
-        counter.textContent = `Gute Länge (${charCount} von ${goodLength} Zeichen)`;
-        counter.style.color = 'orange';
-      } else if (charCount < perfectLength) {
-        counter.textContent = `Perfekte Länge (${charCount} Zeichen)`;
-        counter.style.color = 'green';
       } else {
         counter.textContent = `${charCount} Zeichen (Maximum empfohlen: ${perfectLength})`;
         counter.style.color = 'red';
@@ -167,11 +161,11 @@
 
     if (descriptionField && wordCountDescription) {
       // Initial update
-      updateWordCount(descriptionField, wordCountDescription, 300, 700, 1000);
+      updateWordCount(descriptionField, wordCountDescription, 100);
       
       // Update on input
       descriptionField.addEventListener('input', function() {
-        updateWordCount(descriptionField, wordCountDescription, 300, 700, 1000);
+        updateWordCount(descriptionField, wordCountDescription, 100);
       });
     }
   });

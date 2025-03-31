@@ -50,7 +50,7 @@
         <%= f.label :mainPicture, "Titelbild", class: "block text-lg font-medium text-gray-700" %>
         <p class="text-sm text-gray-700">Laden Sie ein Titelbild hoch, welches die Stelle repräsentiert. Achten Sie bitte darauf, dass die Nutzungsrechte des Hochgeladenen Bildes bei Ihnen liegen.</p>
         <div class="border-2 border-gray-300 p-4 rounded-md my-3">
-          <%= f.file_field :mainPicture, accept: 'image/*' %>
+          <%= f.file_field :mainPicture, accept: 'image/*', style: "cursor: pointer;" %>
           <p class="text-sm text-gray-500">Bitte ein Titelbild hochladen</p>
         </div>
       </div>
@@ -60,21 +60,21 @@
         <p class="text-sm text-gray-700">Laden sie drei weitere Bilder hoch, die Ihren Verein bzw. die Atmosphäre bei Ihnen repräsentieren. Achten Sie bitte darauf, dass die Nutzungsrechte des Hochgeladenen Bildes bei Ihnen liegen.</p>
         <div class="space-y-4">
           <div class="border-2 border-gray-300 p-4 rounded-md mt-3">
-            <%= f.file_field :picture1, accept: 'image/*' %>
-            <p class="text-sm text-gray-500">Bitte ein Bild hochladen</p>
+        <%= f.file_field :picture1, accept: 'image/*', style: "cursor: pointer;" %>
+        <p class="text-sm text-gray-500">Bitte ein Bild hochladen</p>
           </div>
           <div class="border-2 border-gray-300 p-4 rounded-md">
-            <%= f.file_field :picture2, accept: 'image/*' %>
-            <p class="text-sm text-gray-500">Bitte ein Bild hochladen</p>
+        <%= f.file_field :picture2, accept: 'image/*', style: "cursor: pointer;" %>
+        <p class="text-sm text-gray-500">Bitte ein Bild hochladen</p>
           </div>
           <div class="border-2 border-gray-300 p-4 rounded-md">
-            <%= f.file_field :picture3, accept: 'image/*' %>
-            <p class="text-sm text-gray-500">Bitte ein Bild hochladen</p>
+        <%= f.file_field :picture3, accept: 'image/*', style: "cursor: pointer;" %>
+        <p class="text-sm text-gray-500">Bitte ein Bild hochladen</p>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+        </div>
+      </div>
 
     <h2 class="text-2xl font-bold">Score</h2>
     <div class="bg-slate-100 rounded-lg p-6 p-3">

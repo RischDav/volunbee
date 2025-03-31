@@ -13,14 +13,13 @@
 
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="<%= asset_path('favicon.png') %>" type="image/png">
-    <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= render partial: "shared/organization_alert" %>    
-    <%= render partial: "shared/navbar" %>
+    <%= render partial: "shared/navbar"%>
+    <%= render partial: "shared/organization_alert"%>   
     <%= render partial: "shared/flash_messages" %>
     <main class="m-20">
       <%= yield %>

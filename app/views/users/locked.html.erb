@@ -28,32 +28,11 @@
         </p>
       </div>
 
-      <!-- Admin-Freigabe Status -->
-      <div class="p-4 border rounded-lg">
-        <div class="flex justify-between items-center">
-          <h2 class="font-semibold">Admin-Freigabe</h2>
-          <% if @user_released %>
-            <span class="text-xl">✅</span>
-          <% else %>
-            <span class="text-xl">⚠️</span>
-          <% end %>
-        </div>
-        <p class="mt-2 text-sm">
-          <% if @user_released %>
-            Ihr Account wurde freigegeben. Sie können sich jetzt einloggen.
-          <% else %>
-            Nach Ihrer E-Mail-Bestätigung muss ein Administrator Ihren Account noch freigeben.
-            Dies geschieht in der Regel innerhalb von 24 Stunden.
-          <% end %>
-        </p>
-      </div>
-    </div>
-
     <div class="mt-6 text-center space-y-3">
       <% if @email_confirmed && @user_released %>
         <%= link_to "Zum Login", new_user_session_path, class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
       <% else %>
-        <p class="text-gray-600">Sobald beide Schritte abgeschlossen sind, können Sie sich einloggen und Stellen veröffentlichen.</p>
+        <p class="text-gray-600">Sobald dieser Schitt abgeschlossen ist, können Sie sich einloggen und Ihre Informationen vervollständigen.</p>
       <% end %>
       
       <div class="mt-2">

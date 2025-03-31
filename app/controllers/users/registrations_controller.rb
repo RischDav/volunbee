@@ -43,7 +43,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
         sign_up(resource_name, resource) if resource.active_for_authentication?
         
         # Sende E-Mails
-        UserMailer.welcome_email(resource).deliver_later
         AdminMailer.new_registration_email.deliver_later
         
         # WICHTIG: Setze temporären Token in der Session
