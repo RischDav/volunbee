@@ -21,13 +21,13 @@
         <% if user_signed_in? %>
           <!-- Profilbild mit Dropdown -->
           <div class="relative">
-  <button id="profile-menu" class="flex items-center focus:outline-none cursor-pointer">
-    <img src="<%= asset_path('pb-placeholder.png') %>" alt="Profilbild" style="border-radius: 9999px; width: 50px; height: 50px;">
+  <button id="profile-menu" class="flex items-center focus:outline-none cursor-pointer shadow-lg">
+    <img src="<%= asset_path('pb-placeholder.png') %>" class="border-2 border-solid border-indigo-500" alt="Profilbild" style="border-radius: 9999px; width: 50px; height: 50px;">
   </button>
-  <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-    <%= link_to "Profil bearbeiten", edit_user_registration_path, class: "block px-4 py-2 text-gray-700 hover:bg-gray-100" %>
-    <%= button_to 'Ausloggen', destroy_user_session_path, method: :delete, class: "block w-full text-left px-4 py-2 text-red-700 hover:bg-gray-100" %>
-  </div>
+<div id="profile-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10" style="display: none;">
+  <%= link_to "Profil bearbeiten", edit_user_registration_path, class: "block px-4 py-2 text-gray-700 hover:bg-gray-100" %>
+  <%= button_to 'Ausloggen', destroy_user_session_path, method: :delete, class: "block w-full text-left px-4 py-2 text-red-700 hover:bg-gray-100" %>
+</div>
 </div>
         <% else %>
           <!-- Login-Button -->
@@ -39,29 +39,52 @@
 </nav>
 
 <script>
-  document.addEventListener('turbolinks:load', () => {
-  console.log('Turbolinks:load ausgelöst');
-  const profileMenu = document.getElementById('profile-menu');
-  const profileDropdown = document.getElementById('profile-dropdown');
-  console.log("ProfileMenu:" + profileMenu);
-  console.log("ProfileDropdown:" + profileDropdown);
-
-  if (profileMenu && profileDropdown) {
-    // Klick-Event für das Profilbild
-    profileMenu.addEventListener('click', () => {
-      if (profileDropdown.style.display === 'none' || profileDropdown.style.display === '') {
-        profileDropdown.style.display = 'block'; // Dropdown anzeigen
-      } else {
-        profileDropdown.style.display = 'none'; // Dropdown ausblenden
-      }
-    });
-
-    // Klick außerhalb des Dropdowns schließt es
-    document.addEventListener('click', (event) => {
-      if (!profileMenu.contains(event.target) && !profileDropdown.contains(event.target)) {
-        profileDropdown.style.display = 'none'; // Dropdown ausblenden
-      }
-    });
+  // Funktion zum Zurücksetzen des Dropdown-Zustands
+  function resetDropdown() {
+    const profileDropdown = document.getElementById('profile-dropdown');
+    if (profileDropdown) {
+      profileDropdown.style.display = 'none';
+    }
   }
-});
+
+  // Beim ersten Laden der Seite
+  document.addEventListener('turbolinks:load', () => {
+    console.log('Turbolinks:load ausgelöst');
+    const profileMenu = document.getElementById('profile-menu');
+    const profileDropdown = document.getElementById('profile-dropdown');
+    console.log("ProfileMenu:" + profileMenu);
+    console.log("ProfileDropdown:" + profileDropdown);
+
+    // Dropdown zurücksetzen bei jedem Seitenladen
+    resetDropdown();
+
+    if (profileMenu && profileDropdown) {
+      // Klick-Event für das Profilbild
+      profileMenu.addEventListener('click', (event) => {
+        // Verhindert, dass der Klick zum Dokument "bubbles"
+        event.stopPropagation();
+        
+        console.log('Profilbild geklickt');
+        if (profileDropdown.style.display === 'none' || profileDropdown.style.display === '') {
+          console.log('Dropdown anzeigen');
+          profileDropdown.style.display = 'block'; // Dropdown anzeigen
+        } else {
+          profileDropdown.style.display = 'none'; // Dropdown ausblenden
+        }
+      });
+
+      // Klick außerhalb des Dropdowns schließt es
+      document.addEventListener('click', (event) => {
+        if (profileDropdown.style.display !== 'none' && 
+            !profileMenu.contains(event.target) && 
+            !profileDropdown.contains(event.target)) {
+          console.log('Klick außerhalb - Dropdown ausblenden');
+          profileDropdown.style.display = 'none'; // Dropdown ausblenden
+        }
+      });
+    }
+  });
+
+  // Zurücksetzen vor dem Verlassen der Seite
+  document.addEventListener('turbolinks:before-visit', resetDropdown);
 </script>

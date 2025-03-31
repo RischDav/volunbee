@@ -19,7 +19,7 @@ class OrganizationsController < ApplicationController
 
   def update
     if @organization.update(organization_params)
-      redirect_to organization_path, notice: "Organization was successfully updated."
+      redirect_to organization_path, notice: "Organisation wurde aktualisiert."
       ProcessPictureJob.set(wait: 5.seconds).perform_later(@organization.logo.blob.id) if @organization.logo.attached?
       AdminMailer.organization_change_email.deliver_later
     else

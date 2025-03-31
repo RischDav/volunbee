@@ -6,7 +6,7 @@
 
 <% if @positions.present? %>
   <div>
-    <% @positions.each do |position| %>
+    <% @positions.where(released: true).each do |position| %>
       <%= render partial: 'position_card', locals: { position: position }%>
     <% end %>
   </div>

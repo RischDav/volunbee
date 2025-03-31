@@ -19,7 +19,7 @@ en:
       not_approved: "Your account has not been approved yet."
     mailer:
       confirmation_instructions:
-        subject: "Confirmation instructions"
+        subject: "Deine Registrierung bei volunteer-heilbronn.de"
       reset_password_instructions:
         subject: "Reset password instructions"
       unlock_instructions:
