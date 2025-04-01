@@ -6,8 +6,8 @@
       <br>
       <strong>Fehlende Informationen:</strong> <%= current_user.organization.incomplete_fields.join(", ") %>
     </p>
-    <!-- <div class="mt-4">
-      <%= link_to "Organisationsprofil bearbeiten", edit_organization_path(current_user.organization), class: "bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700" %>
-    </div> -->
+    <div class="mt-4">
+      <%= link_to "Fehlende Informationen hinzufügen", edit_organization_path(current_user.organization), class: "bg-red-400 text-white font-bold py-2 px-4 rounded hover:bg-blue-700" %>
+    </div>
   </div>
 <% end %>
