@@ -26,7 +26,7 @@ class PositionsController < ApplicationController
   
     if @position.save
       [@position.mainPicture, @position.picture1, @position.picture2, @position.picture3].each do |picture|
-        ProcessPictureJob.set(wait: 10.seconds).perform_later(picture.blob.id) if picture.attached?
+        ProcessPictureJob.set(wait: 5.seconds).perform_later(picture.blob.id) if picture.attached?
       end
       redirect_to positions_path, notice: "Position wurde erfolgreich erstellt."
       AdminMailer.new_position_email.deliver_later
@@ -70,10 +70,17 @@ class PositionsController < ApplicationController
         flexibility: "Flexibilität"
       }
       
+      # Check individual skill errors
       skill_namen.each do |skill, name|
         if @position.errors.include?(skill)
           error_messages << "#{name} muss eine ganze Zahl zwischen 1 und 5 sein."
         end
+      end
+      
+      # Check if the sum of skills exceeds 15
+      skills_sum = skill_namen.keys.sum { |skill| @position.send(skill).to_i }
+      if skills_sum > 15
+        error_messages << "Die Summe aller Fähigkeiten darf 15 nicht überschreiten. Aktuelle Summe: #{skills_sum}."
       end
       
       if @position.errors.include?(:pictures)
@@ -87,7 +94,7 @@ class PositionsController < ApplicationController
       
       flash.now[:alert] = error_messages.join("<br><br> ->").html_safe
       render :new
-    end
+  end
 
   def edit
     AdminMailer.position_change_email.deliver_later

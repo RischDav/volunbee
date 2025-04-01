@@ -151,12 +151,13 @@
             if (charCount < minLength) {
               counter.textContent = `Du benötigst noch mindestens ${minLength - charCount} Buchstaben`;
               counter.style.color = 'red';
-            } else if (charCount < goodLength) {
+             } 
+            /*else if (charCount < goodLength) {
               counter.textContent = `Gute Länge (${minLength} - ${goodLength} Buchstaben)`;
               counter.style.color = 'orange';
             } else if (charCount < perfectLength) {
               counter.textContent = `Perfekte Länge (${goodLength} - ${perfectLength} Buchstaben)`;
-              counter.style.color = 'green';
+              counter.style.color = 'green'; */
             } else {
               counter.textContent = 'Zu viele Buchstaben';
               counter.style.color = 'red';
@@ -175,11 +176,11 @@
           });
 
           descriptionField.addEventListener('input', function() {
-            updateWordCount(descriptionField, wordCountDescription, 300, 700, 1000);
+            updateWordCount(descriptionField, wordCountDescription, 50, 700, 1000);
           });
 
           benefitsField.addEventListener('input', function() {
-            updateWordCount(benefitsField, wordCountBenefits, 300, 700, 1000);
+            updateWordCount(benefitsField, wordCountBenefits, 50, 700, 1000);
           });
 
           // Rating points logic

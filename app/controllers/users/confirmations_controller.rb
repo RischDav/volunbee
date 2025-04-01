@@ -17,16 +17,14 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
   protected
 
-  # Wohin nach Bestätigung der E-Mail
+  # Nach der Bestätigung der Mail wird der User automatisch zur Startseite weitergeleitet
   def after_confirmation_path_for(resource_name, resource)
-    #if resource.released?
-      root_path # Oder dashboard_path
-    #else
-    #  users_locked_path
-    #end
+    #Nachfolgendes Prüfen auf Bugs!!!!
+    sign_in(resource_name, resource) if resource.is_a?(User)
+    user_locked_path(email: resource.email)
   end
 
-  # Wohin nach erneutem Senden der Bestätigungs-E-Mail
+  # Nach dem erneuten senden der Mail wird der User zur Seite weitergeleitet, auf der er den Status seiner Bestätigung sehen kann
   def after_resending_confirmation_instructions_path_for(resource_name)
     user_locked_path(email: resource.email)
   end

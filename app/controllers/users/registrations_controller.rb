@@ -2,7 +2,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
 
     build_resource(sign_up_params)
-
+    
+    #Neu mit Fehlermeldung laden, wenn Passwort nicht stark genug
     unless password_strong_enough?(params[:user][:password])
       # Setze die Fehlermeldung für das Passwort
       resource.errors.add(:password, get_password_requirements_message)
@@ -18,6 +19,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       respond_with(resource)
       return
     end
+
+    #Wenn passwort stark genug ist, dann Folgender Weg:
 
     # Erstelle zuerst die Organisation
     organization = Organization.new(

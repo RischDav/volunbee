@@ -13,6 +13,7 @@ gem "cssbundling-rails"
 gem "jsbundling-rails"
 gem "tailwindcss-rails"
 
+gem "sqlite3", group: :development
 gem "sprockets-rails"
 gem 'sprockets', '>= 4.0.0'
 gem "image_processing"

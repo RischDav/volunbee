@@ -7,12 +7,7 @@ class ProcessPictureJob < ApplicationJob
     picture = ActiveStorage::Attachment.find(picture_id)
     image = MiniMagick::Image.read(picture.download)
     
-    image.combine_options do |c|
-      c.resize "700x700^"
-      c.gravity "center"
-      c.crop "700x700+0+0"
-    end
-    
+    image.resize "x700"
     image.strip
 
     tempfile = Tempfile.new(["processed", ".jpg"])

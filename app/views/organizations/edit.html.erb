@@ -38,7 +38,7 @@
     <div class="field">
     <%= f.text_area :description, class: "w-full mt-2 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     <!-- <div id="word-count-description" class="mt-1 text-sm rounded-md focus:outline-none"></div> -->
-    <p class="text-sm text-gray-700">Bitte beschreiben Sie Ihre Organisation <b>auf Englisch</b>. Welche Schwerpunkte verfolgen Sie? Welchen Mehrwert bieten Sie? Denken Sie daran, dass Leserinnen und Leser Ihre Organisation möglicherweise noch nicht kennen.</p>
+    <p class="text-sm text-gray-700">Bitte beschreiben Sie Ihre Organisation <b class="text-red-600">in Englischer Sprache</b>. Welche Schwerpunkte verfolgen Sie? Welchen Mehrwert bieten Sie? Denken Sie daran, dass Leserinnen und Leser Ihre Organisation möglicherweise noch nicht kennen.</p>
   </div>
 </div>
 </div>
@@ -101,7 +101,7 @@
 
     <div class="field">
       <%= f.label :website, "Website", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.url_field :website, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+      <%= f.text_field :website, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 
     <div class="field">

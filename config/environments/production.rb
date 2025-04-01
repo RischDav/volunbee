@@ -85,7 +85,7 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  config.action_mailer.default_url_options = { host: "letsgovolunteer-540e129e3acc.herokuapp.com", protocol: 'https' }
+  config.action_mailer.default_url_options = { host: "dashboard.volunteer-heilbronn.de", protocol: 'https' }
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false

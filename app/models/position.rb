@@ -1,13 +1,18 @@
 class Position < ApplicationRecord
+  #Jede Stelle gehört einer Organisation an
   belongs_to :organization
+
+  #Jede Stelle kann mehrere Bilder haben
   has_one_attached :mainPicture
   has_one_attached :picture1
   has_one_attached :picture2
   has_one_attached :picture3
 
+  #Jede Stelle kann mehrere Fragen und Antworten haben
   has_many :frequently_asked_questions, dependent: :destroy
   accepts_nested_attributes_for :frequently_asked_questions, allow_destroy: true, reject_if: :all_blank
 
+  #Validiert, ob alle Informationen vorhanden sind.
   validates :title, presence: true
   validates :mainPicture, presence: true
   validates :title, length: { in: 15..75 }
@@ -30,8 +35,8 @@ class Position < ApplicationRecord
 
   def pictures_size
     [mainPicture, picture1, picture2, picture3].each do |picture|
-      if picture.attached? && picture.blob.byte_size > 5.megabytes
-        errors.add(:pictures, "each file should be less than 5MB")
+      if picture.attached? && picture.blob.byte_size > 10.megabytes
+        errors.add(:pictures, "each file should be less than 10 Megabytes")
       end
     end
   end
