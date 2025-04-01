@@ -57,7 +57,7 @@
       <div class="field">
       <p class="text-sm text-gray-700 mt-2">Bitte laden Sie das Logo Ihrer Organisation hoch. Achten Sie darauf, dass der Hintergrund transparent, weiß oder zumindest einfarbig ist.</p>
       <div class="border-2 border-gray-300 p-4 rounded-md my-3 w-1/2">
-        <%= f.file_field :logo, accept: 'image/*' %>
+        <%= f.file_field :logo, accept: 'image/*', style: "cursor: pointer;" %>
         <p class="text-sm text-gray-500">Bitte ein Logo hochladen</p>
       </div>
       <% if @organization.logo.attached? %>

@@ -8,7 +8,7 @@
             <%= link_to "Organisationen", organizations_path, class: "rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
             <%= link_to "Stellen", positions_path, class: "rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
             <%= link_to "User-Verwaltung", admin_index_path, class: "rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
-          <% elsif current_user.released? && current_user.organization.complete_profile? %>
+          <% elsif current_user.confirmed? && current_user.organization.complete_profile? %>
           <%= link_to "Organisation", organizations_path, class: "rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
             <%= link_to "Offene Stellen", positions_path, class: "rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
           <% end %>

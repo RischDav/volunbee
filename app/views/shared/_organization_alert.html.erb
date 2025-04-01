@@ -1,9 +1,8 @@
-<% if current_user && !current_user.admin? && current_user.organization && !current_user.organization.complete_profile? && !current_user.confirmed_at %>
-  <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 m-4 p-6 mb-4" role="alert">
+<% if current_user && !current_user.admin? && current_user.organization && !current_user.organization.complete_profile? && current_user.confirmed? %>
+  <div class="bg-yellow-100 border-yellow-500 text-yellow-700 m-4 p-6 mb-4" role="alert">
     <p class="font-bold">Achtung</p>
     <p>
-      Ihre Organisation verfügt noch nicht über alle erforderlichen Informationen.
-      Weitere Funktionen werden verfügbar, sobald alle Pflichtfelder ausgefüllt und die Organisation gespeichert wurde.
+      Bei Ihrer Organisation fehlen noch Pflichtfelder.
       <br>
       <strong>Fehlende Informationen:</strong> <%= current_user.organization.incomplete_fields.join(", ") %>
     </p>
