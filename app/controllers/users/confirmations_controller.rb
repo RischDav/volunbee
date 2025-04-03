@@ -19,9 +19,8 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
   # Nach der Bestätigung der Mail wird der User automatisch zur Startseite weitergeleitet
   def after_confirmation_path_for(resource_name, resource)
-    #Nachfolgendes Prüfen auf Bugs!!!!
-    sign_in(resource_name, resource) if resource.is_a?(User)
-    user_locked_path(email: resource.email)
+    sign_in(resource) if resource.is_a?(User)
+    root_path # Oder ein anderer Pfad, zu dem der Benutzer weitergeleitet werden soll
   end
 
   # Nach dem erneuten senden der Mail wird der User zur Seite weitergeleitet, auf der er den Status seiner Bestätigung sehen kann
