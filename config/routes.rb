@@ -12,13 +12,38 @@ Rails.application.routes.draw do
     get 'users/locked', to: 'users#locked', as: 'users_locked'
 
     # Ressourcen
-    resources :positions
+    resources :positions do
+      member do
+        patch 'release'
+        patch 'lock'
+        patch 'online'
+        patch 'offline'
+        delete 'delete_picture/:picture_type', to: 'positions#delete_picture', as: 'delete_picture'
+      end
+      collection do
+        get 'json_output', to: 'positions#json_output'
+      end
+    end
+
     resources :organizations do
       member do
         patch 'release'
         patch 'lock'
       end
     end
+
+    resources :admin, only: [:index] do
+      member do
+        patch 'release_user'
+        patch 'lock_user'
+      end
+    end
+
+    # JSON-API
+    get 'json_api', to: 'json_api#output'
+
+    # Health-Check
+    get "up", to: "health#up"
 
     # Devise-Routen
     devise_for :users, controllers: {
