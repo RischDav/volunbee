@@ -1,3 +1,15 @@
 ---
 en:
   hello: Hello world
+en:
+  users:
+    locked:
+      title: "Account Status"
+      email_label: "Email:"
+      email_confirmed: "Your email address has been confirmed."
+      email_not_confirmed: "We have sent a confirmation email to your email address."
+      resend_confirmation: "Resend confirmation email"
+      login: "Go to Login"
+      login_hint: "Once this step is completed, you can log in and complete your information."
+      back_to_login: "Back to Login"
+      no_user_info: "No user information available."

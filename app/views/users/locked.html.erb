@@ -1,16 +1,16 @@
 <div class="max-w-lg mx-auto my-8 p-6 bg-white rounded-lg shadow-md">
-  <h1 class="text-2xl font-bold mb-4">Account-Status</h1>
+  <h1 class="text-2xl font-bold mb-4"><%= t('users.locked.title') %></h1>
 
   <% if defined?(@email) %>
     <div class="mb-6">
-      <p class="text-gray-700"><strong>E-Mail:</strong> <%= @email %></p>
+      <p class="text-gray-700"><strong><%= t('users.locked.email_label') %></strong> <%= @email %></p>
     </div>
     
     <div class="space-y-4 mb-6">
       <!-- Email-Bestätigung Status -->
       <div class="p-4 border rounded-lg">
         <div class="flex justify-between items-center">
-          <h2 class="font-semibold">Email-Bestätigung</h2>
+          <h2 class="font-semibold"><%= t('users.locked.title') %></h2>
           <% if @email_confirmed %>
             <span class="text-xl">✅</span>
           <% else %>
@@ -19,33 +19,34 @@
         </div>
         <p class="mt-2 text-sm">
           <% if @email_confirmed %>
-            Ihre E-Mail-Adresse wurde bestätigt.
+            <%= t('users.locked.email_confirmed') %>
           <% else %>
-            Wir haben eine Bestätigungsmail an Ihre E-Mail-Adresse geschickt. 
-            <br>Keine Mail erhalten? 
-            <%= link_to "Bestätigungsmail erneut schicken", new_user_confirmation_path, class: "text-blue-600 underline" %>.
+            <%= t('users.locked.email_not_confirmed') %>
+            <br><%= t('users.locked.resend_confirmation') %>
+            <%= link_to t('users.locked.resend_confirmation'), new_user_confirmation_path, class: "text-blue-600 underline" %>.
           <% end %>
         </p>
       </div>
 
-    <div class="mt-6 text-center space-y-3">
-      <% if @email_confirmed && @user_released %>
-        <%= link_to "Zum Login", new_user_session_path, class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
-      <% else %>
-        <p class="text-gray-600">Sobald dieser Schitt abgeschlossen ist, können Sie sich einloggen und Ihre Informationen vervollständigen.</p>
-      <% end %>
-      
-      <div class="mt-2">
-        <%= link_to "Zurück zum Login", new_user_session_path, class: "text-blue-600 hover:text-blue-800 text-sm" %>
+      <div class="mt-6 text-center space-y-3">
+        <% if @email_confirmed && @user_released %>
+          <%= link_to t('users.locked.login'), new_user_session_path, class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
+        <% else %>
+          <p class="text-gray-600"><%= t('users.locked.login_hint') %></p>
+        <% end %>
+        
+        <div class="mt-2">
+          <%= link_to t('users.locked.back_to_login'), new_user_session_path, class: "text-blue-600 hover:text-blue-800 text-sm" %>
+        </div>
       </div>
     </div>
   <% else %>
     <div class="bg-yellow-100 p-4 rounded-lg">
-      <p class="text-yellow-700">Keine Benutzerinformationen verfügbar.</p>
+      <p class="text-yellow-700"><%= t('users.locked.no_user_info') %></p>
     </div>
     
     <div class="mt-6 text-center">
-      <%= link_to "Zurück zum Login", new_user_session_path, class: "text-blue-600 hover:text-blue-800 text-sm" %>
+      <%= link_to t('users.locked.back_to_login'), new_user_session_path, class: "text-blue-600 hover:text-blue-800 text-sm" %>
     </div>
   <% end %>
 </div>
