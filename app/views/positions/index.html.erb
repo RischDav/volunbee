@@ -1,15 +1,17 @@
-<h1 class="text-3xl">Offene Stellen</h1>
+<div class="max-w-5xl mx-auto my-8 p-6 bg-blue-100 rounded-lg shadow-md">
+  <h1 class="text-3xl mb-6">Offene Stellen</h1>
 
-<%= render partial: 'new_position_button' if !current_user.admin? %>
+  <%= render partial: 'new_position_button' if !current_user.admin? %>
 
-<%= render partial: 'admin_unreleased_positions' if current_user.admin? && @positions.where(released: false).exists? %>
+  <%= render partial: 'admin_unreleased_positions' if current_user.admin? && @positions.where(released: false).exists? %>
 
-<% if @positions.present? %>
-  <div>
-    <% @positions.where(released: true).each do |position| %>
-      <%= render partial: 'position_card', locals: { position: position }%>
-    <% end %>
-  </div>
-<% else %>
-  <p class="text-gray-700">Keine offenen Stellen gefunden.</p>
-<% end %>
+  <% if @positions.present? %>
+    <div class="space-y-4">
+      <% @positions.where(released: true).each do |position| %>
+        <%= render partial: 'position_card', locals: { position: position } %>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-gray-700">Keine offenen Stellen gefunden.</p>
+  <% end %>
+</div>
