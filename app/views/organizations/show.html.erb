@@ -42,7 +42,7 @@
         <div class="bg-gray-100 p-4 rounded">
             <p class="text-gray-700"><strong>Status:</strong> 
                 <span class="<%= @organization.is_approved ? 'text-green-500' : 'text-red-500' %>">
-                    <%= @organization.is_approved ? 'Organisation ist freigegeben. Somit sind alle veröffentlichte Stellen einsehbar.' : 'Die Organisation ist noch nicht von einem Administrator freigegeben. Dies könnte daran liegen, dass Sie kürzlich Änderungen vorgenommen haben. Bis zur Freigabe werden die geposteten Stellen nicht angezeigt.' %>
+                    <%= @organization.is_approved ? 'Organisation ist freigegeben. Somit sind alle veröffentlichte Stellen einsehbar.' : 'Die Organisation ist noch nicht von einem Administrator freigegeben. Die Freigabe erfolgt in den nächsten 24 Stunden. Bis zur Freigabe werden die geposteten Stellen nicht angezeigt.' %>
                 </span>
             </p>
         </div>

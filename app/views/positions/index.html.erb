@@ -1,17 +1,26 @@
-<div class="max-w-5xl mx-auto my-8 p-6 bg-blue-100 rounded-lg shadow-md">
-  <h1 class="text-3xl mb-6">Offene Stellen</h1>
+<div class="mx-auto my-4 p-8 bg-blue-50 rounded-lg shadow-md">
+  <h1 class="text-3xl font-semibold text-gray-800 mb-6">Offene Stellen</h1>
 
+  <!-- Button für neue Position -->
   <%= render partial: 'new_position_button' if !current_user.admin? %>
 
-  <%= render partial: 'admin_unreleased_positions' if current_user.admin? && @positions.where(released: false).exists? %>
+  <!-- Admin-Bereich für nicht freigegebene Positionen -->
+  <%= render partial: 'admin_unreleased_positions', locals: { positions: @positions.where(released: false) } if current_user.admin? && @positions.where(released: false).exists? %>
 
+  <!-- Liste der Positionen -->
   <% if @positions.present? %>
-    <div class="space-y-4">
-      <% @positions.where(released: true).each do |position| %>
-        <%= render partial: 'position_card', locals: { position: position } %>
+    <div class="space-y-6">
+      <% if current_user.admin? %>
+        <% @positions.where(released: true).each do |position| %>
+          <%= render partial: 'position_card', locals: { position: position } %>
+        <% end %>
+      <% else %>
+        <% @positions.each do |position| %>
+          <%= render partial: 'position_card', locals: { position: position } %>
+        <% end %>
       <% end %>
     </div>
   <% else %>
-    <p class="text-gray-700">Keine offenen Stellen gefunden.</p>
+    <p class="text-gray-600 text-center mt-8">Es sind derzeit keine offenen Stellen verfügbar.</p>
   <% end %>
 </div>

@@ -150,9 +150,12 @@
       if (charCount < minLength) {
         counter.textContent = `Sie benötigen noch mindestens ${minLength - charCount} Zeichen`;
         counter.style.color = 'red';
-      } else {
+      } else if (charCount > perfectLength) {
         counter.textContent = `${charCount} Zeichen (Maximum empfohlen: ${perfectLength})`;
         counter.style.color = 'red';
+      } else {
+        counter.textContent = `👍`;
+        counter.style.color = 'green';
       }
     }
 

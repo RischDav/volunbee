@@ -157,10 +157,13 @@
               counter.style.color = 'orange';
             } else if (charCount < perfectLength) {
               counter.textContent = `Perfekte Länge (${goodLength} - ${perfectLength} Buchstaben)`;
-              counter.style.color = 'green'; */
-            } else {
+              counter.style.color = 'green'; }*/
+             else if (charCount > perfectLength) {
               counter.textContent = 'Zu viele Buchstaben';
               counter.style.color = 'red';
+            } else {
+              counter.textContent = '👍';
+              counter.style.color = 'green';
             }
           }
 
@@ -172,15 +175,15 @@
           const wordCountBenefits = document.getElementById('word-count-benefits');
 
           titleField.addEventListener('input', function() {
-            updateWordCount(titleField, wordCountTitle, 10, 20, 75);
+            updateWordCount(titleField, wordCountTitle, 15, 20, 75);
           });
 
           descriptionField.addEventListener('input', function() {
-            updateWordCount(descriptionField, wordCountDescription, 50, 700, 1000);
+            updateWordCount(descriptionField, wordCountDescription, 100, 700, 900);
           });
 
           benefitsField.addEventListener('input', function() {
-            updateWordCount(benefitsField, wordCountBenefits, 50, 700, 1000);
+            updateWordCount(benefitsField, wordCountBenefits, 100, 700, 900);
           });
 
           // Rating points logic

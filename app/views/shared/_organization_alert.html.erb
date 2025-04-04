@@ -1,5 +1,5 @@
 <% if current_user && !current_user.admin? && current_user.organization && !current_user.organization.complete_profile? && current_user.confirmed? %>
-  <div class="bg-yellow-100 border-yellow-500 text-yellow-700 m-4 p-6 mb-4" role="alert">
+  <div class="border-4 border-yellow-500 text-yellow-700 m-4 p-6 mb-4 rounded-lg shadow-lg" role="alert">
     <p class="font-bold">Achtung</p>
     <p>
       Bei Ihrer Organisation fehlen noch Pflichtfelder.
@@ -7,7 +7,7 @@
       <strong>Fehlende Informationen:</strong> <%= current_user.organization.incomplete_fields.join(", ") %>
     </p>
     <div class="mt-4">
-      <%= link_to "Fehlende Informationen hinzufügen", edit_organization_path(current_user.organization), class: "bg-red-600 text-white font-bold py-2 px-4 rounded hover:bg-red-800" %>
+      <%= link_to "Fehlende Informationen hinzufügen", edit_organization_path(current_user.organization), class: "bg-yellow-700 text-white font-bold py-2 px-4 rounded hover:bg-red-800" %>
     </div>
   </div>
 <% end %>
