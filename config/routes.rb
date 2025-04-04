@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # Locale-spezifische Routen
   scope "(:locale)", locale: /en|de/ do
     root to: "positions#index" # Definiert die Startseite mit optionaler Locale
+    resources :positions
   end
   
   devise_for :users, controllers: {
