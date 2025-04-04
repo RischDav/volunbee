@@ -9,9 +9,8 @@ class Users::SessionsController < Devise::SessionsController
         session[:temp_email_access] = user.email
         return redirect_to users_locked_path(email: user.email)
       #Wenn user Mail bestätigt hat, aber Organisationsprofil noch unvollständig ist  
-      elsif user.organization && !user.organization.complete_profile?
+      else 
         sign_in(user)
-        return redirect_to edit_organization_path(user.organization)
       end
     end
     #Wenn kein if zutrifft, wird der User normal eingeloggt

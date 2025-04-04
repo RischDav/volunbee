@@ -1,0 +1,12 @@
+de:
+  users:
+    locked:
+      title: "Account-Status"
+      email_label: "E-Mail:"
+      email_confirmed: "Ihre E-Mail-Adresse wurde bestätigt."
+      email_not_confirmed: "Wir haben eine Bestätigungsmail an Ihre E-Mail-Adresse geschickt."
+      resend_confirmation: "Bestätigungsmail erneut schicken"
+      login: "Zum Login"
+      login_hint: "Sobald dieser Schritt abgeschlossen ist, können Sie sich einloggen und Ihre Informationen vervollständigen."
+      back_to_login: "Zurück zum Login"
+      no_user_info: "Keine Benutzerinformationen verfügbar."

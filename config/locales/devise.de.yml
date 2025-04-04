@@ -62,5 +62,5 @@ de:
       not_found: "nicht gefunden"
       not_locked: "war nicht gesperrt"
       not_saved:
-        one: "1 Fehler verhinderte das Speichern dieses %{resource}:"
+        one: "Ein Fehler verhinderte das Speichern dieses %{resource}:"
         other: "%{count} Fehler verhinderten das Speichern dieses %{resource}:"
