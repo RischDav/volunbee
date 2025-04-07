@@ -28,11 +28,41 @@
       <p class="text-sm text-gray-700">Bitte geben sie den vollen Namen mit Rechtsform an (zum Beispiel gGmbH oder e.V.)</p>
     </div>
 
-    <div class="actions">
-      <%= f.submit "Sign up", class: "w-full py-2 px-4 bg-blue-600 text-white font-medium text-sm rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+    <!-- Checkbox für AGB und Datenschutzerklärung -->
+    <div class="field mt-4">
+      <label class="inline-flex items-center">
+        <input type="checkbox" id="terms-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+        <span class="ml-2 text-sm text-gray-700">
+          Ich habe die <a href="/agb" class="text-blue-600 underline">AGB</a> und die <a href="/datenschutz" class="text-blue-600 underline">Datenschutzerklärung</a> gelesen und akzeptiere sie.
+        </span>
+      </label>
+    </div>
+
+    <div class="actions mt-4">
+      <%= f.submit "Sign up", id: "submit-button", class: "w-full py-2 px-4 bg-gray-400 text-white font-medium text-sm rounded-md shadow-sm cursor-not-allowed", disabled: true %>
     </div>
   <% end %>
-    <div class="text-center mt-4">
+
+  <div class="text-center mt-4">
     <%= render "devise/shared/links" %>
   </div>
 </div>
+
+<script>
+  document.addEventListener("turbolinks:load", function () {
+    const termsCheckbox = document.getElementById("terms-checkbox");
+    const submitButton = document.getElementById("submit-button");
+
+    termsCheckbox.addEventListener("change", function () {
+      if (termsCheckbox.checked) {
+        submitButton.disabled = false;
+        submitButton.classList.remove("bg-gray-400", "cursor-not-allowed");
+        submitButton.classList.add("bg-blue-600", "hover:bg-blue-700");
+      } else {
+        submitButton.disabled = true;
+        submitButton.classList.remove("bg-blue-600", "hover:bg-blue-700");
+        submitButton.classList.add("bg-gray-400", "cursor-not-allowed");
+      }
+    });
+  });
+</script>
