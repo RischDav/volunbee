@@ -3,13 +3,44 @@
   <%= form_for @position, url: positions_path, html: { class: "space-y-4", multipart: true } do |f| %>
     <h2 class="text-2xl font-bold my-4 text-red-600">Bitte achten Sie darauf, dass alle Felder in englischer Sprache ausgefüllt werden!</h2>
 
-    <%= render 'positions/form_general_information', f: f %>
-    <%= render 'positions/form_images', f: f %>
-    <%= render 'positions/form_score', f: f %>
-    <%= render 'positions/form_faqs', f: f %>
+    <%= render 'form_general_information', f: f %>
+    <%= render 'form_images', f: f %>
+    <%= render 'form_score', f: f %>
+    <%= render 'form_faqs', f: f %>
 
+    <!-- Checkbox-Bereich -->
+    <h2 class="text-2xl font-bold">Bestätigungen</h2>
+    <div class="bg-slate-100 rounded-lg p-6">
+      <div class="gap-4">
+        <!-- Checkbox: Textbeschreibungen in englischer Sprache -->
+        <div class="field m-3">
+          <div class="border-2 border-gray-300 p-4 rounded-md">
+            <label class="inline-flex items-center">
+              <input type="checkbox" id="english-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+              <span class="ml-2 text-sm text-gray-700">
+                Ich bestätige, dass alle Textbeschreibungen in englischer Sprache verfasst wurden.
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Checkbox: Zustimmung zu AGB und Datenschutz -->
+        <div class="field m-3">
+          <div class="border-2 border-gray-300 p-4 rounded-md">
+            <label class="inline-flex items-center">
+              <input type="checkbox" id="terms-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+              <span class="ml-2 text-sm text-gray-700">
+                Ich habe die <a href="/agb" class="text-blue-600 underline">AGB</a> und die <a href="/datenschutz" class="text-blue-600 underline">Datenschutzerklärung</a> gelesen und akzeptiere sie.
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit-Button -->
     <div class="actions my-10">
-      <%= f.submit "Erstellen", class: "w-full py-2 bg-blue-600 text-white font-medium text-sm rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+      <%= f.submit "Erstellen", id: "submit-button", class: "w-full py-2 bg-gray-400 text-white font-medium text-sm rounded-md shadow-sm cursor-not-allowed", disabled: true %>
     </div>
   <% end %>
 </div>
@@ -20,13 +51,15 @@
     const temporarySelect = document.getElementById("position_temporary_select");
     const infoText = document.getElementById("temporary-info-text");
 
-    temporarySelect.addEventListener("change", function () {
-      if (temporarySelect.value === "true") {
-        infoText.classList.remove("hidden");
-      } else {
-        infoText.classList.add("hidden");
-      }
-    });
+    if (temporarySelect) {
+      temporarySelect.addEventListener("change", function () {
+        if (temporarySelect.value === "true") {
+          infoText.classList.remove("hidden");
+        } else {
+          infoText.classList.add("hidden");
+        }
+      });
+    }
 
     // Word count logic
     function updateWordCount(field, counter, minLength, goodLength, perfectLength) {
@@ -51,17 +84,19 @@
     const wordCountDescription = document.getElementById('word-count-description');
     const wordCountBenefits = document.getElementById('word-count-benefits');
 
-    titleField.addEventListener('input', function () {
-      updateWordCount(titleField, wordCountTitle, 15, 20, 75);
-    });
+    if (titleField && descriptionField && benefitsField) {
+      titleField.addEventListener('input', function () {
+        updateWordCount(titleField, wordCountTitle, 15, 20, 75);
+      });
 
-    descriptionField.addEventListener('input', function () {
-      updateWordCount(descriptionField, wordCountDescription, 100, 700, 900);
-    });
+      descriptionField.addEventListener('input', function () {
+        updateWordCount(descriptionField, wordCountDescription, 100, 700, 900);
+      });
 
-    benefitsField.addEventListener('input', function () {
-      updateWordCount(benefitsField, wordCountBenefits, 100, 700, 900);
-    });
+      benefitsField.addEventListener('input', function () {
+        updateWordCount(benefitsField, wordCountBenefits, 100, 700, 900);
+      });
+    }
 
     // Rating points logic
     const maxPoints = 15;
@@ -81,28 +116,32 @@
       remainingPointsDisplay.style.color = remainingPoints < 0 ? 'red' : 'black';
     }
 
-    ratingInputs.forEach(input => {
-      input.addEventListener('change', updateRemainingPoints);
-    });
+    if (ratingInputs.length > 0) {
+      ratingInputs.forEach(input => {
+        input.addEventListener('change', updateRemainingPoints);
+      });
 
-    updateRemainingPoints();
+      updateRemainingPoints();
+    }
 
     // Upload feedback logic
     function handleFileUpload(inputId, feedbackId) {
       const input = document.getElementById(inputId);
       const feedback = document.getElementById(feedbackId);
 
-      input.addEventListener("change", function () {
-        if (input.files && input.files.length > 0) {
-          feedback.textContent = `Bild "${input.files[0].name}" wurde hochgeladen.`;
-          feedback.classList.remove("text-gray-500");
-          feedback.classList.add("text-green-600");
-        } else {
-          feedback.textContent = "Bitte ein Bild hochladen";
-          feedback.classList.remove("text-green-600");
-          feedback.classList.add("text-gray-500");
-        }
-      });
+      if (input && feedback) {
+        input.addEventListener("change", function () {
+          if (input.files && input.files.length > 0) {
+            feedback.textContent = `Bild "${input.files[0].name}" wurde hochgeladen.`;
+            feedback.classList.remove("text-gray-500");
+            feedback.classList.add("text-green-600");
+          } else {
+            feedback.textContent = "Bitte ein Bild hochladen";
+            feedback.classList.remove("text-green-600");
+            feedback.classList.add("text-gray-500");
+          }
+        });
+      }
     }
 
     handleFileUpload("position_mainPicture", "mainPicture-feedback");
@@ -111,33 +150,60 @@
     handleFileUpload("position_picture3", "picture3-feedback");
 
     // FAQ logic
-    document.getElementById("add_faq").addEventListener("click", function (e) {
-      e.preventDefault();
-      var new_id = new Date().getTime();
-      var new_faq = document.createElement("div");
-      new_faq.classList.add("faq-item");
-      new_faq.innerHTML = `
-        <div class="my-3 p-3 border rounded border-slate-400">
-          <div class="field">
-            <label class="block text-sm font-medium text-gray-700" for="position_frequently_asked_questions_attributes_${new_id}_question">Frage</label>
-            <input class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" type="text" name="position[frequently_asked_questions_attributes][${new_id}][question]" id="position_frequently_asked_questions_attributes_${new_id}_question">
-          </div>
-          <div class="field">
-            <label class="block text-sm font-medium text-gray-700" for="position_frequently_asked_questions_attributes_${new_id}_answer">Antwort</label>
-            <textarea class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" name="position[frequently_asked_questions_attributes][${new_id}][answer]" id="position_frequently_asked_questions_attributes_${new_id}_answer"></textarea>
-          </div>
-          <input type="hidden" name="position[frequently_asked_questions_attributes][${new_id}][_destroy]" id="position_frequently_asked_questions_attributes_${new_id}__destroy">
-          <a href="#" class="remove_faq inline-block mb-8 mt-2 px-4 py-2 rounded-md bg-red-500 text-white border border-slate-200 hover:bg-red-700" role="button">Entfernen</a>
-        </div>`;
-      document.getElementById("faqs").appendChild(new_faq);
-    });
+    const addFaqButton = document.getElementById("add_faq");
+    const faqsContainer = document.getElementById("faqs");
 
-    document.getElementById("faqs").addEventListener("click", function (e) {
-      if (e.target && e.target.classList.contains("remove_faq")) {
+    if (addFaqButton && faqsContainer) {
+      addFaqButton.addEventListener("click", function (e) {
         e.preventDefault();
-        e.target.previousElementSibling.value = "1";
-        e.target.closest(".faq-item").style.display = "none";
+        var new_id = new Date().getTime();
+        var new_faq = document.createElement("div");
+        new_faq.classList.add("faq-item");
+        new_faq.innerHTML = `
+          <div class="my-3 p-3 border rounded border-slate-400">
+            <div class="field">
+              <label class="block text-sm font-medium text-gray-700" for="position_frequently_asked_questions_attributes_${new_id}_question">Frage</label>
+              <input class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" type="text" name="position[frequently_asked_questions_attributes][${new_id}][question]" id="position_frequently_asked_questions_attributes_${new_id}_question">
+            </div>
+            <div class="field">
+              <label class="block text-sm font-medium text-gray-700" for="position_frequently_asked_questions_attributes_${new_id}_answer">Antwort</label>
+              <textarea class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" name="position[frequently_asked_questions_attributes][${new_id}][answer]" id="position_frequently_asked_questions_attributes_${new_id}_answer"></textarea>
+            </div>
+            <input type="hidden" name="position[frequently_asked_questions_attributes][${new_id}][_destroy]" id="position_frequently_asked_questions_attributes_${new_id}__destroy">
+            <a href="#" class="remove_faq inline-block mb-8 mt-2 px-4 py-2 rounded-md bg-red-500 text-white border border-slate-200 hover:bg-red-700" role="button">Entfernen</a>
+          </div>`;
+        faqsContainer.appendChild(new_faq);
+      });
+
+      faqsContainer.addEventListener("click", function (e) {
+        if (e.target && e.target.classList.contains("remove_faq")) {
+          e.preventDefault();
+          e.target.previousElementSibling.value = "1";
+          e.target.closest(".faq-item").style.display = "none";
+        }
+      });
+    }
+
+    // Checkbox logic for enabling the submit button
+    const englishCheckbox = document.getElementById("english-checkbox");
+    const termsCheckbox = document.getElementById("terms-checkbox");
+    const submitButton = document.getElementById("submit-button");
+
+    function updateSubmitButtonState() {
+      if (englishCheckbox.checked && termsCheckbox.checked) {
+        submitButton.disabled = false;
+        submitButton.classList.remove("bg-gray-400", "cursor-not-allowed");
+        submitButton.classList.add("bg-blue-600", "hover:bg-blue-700");
+      } else {
+        submitButton.disabled = true;
+        submitButton.classList.remove("bg-blue-600", "hover:bg-blue-700");
+        submitButton.classList.add("bg-gray-400", "cursor-not-allowed");
       }
-    });
+    }
+
+    if (englishCheckbox && termsCheckbox && submitButton) {
+      englishCheckbox.addEventListener("change", updateSubmitButtonState);
+      termsCheckbox.addEventListener("change", updateSubmitButtonState);
+    }
   });
 </script>

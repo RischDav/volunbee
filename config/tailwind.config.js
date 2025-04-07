@@ -1,9 +1,6 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  corePlugins: {
-    preflight: false,
-  },
   content: [
       './app/views/**/*.{erb,html, html.erb}',
       './app/helpers/**/*.rb',
@@ -11,17 +8,17 @@ module.exports = {
       './app/components/**/*.{erb,html,rb}'
   ],
   safelist: [
-  { pattern: /^bg-/ },
-  { pattern: /^border/ },  // Catch both border and border-*
-  { pattern: /^text-/ },
-  { pattern: /^p-/ },    // Padding
-  { pattern: /^m-/ },    // Margin
-  { pattern: /^mb-/ },   // Margin bottom
-  { pattern: /underline/ }, // Underline class
-  'grid-cols-2',
-  'grid-cols-3',
-  'font-bold',
-  'hover:text-blue-800'
+  //{ pattern: /^bg-/ },
+  //{ pattern: /^border/ },  // Catch both border and border-*
+  //{ pattern: /^text-/ },
+  //{ pattern: /^p-/ },    // Padding
+  //{ pattern: /^m-/ },    // Margin
+  //{ pattern: /^mb-/ },   // Margin bottom
+  //{ pattern: /underline/ }, // Underline class
+  //'grid-cols-2',
+  //'grid-cols-3',
+  //'font-bold',
+  //'hover:text-blue-800'
   ],
   theme: {
     extend: {
