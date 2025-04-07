@@ -21,8 +21,10 @@
     <!-- Flash Messages are only showed, when there are notices active -->
     <%= render partial: "shared/flash_messages" %>
     <!-- Organization alerts are only showed when there is missing required information for organization -->
+    <% unless controller_name == 'organizations' && action_name == 'edit' %>
     <%= render partial: "shared/organization_alert"%>   
-    <main class="m-20">
+    <% end %>
+    <main class="m-4">
       <!-- Page Content -->
       <%= yield %>
     </main>

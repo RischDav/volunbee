@@ -1,12 +1,16 @@
-<% if current_user.admin? %>
-  <h1 class="text-3xl my-4">Informationen zu Organisationen</h1>
-  
-  <%= render partial: 'unreleased_organizations', locals: { organizations: @organizations.where(released: false) } if @organizations.where(released: false).exists? %>
-  
-  <% @organizations.where(released: true).each do |organization| %>
-    <%= render partial: 'organization_card_admin', locals: { organization: organization } %>
+<div class="mx-auto my-8 p-8 bg-blue-50 rounded-lg shadow-md">
+  <% if current_user.admin? %>
+    <h1 class="text-3xl font-semibold text-gray-800 mb-6">Informationen zu Organisationen</h1>
+
+    <!-- Nicht freigegebene Organisationen -->
+    <%= render partial: 'unreleased_organizations', locals: { organizations: @organizations.where(released: false) } if @organizations.where(released: false).exists? %>
+
+    <!-- Freigegebene Organisationen -->
+    <% @organizations.where(released: true).each do |organization| %>
+      <%= render partial: 'organization_card_admin', locals: { organization: organization } %>
+    <% end %>
+  <% else %>
+    <h1 class="text-3xl font-semibold text-gray-800 mb-6">Informationen zu Ihrer Organisation</h1>
+    <%= render partial: 'organization_details', locals: { organization: @organization } %>
   <% end %>
-<% else %>
-  <h1 class="text-3xl">Informationen zu Ihrer Organisation</h1>
-  <%= render partial: 'organization_details', locals: { organization: @organization } %>
-<% end %>
+</div>

@@ -25,15 +25,19 @@ class PositionsController < ApplicationController
     @position.position_code = @position.title.downcase.gsub(/[^a-z0-9\s]/, '').gsub(/\s+/, '_')
   
     if @position.save
+      # Bilder verarbeiten
       [@position.mainPicture, @position.picture1, @position.picture2, @position.picture3].each do |picture|
         ProcessPictureJob.set(wait: 5.seconds).perform_later(picture.blob.id) if picture.attached?
       end
+  
+      # Erfolgreiche Erstellung
       redirect_to positions_path, notice: "Position wurde erfolgreich erstellt."
       AdminMailer.new_position_email.deliver_later
     else
       # Benutzerfreundliche Fehlermeldungen generieren
       error_messages = []
-      
+  
+      # Titel-Validierung
       if @position.errors.include?(:title)
         if @position.title.blank?
           error_messages << "Der Titel darf nicht leer sein."
@@ -41,165 +45,69 @@ class PositionsController < ApplicationController
           error_messages << "Der Titel muss zwischen 15 und 75 Zeichen lang sein (aktuell: #{@position.title.length} Zeichen)."
         end
       end
-      
+  
+      # Hauptbild-Validierung
       if @position.errors.include?(:mainPicture)
         error_messages << "Ein Hauptbild muss hochgeladen werden."
       end
-      
-      # if @position.errors.include?(:benefits)
-      #   if @position.benefits.blank?
-      #     error_messages << "Die Vorteile dürfen nicht leer sein."
-      #   else
-      #     error_messages << "Die Vorteile müssen zwischen 300 und 1000 Zeichen lang sein (aktuell: #{@position.benefits.length} Zeichen)."
-      #   end
-      # end
-      
-      # if @position.errors.include?(:description)
-      #   if @position.description.blank?
-      #     error_messages << "Die Beschreibung darf nicht leer sein."
-      #   else
-      #     error_messages << "Die Beschreibung muss zwischen 300 und 1000 Zeichen lang sein (aktuell: #{@position.description.length} Zeichen)."
-      #   end
+  
+      # Vorteile-Validierung
+      if @position.errors.include?(:benefits)
+        if @position.benefits.blank?
+          error_messages << "Die Vorteile dürfen nicht leer sein."
+        else
+          error_messages << "Die Vorteile müssen zwischen 100 und 1000 Zeichen lang sein (aktuell: #{@position.benefits.length} Zeichen)."
+        end
       end
-      
+  
+      # Beschreibung-Validierung
+      if @position.errors.include?(:description)
+        if @position.description.blank?
+          error_messages << "Die Beschreibung darf nicht leer sein."
+        else
+          error_messages << "Die Beschreibung muss zwischen 100 und 1000 Zeichen lang sein (aktuell: #{@position.description.length} Zeichen)."
+        end
+      end
+  
+      # Fähigkeiten-Validierung
       skill_namen = {
-        creative_skills: "Kreative Fähigkeiten", 
-        technical_skills: "Technische Fähigkeiten", 
-        social_skills: "Soziale Fähigkeiten", 
-        language_skills: "Sprachfähigkeiten", 
+        creative_skills: "Kreative Fähigkeiten",
+        technical_skills: "Technische Fähigkeiten",
+        social_skills: "Soziale Fähigkeiten",
+        language_skills: "Sprachfähigkeiten",
         flexibility: "Flexibilität"
       }
-      
-      # Check individual skill errors
+  
       skill_namen.each do |skill, name|
         if @position.errors.include?(skill)
           error_messages << "#{name} muss eine ganze Zahl zwischen 1 und 5 sein."
         end
       end
-      
-      # Check if the sum of skills exceeds 15
+  
+      # Summe der Fähigkeiten prüfen
       skills_sum = skill_namen.keys.sum { |skill| @position.send(skill).to_i }
       if skills_sum > 15
         error_messages << "Die Summe aller Fähigkeiten darf 15 nicht überschreiten. Aktuelle Summe: #{skills_sum}."
       end
-      
+  
+      # Bilder-Validierung
       if @position.errors.include?(:pictures)
         error_messages << "Die Bilder müssen kleiner als 5MB sein."
       end
-      
-      # Wenn keine detaillierten Fehler gefunden wurden, generische Meldung anzeigen
-      if error_messages.empty?
-        error_messages = @position.errors.full_messages
-      end
-      
+  
+      # Generische Fehlermeldungen, falls keine spezifischen gefunden wurden
+      error_messages = @position.errors.full_messages if error_messages.empty?
+  
+      # Fehlermeldungen anzeigen
       flash.now[:alert] = error_messages.join("<br><br> ->").html_safe
       render :new
+    end
   end
 
   def edit
     AdminMailer.position_change_email.deliver_later
   end
 
-  def json_output
-    positions = Position.joins(:organization)
-                     .where(released: true, online: true)
-                     .where.not(
-                       organizations: {
-                         name: [nil, ""],
-                         email: [nil, ""],
-                         contact_number: [nil, ""],
-                         city: [nil, ""],
-                         zip: [nil, ""],
-                         street: [nil, ""],
-                         housenumber: [nil, ""],
-                         description: [nil, ""]
-                       }
-                     )
-    
-    formatted_positions = positions.map do |position|
-      organization = position.organization
-      
-      # Kontaktdaten: explizit null für fehlende Werte, mit existierenden Attributen
-      contact = {
-        name: organization.contact_person.presence || nil,  # Kein contact_person in Schema
-        phone: organization.contact_number.presence || nil,
-        email: organization.email.presence || nil,
-        instagram: organization.instagram_url.presence || nil,
-        facebook: organization.facebook_link.presence || nil,
-        tiktok: organization.tiktok_url.presence || nil,  # Existiert nicht
-        linkedin: organization.linkedin_url.presence || nil,
-        x_account: nil,  # Existiert nicht
-        website: organization.website.presence || nil,
-        linktree: organization.linktree_url.presence || nil # Existiert nicht
-      }
-      
-      # Fotos: Nur vorhandene Bilder in der richtigen Reihenfolge ausgeben
-      photos = {}
-      
-      # mainPicture ist immer photo1, wenn vorhanden
-      if position.mainPicture.attached?
-        photos[:photo1] = {
-          url: rails_blob_url(position.mainPicture, only_path: false),
-          author: ""  # main_picture_author existiert nicht
-        }
-      end
-      
-      # Die anderen Bilder in der Reihenfolge hinzufügen
-      photo_counter = 2
-      [position.picture1, position.picture2, position.picture3].each_with_index do |picture, index|
-        if picture.attached?
-          photos[:"photo#{photo_counter}"] = {
-            url: rails_blob_url(picture, only_path: false),
-            author: ""  # picture_author Felder existieren nicht
-          }
-          photo_counter += 1
-        end
-      end
-      
-      {
-        id: position.id,
-        organization_code: organization.organization_code || "",  # code existiert nicht
-        position_code: position.position_code || "",  # code existiert nicht
-        position_temporary: position.position_temporary || "",  # temporary existiert nicht
-        duration: "",  # duration existiert nicht
-        weekly_time_commitment: position.weekly_time_commitment,  # weekly_time_commitment existiert nicht
-        organization_name: organization.name || "",
-        project_or_local_group: "",  # project_name existiert nicht
-        role: position.title,
-        organization_description: organization.description || "",
-        tasks_description: position.description,
-        benefits: position.benefits || "",
-        faq: position.respond_to?(:frequently_asked_questions) ? 
-             position.frequently_asked_questions.map do |faq|
-               { question: faq.question, answer: faq.answer }
-             end : [],
-        address: {
-          postal_code: organization.zip.presence || nil,  # postal_code → zip
-          city: organization.city.presence || nil,
-          street: organization.street.presence || nil,
-          house_number: organization.housenumber.presence || nil,  # house_number → housenumber
-          additional_info: nil  # Existiert nicht
-        },
-        contact: contact,
-        materials: {
-          authors: false,  # display_author_names existiert nicht
-          logo: organization.respond_to?(:logo) && organization.logo.attached? ? 
-                rails_blob_url(organization.logo, only_path: false) : nil,
-          photos: photos
-        },
-        ratings: {
-          "Creative Skills": position.creative_skills || 0,
-          "Technical Skills": position.technical_skills || 0,
-          "Social Skills": position.social_skills || 0,
-          "Language Skills": position.language_skills || 0,
-          "Flexibility": position.flexibility || 0
-        },
-        tags: []  # tags existiert nicht
-      }
-    end
-  
-    render json: JSON.pretty_generate(formatted_positions)
-  end
 
   def show
   end

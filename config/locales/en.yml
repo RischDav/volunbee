@@ -4,7 +4,7 @@ en:
 en:
   users:
     locked:
-      title: "Account Status"
+      title: "E-mail Address Confirmation"
       email_label: "Email:"
       email_confirmed: "Your email address has been confirmed."
       email_not_confirmed: "We have sent a confirmation email to your email address."

@@ -40,7 +40,7 @@
             <div class="content">
                 <p>Hallo <%= @email %>,</p>
                 <p>Du kannst deine E-Mail-Adresse über den folgenden Link bestätigen:</p>
-                <p><%= link_to 'Bestätige meinen Account', confirmation_url(@resource, confirmation_token: @token) %></p>
+                <p><%= link_to 'Bestätige meinen Account', confirmation_url(@resource, confirmation_token: @token), target: "_blank", rel: "noopener noreferrer" %></p>
             </div>
 
             <!-- Welcome Email Content -->

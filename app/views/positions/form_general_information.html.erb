@@ -1,0 +1,25 @@
+<h2 class="text-2xl font-bold">Allgemeine Informationen</h2>
+<div class="bg-slate-100 rounded-lg p-6">
+  <div>
+    <div class="field m-3">
+      <%= f.label :title, "Bezeichnung der Position", class: "block text-lg font-medium text-gray-700 w-50%" %>
+      <p class="text-sm text-gray-700">Bitte geben Sie eine Bezeichnung für die Position an...</p>
+      <%= f.text_field :title, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+    <div id="word-count-title" class="mt-1 mx-3 rounded-md focus:outline-none"></div>
+
+    <div class="field m-3">
+      <%= f.label :description, "Beschreibung der Position", class: "block text-lg font-medium text-gray-700" %>
+      <p class="text-sm text-gray-700">Bitte geben Sie eine ausführliche Beschreibung der Position an...</p>
+      <%= f.text_area :description, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+    <div id="word-count-description" class="mt-1 mx-3 rounded-md focus:outline-none"></div>
+
+    <div class="field m-3">
+      <%= f.label :benefits, "Benefits für Ehrenamtliche", class: "block text-lg font-medium text-gray-700" %>
+      <p class="text-sm text-gray-700">Welche Benefits erwarten Volunteers in Ihrem Verein?</p>
+      <%= f.text_area :benefits, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+    <div id="word-count-benefits" class="mt-1 mx-3 rounded-md focus:outline-none"></div>
+  </div>
+</div>
