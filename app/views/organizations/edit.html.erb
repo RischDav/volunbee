@@ -58,7 +58,7 @@
       <p class="text-sm text-gray-700 mt-2">Bitte laden Sie das Logo Ihrer Organisation hoch. Achten Sie darauf, dass der Hintergrund transparent, weiß oder zumindest einfarbig ist.</p>
       <div class="border-2 border-gray-300 p-4 rounded-md my-3 w-1/2">
         <%= f.file_field :logo, accept: 'image/*', style: "cursor: pointer;" %>
-        <p class="text-sm text-gray-500">Bitte ein Logo hochladen</p>
+        <p id="logo-feedback" class="text-sm text-gray-500">Bitte ein Bild hochladen</p>
       </div>
       <% if @organization.logo.attached? %>
       <div class="mt-4">
@@ -131,9 +131,39 @@
 
 </div>
 </div>
+<!-- Checkbox-Bereich -->
+    <div class="bg-slate-100 rounded-lg p-6">
+      <h2 class="text-2xl font-bold">Bestätigungen</h2>
+      <div class="gap-4">
+        <!-- Checkbox: Beschreibung in englischer Sprache -->
+        <div class="field m-3">
+          <div class="border-2 border-gray-300 p-4 rounded-md">
+            <label class="inline-flex items-center">
+              <input type="checkbox" id="english-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+              <span class="ml-2 text-sm text-gray-700">
+                Ich bestätige, dass die Beschreibung der Organisation in englischer Sprache verfasst wurde.
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Checkbox: Zustimmung zu AGB und Datenschutz -->
+        <div class="field m-3">
+          <div class="border-2 border-gray-300 p-4 rounded-md">
+            <label class="inline-flex items-center">
+              <input type="checkbox" id="terms-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+              <span class="ml-2 text-sm text-gray-700">
+                Ich habe die <a href="/agb" class="text-blue-600 underline">AGB</a> und die <a href="/datenschutz" class="text-blue-600 underline">Datenschutzerklärung</a> gelesen und akzeptiere sie.
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
 <div class="my-3 flex space-x-4">
   <div class="actions">
-    <%= f.submit "Speichern", class: "py-2 px-4 bg-blue-600 text-white font-medium text-lg rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+    <%= f.submit "Speichern", id:"submit-button", class: "py-2 px-4 bg-blue-600 text-white font-medium text-lg rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
   </div>
   <div>
     <%= link_to "Zurück ohne zu speichern", organizations_path, class: "py-2 px-4 bg-slate-600 text-white font-medium text-lg rounded-md shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
@@ -143,18 +173,16 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    function updateWordCount(field, counter, minLength, goodLength, perfectLength) {
+  document.addEventListener('DOMContentLoaded', function () {
+    // Word count logic
+    function updateWordCount(field, counter, minLength) {
       const charCount = field.value.length;
 
       if (charCount < minLength) {
         counter.textContent = `Sie benötigen noch mindestens ${minLength - charCount} Zeichen`;
         counter.style.color = 'red';
-      } else if (charCount > perfectLength) {
-        counter.textContent = `${charCount} Zeichen (Maximum empfohlen: ${perfectLength})`;
-        counter.style.color = 'red';
       } else {
-        counter.textContent = `👍`;
+        counter.textContent = `👍 Perfekte Länge`;
         counter.style.color = 'green';
       }
     }
@@ -165,11 +193,59 @@
     if (descriptionField && wordCountDescription) {
       // Initial update
       updateWordCount(descriptionField, wordCountDescription, 100);
-      
+
       // Update on input
-      descriptionField.addEventListener('input', function() {
+      descriptionField.addEventListener('input', function () {
         updateWordCount(descriptionField, wordCountDescription, 100);
       });
     }
+
+    // Checkbox logic for enabling the submit button
+    const englishCheckbox = document.getElementById("english-checkbox");
+    const termsCheckbox = document.getElementById("terms-checkbox");
+    const submitButton = document.getElementById("submit-button");
+
+    function updateSubmitButtonState() {
+      if (englishCheckbox.checked && termsCheckbox.checked) {
+        submitButton.disabled = false;
+        submitButton.classList.remove("bg-gray-400", "cursor-not-allowed");
+        submitButton.classList.add("bg-blue-600", "hover:bg-blue-700");
+      } else {
+        submitButton.disabled = true;
+        submitButton.classList.remove("bg-blue-600", "hover:bg-blue-700");
+        submitButton.classList.add("bg-gray-400", "cursor-not-allowed");
+      }
+    }
+
+    if (englishCheckbox && termsCheckbox && submitButton) {
+      // Initial state update
+      updateSubmitButtonState();
+
+      // Add event listeners
+      englishCheckbox.addEventListener("change", updateSubmitButtonState);
+      termsCheckbox.addEventListener("change", updateSubmitButtonState);
+    }
+
+    // File upload feedback logic
+    function handleFileUpload(inputId, feedbackId) {
+      const input = document.getElementById(inputId);
+      const feedback = document.getElementById(feedbackId);
+
+      if (input && feedback) {
+        input.addEventListener("change", function () {
+          if (input.files && input.files.length > 0) {
+            feedback.textContent = `Bild "${input.files[0].name}" wurde hochgeladen.`;
+            feedback.classList.remove("text-gray-500");
+            feedback.classList.add("text-green-600");
+          } else {
+            feedback.textContent = "Bitte ein Bild hochladen";
+            feedback.classList.remove("text-green-600");
+            feedback.classList.add("text-gray-500");
+          }
+        });
+      }
+    }
+
+    handleFileUpload("organization_logo", "logo-feedback");
   });
 </script>
