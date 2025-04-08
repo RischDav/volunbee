@@ -71,9 +71,15 @@
       } else if (charCount > perfectLength) {
         counter.textContent = 'Zu viele Buchstaben';
         counter.style.color = 'red';
-      } else {
-        counter.textContent = '👍 Perfekte Länge';
+      } else if (charCount > minlength && charCount <= goodLength) {
+        counter.textContent = '👍 Mindestlänge erreicht (könnte aber mehr sein)';
         counter.style.color = 'green';
+      } else if (charCount > goodLength && charCount <= perfectLength) {
+        counter.textContent = '👍 Perfekte länge';
+        counter.style.color = 'green';
+      } else {
+        counter.textContent = '';
+        counter.style.color = 'black';
       }
     }
 
