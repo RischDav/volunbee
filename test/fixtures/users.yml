@@ -1,11 +1,32 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+user_1:
+  id: 1
+  email: "admin@example.com"
+  encrypted_password: "password"
+  organization_id: 1
+  role: 2 # assuming 2 is admin
+  released: true
+  confirmed_at: <%= Time.now %>
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the "{}" from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+user_2:
+  id: 2
+  email: "org_admin@volnet.org"
+  encrypted_password: "password"
+  organization_id: 1
+  role: 1 # assuming 1 is organization admin
+  released: true
+  confirmed_at: <%= Time.now %>
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
+
+user_3:
+  id: 3
+  email: "regular@example.com"
+  encrypted_password: "password"
+  organization_id: null
+  role: 0 # assuming 0 is regular user
+  released: true
+  confirmed_at: <%= Time.now %>
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>

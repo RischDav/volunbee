@@ -1,15 +1,19 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+message_1:
+  id: 1
+  content: "I'm interested in the Social Media Manager position. Could you provide more details?"
+  sender_email: "applicant1@example.com"
+  sender_phone: "+1122334455"
+  position_id: 1
+  sent_at: "2025-04-04 10:00:00"
+  created_at: "2025-04-04 10:00:00"
+  updated_at: "2025-04-04 10:00:00"
 
-one:
-  content: MyString
-  sender_email: MyString
-  sender_phone: MyString
-  position: one
-  sent_at: 2024-12-08 12:56:55
-
-two:
-  content: MyString
-  sender_email: MyString
-  sender_phone: MyString
-  position: two
-  sent_at: 2024-12-08 12:56:55
+message_2:
+  id: 2
+  content: "Do you offer training for the Web Developer position?"
+  sender_email: "applicant2@example.com"
+  sender_phone: "+5566778899"
+  position_id: 3
+  sent_at: "2025-04-05 10:00:00"
+  created_at: "2025-04-05 10:00:00"
+  updated_at: "2025-04-05 10:00:00"

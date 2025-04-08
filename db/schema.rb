@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_25_145618) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_02_172715) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_catalog.plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,16 +42,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_145618) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "admins", force: :cascade do |t|
-    t.string "username"
-    t.string "email"
-    t.string "password"
-    t.bigint "organization_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["organization_id"], name: "index_admins_on_organization_id"
-  end
-
   create_table "frequently_asked_questions", force: :cascade do |t|
     t.string "question"
     t.text "answer"
@@ -56,14 +49,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_145618) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["position_id"], name: "index_frequently_asked_questions_on_position_id"
-  end
-
-  create_table "images", force: :cascade do |t|
-    t.string "url"
-    t.bigint "position_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["position_id"], name: "index_images_on_position_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -147,9 +132,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_145618) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "admins", "organizations"
   add_foreign_key "frequently_asked_questions", "positions"
-  add_foreign_key "images", "positions"
   add_foreign_key "messages", "positions"
   add_foreign_key "positions", "organizations"
 end

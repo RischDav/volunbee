@@ -1,13 +1,59 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+position_1:
+  id: 1
+  title: "Social Media Manager"
+  description: "Help manage our social media accounts and create engaging content"
+  is_active: true
+  organization: organization_1
+  benefits: "Networking opportunities, flexible hours, certificate of volunteering"
+  creative_skills: 4
+  technical_skills: 3
+  social_skills: 5
+  language_skills: 4
+  flexibility: 3
+  released: true
+  online: true
+  position_temporary: false
+  weekly_time_commitment: 10
+  position_code: "POS001"
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
 
-one:
-  title: MyString
-  description: MyText
-  is_active: false
-  organization: one
+position_2:
+  id: 2
+  title: "Event Coordinator"
+  description: "Organize community events and manage volunteer teams"
+  is_active: true
+  organization: organization_1
+  benefits: "Leadership experience, teamwork skills, networking"
+  creative_skills: 3
+  technical_skills: 2
+  social_skills: 5
+  language_skills: 3
+  flexibility: 2
+  released: true
+  online: false
+  position_temporary: true
+  weekly_time_commitment: 15
+  position_code: "POS002"
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
 
-two:
-  title: MyString
-  description: MyText
-  is_active: false
-  organization: two
+position_3:
+  id: 3
+  title: "Web Developer"
+  description: "Help maintain and improve our website"
+  is_active: true
+  organization: organization_2
+  benefits: "Portfolio building, tech community access, mentorship"
+  creative_skills: 3
+  technical_skills: 5
+  social_skills: 2
+  language_skills: 3
+  flexibility: 4
+  released: true
+  online: true
+  position_temporary: false
+  weekly_time_commitment: 8
+  position_code: "POS003"
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>

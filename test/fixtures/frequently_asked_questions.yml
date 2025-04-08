@@ -1,11 +1,17 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+faq_1:
+  id: 1
+  question: "What skills do I need for this position?"
+  answer: "Basic communication skills and reliability are the most important. Technical skills can be learned on the job."
+  position_id: 1
 
-one:
-  question: MyString
-  answer: MyText
-  position: one
+faq_2:
+  id: 2
+  question: "How much time do I need to commit?"
+  answer: "We ask for at least 10 hours per week, but the schedule is flexible."
+  position_id: 1
 
-two:
-  question: MyString
-  answer: MyText
-  position: two
+faq_3:
+  id: 3
+  question: "Is this position remote or in-person?"
+  answer: "This is a hybrid position with some in-person meetings required monthly."
+  position_id: 2
