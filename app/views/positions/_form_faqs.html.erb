@@ -1,21 +1,21 @@
-<h2 class="text-2xl font-bold">Fragen und Antworten (Optional)</h2>
+<h2 class="text-2xl font-bold"><%= t('faqs.form.header') %></h2>
 <div class="bg-slate-100 rounded-lg p-6">
-  <p class="text-sm text-gray-700">Mithilfe eines FAQ-Bereichs können sie auf häufig gestellte Fragen antworten. Zum Beispiel: "Wie lange dauert ein Einsatz?" oder "Welche Voraussetzungen muss ich erfüllen?". Bitte geben Sie hier die häufigsten Fragen und Antworten an. Unser Tipp: fügen Sie mindestens drei Fragen und Antworten hinzu.</p>
+  <p class="text-sm text-gray-700"><%= t('faqs.form.description') %></p>
   <div id="faqs">
     <%= f.fields_for :frequently_asked_questions do |faq_form| %>
       <div class="faq-item border rounded border-slate-400">
         <div class="field">
-          <%= faq_form.label :question, "Frage", class: "block text-sm font-medium text-gray-700" %>
+          <%= faq_form.label :question, t('faqs.form.question_label'), class: "block text-sm font-medium text-gray-700" %>
           <%= faq_form.text_field :question, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
         </div>
         <div class="field">
-          <%= faq_form.label :answer, "Antwort", class: "block text-sm font-medium text-gray-700" %>
+          <%= faq_form.label :answer, t('faqs.form.answer_label'), class: "block text-sm font-medium text-gray-700" %>
           <%= faq_form.text_area :answer, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
         </div>
         <%= faq_form.hidden_field :_destroy %>
-        <%= link_to "Entfernen", "#", class: "remove_faq inline-block my-3 px-4 py-2 rounded-md bg-red-500 text-white border border-slate-200 hover:bg-red-700", role: 'button' %>
+        <%= link_to t('faqs.form.remove'), "#", class: "remove_faq inline-block my-3 px-4 py-2 rounded-md bg-red-500 text-white border border-slate-200 hover:bg-red-700", role: 'button' %>
       </div>
     <% end %>
   </div>
-  <%= link_to "Neue Frage und Antwort", "#", id: "add_faq", class: "mt-5 inline-block mb-8 px-4 py-2 rounded-md bg-green-500 text-black border border-slate-200 hover:bg-green-700", role: 'button' %>
+  <%= link_to t('faqs.form.add_new'), "#", id: "add_faq", class: "mt-5 inline-block mb-8 px-4 py-2 rounded-md bg-green-500 text-black border border-slate-200 hover:bg-green-700", role: 'button' %>
 </div>

@@ -1,30 +1,30 @@
-<h1 class="text-3xl my-4">Position Details</h1>
+<h1 class="text-3xl my-4"><%= t('positions.show.title') %></h1>
 <div class="mt-8 p-6 bg-white rounded-lg shadow-md border border-slate-200">
-    <h2 class="text-2xl font-semibold mb-4 text-center"><%= @position.title.present? ? @position.title : 'Titel nicht vorhanden' %></h2>
+    <h2 class="text-2xl font-semibold mb-4 text-center"><%= @position.title.present? ? @position.title : t('positions.show.no_title') %></h2>
     
     <!-- General Information -->
     <div class="mb-6">
-        <h3 class="text-xl font-bold mb-2">Allgemeine Informationen</h3>
+        <h3 class="text-xl font-bold mb-2"><%= t('positions.show.general_info') %></h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="bg-gray-100 p-4 rounded">
-                <p class="text-gray-700 whitespace-normal"><strong>Beschreibung:</strong> <%= @position.description.present? ? @position.description : 'Nicht vorhanden' %></p>
+                <p class="text-gray-700 whitespace-normal"><strong><%= t('positions.show.description') %>:</strong> <%= @position.description.present? ? @position.description : t('positions.show.not_available') %></p>
             </div>
             <div class="bg-gray-100 p-4 rounded">
-                <p class="text-gray-700 whitespace-normal"><strong>Vorteile:</strong> <%= @position.benefits.present? ? @position.benefits : 'Nicht vorhanden' %></p>
+                <p class="text-gray-700 whitespace-normal"><strong><%= t('positions.show.benefits') %>:</strong> <%= @position.benefits.present? ? @position.benefits : t('positions.show.not_available') %></p>
             </div>
             <div class="bg-gray-100 p-4 rounded">
-                <p class="text-gray-700"><strong>Wöchentlicher Zeitaufwand:</strong> <%= @position.weekly_time_commitment.present? ? "#{@position.weekly_time_commitment} Stunden" : 'Nicht vorhanden' %></p>
+                <p class="text-gray-700"><strong><%= t('positions.show.weekly_commitment') %>:</strong> <%= @position.weekly_time_commitment.present? ? "#{@position.weekly_time_commitment} Stunden" : t('positions.show.not_available') %></p>
             </div>
             <div class="bg-gray-100 p-4 rounded">
-                <p class="text-gray-700"><strong>Temporär:</strong> <%= @position.position_temporary ? 'Ja' : 'Nein' %></p>
+                <p class="text-gray-700"><strong><%= t('positions.show.temporary') %>:</strong> <%= @position.position_temporary ? t('positions.show.yes') : t('positions.show.no') %></p>
             </div>
             <div class="bg-gray-100 p-4 rounded">
-                <p class="text-gray-700"><strong>Online:</strong> <%= @position.online ? 'Ja' : 'Nein' %></p>
+                <p class="text-gray-700"><strong><%= t('positions.show.online') %>:</strong> <%= @position.online ? t('positions.show.yes') : t('positions.show.no') %></p>
             </div>
             <div class="bg-gray-100 p-4 rounded">
-                <p class="text-gray-700"><strong>Status:</strong> 
+                <p class="text-gray-700"><strong><%= t('positions.show.status') %>:</strong> 
                     <span class="<%= @position.released ? 'text-green-500' : 'text-red-500' %>">
-                        <%= @position.released ? 'Position ist freigegeben und sichtbar.' : 'Die Position wird demnächst freigegeben. Bis dahin ist sie nicht sichtbar.' %>
+                        <%= @position.released ? t('positions.show.released') : t('positions.show.not_released') %>
                     </span>
                 </p>
             </div>
@@ -33,61 +33,59 @@
 
     <!-- Skills Section -->
     <div class="mb-6">
-        <h3 class="text-xl font-bold mb-2">Erforderliche Fähigkeiten</h3>
+        <h3 class="text-xl font-bold mb-2"><%= t('positions.show.skills') %></h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="bg-gray-100 p-4 rounded">
-                <p class="text-gray-700"><strong>Kreative Fähigkeiten:</strong> <%= @position.creative_skills.present? ? @position.creative_skills : 'Nicht vorhanden' %></p>
+                <p class="text-gray-700"><strong><%= t('positions.show.creative_skills') %>:</strong> <%= @position.creative_skills.present? ? @position.creative_skills : t('positions.show.not_available') %></p>
             </div>
             <div class="bg-gray-100 p-4 rounded">
-                <p class="text-gray-700"><strong>Technische Fähigkeiten:</strong> <%= @position.technical_skills.present? ? @position.technical_skills : 'Nicht vorhanden' %></p>
+                <p class="text-gray-700"><strong><%= t('positions.show.technical_skills') %>:</strong> <%= @position.technical_skills.present? ? @position.technical_skills : t('positions.show.not_available') %></p>
             </div>
             <div class="bg-gray-100 p-4 rounded">
-                <p class="text-gray-700"><strong>Soziale Fähigkeiten:</strong> <%= @position.social_skills.present? ? @position.social_skills : 'Nicht vorhanden' %></p>
+                <p class="text-gray-700"><strong><%= t('positions.show.social_skills') %>:</strong> <%= @position.social_skills.present? ? @position.social_skills : t('positions.show.not_available') %></p>
             </div>
             <div class="bg-gray-100 p-4 rounded">
-                <p class="text-gray-700"><strong>Sprachkenntnisse:</strong> <%= @position.language_skills.present? ? @position.language_skills : 'Nicht vorhanden' %></p>
+                <p class="text-gray-700"><strong><%= t('positions.show.language_skills') %>:</strong> <%= @position.language_skills.present? ? @position.language_skills : t('positions.show.not_available') %></p>
             </div>
             <div class="bg-gray-100 p-4 rounded">
-                <p class="text-gray-700"><strong>Flexibilität:</strong> <%= @position.flexibility.present? ? @position.flexibility : 'Nicht vorhanden' %></p>
+                <p class="text-gray-700"><strong><%= t('positions.show.flexibility') %>:</strong> <%= @position.flexibility.present? ? @position.flexibility : t('positions.show.not_available') %></p>
             </div>
         </div>
     </div>
 
     <!-- Images Section -->
     <div class="mb-6">
-        <h3 class="text-xl font-bold mb-2">Bilder</h3>
+        <h3 class="text-xl font-bold mb-2"><%= t('positions.show.images') %></h3>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <% if @position.mainPicture.attached? %>
                 <div class="bg-gray-100 p-4 rounded max-w-48">
-                    <p class="text-gray-700 font-semibold">Titelbild:</p>
+                    <p class="text-gray-700 font-semibold"><%= t('positions.show.main_picture') %>:</p>
                     <%= image_tag @position.mainPicture, class: "rounded w-24" %>
                 </div>
             <% end %>
             <% if @position.picture1.attached? %>
                 <div class="bg-gray-100 p-4 rounded">
-                    <p class="text-gray-700 font-semibold">Bild 1:</p>
+                    <p class="text-gray-700 font-semibold"><%= t('positions.show.picture_1') %>:</p>
                     <%= image_tag @position.picture1, class: "rounded shadow-md w-24" %>
                 </div>
             <% end %>
             <% if @position.picture2.attached? %>
                 <div class="bg-gray-100 p-4 rounded">
-                    <p class="text-gray-700 font-semibold">Bild 2:</p>
+                    <p class="text-gray-700 font-semibold"><%= t('positions.show.picture_2') %>:</p>
                     <%= image_tag @position.picture2, class: "rounded shadow-md w-24" %>
                 </div>
             <% end %>
             <% if @position.picture3.attached? %>
                 <div class="bg-gray-100 p-4 rounded">
-                    <p class="text-gray-700 font-semibold">Bild 3:</p>
+                    <p class="text-gray-700 font-semibold"><%= t('positions.show.picture_3') %>:</p>
                     <%= image_tag @position.picture3, class: "rounded shadow-md w-24" %>
                 </div>
             <% end %>
         </div>
     </div>
-        </div>
-    </div>
+</div>
 
-    <!-- Back Button -->
-    <div class="mt-6 flex justify-end">
-        <%= link_to 'Zurück', positions_path, class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
-    </div>
+<!-- Back Button -->
+<div class="mt-6 flex justify-end">
+    <%= link_to t('positions.show.back'), positions_path, class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
 </div>

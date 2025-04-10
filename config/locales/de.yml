@@ -136,3 +136,44 @@ de:
       greeting: "Hallo"
       body: "Du hast dich gerade mit deiner E-Mail registriert. Wir werden deine Registrierung prüfen und dich dann demnächst freischalten. Du bekommst eine E-Mail, sobald die Prüfung durch ist!"
       closing: "Vielen Dank,\nDas VolunteerHeilbronn-Team"
+  positions:
+    admin_unreleased_positions:
+      header: "Es gibt einige noch nicht freigegebene Positionen!"
+      view: "Ansehen"
+      release: "Freigeben"
+    faqs:
+      form:
+        header: "Fragen und Antworten (Optional)"
+        description: "Mithilfe eines FAQ-Bereichs können Sie auf häufig gestellte Fragen antworten. Zum Beispiel: 'Wie lange dauert ein Einsatz?' oder 'Welche Voraussetzungen muss ich erfüllen?'. Bitte geben Sie hier die häufigsten Fragen und Antworten an. Unser Tipp: Fügen Sie mindestens drei Fragen und Antworten hinzu."
+        question_label: "Frage"
+        answer_label: "Antwort"
+        remove: "Entfernen"
+        add_new: "Neue Frage und Antwort"
+    general_information:
+      form:
+        header: "Allgemeine Informationen"
+        title_label: "Bezeichnung der Position"
+        title_description: "Bitte geben Sie eine Bezeichnung für die Position an..."
+        description_label: "Beschreibung der Position"
+        description_description: "Bitte geben Sie eine ausführliche Beschreibung der Position an..."
+        benefits_label: "Benefits für Ehrenamtliche"
+        benefits_description: "Welche Benefits erwarten Volunteers in Ihrem Verein?"
+    images:
+      form:
+        header: "Bilder"
+        main_picture_label: "Titelbild"
+        main_picture_description: "Laden Sie ein Titelbild hoch"
+        main_picture_feedback: "Bitte ein Titelbild hochladen"
+        additional_pictures_label: "Weitere Bilder"
+        additional_pictures_description: "Laden Sie bis zu drei weitere Bilder hoch (optional - aber empfohlen)"
+        additional_picture_feedback: "Bitte ein Bild hochladen"
+    score:
+      form:
+        header: "Score"
+        description: "Auf unserer Plattform bieten wir einen Algorithmus an, der es Usern ermöglicht durch die Beantwortung weniger Fragen die passende Stelle zu finden. Um dies für Ihre Stelle ebenfalls zu ermöglichen, benötigen wir in Folgendem einen 'Score'. Es funktioniert ganz einfach: Sie haben fünf Eigenschaften und 15 verfügbare Punkte. Verteilen Sie die Punkte über die Eigenschaften. Welche Eigenschaften werden für die ausgeschriebene Position besonders benötigt, welche eher weniger?"
+        remaining_points: "Verbleibende Punkte: %{points}"
+        creative_skills_label: "Kreativität"
+        technical_skills_label: "Technische Skills"
+        social_skills_label: "Soziale Skills"
+        language_skills_label: "Sprachliche Skills"
+        flexibility_label: "Flexibilität"

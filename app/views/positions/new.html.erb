@@ -1,7 +1,7 @@
-<h1 class="text-3xl">Neue Position erstellen</h1>
+<h1 class="text-3xl"><%= t('positions.new.title') %></h1>
 <div class="mt-8 p-6 bg-white rounded-lg shadow-md border broder-slate-200">
   <%= form_for @position, url: positions_path, html: { class: "space-y-4", multipart: true } do |f| %>
-    <h2 class="text-2xl font-bold my-4 text-red-600">Bitte achten Sie darauf, dass alle Felder in englischer Sprache ausgefüllt werden!</h2>
+    <h2 class="text-2xl font-bold my-4 text-red-600"><%= t('positions.new.subtitle') %></h2>
 
     <%= render 'form_general_information', f: f %>
     <%= render 'form_images', f: f %>
@@ -9,7 +9,7 @@
     <%= render 'form_faqs', f: f %>
 
     <!-- Checkbox-Bereich -->
-    <h2 class="text-2xl font-bold">Bestätigungen</h2>
+    <h2 class="text-2xl font-bold"><%= t('positions.new.confirmation.title') %></h2>
     <div class="bg-slate-100 rounded-lg p-6">
       <div class="gap-4">
         <!-- Checkbox: Textbeschreibungen in englischer Sprache -->
@@ -18,7 +18,7 @@
             <label class="inline-flex items-center">
               <input type="checkbox" id="english-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
               <span class="ml-2 text-sm text-gray-700">
-                Ich bestätige, dass alle Textbeschreibungen in englischer Sprache verfasst wurden.
+                <%= t('positions.new.confirmation.english_text') %>
               </span>
             </label>
           </div>
@@ -30,7 +30,7 @@
             <label class="inline-flex items-center">
               <input type="checkbox" id="terms-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
               <span class="ml-2 text-sm text-gray-700">
-                Ich habe die <a href="/agb" class="text-blue-600 underline">AGB</a> und die <a href="/datenschutz" class="text-blue-600 underline">Datenschutzerklärung</a> gelesen und akzeptiere sie.
+                <%= t('positions.new.confirmation.terms') %>
               </span>
             </label>
           </div>
@@ -40,7 +40,7 @@
 
     <!-- Submit-Button -->
     <div class="actions my-10">
-      <%= f.submit "Erstellen", id: "submit-button", class: "w-full py-2 bg-gray-400 text-white font-medium text-sm rounded-md shadow-sm cursor-not-allowed", disabled: true %>
+      <%= f.submit t('positions.new.button.create'), id: "submit-button", class: "w-full py-2 bg-gray-400 text-white font-medium text-sm rounded-md shadow-sm cursor-not-allowed", disabled: true %>
     </div>
   <% end %>
 </div>
@@ -66,16 +66,16 @@
       const charCount = field.value.length;
 
       if (charCount < minLength) {
-        counter.textContent = `Du benötigst noch mindestens ${minLength - charCount} Buchstaben`;
+        counter.textContent = t('positions.new.word_count.title', min_length: minLength - charCount);
         counter.style.color = 'red';
       } else if (charCount > perfectLength) {
-        counter.textContent = 'Zu viele Buchstaben';
+        counter.textContent = t('positions.new.word_count.too_long');
         counter.style.color = 'red';
       } else if (charCount > minlength && charCount <= goodLength) {
-        counter.textContent = '👍 Mindestlänge erreicht (könnte aber mehr sein)';
+        counter.textContent = t('positions.new.word_count.good_length');
         counter.style.color = 'green';
       } else if (charCount > goodLength && charCount <= perfectLength) {
-        counter.textContent = '👍 Perfekte länge';
+        counter.textContent = t('positions.new.word_count.perfect_length');
         counter.style.color = 'green';
       } else {
         counter.textContent = '';
@@ -118,7 +118,7 @@
       });
 
       const remainingPoints = maxPoints - totalPoints;
-      remainingPointsDisplay.textContent = `Verbleibende Punkte: ${remainingPoints}`;
+      remainingPointsDisplay.textContent = t('positions.new.remaining_points', remaining_points: remainingPoints);
       remainingPointsDisplay.style.color = remainingPoints < 0 ? 'red' : 'black';
     }
 
@@ -138,11 +138,11 @@
       if (input && feedback) {
         input.addEventListener("change", function () {
           if (input.files && input.files.length > 0) {
-            feedback.textContent = `Bild "${input.files[0].name}" wurde hochgeladen.`;
+            feedback.textContent = t('positions.new.upload_feedback.success', file_name: input.files[0].name);
             feedback.classList.remove("text-gray-500");
             feedback.classList.add("text-green-600");
           } else {
-            feedback.textContent = "Bitte ein Bild hochladen";
+            feedback.textContent = t('positions.new.upload_feedback.default');
             feedback.classList.remove("text-green-600");
             feedback.classList.add("text-gray-500");
           }
@@ -162,54 +162,20 @@
     if (addFaqButton && faqsContainer) {
       addFaqButton.addEventListener("click", function (e) {
         e.preventDefault();
-        var new_id = new Date().getTime();
-        var new_faq = document.createElement("div");
-        new_faq.classList.add("faq-item");
-        new_faq.innerHTML = `
-          <div class="my-3 p-3 border rounded border-slate-400">
-            <div class="field">
-              <label class="block text-sm font-medium text-gray-700" for="position_frequently_asked_questions_attributes_${new_id}_question">Frage</label>
-              <input class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" type="text" name="position[frequently_asked_questions_attributes][${new_id}][question]" id="position_frequently_asked_questions_attributes_${new_id}_question">
-            </div>
-            <div class="field">
-              <label class="block text-sm font-medium text-gray-700" for="position_frequently_asked_questions_attributes_${new_id}_answer">Antwort</label>
-              <textarea class="w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" name="position[frequently_asked_questions_attributes][${new_id}][answer]" id="position_frequently_asked_questions_attributes_${new_id}_answer"></textarea>
-            </div>
-            <input type="hidden" name="position[frequently_asked_questions_attributes][${new_id}][_destroy]" id="position_frequently_asked_questions_attributes_${new_id}__destroy">
-            <a href="#" class="remove_faq inline-block mb-8 mt-2 px-4 py-2 rounded-md bg-red-500 text-white border border-slate-200 hover:bg-red-700" role="button">Entfernen</a>
-          </div>`;
-        faqsContainer.appendChild(new_faq);
+        var newFaq = document.createElement("div");
+        newFaq.innerHTML = `<div class="field m-3">
+                              <label class="block">
+                                <%= t('positions.new.faq.question_label') %>
+                                <textarea name="position[faqs_attributes][0][question]" placeholder="Frage" required class="form-input rounded-lg p-2"></textarea>
+                              </label>
+                              <label class="block">
+                                <%= t('positions.new.faq.answer_label') %>
+                                <textarea name="position[faqs_attributes][0][answer]" placeholder="Antwort" required class="form-input rounded-lg p-2"></textarea>
+                              </label>
+                              <button class="bg-red-600 text-white rounded-md p-2">Entfernen</button>
+                            </div>`;
+        faqsContainer.appendChild(newFaq);
       });
-
-      faqsContainer.addEventListener("click", function (e) {
-        if (e.target && e.target.classList.contains("remove_faq")) {
-          e.preventDefault();
-          e.target.previousElementSibling.value = "1";
-          e.target.closest(".faq-item").style.display = "none";
-        }
-      });
-    }
-
-    // Checkbox logic for enabling the submit button
-    const englishCheckbox = document.getElementById("english-checkbox");
-    const termsCheckbox = document.getElementById("terms-checkbox");
-    const submitButton = document.getElementById("submit-button");
-
-    function updateSubmitButtonState() {
-      if (englishCheckbox.checked && termsCheckbox.checked) {
-        submitButton.disabled = false;
-        submitButton.classList.remove("bg-gray-400", "cursor-not-allowed");
-        submitButton.classList.add("bg-blue-600", "hover:bg-blue-700");
-      } else {
-        submitButton.disabled = true;
-        submitButton.classList.remove("bg-blue-600", "hover:bg-blue-700");
-        submitButton.classList.add("bg-gray-400", "cursor-not-allowed");
-      }
-    }
-
-    if (englishCheckbox && termsCheckbox && submitButton) {
-      englishCheckbox.addEventListener("change", updateSubmitButtonState);
-      termsCheckbox.addEventListener("change", updateSubmitButtonState);
     }
   });
 </script>

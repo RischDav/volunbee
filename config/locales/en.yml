@@ -139,6 +139,47 @@ en:
       greeting: "Hello"
       body: "You have just registered with your email. We will review your registration and unlock your account shortly. You will receive an email once the review is complete!"
       closing: "Thank you,\nThe VolunteerHeilbronn-Team"
+  positions:
+    admin_unreleased_positions:
+      header: "There are some unreleased positions!"
+      view: "View"
+      release: "Release"
+    faqs:
+      form:
+        header: "Questions and Answers (Optional)"
+        description: "With an FAQ section, you can respond to frequently asked questions. For example: 'How long does a mission take?' or 'What are the requirements?'. Please provide the most common questions and answers here. Tip: Add at least three questions and answers."
+        question_label: "Question"
+        answer_label: "Answer"
+        remove: "Remove"
+        add_new: "Add New Question and Answer"
+    general_information:
+      form:
+        header: "General Information"
+        title_label: "Position Title"
+        title_description: "Please provide a title for the position..."
+        description_label: "Position Description"
+        description_description: "Please provide a detailed description of the position..."
+        benefits_label: "Benefits for Volunteers"
+        benefits_description: "What benefits do volunteers expect in your organization?"
+    images:
+      form:
+        header: "Images"
+        main_picture_label: "Main Picture"
+        main_picture_description: "Upload a main picture"
+        main_picture_feedback: "Please upload a main picture"
+        additional_pictures_label: "Additional Pictures"
+        additional_pictures_description: "Upload up to three additional pictures (optional but recommended)"
+        additional_picture_feedback: "Please upload a picture"
+    score:
+      form:
+        header: "Score"
+        description: "On our platform, we offer an algorithm that helps users find the right position by answering a few questions. To enable this for your position as well, we need a 'Score.' It's simple: you have five attributes and 15 available points. Distribute the points across the attributes. Which attributes are most needed for the position, and which are less important?"
+        remaining_points: "Remaining points: %{points}"
+        creative_skills_label: "Creativity"
+        technical_skills_label: "Technical Skills"
+        social_skills_label: "Social Skills"
+        language_skills_label: "Language Skills"
+        flexibility_label: "Flexibility"
 
 
 
