@@ -33,14 +33,13 @@
   </head>
   <body>
     <div class="container">
-      <div class="header">Willkommen bei LetsGoVolunteer!</div>
+      <div class="header"><%= t('user_mailer.welcome_email.subject') %></div>
       <div class="content">
-        <p>Hallo <%= @user.email %>,</p>
-        <p>Du hast dich gerade mit deiner E-Mail registriert. Wir werden deine Registrierung prüfen und dich dann demnächst freischalten. Du bekommst eine E-Mail, sobald die Prüfung durch ist!</p>
+        <p><%= t('user_mailer.welcome_email.greeting') %> <%= @user.email %>,</p>
+        <p><%= t('user_mailer.welcome_email.body') %></p>
       </div>
       <div class="footer">
-        <p>Vielen Dank,</p>
-        <p>Das VolunteerHeilbronn-Team</p>
+        <p><%= t('user_mailer.welcome_email.closing') %></p>
       </div>
     </div>
   </body>

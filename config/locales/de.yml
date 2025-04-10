@@ -125,4 +125,14 @@ de:
       section9:
         title: "9. Datenaufbewahrung"
       data_storage: "Wir speichern Ihre personenbezogenen Daten nur so lange, wie es für die Erfüllung des Zwecks erforderlich ist, für den sie erhoben wurden, oder wie es gesetzlich vorgeschrieben ist."
-
+  user_mailer:
+    unlocked_welcome_email:
+      subject: "Dein Account wurde freigeschaltet!"
+      greeting: "Hallo"
+      body: "Dein Account wurde erfolgreich freigeschaltet. Du kannst dich jetzt mit deiner E-Mail-Adresse und deinem Passwort anmelden."
+      closing: "Vielen Dank,\nDas VolunteerHeilbronn-Team"
+    welcome_email:
+      subject: "Willkommen bei LetsGoVolunteer!"
+      greeting: "Hallo"
+      body: "Du hast dich gerade mit deiner E-Mail registriert. Wir werden deine Registrierung prüfen und dich dann demnächst freischalten. Du bekommst eine E-Mail, sobald die Prüfung durch ist!"
+      closing: "Vielen Dank,\nDas VolunteerHeilbronn-Team"

@@ -33,14 +33,13 @@
   </head>
   <body>
     <div class="container">
-      <div class="header">Dein Account wurde freigeschaltet!</div>
+      <div class="header"><%= t('user_mailer.unlocked_welcome_email.subject') %></div>
       <div class="content">
-        <p>Hallo <%= @user.email %>,</p>
-        <p>Dein Account wurde erfolgreich freigeschaltet. Du kannst dich jetzt mit deiner E-Mail-Adresse und deinem Passwort anmelden.</p>
+        <p><%= t('user_mailer.unlocked_welcome_email.greeting') %> <%= @user.email %>,</p>
+        <p><%= t('user_mailer.unlocked_welcome_email.body') %></p>
       </div>
       <div class="footer">
-        <p>Vielen Dank,</p>
-        <p>Das VolunteerHeilbronn-Team</p>
+        <p><%= t('user_mailer.unlocked_welcome_email.closing') %></p>
       </div>
     </div>
   </body>

@@ -128,6 +128,17 @@ en:
       section9:
         title: "9. Data Retention"
       data_storage: "We only retain your personal data as long as necessary for the purposes for which it was collected, or as required by law."
+  user_mailer:
+    unlocked_welcome_email:
+      subject: "Your account has been unlocked!"
+      greeting: "Hello"
+      body: "Your account has been successfully unlocked. You can now log in with your email address and password."
+      closing: "Thank you,\nThe VolunteerHeilbronn-Team"
+    welcome_email:
+      subject: "Welcome to LetsGoVolunteer!"
+      greeting: "Hello"
+      body: "You have just registered with your email. We will review your registration and unlock your account shortly. You will receive an email once the review is complete!"
+      closing: "Thank you,\nThe VolunteerHeilbronn-Team"
 
 
 
