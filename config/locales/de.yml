@@ -10,3 +10,34 @@ de:
       login_hint: "Sobald dieser Schritt abgeschlossen ist, können Sie sich einloggen und Ihre Informationen vervollständigen."
       back_to_login: "Zurück zum Login"
       no_user_info: "Keine Benutzerinformationen verfügbar."
+  shared:
+    footer:
+      site_name: "Volunteer-Heilbronn.de"
+      privacy_policy: "Datenschutzerklärung"
+      legal_notice: "Impressum"
+      copyright: "© 2025"
+      copyright_holder: "Die TUM Campus Heilbronn gGmbH"
+      implemented_by: "Umgesetzt von David Rischow und Mohamed Amine Jradi"
+    flash_messages:
+      close_button_label: "Schließen"
+      js:
+        no_messages: "Wenn keine Flash-Nachrichten vorhanden sind, verstecke den Container"
+        remove_message: "Flash-Nachricht entfernen"
+        check_remaining: "Prüfen, ob noch Flash-Nachrichten vorhanden sind"
+        hide_container: "Container mit Animation ausblenden"
+    navbar:
+      admin:
+        organizations: "Organisationen"
+        positions: "Stellen"
+        user_management: "User-Verwaltung"
+      organization:
+        my_organization: "Meine Organisation"
+        my_positions: "Meine Stellen"
+      profile:
+        edit_profile: "Profil bearbeiten"
+        logout: "Ausloggen"
+    organization_alert:
+      title: "Achtung"
+      description: "Bei Ihrer Organisation fehlen noch Pflichtfelder."
+      missing_info: "Fehlende Informationen:"
+      cta: "Fehlende Informationen hinzufügen"

@@ -1,14 +1,13 @@
 <div class="flash-container">
   <% flash.each do |type, message| %>
     <% color_classes = case type.to_sym
-         when :notice, :success then 'flash-success'
-         when :alert, :error then 'flash-error'
-         when :warning then 'flash-warning'
-         else 'flash-info'
-         end %>
-    
+       when :notice, :success then 'flash-success'
+       when :alert, :error then 'flash-error'
+       when :warning then 'flash-warning'
+       else 'flash-info'
+       end %>
     <div class="flash-message <%= color_classes %>">
-      <button type="button" class="close-button" aria-label="Close">
+      <button type="button" class="close-button" aria-label="<%= t('shared.flash_messages.close_button_label') %>">
         &times;
       </button>
       <strong>
@@ -21,31 +20,26 @@
     </div>
   <% end %>
 </div>
-
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const flashContainer = document.querySelector('.flash-container');
-    
-    // Wenn keine Flash-Nachrichten vorhanden sind, verstecke den Container
+    // <%= t('shared.flash_messages.js.no_messages') %>
     if (flashContainer && flashContainer.querySelectorAll('.flash-message').length === 0) {
       flashContainer.style.display = 'none';
     }
-    
     document.querySelectorAll('.close-button').forEach(button => {
       button.addEventListener('click', (event) => {
         const flashMessage = event.target.closest('.flash-message');
         if (flashMessage) {
           flashMessage.style.transition = 'opacity 0.5s ease';
           flashMessage.style.opacity = '0';
-          
           setTimeout(() => {
-            // Flash-Nachricht entfernen
+            // <%= t('shared.flash_messages.js.remove_message') %>
             flashMessage.remove();
-            
-            // Prüfen, ob noch Flash-Nachrichten vorhanden sind
+            // <%= t('shared.flash_messages.js.check_remaining') %>
             const remainingMessages = document.querySelectorAll('.flash-message');
             if (remainingMessages.length === 0 && flashContainer) {
-              // Container mit Animation ausblenden
+              // <%= t('shared.flash_messages.js.hide_container') %>
               flashContainer.style.transition = 'opacity 0.5s ease, height 0.5s ease';
               flashContainer.style.opacity = '0';
               flashContainer.style.height = '0';
@@ -59,77 +53,69 @@
     });
   });
 </script>
-
 <style>
-/* Flash Messages Container */
-.flash-container {
-  position: relative; /* Kein Fixed-Positioning, damit es nichts überlagert */
-  margin: 20px auto; /* Zentriert die Nachrichten */
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-  z-index: 10; /* Sicherstellen, dass es über normalen Inhalten liegt */
-}
-
-/* Flash Message Styles */
-.flash-message {
-  width: 60%;
-  position: relative;
-  padding: 15px 20px;
-  border-radius: 5px;
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 1.5;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  word-wrap: break-word;
-  text-align: center;
-  background-color: #fff;
-}
-
-/* Success Message */
-.flash-success {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
-}
-
-/* Error Message */
-.flash-error {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-}
-
-/* Warning Message */
-.flash-warning {
-  background-color: #fff3cd;
-  color: #856404;
-  border: 1px solid #ffeeba;
-}
-
-/* Info Message */
-.flash-info {
-  background-color: #d1ecf1;
-  color: #0c5460;
-  border: 1px solid #bee5eb;
-}
-
-/* Close Button */
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 18px;
-  font-weight: bold;
-  color: #000;
-  cursor: pointer;
-}
-
-.close-button:hover {
-  color: #555;
-}
+  /* Flash Messages Container */
+  .flash-container {
+    position: relative; /* Kein Fixed-Positioning, damit es nichts überlagert */
+    margin: 20px auto; /* Zentriert die Nachrichten */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    z-index: 10; /* Sicherstellen, dass es über normalen Inhalten liegt */
+  }
+  /* Flash Message Styles */
+  .flash-message {
+    width: 60%;
+    position: relative;
+    padding: 15px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.5;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word;
+    text-align: center;
+    background-color: #fff;
+  }
+  /* Success Message */
+  .flash-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+  /* Error Message */
+  .flash-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+  /* Warning Message */
+  .flash-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+  }
+  /* Info Message */
+  .flash-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+  }
+  /* Close Button */
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+  }
+  .close-button:hover {
+    color: #555;
+  }
 </style>

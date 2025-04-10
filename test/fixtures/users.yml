@@ -1,16 +1,5 @@
-user_1:
+admin:
   id: 1
-  email: "admin@example.com"
-  encrypted_password: "password"
-  organization_id: 1
-  role: 2 # assuming 2 is admin
-  released: true
-  confirmed_at: <%= Time.now %>
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
-
-user_2:
-  id: 2
   email: "org_admin@volnet.org"
   encrypted_password: "password"
   organization_id: 1
@@ -20,8 +9,8 @@ user_2:
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>
 
-user_3:
-  id: 3
+regular_user:
+  id: 0
   email: "regular@example.com"
   encrypted_password: "password"
   organization_id: null
