@@ -1,57 +1,54 @@
 <div class="container mx-auto py-8 px-4 max-w-4xl">
-  <h1 class="text-3xl font-bold mb-8 text-center">Impressum</h1>
+  <h1 class="text-3xl font-bold mb-8 text-center"><%= t('static_pages.imprint.title') %></h1>
   
   <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-    <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Angaben gemäß § 5 TMG</h2>
-    <p class="mb-1">Die TUM Campus Heilbronn gGmbH</p>
-    <p class="mb-1">Student Services</p>
-    <p class="mb-1">Bildungscampus 2</p>
-    <p class="mb-1">74076 Heilbronn</p>
-    <p class="mb-4">Deutschland</p>
+    <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2"><%= t('static_pages.imprint.tmg_section') %></h2>
+    <p class="mb-1"><%= t('static_pages.imprint.company_name') %></p>
+    <p class="mb-1"><%= t('static_pages.imprint.department') %></p>
+    <p class="mb-1"><%= t('static_pages.imprint.address_line_1') %></p>
+    <p class="mb-1"><%= t('static_pages.imprint.address_line_2') %></p>
+    <p class="mb-4"><%= t('static_pages.imprint.country') %></p>
     
-    <p class="mb-1"><span class="font-medium">Telefon:</span> +49 (0) 7131 264180</p>
-    <p class="mb-1"><span class="font-medium">E-Mail:</span> info.hn@chn.tum.de</p>
-    <p class="mb-1"><span class="font-medium">Web:</span> <a href="https://www.chn.tum.de" class="text-blue-600 hover:underline">www.chn.tum.de</a></p>
+    <p class="mb-1"><span class="font-medium"><%= t('static_pages.imprint.phone_label') %>:</span> +49 (0) 7131 264180</p>
+    <p class="mb-1"><span class="font-medium"><%= t('static_pages.imprint.email_label') %>:</span> info.hn@chn.tum.de</p>
+    <p class="mb-1"><span class="font-medium"><%= t('static_pages.imprint.web_label') %>:</span> <a href="https://www.chn.tum.de" class="text-blue-600 hover:underline">www.chn.tum.de</a></p>
   </div>
   
   <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-    <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Vertretungsberechtigte Geschäftsführer</h2>
-    <p class="mb-1">Prof. Dr. Helmut Krcmar • Daniel A. Gottschald</p>
+    <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2"><%= t('static_pages.imprint.executives_title') %></h2>
+    <p class="mb-1"><%= t('static_pages.imprint.executives') %></p>
   </div>
   
   <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-    <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Sitz der Gesellschaft</h2>
-    <p class="mb-1">Heilbronn, Deutschland</p>
+    <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2"><%= t('static_pages.imprint.headquarters_title') %></h2>
+    <p class="mb-1"><%= t('static_pages.imprint.headquarters') %></p>
   </div>
   
   <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-    <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Rechtsform und Register</h2>
-    <p class="mb-1">Gemeinnützige Gesellschaft mit beschränkter Haftung</p>
-    <p class="mb-1">Handelsregister: HRB 765706, Amtsgericht Stuttgart</p>
+    <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2"><%= t('static_pages.imprint.legal_form_title') %></h2>
+    <p class="mb-1"><%= t('static_pages.imprint.legal_form') %></p>
+    <p class="mb-1"><%= t('static_pages.imprint.register') %></p>
   </div>
   
   <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-    <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Umsatzsteuer-Identifikationsnummer</h2>
-    <p class="mb-1">DE319371320</p>
+    <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2"><%= t('static_pages.imprint.tax_id_title') %></h2>
+    <p class="mb-1"><%= t('static_pages.imprint.tax_id') %></p>
   </div>
   
   <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-    <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Inhaltlich Verantwortliche gem. § 18 Abs. 2 MStV</h2>
-    <p class="mb-1">David Rischow</p>
-    <p class="mb-1">Die TUM Campus Heilbronn gGmbH</p>
-    <p class="mb-1">Bildungscampus 2</p>
-    <p class="mb-1">74076 Heilbronn</p>
-    <p class="mb-1">Deutschland</p>
+    <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2"><%= t('static_pages.imprint.responsible_title') %></h2>
+    <p class="mb-1"><%= t('static_pages.imprint.responsible') %></p>
+    <p class="mb-1"><%= t('static_pages.imprint.responsible_address') %></p>
   </div>
   
   <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-    <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Verbraucherstreitbeilegung</h2>
-    <p class="mb-4">Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung bereit, die Sie unter <a href="https://ec.europa.eu/consumers/odr" class="text-blue-600 hover:underline">ec.europa.eu/consumers/odr</a> finden.</p>
-    <p class="mb-1">Zur Teilnahme an einem Streitbeilegungsverfahren sind wir nicht bereit und nicht verpflichtet. Gerne klären wir etwaige Meinungsverschiedenheiten im direkten Austausch mit Ihnen. Bei Fragen und Problemen kontaktieren Sie uns daher bitte.</p>
+    <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2"><%= t('static_pages.imprint.dispute_resolution_title') %></h2>
+    <p class="mb-4"><%= t('static_pages.imprint.dispute_resolution') %></p>
+    <p class="mb-1"><%= t('static_pages.imprint.dispute_resolution_contact') %></p>
   </div>
   
   <div class="bg-white rounded-lg shadow-md p-6">
-    <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Sinn und Zweck der Webseite</h2>
-    <p class="mb-1">Diese Plattform dient dazu, Studierenden der Technischen Universität München mit Ehrenamtlichen Vereinen und Organisationen zu vernetzen.</p>
+    <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2"><%= t('static_pages.imprint.purpose_title') %></h2>
+    <p class="mb-1"><%= t('static_pages.imprint.purpose') %></p>
   </div>
 </div>

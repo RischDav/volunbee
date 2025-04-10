@@ -14,35 +14,124 @@ en:
       back_to_login: "Back to Login"
       no_user_info: "No user information available."
   shared:
-      footer:
-        site_name: "Volunteer-Heilbronn.de"
-        privacy_policy: "Privacy Policy"
-        legal_notice: "Legal Notice"
-        copyright: "© 2025"
-        copyright_holder: "Die TUM Campus Heilbronn gGmbH"
-        implemented_by: "Implemented by David Rischow and Mohamed Amine Jradi"
-      flash_messages:
-        close_button_label: "Close"
-        js:
-          no_messages: "If no flash messages are present, hide the container"
-          remove_message: "Remove flash message"
-          check_remaining: "Check if any flash messages remain"
-          hide_container: "Hide container with animation"
-      navbar:
-        admin:
-          organizations: "Organizations"
-          positions: "Positions"
-          user_management: "User Management"
-        organization:
-          my_organization: "My Organization"
-          my_positions: "My Positions"
-        profile:
-          edit_profile: "Edit Profile"
-          logout: "Logout"
-      organization_alert:
-        title: "Attention"
-        description: "Your organization is missing required fields."
-        missing_info: "Missing information:"
-        cta: "Add missing information"
+    footer:
+      site_name: "Volunteer-Heilbronn.de"
+      privacy_policy: "Privacy Policy"
+      legal_notice: "Legal Notice"
+      copyright: "© 2025"
+      copyright_holder: "Die TUM Campus Heilbronn gGmbH"
+      implemented_by: "Implemented by David Rischow and Mohamed Amine Jradi"
+    flash_messages:
+      close_button_label: "Close"
+      js:
+        no_messages: "If no flash messages are present, hide the container"
+        remove_message: "Remove flash message"
+        check_remaining: "Check if any flash messages remain"
+        hide_container: "Hide container with animation"
+    navbar:
+      admin:
+        organizations: "Organizations"
+        positions: "Positions"
+        user_management: "User Management"
+      organization:
+        my_organization: "My Organization"
+        my_positions: "My Positions"
+      profile:
+        edit_profile: "Edit Profile"
+        logout: "Logout"
+    organization_alert:
+      title: "Attention"
+      description: "Your organization is missing required fields."
+      missing_info: "Missing information:"
+      cta: "Add missing information"
+  static_pages:
+    imprint:
+      title: "Imprint"
+      tmg_section: "Details according to § 5 TMG"
+      company_name: "TUM Campus Heilbronn gGmbH"
+      department: "Student Services"
+      address_line_1: "Bildungscampus 2"
+      address_line_2: "74076 Heilbronn"
+      country: "Germany"
+      phone_label: "Phone"
+      email_label: "Email"
+      web_label: "Website"
+      executives_title: "Authorized Managing Directors"
+      executives: "Prof. Dr. Helmut Krcmar • Daniel A. Gottschald"
+      headquarters_title: "Registered Office"
+      headquarters: "Heilbronn, Germany"
+      legal_form_title: "Legal Form and Register"
+      legal_form: "Non-profit limited liability company"
+      register: "Commercial Register: HRB 765706, Stuttgart District Court"
+      tax_id_title: "VAT Identification Number"
+      tax_id: "DE319371320"
+      responsible_title: "Person responsible according to § 18 Abs. 2 MStV"
+      responsible: "David Rischow"
+      responsible_address: "TUM Campus Heilbronn gGmbH, Bildungscampus 2, 74076 Heilbronn, Germany"
+      dispute_resolution_title: "Consumer Dispute Resolution"
+      dispute_resolution: "The European Commission provides an online dispute resolution platform at ec.europa.eu/consumers/odr"
+      dispute_resolution_contact: "For disputes, we are not willing or obligated to participate in a dispute resolution procedure. Please contact us directly for any concerns."
+      purpose_title: "Purpose of the Website"
+      purpose: "This platform aims to connect students of the Technical University of Munich with volunteer organizations and associations."
+    privacy:
+      title: "Privacy Policy"
+      section1:
+        title: "1. Overview"
+        text: "The following information provides an overview of what happens to your personal data when you visit this website. Personal data is any data that can be used to identify you personally."
+      responsible:
+        title: "Responsible for Data Processing"
+        name: "TUM Campus Heilbronn gGmbH"
+        address: "Bildungscampus 2, 74076 Heilbronn"
+        country: "Germany"
+      phone: "Phone"
+      email: "Email"
+      section2:
+        title: "2. Types of Data Processed"
+      data_type1: "Personal Data (e.g., name, address)"
+      data_type2: "Contact Data (e.g., email, phone number)"
+      data_type3: "Content Data (e.g., text inputs, photographs, videos)"
+      data_processing: "We only process data intended for public access. Private data requiring confidentiality is not collected (except for login passwords)."
+      section3:
+        title: "3. Purpose of Data Processing"
+      data_processing_purpose: "We process your personal data for the following purposes:"
+      purpose1: "Provision of our platform for connecting students with volunteer organizations"
+      purpose2: "Ensuring security and functionality of our website"
+      purpose3: "Legal obligations or legitimate interests"
+      section4:
+        title: "4. Legal Basis"
+      legal_basis: "The processing of your data is based on the following legal grounds:"
+      legal_basis1: "Consent (Art. 6 (1)(a) GDPR)"
+      legal_basis2: "Contract fulfillment and pre-contractual requests (Art. 6 (1)(b) GDPR)"
+      legal_basis3: "Legal obligation (Art. 6 (1)(c) GDPR)"
+      legal_basis4: "Legitimate interests (Art. 6 (1)(f) GDPR)"
+      section5:
+        title: "5. Your Rights"
+      rights: "You have the right to:"
+      right1: "Obtain information about your stored personal data (Art. 15 GDPR)"
+      right2: "Request correction of incorrect personal data (Art. 16 GDPR)"
+      right3: "Request deletion of your data (Art. 17 GDPR)"
+      right4: "Request limitation of processing (Art. 18 GDPR)"
+      right5: "Data portability (Art. 20 GDPR)"
+      right6: "Object to processing (Art. 21 GDPR)"
+      right7: "Withdraw consent given"
+      right8: "File a complaint with a supervisory authority"
+      section6:
+        title: "6. Cookies"
+      cookies: "Our website uses cookies. These are small text files stored on your device. Some are necessary to keep the website functional, while others help improve usability."
+      section7:
+        title: "7. Data Security"
+      security: "We implement appropriate technical and organizational measures in accordance with Article 32 of the GDPR, considering the state of the art, implementation costs, and the nature, scope, context, and purposes of processing."
+      section8:
+        title: "8. Changes to Privacy Policy"
+      changes: "We reserve the right to amend this privacy policy to comply with current legal requirements or to implement changes to our services in the privacy policy."
+      date: "Date: April 10, 2025"
+      section9:
+        title: "9. Data Retention"
+      data_storage: "We only retain your personal data as long as necessary for the purposes for which it was collected, or as required by law."
+
+
+
+
+
 
 
