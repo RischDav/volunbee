@@ -388,7 +388,71 @@ en:
   layouts:
     application:
       title: "Volunteer Heilbronn Dashboard"
-
+  devise:
+      shared:
+        login: "Login"
+        register: "Register"
+        forgot_password: "Forgot Password?"
+        no_confirmation: "Didn't receive a confirmation email?"
+        no_unlock_instructions: "Didn't receive unlock instructions?"
+        login_with: "Login with %{provider}"
+      unlocks:
+        resend_instructions: "Resend unlock instructions"
+        resend_button: "Resend unlock instructions"
+      sessions:
+        login: "Login"
+        email: "Email"
+        password: "Password"
+        remember_me: "Remember me"
+        login_button: "Login"
+      registrations:
+        new:
+          title: "Sign up"
+          email_label: "Email"
+          password_label: "Password"
+          password_confirmation_label: "Confirm Password"
+          organization_name_label: "Organization Name"
+          organization_name_hint: "If applicable"
+          terms_and_conditions: "I have read and accept the <a href='/terms' class='text-blue-600 underline'>Terms and Conditions</a> and the <a href='/privacy-policy' class='text-blue-600 underline'>Privacy Policy</a>"
+          submit_button: "Sign up"
+          submit_button_disabled: "Sign up (disabled)"
+          back_link: "Back"
+        edit:
+          title: "Edit Profile"
+          email_label: "Email"
+          password_label: "New Password"
+          password_confirmation_label: "Confirm New Password"
+          current_password_label: "Current Password"
+          current_password_hint: "(we need your current password to confirm changes)"
+          update_button: "Update"
+          delete_account: "Delete Account"
+          delete_account_warning: "This action cannot be undone."
+          delete_account_confirm: "Are you sure?"
+          back_link: "Back"
+      passwords:
+        new:
+          title: "Forgot your password?"
+          email_label: "Email"
+          submit_button: "Send reset instructions"
+        edit:
+          title: "Change your password"
+          password_label: "New Password"
+          password_confirmation_label: "Confirm New Password"
+          password_min_length: "characters minimum"
+          submit_button: "Change Password"
+      mailer:
+        confirmation_instructions:
+          header: "Welcome to LetsGoVolunteer!"
+          greeting: "Hello, %{email}!"
+          confirmation_link: "You can confirm your email address via the following link:"
+          confirm_link_text: "Confirm my account"
+          welcome_message: "You have just registered with your email address. We will review your registration and activate your account soon. You will receive an email once the review is complete!"
+          thank_you: "Thank you,"
+          team_name: "The VolunteerHeilbronn Team"
+        email_changed:
+          greeting: "Hello, %{email}!"
+          notification: "We're contacting you to notify you that your email is being changed to %{email}."
+          notification_confirmed: "We're contacting you to notify you that your email has been changed to %{email}."
 
 
 

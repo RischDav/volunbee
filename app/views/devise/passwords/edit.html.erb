@@ -1,25 +1,25 @@
 <div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg border border-slate-200">
-  <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">Passwort ändern</h2>
+  <h2 class="text-2xl font-bold text-center text-blue-600 mb-6"><%= t('devise.passwords.edit.title') %></h2>
 
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "space-y-4" }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
     <%= f.hidden_field :reset_password_token %>
 
     <div class="field">
-      <%= f.label :password, "Neues Passwort", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :password, t('devise.passwords.edit.password_label'), class: "block text-sm font-medium text-gray-700" %>
       <% if @minimum_password_length %>
-        <em class="text-sm text-gray-500">(<%= @minimum_password_length %> Zeichen mindestens)</em>
+        <em class="text-sm text-gray-500">(<%= @minimum_password_length %> <%= t('devise.passwords.edit.password_min_length') %>)</em>
       <% end %>
       <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 
     <div class="field">
-      <%= f.label :password_confirmation, "Neues Passwort bestätigen", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :password_confirmation, t('devise.passwords.edit.password_confirmation_label'), class: "block text-sm font-medium text-gray-700" %>
       <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 
     <div class="actions">
-      <%= f.submit "Passwort ändern", class: "w-full py-2 px-4 bg-blue-600 text-white font-medium text-sm rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+      <%= f.submit t('devise.passwords.edit.submit_button'), class: "w-full py-2 px-4 bg-blue-600 text-white font-medium text-sm rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
     </div>
   <% end %>
 

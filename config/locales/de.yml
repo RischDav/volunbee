@@ -381,6 +381,72 @@ de:
       not_available: "Nicht vorhanden"
       edit: "Nochmal bearbeiten"
       back: "Zurück"
-    layouts:
-        application:
-          title: "Volunteer Heilbronn Dashboard"
+  layouts:
+      application:
+        title: "Volunteer Heilbronn Dashboard"
+  devise:
+    shared:
+      login: "Zum Login"
+      register: "Registrieren"
+      forgot_password: "Passwort vergessen?"
+      no_confirmation: "Sie haben keine Bestätigungsmail erhalten?"
+      no_unlock_instructions: "Sie haben keine Anweisungen zum Freischalten erhalten?"
+      login_with: "Einloggen mit %{provider}"
+    unlocks:
+      resend_instructions: "Resend unlock instructions"
+      resend_button: "Resend unlock instructions"
+    sessions:
+      login: "Einloggen"
+      email: "E-Mail"
+      password: "Passwort"
+      remember_me: "Merke meinen Login"
+      login_button: "Einloggen"
+    registrations:
+      new:
+        title: "Registrieren"
+        email_label: "Email"
+        password_label: "Passwort"
+        password_confirmation_label: "Passwort bestätigen"
+        organization_name_label: "Name der Organisation"
+        organization_name_hint: "Falls zutreffend"
+        terms_and_conditions: "Ich habe die <a href='/agb' class='text-blue-600 underline'>AGB</a> und die <a href='/datenschutz' class='text-blue-600 underline'>Datenschutzerklärung</a> gelesen und akzeptiere sie."
+        submit_button: "Registrieren"
+        submit_button_disabled: "Registrieren (deaktiviert)"
+        back_link: "Zurück"
+      edit:
+        title: "Profil bearbeiten"
+        email_label: "Email"
+        password_label: "Neues Passwort"
+        password_confirmation_label: "Neues Passwort bestätigen"
+        current_password_label: "Aktuelles Passwort"
+        current_password_hint: "(wir benötigen Ihr aktuelles Passwort zur Bestätigung der Änderungen)"
+        update_button: "Aktualisieren"
+        delete_account: "Account löschen"
+        delete_account_warning: "Diese Aktion kann nicht rückgängig gemacht werden."
+        delete_account_confirm: "Sind Sie sicher?"
+        back_link: "Zurück"
+    passwords:
+      new:
+        title: "Passwort vergessen?"
+        email_label: "Email"
+        submit_button: "Anweisungen zum Zurücksetzen senden"
+      edit:
+        title: "Passwort ändern"
+        password_label: "Neues Passwort"
+        password_confirmation_label: "Neues Passwort bestätigen"
+        password_min_length: "Zeichen mindestens"
+        submit_button: "Passwort ändern"
+    mailer:
+      confirmation_instructions:
+        header: "Willkommen bei LetsGoVolunteer!"
+        greeting: "Hallo, %{email}!"
+        confirmation_link: "Du kannst deine E-Mail-Adresse über den folgenden Link bestätigen:"
+        confirm_link_text: "Bestätige meinen Account"
+        welcome_message: "Du hast dich gerade mit deiner E-Mail registriert. Wir werden deine Registrierung prüfen und dich dann demnächst freischalten. Du bekommst eine E-Mail, sobald die Prüfung durch ist!"
+        thank_you: "Vielen Dank,"
+        team_name: "Das VolunteerHeilbronn-Team"
+      email_changed:
+        greeting: "Hallo, %{email}!"
+        notification: "Wir kontaktieren dich, um dich darüber zu informieren, dass deine E-Mail-Adresse auf %{email} geändert wird."
+        notification_confirmed: "Wir kontaktieren dich, um dich darüber zu informieren, dass deine E-Mail-Adresse auf %{email} geändert wurde."
+

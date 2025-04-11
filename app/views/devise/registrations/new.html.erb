@@ -1,16 +1,16 @@
 <div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg border border-slate-200">
-  <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">Sign up</h2>
+  <h2 class="text-2xl font-bold text-center text-blue-600 mb-6"><%= t('devise.registrations.new.title') %></h2>
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-4" }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
 
     <div class="field">
-      <%= f.label :email, "Email", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :email, t('devise.registrations.new.email_label'), class: "block text-sm font-medium text-gray-700" %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 
     <div class="field">
-      <%= f.label :password, "Passwort", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :password, t('devise.registrations.new.password_label'), class: "block text-sm font-medium text-gray-700" %>
       <% if @minimum_password_length %>
         <em class="text-sm text-gray-500">(<%= @minimum_password_length %> characters minimum)</em>
       <% end %>
@@ -18,28 +18,27 @@
     </div>
 
     <div class="field">
-      <%= f.label :password_confirmation, "Password bestätigen", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :password_confirmation, t('devise.registrations.new.password_confirmation_label'), class: "block text-sm font-medium text-gray-700" %>
       <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 
     <div class="field">
-      <%= f.label :organization_name, "Name Ihrer Organisation", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :organization_name, t('devise.registrations.new.organization_name_label'), class: "block text-sm font-medium text-gray-700" %>
       <%= f.text_field :organization_name, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
-      <p class="text-sm text-gray-700">Bitte geben sie den vollen Namen mit Rechtsform an (zum Beispiel gGmbH oder e.V.)</p>
+      <p class="text-sm text-gray-700"><%= t('devise.registrations.new.organization_name_hint') %></p>
     </div>
 
-    <!-- Checkbox für AGB und Datenschutzerklärung -->
     <div class="field mt-4">
       <label class="inline-flex items-center">
         <input type="checkbox" id="terms-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
         <span class="ml-2 text-sm text-gray-700">
-          Ich habe die <a href="/agb" class="text-blue-600 underline">AGB</a> und die <a href="/datenschutz" class="text-blue-600 underline">Datenschutzerklärung</a> gelesen und akzeptiere sie.
+          <%= t('devise.registrations.new.terms_and_conditions') %>
         </span>
       </label>
     </div>
 
     <div class="actions mt-4">
-      <%= f.submit "Sign up", id: "submit-button", class: "w-full py-2 px-4 bg-gray-400 text-white font-medium text-sm rounded-md shadow-sm cursor-not-allowed", disabled: true %>
+      <%= f.submit t('devise.registrations.new.submit_button'), id: "submit-button", class: "w-full py-2 px-4 bg-gray-400 text-white font-medium text-sm rounded-md shadow-sm cursor-not-allowed", disabled: true %>
     </div>
   <% end %>
 
