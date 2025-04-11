@@ -33,14 +33,14 @@
   </head>
   <body>
     <div class="container">
-      <div class="header">Änderung der Organisationsdaten</div>
+      <div class="header"><%= t('admin_mailer.organization_change_email.header') %></div>
       <div class="content">
-        <p>Hallo Admin,</p>
-        <p>Eine Organisation hat ihre Daten geändert. Bitte überprüfe die Änderungen und gib die Organisation frei, damit die Änderungen auf der Plattform sichtbar sind.</p>
+        <p><%= t('admin_mailer.organization_change_email.greeting') %></p>
+        <p><%= t('admin_mailer.organization_change_email.message') %></p>
       </div>
       <div class="footer">
-        <p>Vielen Dank,</p>
-        <p>Das VolunteerHeilbronn-Team</p>
+        <p><%= t('admin_mailer.organization_change_email.thank_you') %></p>
+        <p><%= t('admin_mailer.organization_change_email.team') %></p>
       </div>
     </div>
   </body>

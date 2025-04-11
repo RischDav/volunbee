@@ -33,15 +33,15 @@
   </head>
   <body>
     <div class="container">
-      <div class="header">Neue Registrierung</div>
+      <div class="header"><%= t('admin_mailer.new_registration_email.header') %></div>
       <div class="content">
-        <p>Hallo Admin,</p>
-        <p>Eine neue Organisation hat sich auf Volunteer-Heilbronn registriert. Bitte überprüfe die Organisation und schalte sie frei.</p>
-        <p><strong>WICHTIG:</strong> Beachte, dass der Nutzer, der die Organisation verwaltet, und die Organisation einzeln freigeschaltet werden müssen.</p>
+        <p><%= t('admin_mailer.new_registration_email.greeting') %></p>
+        <p><%= t('admin_mailer.new_registration_email.message') %></p>
+        <p><strong><%= t('admin_mailer.new_registration_email.important') %></strong></p>
       </div>
       <div class="footer">
-        <p>Vielen Dank,</p>
-        <p>Das VolunteerHeilbronn-Team</p>
+        <p><%= t('admin_mailer.new_registration_email.thank_you') %></p>
+        <p><%= t('admin_mailer.new_registration_email.team') %></p>
       </div>
     </div>
   </body>

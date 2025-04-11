@@ -33,14 +33,14 @@
   </head>
   <body>
     <div class="container">
-      <div class="header">Neue Position hinzugefügt</div>
+      <div class="header"><%= t('admin_mailer.new_position_email.header') %></div>
       <div class="content">
-        <p>Hallo Admin,</p>
-        <p>Eine Organisation hat eine neue verfügbare Position hinzugefügt. Bitte überprüfe diese und schalte sie frei.</p>
+        <p><%= t('admin_mailer.new_position_email.greeting') %></p>
+        <p><%= t('admin_mailer.new_position_email.message') %></p>
       </div>
       <div class="footer">
-        <p>Vielen Dank,</p>
-        <p>Das VolunteerHeilbronn-Team</p>
+        <p><%= t('admin_mailer.new_position_email.thank_you') %></p>
+        <p><%= t('admin_mailer.new_position_email.team') %></p>
       </div>
     </div>
   </body>
