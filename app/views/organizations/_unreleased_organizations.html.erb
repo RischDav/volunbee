@@ -1,14 +1,14 @@
 <div class="bg-yellow-600 p-4 rounded-md">
-  <div class="text-xl">Es gibt einige noch nicht freigegebene Organisationen!</div>
+  <div class="text-xl"><%= t('organization.unreleased.title') %></div>
   <% organizations.each do |organization| %>
-    <div class="mt-8 p-6 bg-white rounded-lg shadow-md border broder-slate-200">
+    <div class="mt-8 p-6 bg-white rounded-lg shadow-md border border-slate-200">
       <%= render partial: 'organization_logo', locals: { organization: organization } %>
       <h2 class="text-2xl font-semibold mb-4"><%= organization.name %></h2>
-      <p class="text-gray-700 mb-2"><strong>Email:</strong> <%= organization.email %></p>
-      <p class="text-gray-700 mb-2"><strong>Contact Number:</strong> <%= organization.contact_number %></p>
-      <p class="text-gray-700 mb-2"><strong>Approved:</strong> <%= organization.released ? 'Yes' : 'No' %></p>
-      <%= link_to 'Daten einsehen', organization_path(organization.id), class: "mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
-      <%= link_to 'Freigeben', release_organization_path(organization), method: :patch, class: "mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
+      <p class="text-gray-700 mb-2"><strong><%= t('organization.unreleased.card.email') %>:</strong> <%= organization.email %></p>
+      <p class="text-gray-700 mb-2"><strong><%= t('organization.unreleased.card.contact_number') %>:</strong> <%= organization.contact_number %></p>
+      <p class="text-gray-700 mb-2"><strong><%= t('organization.unreleased.card.released') %>:</strong> <%= organization.released ? t('yes') : t('no') %></p>
+      <%= link_to t('organization.unreleased.card.view_data'), organization_path(organization.id), class: "mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
+      <%= link_to t('organization.unreleased.card.release'), release_organization_path(organization), method: :patch, class: "mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
     </div>
   <% end %>
 </div>

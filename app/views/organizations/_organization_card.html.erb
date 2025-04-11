@@ -1,7 +1,7 @@
 <div class="mt-8 p-6 bg-white rounded-lg shadow-md border border-slate-200">
   <% if unreleased.present? %>
     <div class="mb-4 py-2 px-4 bg-yellow-100 text-yellow-800 rounded">
-      Diese Organisation wartet auf Freigabe
+      <%= t('organization.card.awaiting_approval') %>
     </div>
   <% end %>
 
@@ -10,26 +10,26 @@
       <%= image_tag organization.logo, style: "max-width: 200px;", class: "rounded" %>
     </div>
   <% end %>
-  
+
   <h2 class="text-2xl font-semibold mb-4"><%= organization.name %></h2>
-  
+
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
     <div class="bg-gray-100 p-4 rounded">
-      <p class="text-gray-700"><strong>Email:</strong> <%= organization.email.presence || "Nicht verfügbar" %></p>
+      <p class="text-gray-700"><strong><%= t('organization.card.email') %>:</strong> <%= organization.email.presence || t('organization.card.not_available') %></p>
     </div>
     <div class="bg-gray-100 p-4 rounded">
-      <p class="text-gray-700"><strong>Telefonnummer:</strong> <%= organization.contact_number.presence || "Nicht verfügbar" %></p>
+      <p class="text-gray-700"><strong><%= t('organization.card.phone_number') %>:</strong> <%= organization.contact_number.presence || t('organization.card.not_available') %></p>
     </div>
   </div>
-  
+
   <div class="mt-4 flex space-x-2">
-    <%= link_to 'Details', organization_path(organization), class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
-    
+    <%= link_to t('organization.card.details'), organization_path(organization), class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
+
     <% if admin_actions %>
       <% if unreleased.present? %>
-        <%= button_to 'Freigeben', release_organization_path(organization), method: :patch, class: "px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" %>
+        <%= button_to t('organization.card.approve'), release_organization_path(organization), method: :patch, class: "px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" %>
       <% else %>
-        <%= button_to 'Sperren', lock_organization_path(organization), method: :patch, class: "px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700" %>
+        <%= button_to t('organization.card.lock'), lock_organization_path(organization), method: :patch, class: "px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700" %>
       <% end %>
     <% end %>
   </div>

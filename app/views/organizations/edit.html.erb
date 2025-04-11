@@ -1,64 +1,64 @@
-<h1 class="text-3xl text-center font-bold">Bearbeiten Sie Ihre Organisation</h1>
-<p class="text-sm text-gray-700 text-center">Mit * angegebenen Felder sind Pflichtfelder</p>
+<h1 class="text-3xl text-center font-bold"><%= t('organizations.edit.title') %></h1>
+<p class="text-sm text-gray-700 text-center"><%= t('organizations.edit.required_fields') %></p>
 <div class="mt-8 p-6 bg-white rounded-lg shadow-md border broder-slate-200">
   <%= form_for @organization, url: organization_path, html: { method: :put, class: "space-y-4" } do |f| %>
 <div class="bg-slate-100 rounded-lg p-6">
-<h2 class="text-2xl font-bold">Allgemeine Informationen</h2>
+<h2 class="text-2xl font-bold"><%= t('organizations.edit.general_info') %></h2>
 <div class="grid grid-cols-3 gap-4">
 
   <div class="field">
-    <%= f.label :name, "Name*", class: "block text-lg font-medium text-gray-700" %>
+    <%= f.label :name, t('organizations.edit.name'), class: "block text-lg font-medium text-gray-700" %>
     <%= f.text_field :name, class: "w-full my-3 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
-    <p class="text-sm text-gray-700">Bitte geben sie den vollen Namen mit Rechtsform an (zum Beispiel gGmbH oder e.V.)</p>
+    <p class="text-sm text-gray-700"><%= t('organizations.edit.name_hint') %></p>
   </div>
 
   <div class="field">
-    <%= f.label :contact_person, "Ansprechpartner:in*", class: "block text-lg font-medium text-gray-700" %>
+    <%= f.label :contact_person, t('organizations.edit.contact_person'), class: "block text-lg font-medium text-gray-700" %>
     <%= f.text_field :contact_person, class: "w-full my-3 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
-    <p class="text-sm text-gray-700">Geben Sie den Vor und Nachnamen der Ansprechpartner:in für interessierte ein.</p>
+    <p class="text-sm text-gray-700"><%= t('organizations.edit.contact_person_hint') %></p>
   </div>
 
   <div class="field">
-    <%= f.label :email, "Kontakt-Email*", class: "block text-lg font-medium text-gray-700" %>
+    <%= f.label :email, t('organizations.edit.contact_email'), class: "block text-lg font-medium text-gray-700" %>
     <%= f.email_field :email, class: "w-full my-3 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
   </div>
 
   <div class="field">
-    <%= f.label :contact_number, "Telefonnummer*", class: "block text-lg font-medium text-gray-700" %>
+    <%= f.label :contact_number, t('organizations.edit.phone_number'), class: "block text-lg font-medium text-gray-700" %>
     <%= f.text_field :contact_number, class: "w-full my-3 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
-    <p class="text-sm text-gray-700">Bitte geben Sie die Landesvorwahl mit an (Deutschland: +49)</p>
+    <p class="text-sm text-gray-700"><%= t('organizations.edit.phone_number_hint') %></p>
   </div>
 
 
 </div>
 </div>
 <div class="bg-slate-100 rounded-lg p-6">
-<h2 class="text-2xl font-bold">Beschreibung*</h2>
+<h2 class="text-2xl font-bold"><%= t('organizations.edit.description_title') %></h2>
 <div class="gap-4">
     <div class="field">
     <%= f.text_area :description, class: "w-full mt-2 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     <!-- <div id="word-count-description" class="mt-1 text-sm rounded-md focus:outline-none"></div> -->
-    <p class="text-sm text-gray-700">Bitte beschreiben Sie Ihre Organisation <b class="text-red-600">in Englischer Sprache</b>. Welche Schwerpunkte verfolgen Sie? Welchen Mehrwert bieten Sie? Denken Sie daran, dass Leserinnen und Leser Ihre Organisation möglicherweise noch nicht kennen.</p>
+    <p class="text-sm text-gray-700"><%= t('organizations.edit.description_hint').html_safe %></p>
   </div>
 </div>
 </div>
 <div class="bg-slate-100 rounded-lg p-6">
-<h2 class="text-2xl font-bold">Admin-Email</h2>
+<h2 class="text-2xl font-bold"><%= t('organizations.edit.admin_email') %></h2>
 <div class="grid grid-cols-3 gap-4">
   <div class="field">
     <%= f.text_field :admin_email, value: User.find_by(organization_id: @organization.id)&.email, disabled: true, class: "w-full my-3 px-3 py-2 border rounded-md shadow-sm bg-gray-100 text-gray-500 cursor-not-allowed" %>
-    <p class="text-sm text-gray-700">Die Admin-Email ist unveränderlich und entspricht der Email, mit der Sie sich anmelden. Im Gegensatz zur angegebenen Kontakt-Email ist sie nicht öffentlich sichtbar.</p>
+    <p class="text-sm text-gray-700"><%= t('organizations.edit.admin_email_hint') %></p>
   </div>
 </div>
 </div>
 <div class="bg-slate-100 rounded-lg p-6">
-<h2 class="text-2xl font-bold">Logo</h2>
+<h2 class="text-2xl font-bold"><%= t('organizations.edit.logo_title') %></h2>
     <div>
       <div class="field">
-      <p class="text-sm text-gray-700 mt-2">Bitte laden Sie das Logo Ihrer Organisation hoch. Achten Sie darauf, dass der Hintergrund transparent, weiß oder zumindest einfarbig ist.</p>
+      <p class="text-sm text-gray-700 mt-2"><%= t('organizations.edit.logo_hint') %></p>
       <div class="border-2 border-gray-300 p-4 rounded-md my-3 w-1/2">
         <%= f.file_field :logo, accept: 'image/*', style: "cursor: pointer;" %>
-        <p id="logo-feedback" class="text-sm text-gray-500">Bitte ein Bild hochladen</p>
+        <p id="logo-feedback" class="text-sm text-gray-500"><%= t('organizations.edit.upload_image') %></p>
       </div>
       <% if @organization.logo.attached? %>
       <div class="mt-4">
@@ -70,62 +70,62 @@
 </div>
 
 <div class="bg-slate-100 rounded-lg p-6">
-<h2 class="text-2xl font-bold">Adresse Ihrer Organisation</h2>
+<h2 class="text-2xl font-bold"><%= t('organizations.edit.address_title') %></h2>
 <div class="grid grid-cols-3 gap-4">
 
 
     <div class="field">
-      <%= f.label :city, "Stadt*", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :city, t('organizations.edit.city'), class: "block text-sm font-medium text-gray-700" %>
       <%= f.text_field :city, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 
     <div class="field">
-      <%= f.label :zip, "Postleitzahl*", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :zip, t('organizations.edit.zip'), class: "block text-sm font-medium text-gray-700" %>
       <%= f.text_field :zip, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 
     <div class="field">
-      <%= f.label :street, "Strasse*", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :street, t('organizations.edit.street'), class: "block text-sm font-medium text-gray-700" %>
       <%= f.text_field :street, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 
     <div class="field">
-      <%= f.label :housenumber, "Hausnummer*", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :housenumber, t('organizations.edit.housenumber'), class: "block text-sm font-medium text-gray-700" %>
       <%= f.text_field :housenumber, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 </div>
 </div>
 <div class="bg-slate-100 rounded-lg p-6">
-        <h2 class="text-2xl font-bold">Social Media & Web (Optional)</h2>
+        <h2 class="text-2xl font-bold"><%= t('organizations.edit.social_media_title') %></h2>
 <div class="grid grid-cols-3 gap-4">
 
     <div class="field">
-      <%= f.label :website, "Website", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :website, t('organizations.edit.website'), class: "block text-sm font-medium text-gray-700" %>
       <%= f.text_field :website, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 
     <div class="field">
-      <%= f.label :instagram_url, "Instagram URL", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :instagram_url, t('organizations.edit.instagram_url'), class: "block text-sm font-medium text-gray-700" %>
       <%= f.text_field :instagram_url, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 
     <div class="field">
-      <%= f.label :linkedin_url, "LinkedIn URL", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :linkedin_url, t('organizations.edit.linkedin_url'), class: "block text-sm font-medium text-gray-700" %>
       <%= f.text_field :linkedin_url, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 
     <div class="field">
-      <%= f.label :facebook_link, "Facebook URL", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :facebook_link, t('organizations.edit.facebook_url'), class: "block text-sm font-medium text-gray-700" %>
       <%= f.text_field :facebook_link, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 
     <div class="field">
-      <%= f.label :tiktok_url, "TikTok URL", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :tiktok_url, t('organizations.edit.tiktok_url'), class: "block text-sm font-medium text-gray-700" %>
       <%= f.text_field :tiktok_url, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 
     <div class="field">
-      <%= f.label :linktree_url, "LinkTree URL", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :linktree_url, t('organizations.edit.linktree_url'), class: "block text-sm font-medium text-gray-700" %>
       <%= f.text_field :linktree_url, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
     </div>
 
@@ -133,7 +133,7 @@
 </div>
 <!-- Checkbox-Bereich -->
     <div class="bg-slate-100 rounded-lg p-6">
-      <h2 class="text-2xl font-bold">Bestätigungen</h2>
+      <h2 class="text-2xl font-bold"><%= t('organizations.edit.confirmations_title') %></h2>
       <div class="gap-4">
         <!-- Checkbox: Beschreibung in englischer Sprache -->
         <div class="field m-3">
@@ -141,7 +141,7 @@
             <label class="inline-flex items-center">
               <input type="checkbox" id="english-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
               <span class="ml-2 text-sm text-gray-700">
-                Ich bestätige, dass die Beschreibung der Organisation in englischer Sprache verfasst wurde.
+                <%= t('organizations.edit.english_confirmation') %>
               </span>
             </label>
           </div>
@@ -153,7 +153,7 @@
             <label class="inline-flex items-center">
               <input type="checkbox" id="terms-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
               <span class="ml-2 text-sm text-gray-700">
-                Ich habe die <a href="/agb" class="text-blue-600 underline">AGB</a> und die <a href="/datenschutz" class="text-blue-600 underline">Datenschutzerklärung</a> gelesen und akzeptiere sie.
+                <%= t('organizations.edit.terms_confirmation').html_safe %>
               </span>
             </label>
           </div>
@@ -163,10 +163,10 @@
 
 <div class="my-3 flex space-x-4">
   <div class="actions">
-    <%= f.submit "Speichern", id:"submit-button", class: "py-2 px-4 bg-blue-600 text-white font-medium text-lg rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+    <%= f.submit t('organizations.edit.save'), id:"submit-button", class: "py-2 px-4 bg-blue-600 text-white font-medium text-lg rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
   </div>
   <div>
-    <%= link_to "Zurück ohne zu speichern", organizations_path, class: "py-2 px-4 bg-slate-600 text-white font-medium text-lg rounded-md shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+    <%= link_to t('organizations.edit.back_without_saving'), organizations_path, class: "py-2 px-4 bg-slate-600 text-white font-medium text-lg rounded-md shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
   </div>
 </div>
   <% end %>
@@ -179,10 +179,10 @@
       const charCount = field.value.length;
 
       if (charCount < minLength) {
-        counter.textContent = `Sie benötigen noch mindestens ${minLength - charCount} Zeichen`;
+        counter.textContent = I18n.t('organizations.edit.js.characters_needed', {count: minLength - charCount});
         counter.style.color = 'red';
       } else {
-        counter.textContent = `👍 Perfekte Länge`;
+        counter.textContent = I18n.t('organizations.edit.js.perfect_length');
         counter.style.color = 'green';
       }
     }
@@ -234,11 +234,11 @@
       if (input && feedback) {
         input.addEventListener("change", function () {
           if (input.files && input.files.length > 0) {
-            feedback.textContent = `Bild "${input.files[0].name}" wurde hochgeladen.`;
+            feedback.textContent = I18n.t('organizations.edit.image_uploaded', {filename: input.files[0].name});
             feedback.classList.remove("text-gray-500");
             feedback.classList.add("text-green-600");
           } else {
-            feedback.textContent = "Bitte ein Bild hochladen";
+            feedback.textContent = I18n.t('organizations.edit.upload_image');
             feedback.classList.remove("text-green-600");
             feedback.classList.add("text-gray-500");
           }

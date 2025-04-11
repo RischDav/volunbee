@@ -1,24 +1,24 @@
 <div class="grid grid-cols-2 gap-4 mt-4">
   <div class="bg-gray-100 p-4 rounded">
-    <p class="text-gray-700"><strong>Email:</strong> <%= organization.email.presence || "Nicht verfügbar" %></p>
+    <p class="text-gray-700"><strong>Email:</strong> <%= organization.email.presence || t('organization.info_grid.not_available') %></p>
   </div>
   <div class="bg-gray-100 p-4 rounded">
-    <p class="text-gray-700"><strong>Telefonnummer:</strong> <%= organization.contact_number.presence || "Nicht verfügbar" %></p>
+    <p class="text-gray-700"><strong>Telefonnummer:</strong> <%= organization.contact_number.presence || t('organization.info_grid.not_available') %></p>
   </div>
   <div class="bg-gray-100 p-4 rounded">
     <p class="text-gray-700"><strong>Adresse:</strong> 
-      <%= [organization.street, organization.housenumber, organization.zip, organization.city].compact.join(", ").presence || "Nicht verfügbar" %>
+      <%= [organization.street, organization.housenumber, organization.zip, organization.city].compact.join(", ").presence || t('organization.info_grid.not_available') %>
     </p>
   </div>
   <div class="bg-gray-100 p-4 rounded">
     <p class="text-gray-700"><strong>Website:</strong> 
-      <%= organization.website.present? ? link_to(organization.website, organization.website, target: "_blank", class: "text-blue-500 hover:underline") : "Nicht verfügbar" %>
+      <%= organization.website.present? ? link_to(organization.website, organization.website, target: "_blank", class: "text-blue-500 hover:underline") : t('organization.info_grid.not_available') %>
     </p>
   </div>
   <div class="bg-gray-100 p-4 rounded">
-    <p class="text-gray-700"><strong>Beschreibung:</strong> <%= organization.description.presence || "Nicht verfügbar" %></p>
+    <p class="text-gray-700"><strong>Beschreibung:</strong> <%= organization.description.presence || t('organization.info_grid.not_available') %></p>
   </div>
   <div class="bg-gray-100 p-4 rounded">
-    <p class="text-gray-700"><strong>Freigegeben:</strong> <%= organization.released ? 'Ja' : 'Nein' %></p>
+    <p class="text-gray-700"><strong>Freigegeben:</strong> <%= organization.released ? t('organization.info_grid.yes') : t('organization.info_grid.no') %></p>
   </div>
 </div>
