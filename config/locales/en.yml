@@ -385,6 +385,9 @@ en:
       not_available: "Not available"
       edit: "Edit again"
       back: "Back"
+  layouts:
+    application:
+      title: "Volunteer Heilbronn Dashboard"
 
 
 
