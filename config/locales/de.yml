@@ -449,4 +449,59 @@ de:
         greeting: "Hallo, %{email}!"
         notification: "Wir kontaktieren dich, um dich darüber zu informieren, dass deine E-Mail-Adresse auf %{email} geändert wird."
         notification_confirmed: "Wir kontaktieren dich, um dich darüber zu informieren, dass deine E-Mail-Adresse auf %{email} geändert wurde."
-
+      password_change:
+        greeting: "Hallo, %{email}!"
+        notification: "Wir kontaktieren dich, um dich darüber zu informieren, dass dein Passwort geändert wurde."
+      reset_password_instructions:
+        greeting: "Hallo, %{email}!"
+        request_message: "Jemand hat einen Link angefordert, um dein Passwort zu ändern. Du kannst dies über den folgenden Link tun."
+        change_password: "Passwort ändern"
+        ignore_message: "Wenn du diese Anfrage nicht gestellt hast, ignoriere bitte diese E-Mail."
+        reminder: "Dein Passwort wird nicht geändert, bis du den oben stehenden Link aufrufst und ein neues erstellst."
+      unlock_instructions:
+        greeting: "Hallo, %{email}!"
+        locked_message: "Dein Konto wurde aufgrund einer zu hohen Anzahl an erfolglosen Anmeldeversuchen gesperrt."
+        unlock_message: "Klicke auf den folgenden Link, um dein Konto zu entsperren:"
+        unlock_account: "Konto entsperren"
+      confirmations:
+        new:
+          title: "Bestätigungsmail erneut senden"
+          email_label: "Email"
+          submit_button: "Bestätigungsmail erneut senden"
+  admin_mailer:
+    new_position_email:
+      header: "Neue Position hinzugefügt"
+      greeting: "Hallo Admin,"
+      message: "Eine Organisation hat eine neue verfügbare Position hinzugefügt. Bitte überprüfe diese und schalte sie frei."
+      thank_you: "Vielen Dank,"
+      team: "Das VolunteerHeilbronn-Team"
+    new_registration_email:
+      header: "New Registration"
+      greeting: "Hello Admin,"
+      message: "A new organization has registered on Volunteer-Heilbronn. Please review the organization and approve it."
+      important: "IMPORTANT: Please note that the user managing the organization and the organization itself need to be approved separately."
+      thank_you: "Thank you,"
+      team: "The VolunteerHeilbronn Team"
+    organization_change_email:
+      header: "Änderung der Organisationsdaten"
+      greeting: "Hallo Admin,"
+      message: "Eine Organisation hat ihre Daten geändert. Bitte überprüfe die Änderungen und gib die Organisation frei, damit die Änderungen auf der Plattform sichtbar sind."
+      thank_you: "Vielen Dank,"
+      team: "Das VolunteerHeilbronn-Team"
+    position_change_email:
+      header: "Veränderung Position"
+      greeting: "Hallo Admin,"
+      message: "Eine Organisation hat Informationen bei einer oder mehreren Stellen verändert. Bitte überprüfe die Änderungen und gib die Stellen frei, damit die aktualisierten Informationen auf der Plattform sichtbar sind."
+      thank_you: "Vielen Dank,"
+      team: "Das VolunteerHeilbronn-Team"
+  admin:
+    index:
+      title: "Alle Benutzer"
+      unreleased_users: "Es gibt einige noch nicht freigegebene Benutzer!"
+      role: "Rolle"
+      organization: "Organisation"
+      release: "Freigeben"
+      lock: "Sperren"
+      email: "Email"
+      created_at: "Erstellt am"
+      actions: "Aktionen"
