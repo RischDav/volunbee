@@ -38,22 +38,3 @@ position_2:
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>
 
-position_3:
-  id: 3
-  title: "Web Developer"
-  description: "Help maintain and improve our website"
-  is_active: true
-  organization: organization_2
-  benefits: "Portfolio building, tech community access, mentorship"
-  creative_skills: 3
-  technical_skills: 5
-  social_skills: 2
-  language_skills: 3
-  flexibility: 4
-  released: true
-  online: true
-  position_temporary: false
-  weekly_time_commitment: 8
-  position_code: "POS003"
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
