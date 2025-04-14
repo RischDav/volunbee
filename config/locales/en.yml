@@ -183,7 +183,6 @@ en:
     new_position:
       create_button: "Create New Position (%{available} available)"
       create_button_disabled: "Create New Position (0 available)"
-      en:
     position_actions:
       view: "View"
       delete: "Delete"
