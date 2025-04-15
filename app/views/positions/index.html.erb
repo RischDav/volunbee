@@ -1,5 +1,5 @@
 <div class="mx-auto my-4 p-8 bg-blue-50 rounded-lg shadow-md">
-  <h1 class="text-3xl font-semibold text-gray-800 mb-6"><%= t('index.title') %></h1>
+  <h1 class="text-3xl font-semibold text-gray-800 mb-6"><%= t('positions.index.title') %></h1>
 
   <!-- Button für neue Position -->
   <%= render partial: 'new_position_button' if !current_user.admin? %>
@@ -21,6 +21,6 @@
       <% end %>
     </div>
   <% else %>
-    <p class="text-gray-600 text-center mt-8"><%= t('index.no_positions_available') %></p>
+    <p class="text-gray-600 text-center mt-8"><%= t('positions.index.no_positions_available') %></p>
   <% end %>
 </div>

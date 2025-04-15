@@ -232,7 +232,7 @@ de:
       title: "Neue Position erstellen"
       subtitle: "Bitte achten Sie darauf, dass alle Felder in englischer Sprache ausgefüllt werden!"
       confirmation:
-        english_text: "Ich bestätige, dass alle Textbeschreibungen in englischer Sprache verfasst wurden."
+        text: "Ich bestätige, dass alle Textbeschreibungen in englischer Sprache verfasst wurden."
         terms: "Ich habe die <a href='/agb' class='text-blue-600 underline'>AGB</a> und die <a href='/datenschutz' class='text-blue-600 underline'>Datenschutzerklärung</a> gelesen und akzeptiere sie."
       button:
         create: "Erstellen"
