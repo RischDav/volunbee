@@ -13,11 +13,12 @@
       <div class="field">
         <%= f.label skill, label, class: "block text-sm font-medium text-gray-700" %>
         <div>
-          <% (1..5).each do |i| %>
-            <label>
-              <%= f.radio_button skill, i, class: "rating-input" %> <%= i %>
-            </label>
-          <% end %>
+        <% (1..5).each do |i| %>
+          <% radio_id = "#{skill}_#{i}" %>
+          <label for="<%= radio_id %>">
+            <%= f.radio_button skill, i, class: "rating-input", id: radio_id %> <%= i %>
+          </label>
+        <% end %>
         </div>
       </div>
     <% end %>
