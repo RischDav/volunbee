@@ -1,24 +1,24 @@
 <div class="grid grid-cols-2 gap-4 mt-4">
   <div class="bg-gray-100 p-4 rounded">
-    <p class="text-gray-700"><strong>Email:</strong> <%= organization.email.presence || t('organization.info_grid.not_available') %></p>
+    <p class="text-gray-700"><strong><%= t('organizations.info_grid.email') %>:</strong> <%= organization.email.presence || t('organizations.info_grid.not_available') %></p>
   </div>
   <div class="bg-gray-100 p-4 rounded">
-    <p class="text-gray-700"><strong>Telefonnummer:</strong> <%= organization.contact_number.presence || t('organization.info_grid.not_available') %></p>
+    <p class="text-gray-700"><strong><%= t('organizations.info_grid.contact_number') %>:</strong> <%= organization.contact_number.presence || t('organizations.info_grid.not_available') %></p>
   </div>
   <div class="bg-gray-100 p-4 rounded">
-    <p class="text-gray-700"><strong>Adresse:</strong> 
-      <%= [organization.street, organization.housenumber, organization.zip, organization.city].compact.join(", ").presence || t('organization.info_grid.not_available') %>
+    <p class="text-gray-700"><strong><%= t('organizations.info_grid.address') %>:</strong> 
+      <%= [organization.street, organization.housenumber, organization.zip, organization.city].compact.join(", ").presence || t('organizations.info_grid.not_available') %>
     </p>
   </div>
   <div class="bg-gray-100 p-4 rounded">
-    <p class="text-gray-700"><strong>Website:</strong> 
-      <%= organization.website.present? ? link_to(organization.website, organization.website, target: "_blank", class: "text-blue-500 hover:underline") : t('organization.info_grid.not_available') %>
+    <p class="text-gray-700"><strong><%= t('organizations.info_grid.website') %>:</strong> 
+      <%= organization.website.present? ? link_to(organization.website, organization.website, target: "_blank", class: "text-blue-500 hover:underline") : t('organizations.info_grid.not_available') %>
     </p>
   </div>
   <div class="bg-gray-100 p-4 rounded">
-    <p class="text-gray-700"><strong>Beschreibung:</strong> <%= organization.description.presence || t('organization.info_grid.not_available') %></p>
+    <p class="text-gray-700"><strong><%= t('organizations.info_grid.description') %>:</strong> <%= organization.description.presence || t('organizations.info_grid.not_available') %></p>
   </div>
   <div class="bg-gray-100 p-4 rounded">
-    <p class="text-gray-700"><strong>Freigegeben:</strong> <%= organization.released ? t('organization.info_grid.yes') : t('organization.info_grid.no') %></p>
+    <p class="text-gray-700"><strong><%= t('organizations.info_grid.released') %>:</strong> <%= organization.released ? t('organizations.info_grid.yes') : t('organizations.info_grid.no') %></p>
   </div>
 </div>

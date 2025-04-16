@@ -1,18 +1,18 @@
 <div class="mx-auto my-8 p-8 bg-blue-50 rounded-lg shadow-md">
 <% if current_user.admin? %>
-  <h1 class="text-3xl font-bold"><%= t('organization.index.admin_title') %></h1>
+  <h1 class="text-3xl font-bold"><%= t('organizations.index.admin_title') %></h1>
 
   <% if @organizations.where(released: false).exists? %>
-    <h2 class="text-2xl font-bold mt-8"><%= t('organization.index.unreleased_organizations') %></h2>
+    <h2 class="text-2xl font-bold mt-8"><%= t('organizations.index.unreleased_organizations') %></h2>
     <%= render partial: 'unreleased_organizations', locals: { organizations: @organizations.where(released: false) } %>
   <% end %>
 
-  <h2 class="text-2xl font-bold mt-8"><%= t('organization.index.released_organizations') %></h2>
+  <h2 class="text-2xl font-bold mt-8"><%= t('organizations.index.released_organizations') %></h2>
   <% @organizations.where(released: true).each do |organization| %>
     <%= render partial: 'organization_card_admin', locals: { organization: organization } %>
   <% end %>
 <% else %>
-  <h1 class="text-3xl font-bold"><%= t('organization.index.user_title') %></h1>
+  <h1 class="text-3xl font-bold"><%= t('organizations.index.user_title') %></h1>
 
   <%= render partial: 'organization_details', locals: { organization: @organization } %>
 <% end %>

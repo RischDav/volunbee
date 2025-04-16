@@ -5,49 +5,49 @@
             <%= image_tag @organization.logo, style: "max-width: 200px;", class: "rounded my-2" %>
         </div>
     <% end %>
-    <h2 class="text-2xl font-semibold mb-4 text-center"><%= @organization.name.present? ? @organization.name : t('organization.show.name_not_available') %></h2>
+    <h2 class="text-2xl font-semibold mb-4 text-center"><%= @organization.name.present? ? @organization.name : t('organizations.show.name_not_available') %></h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
         <div class="bg-gray-100 p-4 rounded">
-            <p class="text-gray-700"><strong><%= t('organization.show.email') %>:</strong> <%= @organization.email.present? ? @organization.email : t('organization.show.not_available') %></p>
+            <p class="text-gray-700"><strong><%= t('organizations.show.email') %>:</strong> <%= @organization.email.present? ? @organization.email : t('organizations.show.not_available') %></p>
         </div>
         <div class="bg-gray-100 p-4 rounded">
-            <p class="text-gray-700"><strong><%= t('organization.show.contact_number') %>:</strong> <%= @organization.contact_number.present? ? @organization.contact_number : t('organization.show.not_available') %></p>
+            <p class="text-gray-700"><strong><%= t('organizations.show.contact_number') %>:</strong> <%= @organization.contact_number.present? ? @organization.contact_number : t('organizations.show.not_available') %></p>
         </div>
         <div class="bg-gray-100 p-4 rounded">
-            <p class="text-gray-700"><strong><%= t('organization.show.city') %>:</strong> <%= @organization.city.present? ? @organization.city : t('organization.show.not_available') %></p>
+            <p class="text-gray-700"><strong><%= t('organizations.show.city') %>:</strong> <%= @organization.city.present? ? @organization.city : t('organizations.show.not_available') %></p>
         </div>
         <div class="bg-gray-100 p-4 rounded">
-            <p class="text-gray-700"><strong><%= t('organization.show.zip') %>:</strong> <%= @organization.zip.present? ? @organization.zip : t('organization.show.not_available') %></p>
+            <p class="text-gray-700"><strong><%= t('organizations.show.zip') %>:</strong> <%= @organization.zip.present? ? @organization.zip : t('organizations.show.not_available') %></p>
         </div>
         <div class="bg-gray-100 p-4 rounded">
-            <p class="text-gray-700"><strong><%= t('organization.show.street') %>:</strong> <%= @organization.street.present? ? @organization.street : t('organization.show.not_available') %></p>
+            <p class="text-gray-700"><strong><%= t('organizations.show.street') %>:</strong> <%= @organization.street.present? ? @organization.street : t('organizations.show.not_available') %></p>
         </div>
         <div class="bg-gray-100 p-4 rounded">
-            <p class="text-gray-700"><strong><%= t('organization.show.housenumber') %>:</strong> <%= @organization.housenumber.present? ? @organization.housenumber : t('organization.show.not_available') %></p>
+            <p class="text-gray-700"><strong><%= t('organizations.show.housenumber') %>:</strong> <%= @organization.housenumber.present? ? @organization.housenumber : t('organizations.show.not_available') %></p>
         </div>
         <div class="bg-gray-100 p-4 rounded">
-            <p class="text-gray-700"><strong><%= t('organization.show.website') %>:</strong> 
-                <%= @organization.website.present? ? link_to(@organization.website, @organization.website, target: "_blank", class: "text-blue-500 hover:underline") : t('organization.show.not_available') %>
+            <p class="text-gray-700"><strong><%= t('organizations.show.website') %>:</strong> 
+                <%= @organization.website.present? ? link_to(@organization.website, @organization.website, target: "_blank", class: "text-blue-500 hover:underline") : t('organizations.show.not_available') %>
             </p>
         </div>
         <div class="bg-gray-100 p-4 rounded">
-            <p class="text-gray-700"><strong><%= t('organization.show.contact_person') %>:</strong> <%= @organization.contact_person.present? ? @organization.contact_person : t('organization.show.not_available') %></p>
+            <p class="text-gray-700"><strong><%= t('organizations.show.contact_person') %>:</strong> <%= @organization.contact_person.present? ? @organization.contact_person : t('organizations.show.not_available') %></p>
         </div>
         <div class="bg-gray-100 p-4 rounded">
-            <p class="text-gray-700"><strong><%= t('organization.show.description') %>:</strong> <%= @organization.description.present? ? @organization.description : t('organization.show.not_available') %></p>
+            <p class="text-gray-700"><strong><%= t('organizations.show.description') %>:</strong> <%= @organization.description.present? ? @organization.description : t('organizations.show.not_available') %></p>
         </div>
     </div>
 
     <div class="bg-gray-100 p-4 rounded mt-4">
         <p class="text-gray-700"><strong><%= t('organization.show.status') %>:</strong> 
             <span class="<%= @organization.is_approved ? 'text-green-500' : 'text-red-500' %>">
-                <%= @organization.is_approved ? t('organization.show.approved') : t('organization.show.not_approved') %>
+                <%= @organization.is_approved ? t('organizations.show.approved') : t('organizations.show.not_approved') %>
             </span>
         </p>
     </div>
 
     <div class="mt-6 flex justify-end space-x-2">
-        <%= link_to t('organization.show.edit'), edit_organization_path(@organization), class: "px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" %>
-        <%= link_to t('organization.show.back'), organizations_path, class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
+        <%= link_to t('organizations.show.edit'), edit_organization_path(@organization), class: "px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" %>
+        <%= link_to t('organizations.show.back'), organizations_path, class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
     </div>
 </div>

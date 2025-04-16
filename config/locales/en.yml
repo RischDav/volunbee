@@ -304,9 +304,15 @@ en:
     details:
       edit_data: "Edit Data"
     info_grid:
-      not_available: "Not available"
+      email: "Email"
+      contact_number: "Phone number"
+      address: "Address"
+      website: "Website"
+      description: "Description"
+      released: "Released"
       yes: "Yes"
       no: "No"
+      not_available: "Not available"
     social_media:
       title: "Social Media"
       no_links: "No social media links available"

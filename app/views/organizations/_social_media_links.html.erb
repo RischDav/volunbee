@@ -11,7 +11,7 @@
       <li><%= link_to "Facebook", organization.facebook_link, target: "_blank", class: "text-blue-500 hover:underline" %></li>
     <% end %>
     <% if organization.instagram_url.blank? && organization.linkedin_url.blank? && organization.facebook_link.blank? %>
-      <li><%= t('organization.social_media.no_links') %></li>
+      <li><%= t('organizations.social_media.no_links') %></li>
     <% end %>
   </ul>
 </div>
