@@ -118,7 +118,8 @@
       });
 
       const remainingPoints = maxPoints - totalPoints;
-      remainingPointsDisplay.textContent = t('positions.new.remaining_points', remaining_points: remainingPoints);
+      const label = remainingPointsDisplay.dataset.label;
+      remainingPointsDisplay.innerHTML = `${label}: <span id="points-left">${remainingPoints}</span>`;
       remainingPointsDisplay.style.color = remainingPoints < 0 ? 'red' : 'black';
     }
 
