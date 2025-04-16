@@ -1,9 +1,7 @@
 <h2 class="text-2xl font-bold"><%= t('positions.score.form.header') %></h2>
 <div class="bg-slate-100 rounded-lg p-6">
   <p class="text-sm text-gray-700"><%= t('positions.score.form.description') %></p>
-  <div id="remaining-points" class="my-4 text-lg font-medium text-gray-700" data-label="<%= t('positions.score.form.remaining_points') %>">
-  <%= t('positions.score.form.remaining_points') %>: <span id="points-left">15</span>
-</div>
+  <div id="remaining-points" class="my-4 text-lg font-medium text-gray-700"><%= t('positions.score.form.remaining_points', points: 15) %></div>
   <div class="gap-4">
     <% { creative_skills: t('positions.score.form.creative_skills_label'), 
           technical_skills: t('positions.score.form.technical_skills_label'), 
@@ -13,12 +11,11 @@
       <div class="field">
         <%= f.label skill, label, class: "block text-sm font-medium text-gray-700" %>
         <div>
-        <% (1..5).each do |i| %>
-          <% radio_id = "#{skill}_#{i}" %>
-          <label for="<%= radio_id %>">
-            <%= f.radio_button skill, i, class: "rating-input", id: radio_id %> <%= i %>
-          </label>
-        <% end %>
+          <% (1..5).each do |i| %>
+            <label>
+              <%= f.radio_button skill, i, class: "rating-input" %> <%= i %>
+            </label>
+          <% end %>
         </div>
       </div>
     <% end %>

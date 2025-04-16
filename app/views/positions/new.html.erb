@@ -106,7 +106,7 @@
 
     // Rating points logic
     const maxPoints = 15;
-    const ratingInputs = document.querySelectorAll('input.rating-input[type="radio"]');
+    const ratingInputs = document.querySelectorAll('.rating-input');
     const remainingPointsDisplay = document.getElementById('remaining-points');
 
     function updateRemainingPoints() {
@@ -118,8 +118,7 @@
       });
 
       const remainingPoints = maxPoints - totalPoints;
-      const label = remainingPointsDisplay.dataset.label;
-      remainingPointsDisplay.innerHTML = `${label}: <span id="points-left">${remainingPoints}</span>`;
+      remainingPointsDisplay.textContent = t('positions.new.remaining_points', remaining_points: remainingPoints);
       remainingPointsDisplay.style.color = remainingPoints < 0 ? 'red' : 'black';
     }
 
@@ -164,7 +163,7 @@
       addFaqButton.addEventListener("click", function (e) {
         e.preventDefault();
         var newFaq = document.createElement("div");
-        newFaq.innerHTML = `<div class="field m-3">
+        newFaq.innerHTML = <div class="field m-3">
                               <label class="block">
                                 <%= t('positions.new.faq.question_label') %>
                                 <textarea name="position[faqs_attributes][0][question]" placeholder="Frage" required class="form-input rounded-lg p-2"></textarea>
@@ -174,7 +173,7 @@
                                 <textarea name="position[faqs_attributes][0][answer]" placeholder="Antwort" required class="form-input rounded-lg p-2"></textarea>
                               </label>
                               <button class="bg-red-600 text-white rounded-md p-2">Entfernen</button>
-                            </div>`;
+                            </div>;
         faqsContainer.appendChild(newFaq);
       });
     }
