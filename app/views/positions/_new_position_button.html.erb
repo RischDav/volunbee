@@ -1,13 +1,13 @@
 <% available_positions = 3 - @positions_count %>
 <div class="text-center mb-6">
   <% if available_positions > 0 %>
-    <%= link_to t('new_position.create_button', available: available_positions), 
+    <%= link_to t('positions.new_position.create_button', available: available_positions), 
                 new_position_path, 
                 class: "inline-block px-6 py-3 rounded-full bg-green-500 text-white font-medium hover:bg-green-600 shadow-md transition duration-200 ease-in-out", 
                 role: 'button' %>
   <% else %>
     <span class="inline-block px-6 py-3 rounded-full bg-gray-300 text-gray-500 font-medium cursor-not-allowed shadow-md">
-      <%= t('new_position.create_button_disabled') %>
+      <%= t('positions.new_position.create_button_disabled') %>
     </span>
   <% end %>
 </div>
