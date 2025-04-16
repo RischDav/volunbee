@@ -1,23 +1,23 @@
-<h2 class="text-2xl font-bold"><%= t('images.form.header') %></h2>
+<h2 class="text-2xl font-bold"><%= t('positions.images.form.header') %></h2>
 <div class="bg-slate-100 rounded-lg p-6">
   <div class="gap-4">
     <div class="field m-3">
-      <%= f.label :mainPicture, t('images.form.main_picture_label'), class: "block text-lg font-medium text-gray-700" %>
-      <p class="text-sm text-gray-700"><%= t('images.form.main_picture_description') %></p>
+      <%= f.label :mainPicture, t('positions.images.form.main_picture_label'), class: "block text-lg font-medium text-gray-700" %>
+      <p class="text-sm text-gray-700"><%= t('positions.images.form.main_picture_description') %></p>
       <div class="border-2 border-gray-300 p-4 rounded-md my-3">
         <%= f.file_field :mainPicture, accept: 'image/*', style: "cursor: pointer;" %>
-        <p id="mainPicture-feedback" class="text-sm text-gray-500"><%= t('images.form.main_picture_feedback') %></p>
+        <p id="mainPicture-feedback" class="text-sm text-gray-500"><%= t('positions.images.form.main_picture_feedback') %></p>
       </div>
     </div>
 
     <div class="field m-3">
-      <%= f.label :picture1, t('images.form.additional_pictures_label'), class: "block text-lg font-medium text-gray-700" %>
-      <p class="text-sm text-gray-700"><%= t('images.form.additional_pictures_description') %></p>
+      <%= f.label :picture1, t('positions.images.form.additional_pictures_label'), class: "block text-lg font-medium text-gray-700" %>
+      <p class="text-sm text-gray-700"><%= t('positions.images.form.additional_pictures_description') %></p>
       <div class="space-y-4">
         <% [[:picture1, "Bild 1"], [:picture2, "Bild 2"], [:picture3, "Bild 3"]].each do |picture, label| %>
           <div class="border-2 border-gray-300 p-4 rounded-md mt-3">
             <%= f.file_field picture, accept: 'image/*', style: "cursor: pointer;" %>
-            <p id="<%= picture %>-feedback" class="text-sm text-gray-500"><%= t('images.form.additional_picture_feedback') %></p>
+            <p id="<%= picture %>-feedback" class="text-sm text-gray-500"><%= t('positions.images.form.additional_picture_feedback') %></p>
           </div>
         <% end %>
       </div>

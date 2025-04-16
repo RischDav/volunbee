@@ -1,13 +1,13 @@
-<h2 class="text-2xl font-bold"><%= t('score.form.header') %></h2>
+<h2 class="text-2xl font-bold"><%= t('positions.score.form.header') %></h2>
 <div class="bg-slate-100 rounded-lg p-6">
-  <p class="text-sm text-gray-700"><%= t('score.form.description') %></p>
-  <div id="remaining-points" class="my-4 text-lg font-medium text-gray-700"><%= t('score.form.remaining_points', points: 15) %></div>
+  <p class="text-sm text-gray-700"><%= t('positions.score.form.description') %></p>
+  <div id="remaining-points" class="my-4 text-lg font-medium text-gray-700"><%= t('positions.score.form.remaining_points', points: 15) %></div>
   <div class="gap-4">
-    <% { creative_skills: t('score.form.creative_skills_label'), 
-          technical_skills: t('score.form.technical_skills_label'), 
-          social_skills: t('score.form.social_skills_label'), 
-          language_skills: t('score.form.language_skills_label'), 
-          flexibility: t('score.form.flexibility_label') }.each do |skill, label| %>
+    <% { creative_skills: t('positions.score.form.creative_skills_label'), 
+          technical_skills: t('positions.score.form.technical_skills_label'), 
+          social_skills: t('positions.score.form.social_skills_label'), 
+          language_skills: t('positions.score.form.language_skills_label'), 
+          flexibility: t('positions.score.form.flexibility_label') }.each do |skill, label| %>
       <div class="field">
         <%= f.label skill, label, class: "block text-sm font-medium text-gray-700" %>
         <div>

@@ -1,93 +1,93 @@
 <%= form_with model: @position, local: true, html: { class: "position-form" } do |f| %>
-  <h1><%= t('position.edit.title') %></h1>
+  <h1><%= t('positions.edit.title') %></h1>
 
   <div class="form-group">
-    <%= f.label :title, t('position.edit.description.title') %>
+    <%= f.label :title, t('positions.edit.description.title') %>
     <%= f.text_field :title, class: "form-control" %>
-    <small class="form-text text-muted"><%= t('position.edit.description.description') %></small>
+    <small class="form-text text-muted"><%= t('positions.edit.description.description') %></small>
   </div>
 
   <div class="form-group">
-    <%= f.label :position_description, t('position.edit.position_description') %>
+    <%= f.label :position_description, t('positions.edit.position_description') %>
     <%= f.text_area :position_description, class: "form-control", rows: 5 %>
-    <small class="form-text text-muted"><%= t('position.edit.description_text') %></small>
+    <small class="form-text text-muted"><%= t('positions.edit.description_text') %></small>
   </div>
 
   <div class="form-group">
-    <%= f.label :benefits, t('position.edit.benefits.title') %>
+    <%= f.label :benefits, t('positions.edit.benefits.title') %>
     <%= f.text_area :benefits, class: "form-control", rows: 3 %>
-    <small class="form-text text-muted"><%= t('position.edit.benefits.description') %></small>
+    <small class="form-text text-muted"><%= t('positions.edit.benefits.description') %></small>
   </div>
 
   <div class="form-group">
-    <%= f.label :weekly_time_commitment, t('position.edit.weekly_time_commitment.title') %>
+    <%= f.label :weekly_time_commitment, t('positions.edit.weekly_time_commitment.title') %>
     <%= f.number_field :weekly_time_commitment, class: "form-control" %>
-    <small class="form-text text-muted"><%= t('position.edit.weekly_time_commitment.description') %></small>
+    <small class="form-text text-muted"><%= t('positions.edit.weekly_time_commitment.description') %></small>
   </div>
 
   <div class="form-group">
-    <%= f.label :position_temporary, t('position.edit.position_temporary.title') %>
+    <%= f.label :position_temporary, t('positions.edit.position_temporary.title') %>
     <%= f.check_box :position_temporary %>
-    <small class="form-text text-muted"><%= t('position.edit.position_temporary.description') %></small>
-    <p><%= t('position.edit.position_temporary.temporary_info') %></p>
+    <small class="form-text text-muted"><%= t('positions.edit.position_temporary.description') %></small>
+    <p><%= t('positions.edit.position_temporary.temporary_info') %></p>
   </div>
 
   <div class="form-group">
-    <%= f.label :images, t('position.edit.images.title') %>
+    <%= f.label :images, t('positions.edit.images.title') %>
     <%= f.file_field :images, class: "form-control" %>
-    <small class="form-text text-muted"><%= t('position.edit.images.description') %></small>
-    <%= f.submit t('position.edit.images.upload_hint'), class: "btn btn-primary" %>
+    <small class="form-text text-muted"><%= t('positions.edit.images.description') %></small>
+    <%= f.submit t('positions.edit.images.upload_hint'), class: "btn btn-primary" %>
   </div>
 
   <div class="form-group">
-    <h3><%= t('position.edit.score.title') %></h3>
-    <p><%= t('position.edit.score.description') %></p>
-    <p><%= t('position.edit.score.remaining_points', points: 15) %></p>
+    <h3><%= t('positions.edit.score.title') %></h3>
+    <p><%= t('positions.edit.score.description') %></p>
+    <p><%= t('positions.edit.score.remaining_points', points: 15) %></p>
 
     <div class="form-check">
-      <%= f.label :creative_skills, t('position.edit.score.creative_skills') %>
+      <%= f.label :creative_skills, t('positions.edit.score.creative_skills') %>
       <%= f.number_field :creative_skills, value: 3, min: 0, max: 15, class: "form-control" %>
     </div>
 
     <div class="form-check">
-      <%= f.label :technical_skills, t('position.edit.score.technical_skills') %>
+      <%= f.label :technical_skills, t('positions.edit.score.technical_skills') %>
       <%= f.number_field :technical_skills, value: 3, min: 0, max: 15, class: "form-control" %>
     </div>
 
     <div class="form-check">
-      <%= f.label :social_skills, t('position.edit.score.social_skills') %>
+      <%= f.label :social_skills, t('positions.edit.score.social_skills') %>
       <%= f.number_field :social_skills, value: 3, min: 0, max: 15, class: "form-control" %>
     </div>
 
     <div class="form-check">
-      <%= f.label :language_skills, t('position.edit.score.language_skills') %>
+      <%= f.label :language_skills, t('positions.edit.score.language_skills') %>
       <%= f.number_field :language_skills, value: 3, min: 0, max: 15, class: "form-control" %>
     </div>
 
     <div class="form-check">
-      <%= f.label :flexibility, t('position.edit.score.flexibility') %>
+      <%= f.label :flexibility, t('positions.edit.score.flexibility') %>
       <%= f.number_field :flexibility, value: 3, min: 0, max: 15, class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-    <h3><%= t('position.edit.faq.title') %></h3>
-    <p><%= t('position.edit.faq.description') %></p>
+    <h3><%= t('positions.edit.faq.title') %></h3>
+    <p><%= t('positions.edit.faq.description') %></p>
 
     <div id="faq-fields">
       <%= f.fields_for :faq do |faq_fields| %>
         <div class="faq-item">
-          <%= faq_fields.label :question, t('position.edit.faq.add_faq') %>
+          <%= faq_fields.label :question, t('positions.edit.faq.add_faq') %>
           <%= faq_fields.text_field :question, class: "form-control" %>
-          <%= faq_fields.label :answer, t('position.edit.faq.add_faq') %>
+          <%= faq_fields.label :answer, t('positions.edit.faq.add_faq') %>
           <%= faq_fields.text_area :answer, class: "form-control", rows: 3 %>
-          <%= link_to t('position.edit.faq.remove_faq'), '#', class: 'remove-faq-item' %>
+          <%= link_to t('positions.edit.faq.remove_faq'), '#', class: 'remove-faq-item' %>
         </div>
       <% end %>
     </div>
 
-    <%= link_to t('position.edit.faq.add_faq'), '#', class: 'add-faq-item' %>
+    <%= link_to t('positions.edit.faq.add_faq'), '#', class: 'add-faq-item' %>
   </div>
 
-  <%= f.submit t('position.edit.submit'), class: "btn btn-primary" %>
+  <%= f.submit t('positions.edit.submit'), class: "btn btn-primary" %>
 <% end %>
