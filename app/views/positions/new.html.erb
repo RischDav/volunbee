@@ -44,14 +44,13 @@
     </div>
   <% end %>
 </div>
-
 <script>
   document.addEventListener("turbolinks:load", function () {
     // Temporäre Position: Hinweistext anzeigen/verbergen
     const temporarySelect = document.getElementById("position_temporary_select");
     const infoText = document.getElementById("temporary-info-text");
 
-    if (temporarySelect) {
+    if (temporarySelect && infoText) {
       temporarySelect.addEventListener("change", function () {
         if (temporarySelect.value === "true") {
           infoText.classList.remove("hidden");
@@ -66,16 +65,17 @@
       const charCount = field.value.length;
 
       if (charCount < minLength) {
-        counter.textContent = t('positions.new.word_count.title', min_length: minLength - charCount);
+        // Richtiger Weg, um eine Rails-Übersetzung mit variablen Werten in JavaScript zu verwenden
+        counter.textContent = '<%= t("positions.new.word_count.title") %>'.replace('%{min_length}', minLength - charCount);
         counter.style.color = 'red';
       } else if (charCount > perfectLength) {
-        counter.textContent = t('positions.new.word_count.too_long');
+        counter.textContent = '<%= t("positions.new.word_count.too_long") %>';
         counter.style.color = 'red';
-      } else if (charCount > minlength && charCount <= goodLength) {
-        counter.textContent = t('positions.new.word_count.good_length');
+      } else if (charCount > minLength && charCount <= goodLength) {
+        counter.textContent = '<%= t("positions.new.word_count.good_length") %>';
         counter.style.color = 'green';
       } else if (charCount > goodLength && charCount <= perfectLength) {
-        counter.textContent = t('positions.new.word_count.perfect_length');
+        counter.textContent = '<%= t("positions.new.word_count.perfect_length") %>';
         counter.style.color = 'green';
       } else {
         counter.textContent = '';
@@ -118,11 +118,12 @@
       });
 
       const remainingPoints = maxPoints - totalPoints;
-      remainingPointsDisplay.textContent = t('positions.new.remaining_points', remaining_points: remainingPoints);
+      // Richtiger Weg für Ruby-Übersetzungen in JavaScript
+      remainingPointsDisplay.textContent = '<%= t("positions.new.remaining_points") %>'.replace('%{remaining_points}', remainingPoints);
       remainingPointsDisplay.style.color = remainingPoints < 0 ? 'red' : 'black';
     }
 
-    if (ratingInputs.length > 0) {
+    if (ratingInputs.length > 0 && remainingPointsDisplay) {
       ratingInputs.forEach(input => {
         input.addEventListener('change', updateRemainingPoints);
       });
@@ -138,11 +139,12 @@
       if (input && feedback) {
         input.addEventListener("change", function () {
           if (input.files && input.files.length > 0) {
-            feedback.textContent = t('positions.new.upload_feedback.success', file_name: input.files[0].name);
+            // Richtiger Weg für Übersetzungen mit Variablen
+            feedback.textContent = '<%= t("positions.new.upload_feedback.success") %>'.replace('%{file_name}', input.files[0].name);
             feedback.classList.remove("text-gray-500");
             feedback.classList.add("text-green-600");
           } else {
-            feedback.textContent = t('positions.new.upload_feedback.default');
+            feedback.textContent = '<%= t("positions.new.upload_feedback.default") %>';
             feedback.classList.remove("text-green-600");
             feedback.classList.add("text-gray-500");
           }
@@ -162,20 +164,61 @@
     if (addFaqButton && faqsContainer) {
       addFaqButton.addEventListener("click", function (e) {
         e.preventDefault();
+        // Eindeutige ID erzeugen
+        var new_id = new Date().getTime();
         var newFaq = document.createElement("div");
-        newFaq.innerHTML = <div class="field m-3">
-                              <label class="block">
-                                <%= t('positions.new.faq.question_label') %>
-                                <textarea name="position[faqs_attributes][0][question]" placeholder="Frage" required class="form-input rounded-lg p-2"></textarea>
-                              </label>
-                              <label class="block">
-                                <%= t('positions.new.faq.answer_label') %>
-                                <textarea name="position[faqs_attributes][0][answer]" placeholder="Antwort" required class="form-input rounded-lg p-2"></textarea>
-                              </label>
-                              <button class="bg-red-600 text-white rounded-md p-2">Entfernen</button>
-                            </div>;
+        newFaq.innerHTML = `
+    <div class="field m-3">
+      <label class="block">
+        <%= t('positions.new.faq.question_label') %>
+        <textarea name="position[faqs_attributes][${new_id}][question]" placeholder="<%= t('positions.new.faq.question_placeholder') %>" required class="form-input rounded-lg p-2"></textarea>
+      </label>
+      <label class="block">
+        <%= t('positions.new.faq.answer_label') %>
+        <textarea name="position[faqs_attributes][${new_id}][answer]" placeholder="<%= t('positions.new.faq.answer_placeholder') %>" required class="form-input rounded-lg p-2"></textarea>
+      </label>
+      <button type="button" class="remove-faq bg-red-600 text-white rounded-md p-2 mt-2"><%= t('positions.new.faq.remove_button') %></button>
+    </div>`;
         faqsContainer.appendChild(newFaq);
       });
+
+      // Event-Delegation für das Entfernen von FAQs
+      faqsContainer.addEventListener("click", function(e) {
+        if (e.target && e.target.classList.contains("remove-faq")) {
+          e.preventDefault();
+          // Das übergeordnete Element finden und entfernen
+          const faqItem = e.target.closest(".field");
+          if (faqItem) {
+            faqItem.remove();
+          }
+        }
+      });
+    }
+
+    // Checkbox logic for enabling the submit button
+    const englishCheckbox = document.getElementById("english-checkbox");
+    const termsCheckbox = document.getElementById("terms-checkbox");
+    const submitButton = document.getElementById("submit-button");
+
+    function updateSubmitButtonState() {
+      if (englishCheckbox.checked && termsCheckbox.checked) {
+        submitButton.disabled = false;
+        submitButton.classList.remove("bg-gray-400", "cursor-not-allowed");
+        submitButton.classList.add("bg-blue-600", "hover:bg-blue-700");
+      } else {
+        submitButton.disabled = true;
+        submitButton.classList.remove("bg-blue-600", "hover:bg-blue-700");
+        submitButton.classList.add("bg-gray-400", "cursor-not-allowed");
+      }
+    }
+
+    if (englishCheckbox && termsCheckbox && submitButton) {
+      // Initial update
+      updateSubmitButtonState();
+      
+      // Add event listeners
+      englishCheckbox.addEventListener("change", updateSubmitButtonState);
+      termsCheckbox.addEventListener("change", updateSubmitButtonState);
     }
   });
 </script>
