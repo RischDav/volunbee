@@ -1,23 +1,73 @@
-<h2 class="text-2xl font-bold"><%= t('positions.score.form.header') %></h2>
-<div class="bg-slate-100 rounded-lg p-6">
-  <p class="text-sm text-gray-700"><%= t('positions.score.form.description') %></p>
-  <div id="remaining-points" class="my-4 text-lg font-medium text-gray-700"><%= t('positions.score.form.remaining_points', points: 15) %></div>
-  <div class="gap-4">
-    <% { creative_skills: t('positions.score.form.creative_skills_label'), 
-          technical_skills: t('positions.score.form.technical_skills_label'), 
-          social_skills: t('positions.score.form.social_skills_label'), 
-          language_skills: t('positions.score.form.language_skills_label'), 
-          flexibility: t('positions.score.form.flexibility_label') }.each do |skill, label| %>
-      <div class="field">
-        <%= f.label skill, label, class: "block text-sm font-medium text-gray-700" %>
-        <div>
-          <% (1..5).each do |i| %>
-            <label>
-              <%= f.radio_button skill, i, class: "rating-input" %> <%= i %>
-            </label>
-          <% end %>
-        </div>
+<!-- Score Section -->
+<div class="space-y-4 mt-8">
+  <h2 class="text-2xl font-bold"><%= t('positions.shared.score.title') %></h2>
+  <p class="text-sm text-gray-700"><%= t('positions.shared.score.description') %></p>
+  <p id="remaining-points" class="text-sm font-medium"></p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <!-- Creative Skills -->
+    <div class="field">
+      <%= f.label :creative_skills, t('positions.shared.score.creative_skills'), class: "block text-sm font-medium text-gray-700" %>
+      <div class="mt-2">
+        <% (1..5).each do |value| %>
+          <label class="inline-flex items-center mr-4">
+            <%= f.radio_button :creative_skills, value, class: "rating-input form-radio h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500" %>
+            <span class="ml-2 text-sm text-gray-700"><%= value %></span>
+          </label>
+        <% end %>
       </div>
-    <% end %>
+    </div>
+
+    <!-- Technical Skills -->
+    <div class="field">
+      <%= f.label :technical_skills, t('positions.shared.score.technical_skills'), class: "block text-sm font-medium text-gray-700" %>
+      <div class="mt-2">
+        <% (1..5).each do |value| %>
+          <label class="inline-flex items-center mr-4">
+            <%= f.radio_button :technical_skills, value, class: "rating-input form-radio h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500" %>
+            <span class="ml-2 text-sm text-gray-700"><%= value %></span>
+          </label>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Social Skills -->
+    <div class="field">
+      <%= f.label :social_skills, t('positions.shared.score.social_skills'), class: "block text-sm font-medium text-gray-700" %>
+      <div class="mt-2">
+        <% (1..5).each do |value| %>
+          <label class="inline-flex items-center mr-4">
+            <%= f.radio_button :social_skills, value, class: "rating-input form-radio h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500" %>
+            <span class="ml-2 text-sm text-gray-700"><%= value %></span>
+          </label>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Language Skills -->
+    <div class="field">
+      <%= f.label :language_skills, t('positions.shared.score.language_skills'), class: "block text-sm font-medium text-gray-700" %>
+      <div class="mt-2">
+        <% (1..5).each do |value| %>
+          <label class="inline-flex items-center mr-4">
+            <%= f.radio_button :language_skills, value, class: "rating-input form-radio h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500" %>
+            <span class="ml-2 text-sm text-gray-700"><%= value %></span>
+          </label>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Flexibility -->
+    <div class="field">
+      <%= f.label :flexibility, t('positions.shared.score.flexibility'), class: "block text-sm font-medium text-gray-700" %>
+      <div class="mt-2">
+        <% (1..5).each do |value| %>
+          <label class="inline-flex items-center mr-4">
+            <%= f.radio_button :flexibility, value, class: "rating-input form-radio h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500" %>
+            <span class="ml-2 text-sm text-gray-700"><%= value %></span>
+          </label>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

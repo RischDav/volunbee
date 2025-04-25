@@ -1,25 +1,42 @@
-<h2 class="text-2xl font-bold"><%= t('positions.general_information.form.header') %></h2>
-<div class="bg-slate-100 rounded-lg p-6">
-  <div>
-    <div class="field m-3">
-      <%= f.label :title, t('positions.general_information.form.title_label'), class: "block text-lg font-medium text-gray-700 w-50%" %>
-      <p class="text-sm text-gray-700"><%= t('positions.general_information.form.title_description') %></p>
-      <%= f.text_field :title, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
-    </div>
-    <div id="word-count-title" class="mt-1 mx-3 rounded-md focus:outline-none"></div>
+<!-- General Information Section -->
+<div class="space-y-4">
+  <h2 class="text-2xl font-bold"><%= t('positions.shared.general_info.title') %></h2>
+  
+  <!-- Position Title -->
+  <div class="field">
+    <%= f.label :title, t('positions.shared.general_info.title_label'), class: "block text-sm font-medium text-gray-700" %>
+    <%= f.text_field :title, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500", placeholder: t('positions.shared.general_info.title_placeholder') %>
+    <div id="word-count-title" class="text-sm mt-1"></div>
+    <p class="mt-2 text-sm text-gray-500"><%= t('positions.shared.general_info.title_help') %></p>
+  </div>
 
-    <div class="field m-3">
-      <%= f.label :description, t('positions.general_information.form.description_label'), class: "block text-lg font-medium text-gray-700" %>
-      <p class="text-sm text-gray-700"><%= t('positions.general_information.form.description_description') %></p>
-      <%= f.text_area :description, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
-    </div>
-    <div id="word-count-description" class="mt-1 mx-3 rounded-md focus:outline-none"></div>
+  <!-- Position Description -->
+  <div class="field">
+    <%= f.label :description, t('positions.shared.general_info.description_label'), class: "block text-sm font-medium text-gray-700" %>
+    <%= f.text_area :description, rows: 5, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500", placeholder: t('positions.shared.general_info.description_placeholder') %>
+    <div id="word-count-description" class="text-sm mt-1"></div>
+    <p class="mt-2 text-sm text-gray-500"><%= t('positions.shared.general_info.description_help') %></p>
+  </div>
 
-    <div class="field m-3">
-      <%= f.label :benefits, t('positions.general_information.form.benefits_label'), class: "block text-lg font-medium text-gray-700" %>
-      <p class="text-sm text-gray-700"><%= t('positions.general_information.form.benefits_description') %></p>
-      <%= f.text_area :benefits, class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
-    </div>
-    <div id="word-count-benefits" class="mt-1 mx-3 rounded-md focus:outline-none"></div>
+  <!-- Benefits -->
+  <div class="field">
+    <%= f.label :benefits, t('positions.shared.general_info.benefits_label'), class: "block text-sm font-medium text-gray-700" %>
+    <%= f.text_area :benefits, rows: 3, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500", placeholder: t('positions.shared.general_info.benefits_placeholder') %>
+    <div id="word-count-benefits" class="text-sm mt-1"></div>
+    <p class="mt-2 text-sm text-gray-500"><%= t('positions.shared.general_info.benefits_help') %></p>
+  </div>
+
+  <!-- Weekly Time Commitment -->
+  <div class="field">
+    <%= f.label :weekly_time_commitment, t('positions.shared.general_info.time_commitment_label'), class: "block text-sm font-medium text-gray-700" %>
+    <%= f.number_field :weekly_time_commitment, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500", min: 1 %>
+    <p class="mt-2 text-sm text-gray-500"><%= t('positions.shared.general_info.time_commitment_help') %></p>
+  </div>
+
+  <!-- Temporary Position -->
+  <div class="field">
+    <%= f.label :temporary, t('positions.shared.general_info.temporary_label'), class: "block text-sm font-medium text-gray-700" %>
+    <%= f.select :temporary, [[t('positions.shared.general_info.temporary_yes'), true], [t('positions.shared.general_info.temporary_no'), false]], {}, { class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500", id: "position_temporary_select" } %>
+    <p id="temporary-info-text" class="mt-2 text-sm text-gray-500 hidden"><%= t('positions.shared.general_info.temporary_help') %></p>
   </div>
 </div>
