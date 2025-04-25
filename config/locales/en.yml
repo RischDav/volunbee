@@ -11,6 +11,11 @@ en:
       back_to_login: "Back to Login"
       no_user_info: "No user information available."
   shared:
+    word_count:
+      too_short: "Need %{remaining} more characters"
+      too_long: "Text is too long"
+      good: "Good length"
+      perfect: "Perfect length"
     footer:
       site_name: "Volunteer-Heilbronn.de"
       privacy_policy: "Privacy Policy"
