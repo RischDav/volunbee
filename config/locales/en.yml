@@ -16,6 +16,15 @@ en:
       too_long: "Text is too long"
       good: "Good length"
       perfect: "Perfect length"
+    faq:
+      title: "Questions and Answers"
+      description: "With the help of an FAQ section, you can answer frequently asked questions."
+      question_label: "Question"
+      answer_label: "Answer"
+      question_placeholder: "Enter your question here..."
+      answer_placeholder: "Enter your answer here..."
+      add_button: "Add FAQ"
+      remove_button: "Remove"
     footer:
       site_name: "Volunteer-Heilbronn.de"
       privacy_policy: "Privacy Policy"

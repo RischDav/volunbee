@@ -11,6 +11,20 @@ de:
       back_to_login: "Zurück zum Login"
       no_user_info: "Keine Benutzerinformationen verfügbar."
   shared:
+    word_count:
+      too_short: "Noch %{remaining} Zeichen benötigt"
+      too_long: "Text ist zu lang"
+      good: "Gute Länge"
+      perfect: "Perfekte Länge"
+    faq:
+      title: "Fragen und Antworten"
+      description: "Mit Hilfe eines FAQ-Bereichs können Sie häufig gestellte Fragen beantworten."
+      question_label: "Frage"
+      answer_label: "Antwort"
+      question_placeholder: "Geben Sie hier Ihre Frage ein..."
+      answer_placeholder: "Geben Sie hier Ihre Antwort ein..."
+      add_button: "FAQ hinzufügen"
+      remove_button: "Entfernen"
     footer:
       site_name: "Volunteer-Heilbronn.de"
       privacy_policy: "Datenschutzerklärung"
