@@ -54,45 +54,45 @@ class PositionsController < ApplicationController
       # Vorteile-Validierung
       if @position.errors.include?(:benefits)
         if @position.benefits.blank?
-          error_messages << "Die Vorteile dürfen nicht leer sein."
+          error_messages << t('positions.errors.benefits.blank')
         else
-          error_messages << "Die Vorteile müssen zwischen 100 und 1000 Zeichen lang sein (aktuell: #{@position.benefits.length} Zeichen)."
+          error_messages << t('positions.errors.benefits.length', length: @position.benefits.length)
         end
       end
   
       # Beschreibung-Validierung
       if @position.errors.include?(:description)
         if @position.description.blank?
-          error_messages << "Die Beschreibung darf nicht leer sein."
+          error_messages << t('positions.errors.description.blank')
         else
-          error_messages << "Die Beschreibung muss zwischen 100 und 1000 Zeichen lang sein (aktuell: #{@position.description.length} Zeichen)."
+          error_messages << t('positions.errors.description.length', length: @position.description.length)
         end
       end
   
       # Fähigkeiten-Validierung
       skill_namen = {
-        creative_skills: "Kreative Fähigkeiten",
-        technical_skills: "Technische Fähigkeiten",
-        social_skills: "Soziale Fähigkeiten",
-        language_skills: "Sprachfähigkeiten",
-        flexibility: "Flexibilität"
+        creative_skills: t('positions.show.creative_skills'),
+        technical_skills: t('positions.show.technical_skills'),
+        social_skills: t('positions.show.social_skills'),
+        language_skills: t('positions.show.language_skills'),
+        flexibility: t('positions.show.flexibility')
       }
   
       skill_namen.each do |skill, name|
         if @position.errors.include?(skill)
-          error_messages << "#{name} muss eine ganze Zahl zwischen 1 und 5 sein."
+          error_messages << t('positions.errors.skills.invalid', name: name)
         end
       end
   
       # Summe der Fähigkeiten prüfen
       skills_sum = skill_namen.keys.sum { |skill| @position.send(skill).to_i }
       if skills_sum > 15
-        error_messages << "Die Summe aller Fähigkeiten darf 15 nicht überschreiten. Aktuelle Summe: #{skills_sum}."
+        error_messages << t('positions.errors.skills.sum_exceeded', sum: skills_sum)
       end
   
       # Bilder-Validierung
       if @position.errors.include?(:pictures)
-        error_messages << "Die Bilder müssen kleiner als 5MB sein."
+        error_messages << t('positions.errors.pictures.too_large')
       end
   
       # Generische Fehlermeldungen, falls keine spezifischen gefunden wurden

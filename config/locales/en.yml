@@ -205,7 +205,8 @@ en:
       not_released: "The position has not yet been released by us and will therefore not be visible to the end user."
     edit:
       title: "Edit Position"
-      description: 
+      submit: "Save"
+      description:
         title: "Position Title"
         description: "Please enter a title for the position. Instead of simply using 'Volunteer,' please use a detailed title such as 'Volunteer in the field of web design,' so that potential candidates with the desired interests feel addressed."
       position_description: "Position Description"
@@ -298,6 +299,18 @@ en:
       not_available: "Not available"
       yes: "Yes"
       no: "No"
+    errors:
+      benefits:
+        blank: "Benefits cannot be empty."
+        length: "Benefits must be between 100 and 1000 characters long (currently: %{length} characters)."
+      description:
+        blank: "Description cannot be empty."
+        length: "Description must be between 100 and 1000 characters long (currently: %{length} characters)."
+      skills:
+        invalid: "%{name} must be an integer between 1 and 5."
+        sum_exceeded: "The sum of all skills must not exceed 15. Current sum: %{sum}."
+      pictures:
+        too_large: "Images must be smaller than 5MB."
   organizations:
     admin_card:
       email: "Email"

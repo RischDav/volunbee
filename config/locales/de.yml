@@ -205,6 +205,7 @@ de:
       not_released: "Die Position wurde von uns noch nicht freigegeben und wird dem Endnutzer dementsprechend nicht angezeigt."
     edit:
       title: "Position bearbeiten"
+      submit: "Speichern"
       description: 
         title: "Bezeichnung der Position"
         description: "Bitte geben Sie eine Bezeichnung für die Position an. Statt einfach die Bezeichnung 'Volunteer' zu nutzen, nutzen Sie bitte eine ausführliche Bezeichnung, wie zum Beispiel 'Volunteer in the field of web design', damit sich interessenten mit den gewünschten Interessen angesprochener fühlen."
@@ -297,6 +298,18 @@ de:
       not_available: "Nicht vorhanden"
       yes: "Ja"
       no: "Nein"
+    errors:
+      benefits:
+        blank: "Die Vorteile dürfen nicht leer sein."
+        length: "Die Vorteile müssen zwischen 100 und 1000 Zeichen lang sein (aktuell: %{length} Zeichen)."
+      description:
+        blank: "Die Beschreibung darf nicht leer sein."
+        length: "Die Beschreibung muss zwischen 100 und 1000 Zeichen lang sein (aktuell: %{length} Zeichen)."
+      skills:
+        invalid: "%{name} muss eine ganze Zahl zwischen 1 und 5 sein."
+        sum_exceeded: "Die Summe aller Fähigkeiten darf 15 nicht überschreiten. Aktuelle Summe: %{sum}."
+      pictures:
+        too_large: "Die Bilder müssen kleiner als 5MB sein."
   organizations:
     admin_card:
       email: "Email"
