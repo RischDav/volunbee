@@ -83,6 +83,21 @@
             <% end %>
         </div>
     </div>
+
+    <!-- FAQ Section -->
+    <% if @position.faqs.any? %>
+    <div class="mb-6">
+        <h3 class="text-xl font-bold mb-2"><%= t('positions.show.faqs') %></h3>
+        <div class="space-y-4">
+            <% @position.faqs.each do |faq| %>
+                <div class="bg-gray-100 p-4 rounded">
+                    <p class="text-gray-700 font-semibold"><%= faq.question %></p>
+                    <p class="text-gray-700 mt-2"><%= faq.answer %></p>
+                </div>
+            <% end %>
+        </div>
+    </div>
+    <% end %>
 </div>
 
 <!-- Back Button -->
