@@ -70,7 +70,7 @@
       });
 
       const remainingPoints = maxPoints - totalPoints;
-      remainingPointsDisplay.textContent = '<%= t("positions.shared.score.form.remaining_points") %>'.replace('%{points}', remainingPoints);
+      remainingPointsDisplay.textContent = '<%= t("positions.score.form.remaining_points") %>'.replace('%{points}', remainingPoints);
       remainingPointsDisplay.className = remainingPoints < 0 ? "text-red-600 font-medium" : "text-gray-700 font-medium";
     }
 
