@@ -115,7 +115,9 @@
             </div>
           </div>
         `;
-        faqsContainer.insertAdjacentHTML('beforeend', template);
+        const newFaq = document.createElement('div');
+        newFaq.innerHTML = template;
+        faqsContainer.appendChild(newFaq);
       });
 
       // Event delegation for FAQ removal
