@@ -14,79 +14,11 @@
             <h2 class="text-2xl font-bold"><%= t('positions.faqs.form.header') %></h2>
             <p class="text-sm text-gray-700"><%= t('positions.faqs.form.description') %></p>
             <div id="faqs" class="space-y-4">
-              <% @position.faqs.each do |faq| %>
-                <div class="field bg-gray-50 p-4 rounded-lg">
-                  <div class="space-y-4">
-                    <label class="block text-sm font-medium text-gray-700"><%= t('positions.faqs.form.question_label') %></label>
-                    <input type="text" name="position[faqs_attributes][<%= faq.id %>][question]" value="<%= faq.question %>" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="<%= t('positions.faqs.form.question_placeholder') %>">
-                    
-                    <label class="block text-sm font-medium text-gray-700"><%= t('positions.faqs.form.answer_label') %></label>
-                    <textarea name="position[faqs_attributes][<%= faq.id %>][answer]" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="<%= t('positions.faqs.form.answer_placeholder') %>"><%= faq.answer %></textarea>
-                    
-                    <input type="hidden" name="position[faqs_attributes][<%= faq.id %>][_destroy]" value="0">
-                    <button type="button" class="remove-faq mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                      <%= t('positions.faqs.form.remove') %>
-                    </button>
-                  </div>
-                </div>
-              <% end %>
+              <!-- FAQ blocks will be added here dynamically -->
             </div>
             <button type="button" id="add_faq" class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               <%= t('positions.faqs.form.add_new') %>
             </button>
-          </div>
-
-          <!-- Images Section -->
-          <div class="space-y-4 mt-8">
-            <h2 class="text-2xl font-bold"><%= t('positions.images.form.header') %></h2>
-            
-            <!-- Main Picture -->
-            <div class="field">
-              <%= f.label :mainPicture, t('positions.images.form.main_picture_label'), class: "block text-sm font-medium text-gray-700" %>
-              <% if @position.mainPicture.attached? %>
-                <div class="mt-2">
-                  <%= image_tag @position.mainPicture, class: "h-32 w-32 object-cover rounded-lg" %>
-                </div>
-              <% end %>
-              <%= f.file_field :mainPicture, class: "mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100", accept: 'image/*', id: "position_mainPicture" %>
-              <p id="mainPicture-feedback" class="mt-2 text-sm text-gray-500"><%= t('positions.images.form.main_picture_description') %></p>
-            </div>
-
-            <!-- Additional Pictures -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div class="field">
-                <%= f.label :picture1, t('positions.images.form.additional_pictures_label'), class: "block text-sm font-medium text-gray-700" %>
-                <% if @position.picture1.attached? %>
-                  <div class="mt-2">
-                    <%= image_tag @position.picture1, class: "h-32 w-32 object-cover rounded-lg" %>
-                  </div>
-                <% end %>
-                <%= f.file_field :picture1, class: "mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100", accept: 'image/*', id: "position_picture1" %>
-                <p id="picture1-feedback" class="mt-2 text-sm text-gray-500"><%= t('positions.images.form.additional_picture_feedback') %></p>
-              </div>
-
-              <div class="field">
-                <%= f.label :picture2, t('positions.images.form.additional_pictures_label'), class: "block text-sm font-medium text-gray-700" %>
-                <% if @position.picture2.attached? %>
-                  <div class="mt-2">
-                    <%= image_tag @position.picture2, class: "h-32 w-32 object-cover rounded-lg" %>
-                  </div>
-                <% end %>
-                <%= f.file_field :picture2, class: "mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100", accept: 'image/*', id: "position_picture2" %>
-                <p id="picture2-feedback" class="mt-2 text-sm text-gray-500"><%= t('positions.images.form.additional_picture_feedback') %></p>
-              </div>
-
-              <div class="field">
-                <%= f.label :picture3, t('positions.images.form.additional_pictures_label'), class: "block text-sm font-medium text-gray-700" %>
-                <% if @position.picture3.attached? %>
-                  <div class="mt-2">
-                    <%= image_tag @position.picture3, class: "h-32 w-32 object-cover rounded-lg" %>
-                  </div>
-                <% end %>
-                <%= f.file_field :picture3, class: "mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100", accept: 'image/*', id: "position_picture3" %>
-                <p id="picture3-feedback" class="mt-2 text-sm text-gray-500"><%= t('positions.images.form.additional_picture_feedback') %></p>
-              </div>
-            </div>
           </div>
 
           <!-- Submit Button -->
