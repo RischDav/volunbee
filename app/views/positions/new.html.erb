@@ -15,7 +15,7 @@
             <h2 class="text-2xl font-bold"><%= t('positions.faqs.form.header') %></h2>
             <p class="text-sm text-gray-700"><%= t('positions.faqs.form.description') %></p>
             <div id="faqs" class="space-y-4">
-              <% if @position.faqs.any? %>
+              <% if @position.faqs.present? %>
                 <% @position.faqs.each do |faq| %>
                   <div class="field bg-gray-50 p-4 rounded-lg">
                     <div class="space-y-4">
