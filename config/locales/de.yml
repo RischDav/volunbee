@@ -175,12 +175,15 @@ de:
     images:
       form:
         header: "Bilder"
-        main_picture_label: "Titelbild"
-        main_picture_description: "Laden Sie ein Titelbild hoch"
-        main_picture_feedback: "Bitte ein Titelbild hochladen"
+        main_picture_label: "Hauptbild"
+        main_picture_description: "Laden Sie ein Hauptbild hoch"
+        main_picture_feedback: "Bitte ein Hauptbild hochladen"
         additional_pictures_label: "Weitere Bilder"
         additional_pictures_description: "Laden Sie bis zu drei weitere Bilder hoch (optional - aber empfohlen)"
         additional_picture_feedback: "Bitte ein Bild hochladen"
+        file_selected: "Bild '%{filename}' wurde ausgewählt"
+        upload_hint: "Bitte ein Bild hochladen"
+        delete_image: "Bild löschen"
     score:
       form:
         header: "Score"

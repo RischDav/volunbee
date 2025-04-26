@@ -185,7 +185,7 @@ en:
       form:
         header: "Score"
         description: "On our platform, we offer an algorithm that helps users find the right position by answering a few questions. To enable this for your position as well, we need a 'Score.' It's simple: you have five attributes and 15 available points. Distribute the points across the attributes. Which attributes are most needed for the position, and which are less important?"
-        remaining_points: "Remaining points: "
+        remaining_points: "Remaining Points: %{points}"
         creative_skills_label: "Creativity"
         technical_skills_label: "Technical Skills"
         social_skills_label: "Social Skills"
