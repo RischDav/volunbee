@@ -21,6 +21,7 @@ class Position < ApplicationRecord
   validates :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }
 
   validate :pictures_size
+  validate :organization_position_limit
 
   after_commit :process_pictures, on: [:create, :update]
 
@@ -38,6 +39,12 @@ class Position < ApplicationRecord
       if picture.attached? && picture.blob.byte_size > 10.megabytes
         errors.add(:pictures, "each file should be less than 10 Megabytes")
       end
+    end
+  end
+
+  def organization_position_limit
+    if organization && organization.positions.count >= 3 && new_record?
+      errors.add(:base, "Maximum of 3 positions allowed per organization")
     end
   end
 

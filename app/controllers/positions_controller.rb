@@ -37,6 +37,11 @@ class PositionsController < ApplicationController
       # Benutzerfreundliche Fehlermeldungen generieren
       error_messages = []
   
+      # Position Limit Error
+      if @position.errors[:base].include?("Maximum of 3 positions allowed per organization")
+        error_messages << t('positions.errors.limit_reached')
+      end
+  
       # Titel-Validierung
       if @position.errors.include?(:title)
         if @position.title.blank?

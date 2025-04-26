@@ -302,6 +302,7 @@ de:
       yes: "Ja"
       no: "Nein"
     errors:
+      limit_reached: "Sie haben das Maximum von 3 Positionen pro Organisation erreicht."
       benefits:
         blank: "Die Vorteile dürfen nicht leer sein."
         length: "Die Vorteile müssen zwischen 100 und 1000 Zeichen lang sein (aktuell: %{length} Zeichen)."
@@ -309,10 +310,10 @@ de:
         blank: "Die Beschreibung darf nicht leer sein."
         length: "Die Beschreibung muss zwischen 100 und 1000 Zeichen lang sein (aktuell: %{length} Zeichen)."
       skills:
-        invalid: "%{name} muss eine ganze Zahl zwischen 1 und 5 sein."
-        sum_exceeded: "Die Summe aller Fähigkeiten darf 15 nicht überschreiten. Aktuelle Summe: %{sum}."
+        invalid: "Ungültiger Wert für %{name}."
+        sum_exceeded: "Die Summe der Fähigkeiten darf 15 nicht überschreiten (aktuell: %{sum})."
       pictures:
-        too_large: "Die Bilder müssen kleiner als 5MB sein."
+        too_large: "Jede Bilddatei muss kleiner als 10 Megabyte sein."
   organizations:
     admin_card:
       email: "Email"

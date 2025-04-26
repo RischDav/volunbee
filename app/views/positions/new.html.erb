@@ -1,48 +1,54 @@
-<h1 class="text-3xl"><%= t('positions.new.title') %></h1>
-<div class="mt-8 p-6 bg-white rounded-lg shadow-md border broder-slate-200">
-  <%= form_for @position, url: positions_path, html: { class: "space-y-4", multipart: true } do |f| %>
-    <h2 class="text-2xl font-bold my-4 text-red-600"><%= t('positions.new.subtitle') %></h2>
+<div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+  <div class="relative py-3 sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto">
+    <div class="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
+      <%= form_with model: @position, url: positions_path, local: true, class: "space-y-4", multipart: true do |f| %>
+        <div class="space-y-4">
+          <h1 class="text-3xl font-bold text-gray-900"><%= t('positions.new.title') %></h1>
+          <h2 class="text-2xl font-bold text-red-600"><%= t('positions.new.subtitle') %></h2>
 
-    <%= render 'form_general_information', f: f %>
-    <%= render 'form_images', f: f %>
-    <%= render 'form_score', f: f %>
-    <%= render 'form_faqs', f: f %>
+          <%= render 'form_general_information', f: f %>
+          <%= render 'form_images', f: f %>
+          <%= render 'form_score', f: f %>
+          <%= render 'form_faqs', f: f %>
 
-    <!-- Checkbox-Bereich -->
-    <h2 class="text-2xl font-bold"><%= t('positions.new.confirmation.title') %></h2>
-    <div class="bg-slate-100 rounded-lg p-6">
-      <div class="gap-4">
-        <!-- Checkbox: Textbeschreibungen in englischer Sprache -->
-        <div class="field m-3">
-          <div class="border-2 border-gray-300 p-4 rounded-md">
-            <label class="inline-flex items-center">
-              <input type="checkbox" id="english-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
-              <span class="ml-2 text-sm text-gray-700">
-                <%= t('positions.new.confirmation.text') %>
-              </span>
-            </label>
+          <!-- Checkbox-Bereich -->
+          <h2 class="text-2xl font-bold"><%= t('positions.new.confirmation.title') %></h2>
+          <div class="bg-slate-100 rounded-lg p-6">
+            <div class="gap-4">
+              <!-- Checkbox: Textbeschreibungen in englischer Sprache -->
+              <div class="field m-3">
+                <div class="border-2 border-gray-300 p-4 rounded-md">
+                  <label class="inline-flex items-center">
+                    <input type="checkbox" id="english-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+                    <span class="ml-2 text-sm text-gray-700">
+                      <%= t('positions.new.confirmation.text') %>
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Checkbox: Zustimmung zu AGB und Datenschutz -->
+              <div class="field m-3">
+                <div class="border-2 border-gray-300 p-4 rounded-md">
+                  <label class="inline-flex items-center">
+                    <input type="checkbox" id="terms-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+                    <span class="ml-2 text-sm text-gray-700">
+                      <%= raw t('positions.new.confirmation.terms') %>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit-Button -->
+          <div class="actions my-10">
+            <%= f.submit t('positions.new.button.create'), id: "submit-button", class: "w-full py-2 bg-gray-400 text-white font-medium text-sm rounded-md shadow-sm cursor-not-allowed", disabled: true %>
           </div>
         </div>
-
-        <!-- Checkbox: Zustimmung zu AGB und Datenschutz -->
-        <div class="field m-3">
-          <div class="border-2 border-gray-300 p-4 rounded-md">
-            <label class="inline-flex items-center">
-              <input type="checkbox" id="terms-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
-              <span class="ml-2 text-sm text-gray-700">
-                <%= raw t('positions.new.confirmation.terms') %>
-              </span>
-            </label>
-          </div>
-        </div>
-      </div>
+      <% end %>
     </div>
-
-    <!-- Submit-Button -->
-    <div class="actions my-10">
-      <%= f.submit t('positions.new.button.create'), id: "submit-button", class: "w-full py-2 bg-gray-400 text-white font-medium text-sm rounded-md shadow-sm cursor-not-allowed", disabled: true %>
-    </div>
-  <% end %>
+  </div>
 </div>
 <script>
   document.addEventListener("turbolinks:load", function () {
