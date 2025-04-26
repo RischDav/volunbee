@@ -103,14 +103,14 @@
         const template = `
           <div class="field bg-gray-50 p-4 rounded-lg">
             <div class="space-y-4">
-              <label class="block text-sm font-medium text-gray-700"><%= t('positions.faqs.form.question_label') %></label>
-              <input type="text" name="position[faqs_attributes][${timestamp}][question]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="<%= t('positions.faqs.form.question_placeholder') %>">
+              <label class="block text-sm font-medium text-gray-700">${'<%= t("positions.faqs.form.question_label") %>'}</label>
+              <input type="text" name="position[faqs_attributes][${timestamp}][question]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="${'<%= t("positions.faqs.form.question_placeholder") %>'}">
               
-              <label class="block text-sm font-medium text-gray-700"><%= t('positions.faqs.form.answer_label') %></label>
-              <textarea name="position[faqs_attributes][${timestamp}][answer]" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="<%= t('positions.faqs.form.answer_placeholder') %>"></textarea>
+              <label class="block text-sm font-medium text-gray-700">${'<%= t("positions.faqs.form.answer_label") %>'}</label>
+              <textarea name="position[faqs_attributes][${timestamp}][answer]" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="${'<%= t("positions.faqs.form.answer_placeholder") %>'}"></textarea>
               
               <button type="button" class="remove-faq mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                <%= t('positions.faqs.form.remove') %>
+                ${'<%= t("positions.faqs.form.remove") %>'}
               </button>
             </div>
           </div>
