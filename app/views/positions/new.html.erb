@@ -9,7 +9,17 @@
           <%= render 'form_general_information', f: f %>
           <%= render 'form_images', f: f %>
           <%= render 'form_score', f: f %>
-          <%= render 'form_faqs', f: f %>
+          
+          <!-- FAQ Section -->
+          <div class="space-y-4 mt-8">
+            <h2 class="text-2xl font-bold"><%= t('positions.new.faq.title') %></h2>
+            <div id="faqs" class="space-y-4">
+              <!-- FAQ blocks will be added here dynamically -->
+            </div>
+            <button type="button" id="add_faq" class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <%= t('positions.new.faq.add_button') %>
+            </button>
+          </div>
 
           <!-- Checkbox-Bereich -->
           <h2 class="text-2xl font-bold"><%= t('positions.new.confirmation.title') %></h2>
@@ -174,17 +184,20 @@
         var new_id = new Date().getTime();
         var newFaq = document.createElement("div");
         newFaq.innerHTML = `
-    <div class="field m-3">
-      <label class="block">
-        <%= t('positions.new.faq.question_label') %>
-        <textarea name="position[faqs_attributes][${new_id}][question]" placeholder="<%= t('positions.new.faq.question_placeholder') %>" required class="form-input rounded-lg p-2"></textarea>
-      </label>
-      <label class="block">
-        <%= t('positions.new.faq.answer_label') %>
-        <textarea name="position[faqs_attributes][${new_id}][answer]" placeholder="<%= t('positions.new.faq.answer_placeholder') %>" required class="form-input rounded-lg p-2"></textarea>
-      </label>
-      <button type="button" class="remove-faq bg-red-600 text-white rounded-md p-2 mt-2"><%= t('positions.new.faq.remove_button') %></button>
-    </div>`;
+          <div class="field bg-gray-50 p-4 rounded-lg">
+            <div class="space-y-4">
+              <label class="block text-sm font-medium text-gray-700"><%= t('positions.new.faq.question_label') %></label>
+              <input type="text" name="position[faqs_attributes][${new_id}][question]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="<%= t('positions.new.faq.question_placeholder') %>">
+              
+              <label class="block text-sm font-medium text-gray-700"><%= t('positions.new.faq.answer_label') %></label>
+              <textarea name="position[faqs_attributes][${new_id}][answer]" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="<%= t('positions.new.faq.answer_placeholder') %>"></textarea>
+              
+              <button type="button" class="remove-faq mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                <%= t('positions.new.faq.remove_button') %>
+              </button>
+            </div>
+          </div>
+        `;
         faqsContainer.appendChild(newFaq);
       });
 
