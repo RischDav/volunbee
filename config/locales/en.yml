@@ -219,7 +219,7 @@ en:
         description: "Please select how many hours per week are required for this position."
       position_temporary:
         title: "Is the Position Temporary?"
-        description: "Please select whether the position is temporary."
+        description: "if the position is temporary, do not forget to mention the exact date and time."
         temporary_info: "Please remember to specify in the position description when the help is needed."
       images:
         title: "Images"
@@ -247,9 +247,9 @@ en:
       title: "Create New Position"
       subtitle: "Please ensure all fields are filled out in English!"
       confirmation:
+        title: "Confirmations"
         text: "I confirm that all text descriptions are written in English."
-        terms: >
-         "I have read and accept the <a href='/agb' class='text-blue-600 underline'>Terms & Conditions</a> and the <a href='/datenschutz' class='text-blue-600 underline'>Privacy Policy</a>."
+        terms: "I have read and accept the <a href='/agb' class='text-blue-600 underline'>Terms & Conditions</a> and the <a href='/datenschutz' class='text-blue-600 underline'>Privacy Policy</a>."
       button:
         create: "Create"
       word_count:
