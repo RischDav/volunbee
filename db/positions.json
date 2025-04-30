@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "organization_code": "special_olympics_bw",
+    "position_code": "it_support",
+    "position_temporary": true,
+    "duration": "From 09th July till 12th July 2025",
+    "weekly_time_commitment": "Maximum 32 hours at all",
+    "organization_name": "Special Olympics Baden-Württemberg e.V.",
+    "project_or_local_group": "Landesspiele Heilbronn/Neckarsulm 2025",
+    "role": "Support IT/results service",
+    "organization_description": "Special Olympics is the world's largest sports movement for people with intellectual and multiple disabilities. The Special Olympics Baden-Württemberg (SOBW) state association now has over 4,500 active athletes who take part in regular training and competitions. The \"Landesspiele Heilbronn/Neckarsulm\" for people with intellectual and multiple disabilities will take place in Heilbronn and Neckarsulm from July 9 to July 12, 2025. There will be a wide range of sports competitions at various locations in the cities, in which 1,100 athletes are expected to take part. There will also be a colorful supporting program with various events and hands-on activities.",
+    "tasks_description": "In the IT/results service, helpers should have good computer skills. Ideally, they should have a professional or educational background in IT. Tasks include, for example, helping to set up the computers in the organization offices (installing programs, connecting printers, etc.). In the event of problems during the event, e.g. if a computer crashes, the volunteers help on site. Another task is to enter results into the relevant program applications.",
+    "benefits": "Enjoy teamwork, experience a major sporting event, and get inspired by the athletes. Volunteers receive a T-shirt, lunch, a leave of absence, and a certificate of participation.",
+    "faq": [
+      {
+        "question": "Is knowledge of German required?",
+        "answer": "Knowledge of German is not required. However, a little knowledge of German would be helpful for the exchange with the contact persons."
+      },
+      {
+        "question": "Does the volunteer assignment have to last for the entire duration of the event (4 days)?",
+        "answer": "No, but due to the coordination and the experience, it would be a great help for us to have volunteers for the entire duration of the event! However, if this is not possible for you, it is also possible to volunteer for two or three consecutive days."
+      },
+      {
+        "question": "How much time is required per day for the volunteer assignment?",
+        "answer": "Maximum 8 hours per day. The times vary depending on the area of work and will be announced in good time in advance."
+      },
+      {
+        "question": "What information will I receive in advance of the event?",
+        "answer": "You will receive detailed information about your tasks and the exact schedule in advance of the event. There will also be a short helper training session with the most important information about Special Olympics and the event for all helpers."
+      }
+    ],
+    "address": {
+      "postal_code": "76131",
+      "city": "Karlsruhe",
+      "street": "Am Fächerbad",
+      "house_number": "5",
+      "additional_info": null
+    },
+    "contact": {
+      "name": "Lea Stärk",
+      "phone": "01783269365",
+      "email": "lea.staerk@bw.specialolympics.de",
+      "instagram": null,
+      "facebook": null,
+      "tiktok": null,
+      "linkedin": null,
+      "x_account": null,
+      "website": null,
+      "linktree": null
+    },
+    "materials": {
+      "authors": false,
+      "logo": "images/specialOlympics/special_olympics_logo.png",
+      "photos": {
+        "photo1": {
+          "url": "images/specialOlympics/special_olympics_photo1.jpg",
+          "author": "Andreas Henn"
+        },
+        "photo2": {
+          "url": "images/specialOlympics/special_olympics_photo4.jpg",
+          "author": "SOBW/seeboth-photo.de"
+        },
+        "photo3": {
+          "url": "images/specialOlympics/special_olympics_photo3.jpg",
+          "author": "Andreas Henn"
+        }
+      }
+    },
+    "ratings": {
+      "Creative Skills": 2,
+      "Technical Skills": 3,
+      "Social Skills": 1,
+      "Language Skills": 0,
+      "Flexibility": 2
+    },
+    "tags": ["it", "results service", "special olympics"]
+  }
+] 
