@@ -179,26 +179,31 @@
     const faqsContainer = document.getElementById("faqs");
 
     if (addFaqButton && faqsContainer) {
-      addFaqButton.addEventListener("click", function (e) {
-        e.preventDefault();
-        // Eindeutige ID erzeugen
-        var new_id = new Date().getTime();
-        var newFaq = document.createElement("div");
-        newFaq.innerHTML = `
-          <div class="field bg-gray-50 p-4 rounded-lg">
-            <div class="space-y-4">
-              <label class="block text-sm font-medium text-gray-700">${'<%= t("positions.faqs.form.question_label") %>'}</label>
-              <input type="text" name="position[faqs_attributes][${new_id}][question]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" >
-              
-              <label class="block text-sm font-medium text-gray-700">${'<%= t("positions.faqs.form.answer_label") %>'}</label>
-              <textarea name="position[faqs_attributes][${new_id}][answer]" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
-              
-              <button type="button" class="remove-faq mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                ${'<%= t("positions.faqs.form.remove") %>'}
-              </button>
-            </div>
-          </div>
-        `;
+      // Definiere Übersetzungsvariablen vor dem Template
+const questionLabel = '<%= t("positions.faqs.form.question_label") %>';
+const answerLabel = '<%= t("positions.faqs.form.answer_label") %>';
+const removeButton = '<%= t("positions.faqs.form.remove") %>';
+
+// Im Event-Listener:
+addFaqButton.addEventListener("click", function (e) {
+  e.preventDefault();
+  var new_id = new Date().getTime();
+  var newFaq = document.createElement("div");
+  newFaq.innerHTML = `
+    <div class="field bg-gray-50 p-4 rounded-lg">
+      <div class="space-y-4">
+        <label class="block text-sm font-medium text-gray-700">${questionLabel}</label>
+        <input type="text" name="position[frequently_asked_questions_attributes][${new_id}][question]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+        
+        <label class="block text-sm font-medium text-gray-700">${answerLabel}</label>
+        <textarea name="position[frequently_asked_questions_attributes][${new_id}][answer]" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+        
+        <button type="button" class="remove-faq mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+          ${removeButton}
+        </button>
+      </div>
+    </div>
+  `;
         faqsContainer.appendChild(newFaq);
       });
 
