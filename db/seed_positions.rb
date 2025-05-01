@@ -3,20 +3,42 @@ require 'json'
 # Read the JSON data
 positions_data = JSON.parse(File.read('db/positions.json'))
 
+def with_retry(max_retries = 3, delay = 2)
+  retries = 0
+  begin
+    yield
+  rescue ActiveRecord::StatementTimeout => e
+    retries += 1
+    if retries <= max_retries
+      puts "Database lock detected, retrying in #{delay} seconds (attempt #{retries}/#{max_retries})..."
+      sleep(delay)
+      retry
+    else
+      puts "Max retries reached. Moving to next position..."
+      return nil
+    end
+  end
+end
+
 positions_data.each do |position_data|
+  sleep(2) # Increased delay between positions
+
   # Create or find organization
-  organization = Organization.find_or_create_by!(
-    name: position_data['organization_name'],
-    email: position_data['contact']['email'],
-    contact_number: position_data['contact']['phone'],
-    city: position_data['address']['city'],
-    zip: position_data['address']['postal_code'],
-    street: position_data['address']['street'],
-    housenumber: position_data['address']['house_number'],
-    contact_person: position_data['contact']['name'],
-    description: position_data['organization_description'],
-    organization_code: position_data['organization_code']
-  )
+  organization = with_retry do
+    Organization.find_or_create_by!(
+      name: position_data['organization_name'],
+      email: position_data['contact']['email'],
+      contact_number: position_data['contact']['phone'],
+      city: position_data['address']['city'],
+      zip: position_data['address']['postal_code'],
+      street: position_data['address']['street'],
+      housenumber: position_data['address']['house_number'],
+      contact_person: position_data['contact']['name'],
+      description: position_data['organization_description'],
+      organization_code: position_data['organization_code']
+    )
+  end
+  next unless organization
 
   # Skip if organization already has 3 positions
   next if organization.positions.count >= 3
@@ -70,18 +92,25 @@ positions_data.each do |position_data|
     end
   end
 
-  # Save the position
-  if position.save
-    # Create FAQs
-    position_data['faq'].each do |faq_data|
-      position.frequently_asked_questions.create!(
-        question: faq_data['question'],
-        answer: faq_data['answer']
-      )
-    end
+  # Save the position with retry
+  success = with_retry do
+    if position.save
+      # Create FAQs
+      position_data['faq'].each do |faq_data|
+        position.frequently_asked_questions.create!(
+          question: faq_data['question'],
+          answer: faq_data['answer']
+        )
+      end
 
-    puts "Created position: #{position.title} for organization: #{organization.name}"
-  else
-    puts "Failed to create position: #{position.errors.full_messages}"
+      puts "Created position: #{position.title} for organization: #{organization.name}"
+      puts "Attached images: #{position.mainPicture.filename}, #{position.picture1&.filename}, #{position.picture2&.filename}"
+      true
+    else
+      puts "Failed to create position: #{position.errors.full_messages}"
+      false
+    end
   end
+
+  next unless success
 end 
