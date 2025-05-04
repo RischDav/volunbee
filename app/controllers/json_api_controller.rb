@@ -54,7 +54,7 @@ class JsonApiController < ApplicationController
         role: position.title,
         organization_code: organization.organization_code || "",  
         position_code: position.position_code || "",  
-        position_temporary: position.temporary || "",
+        position_temporary: position.position_temporary || "",
         organization_description: organization.description || "",
         tasks_description: position.description,
         benefits: position.benefits || "",
