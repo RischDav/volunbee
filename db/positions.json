@@ -1,79 +1,611 @@
-[
+[ {
+  "id": 1,
+  "organization_code": "special_olympics_bw",
+  "position_code": "it_support",
+  "position_temporary": true,
+  "duration": "From 09th July till 12th July 2025",
+  "weekly_time_commitment": "Maximum 32 hours at all",
+  "organization_name": "Special Olympics Baden-Württemberg e.V.",
+  "project_or_local_group": "Landesspiele Heilbronn/Neckarsulm 2025",
+  "role": "Support IT/results service",
+  "organization_description": "Special Olympics is the world's largest sports movement for people with intellectual and multiple disabilities. The Special Olympics Baden-Württemberg (SOBW) state association now has over 4,500 active athletes who take part in regular training and competitions. The \"Landesspiele Heilbronn/Neckarsulm\" for people with intellectual and multiple disabilities will take place in Heilbronn and Neckarsulm from July 9 to July 12, 2025. There will be a wide range of sports competitions at various locations in the cities, in which 1,100 athletes are expected to take part. There will also be a colorful supporting program with various events and hands-on activities.",
+  "tasks_description": "In the IT/results service, helpers should have good computer skills. Ideally, they should have a professional or educational background in IT. Tasks include, for example, helping to set up the computers in the organization offices (installing programs, connecting printers, etc.). In the event of problems during the event, e.g. if a computer crashes, the volunteers help on site. Another task is to enter results into the relevant program applications.",
+  "benefits": "Enjoy teamwork, experience a major sporting event, and get inspired by the athletes. Volunteers receive a T-shirt, lunch, a leave of absence, and a certificate of participation.",
+  "faq": [
+    {
+      "question": "Is knowledge of German required?",
+      "answer": "Knowledge of German is not required. However, a little knowledge of German would be helpful for the exchange with the contact persons."
+    },
+    {
+      "question": "Does the volunteer assignment have to last for the entire duration of the event (4 days)?",
+      "answer": "No, but due to the coordination and the experience, it would be a great help for us to have volunteers for the entire duration of the event! However, if this is not possible for you, it is also possible to volunteer for two or three consecutive days."
+    },
+    {
+      "question": "How much time is required per day for the volunteer assignment?",
+      "answer": "Maximum 8 hours per day. The times vary depending on the area of work and will be announced in good time in advance."
+    },
+    {
+      "question": "What information will I receive in advance of the event?",
+      "answer": "You will receive detailed information about your tasks and the exact schedule in advance of the event. There will also be a short helper training session with the most important information about Special Olympics and the event for all helpers."
+    }
+  ],
+  "address": {
+    "postal_code": "76131",
+    "city": "Karlsruhe",
+    "street": "Am Fächerbad",
+    "house_number": "5",
+    "additional_info": null
+  },
+  "contact": {
+    "name": "Lea Stärk",
+    "phone": "01783269365",
+    "email": "lea.staerk@bw.specialolympics.de",
+    "instagram": null,
+    "facebook": null,
+    "tiktok": null,
+    "linkedin": null,
+    "x_account": null,
+    "website": null,
+    "linktree": null
+  },
+  "materials": {
+    "authors": false,
+    "logo": "images/specialOlympics/special_olympics_logo.png",
+    "photos": {
+      "photo1": {
+      "url": "images/specialOlympics/special_olympics_photo1.jpg",
+      "author": "Andreas Henn"
+      },
+      "photo2": {
+      "url": "images/specialOlympics/special_olympics_photo4.jpg",
+      "author": "SOBW/seeboth-photo.de"
+      },
+      "photo3": {
+      "url": "images/specialOlympics/special_olympics_photo3.jpg",
+      "author": "Andreas Henn"
+      }
+    }
+  },
+  "ratings": {
+    "Creative Skills": 2,
+    "Technical Skills": 3,
+    "Social Skills": 1,
+    "Language Skills": 1,
+    "Flexibility": 2
+  },
+  "tags": ["it", "results service", "special olympics"]
+}
+,
+{
+  "id": 2,
+  "organization_code": "special_olympics_bw",
+  "position_code": "general_volunteer",
+  "position_temporary": true,
+  "duration": "From 09th July till 12th July 2025",
+  "weekly_time_commitment": "Maximum 32 hours at all",
+  "organization_name": "Special Olympics Baden-Württemberg e.V.",
+  "project_or_local_group": "Landesspiele Heilbronn/Neckarsulm 2025",
+  "role": "Volunteer",
+  "organization_description": "Special Olympics is the world's largest sports movement for people with intellectual and multiple disabilities. The Special Olympics Baden-Württemberg (SOBW) state association now has over 4,500 active athletes who take part in regular training and competitions. The \"Landesspiele Heilbronn/Neckarsulm\" for people with intellectual and multiple disabilities will take place in Heilbronn and Neckarsulm from July 9 to July 12, 2025. There will be a wide range of sports competitions at various locations in the cities, in which 1,100 athletes are expected to take part. There will also be a colorful supporting program with various events and hands-on activities.",
+  "tasks_description": "Support in various areas: setting up and dismantling, logistics, ceremonies, social media, or accompanying international delegations. We try to organize the work according to personal interests.",
+  "benefits": "Enjoy teamwork, experience a major sporting event, and get inspired by the athletes. Volunteers receive a T-shirt, lunch, a leave of absence, and a certificate of participation.",
+  "faq": [
+    {
+      "question": "Is knowledge of German required?",
+      "answer": "Knowledge of German is not required. However, a little knowledge of German would be helpful for the exchange with the contact persons."
+    },
+    {
+      "question": "Are there fixed times for volunteering?",
+      "answer": "No, the volunteers can decide for themselves at which sports venues and at what time they want to participate."
+    },
+    {
+      "question": "Do I have to participate for the entire event?",
+      "answer": "No, but it is helpful to volunteer for the entire duration. Shorter participation of two to three consecutive days is possible."
+    },
+    {
+      "question": "Will I get information in advance?",
+      "answer": "Yes, information about the event, your tasks, and a helper training session will be provided in advance."
+    }
+  ],
+  "address": {
+    "postal_code": "76131",
+    "city": "Karlsruhe",
+    "street": "Am Fächerbad",
+    "house_number": "5",
+    "additional_info": null
+  },
+  "contact": {
+    "name": "Lea Stärk",
+    "phone": "01783269365",
+    "email": "lea.staerk@bw.specialolympics.de",
+    "instagram": null,
+    "facebook": null,
+    "tiktok": null,
+    "linkedin": null,
+    "x_account": null,
+    "website": null,
+    "linktree": null
+  },
+  "materials": {
+    "authors": true,
+    "logo": "images/specialOlympics/special_olympics_logo.png",
+    "photos": {
+      "photo1": {
+      "url": "images/specialOlympics/special_olympics_photo2.jpg",
+      "author": "Andreas Henn"
+      },
+      "photo2": {
+      "url": "images/specialOlympics/special_olympics_photo3.jpg",
+      "author": "Andreas Henn"
+      },
+      "photo3": {
+      "url": "images/specialOlympics/special_olympics_photo4.jpg",
+      "author": "SOBW/seeboth-photo.de"
+      }
+    }
+  },
+  "ratings": {
+    "Creative Skills": 1,
+    "Technical Skills": 1,
+    "Social Skills": 3,
+    "Language Skills": 2,
+    "Flexibility": 2
+  },
+  "tags": ["volunteer", "event", "special olympics"]
+}
+,
+{
+  "id": 3,
+  "organization_code": "special_olympics_bw",
+  "position_code": "fan_project",
+  "position_temporary": true,
+  "duration": "From 09th July till 12th July 2025",
+  "weekly_time_commitment": "Approx. 16 hours att all",
+  "organization_name": "Special Olympics Baden-Württemberg e.V.",
+  "project_or_local_group": "Landesspiele Heilbronn/Neckarsulm 2025",
+  "role": "Fan project",
+  "organization_description": "Special Olympics is the world's largest sports movement for people with intellectual and multiple disabilities. The Special Olympics Baden-Württemberg (SOBW) state association now has over 4,500 active athletes who take part in regular training and competitions. The \"Landesspiele Heilbronn/Neckarsulm\" for people with intellectual and multiple disabilities will take place in Heilbronn and Neckarsulm from July 9 to July 12, 2025. There will be a wide range of sports competitions at various locations in the cities, in which 1,100 athletes are expected to take part. There will also be a colorful supporting program with various events and hands-on activities.",
+  "tasks_description": "Interested students can participate in the event through various fan projects, which differ from a classic volunteer role. For Special Olympics athletes, the games are a highlight where they can showcase their abilities. Within the fan projects, volunteers support the athletes by engaging in different activities and cheering them on during competitions. Students have the freedom to organize their activities independently and align them with their interests. For example, they can attend competitions as a fan team, designing posters or banners in advance and cheering on athletes at different sports venues, or organize small welcome events to greet athletes at the venues. Volunteers can enjoy the games, network with others, and connect with the athletes, experiencing a major inclusive sporting event.",
+  "benefits": "Enjoy the games, network with others, and connect with athletes. Volunteers experience a major inclusive sporting event.",
+  "faq": [
+    {
+      "question": "Is knowledge of German required?",
+      "answer": "German language skills are not required. However, if you would like to come into contact with the athletes, a little knowledge of German would be great, because the athletes usually do not speak English."
+    },
+    {
+      "question": "Are there fixed times for volunteering?",
+      "answer": "No, the volunteers can decide for themselves at which sports venues and at what time they want to cheer on the athletes."
+    },
+    {
+      "question": "Is it also possible to volunteer as a fan in a group?",
+      "answer": "Yes, the more support the better!"
+    },
+    {
+      "question": "What information will I receive in advance of the event?",
+      "answer": "If you are interested, we will provide information about Special Olympics, the event, and preferred sports in advance."
+    }
+  ],
+  "address": {
+    "postal_code": "76131",
+    "city": "Karlsruhe",
+    "street": "Am Fächerbad",
+    "house_number": "5",
+    "additional_info": null
+  },
+  "contact": {
+    "name": "Lea Stärk",
+    "phone": "01783269365",
+    "email": "lea.staerk@bw.specialolympics.de",
+    "instagram": null,
+    "facebook": null,
+    "tiktok": null,
+    "linkedin": null,
+    "x_account": null,
+    "website": null,
+    "linktree": null
+  },
+  "materials": {
+    "authors": true,
+    "logo": "images/specialOlympics/special_olympics_logo.png",
+    "photos": {
+      "photo1": {
+      "url": "images/specialOlympics/special_olympics_photo4.jpg",
+      "author": "SOBW/seeboth-photo.de"
+      },
+      "photo2": {
+      "url": "images/specialOlympics/special_olympics_photo2.jpg",
+      "author": "Andreas Henn"
+      },
+      "photo3": {
+      "url": "images/specialOlympics/special_olympics_photo1.jpg",
+      "author": "Andreas Henn"
+      }
+    }
+  },
+  "ratings": {
+    "Creative Skills": 2,
+    "Technical Skills": 1,
+    "Social Skills": 3,
+    "Language Skills": 1,
+    "Flexibility": 1
+  },
+  "tags": ["fan project", "inclusive", "cheer"]
+}
+,
+{
+  "id": 5,
+  "organization_code": "unicef_hg_heilbronn",
+  "position_code": "volunteer",
+  "position_temporary": false,
+  "duration": null,
+  "weekly_time_commitment": "Maximum 2 hours per Week",
+  "organization_name": "UNICEF University Group Heilbronn",
+  "project_or_local_group": null,
+  "role": "Volunteer",
+  "organization_description": "UNICEF University Group Heilbronn is a student-led organization at Heilbronn University dedicated to supporting UNICEF's work. The group raises awareness about children's rights and issues affecting children worldwide.",
+  "tasks_description": "Members participate in organizing events to raise funds and educational activities on social media to advocate for children's well-being and promote UNICEF's mission.",
+  "benefits": "After participating in three events, volunteers receive a certificate. Volunteering with UNICEF enhances job or university applications, showing commitment and social responsibility.",
+  "faq": [
+    {
+      "question": "Is it time-intensive?",
+      "answer": "Not at all! Many weeks require no participation. Occasionally, we organize events seeking volunteers for about two hours, allowing for flexible contribution."
+    },
+    {
+      "question": "Do I have to participate in every event?",
+      "answer": "No, participation in every event is optional. You can sign up for events via a registration link, giving you the flexibility to join as per your schedule."
+    },
+    {
+      "question": "What is the application process?",
+      "answer": "To become a member, provide your name and email to a coordinator, who will send a registration link to complete the process on our intranet."
+    }
+  ],
+  "address": {
+    "postal_code": "74072",
+    "city": "Heilbronn",
+    "street": "Allee",
+    "house_number": "12",
+    "additional_info": null
+  },
+  "contact": {
+    "name": "Sara Lien Al Hayek",
+    "phone": "0174 7711226",
+    "email": "info@hochschulgruppe-heilbronn.unicef.de",
+    "instagram": "unicef_heilbronn",
+    "facebook": null,
+    "tiktok": null,
+    "linkedin": "UNICEF-Hochschulgruppe-Heilbronn",
+    "x_account": null,
+    "website": "https://www.ag-intranet.unicef.de/login.html",
+    "linktree": null
+  },
+  "materials": {
+    "authors": false,
+    "logo": "images/unicef/unicef_hg_logo.jpg",
+    "photos": {
+      "photo1": {
+      "url": "images/unicef/unicef_hg_photo1.jpg",
+      "author": ""
+      },
+      "photo2": {
+      "url": "images/unicef/unicef_hg_photo2.jpg",
+      "author": ""
+      },
+      "photo3": {
+      "url": "images/unicef/unicef_hg_photo3.jpg",
+      "author": ""
+      }
+    }
+  },
+
+  "ratings": {
+    "Creative Skills": 1,
+    "Technical Skills": 1,
+    "Social Skills": 3,
+    "Language Skills": 3,
+    "Flexibility": 2
+  },
+  "tags": ["unicef", "social media", "fundraising"]
+},
   {
-    "id": 1,
-    "organization_code": "special_olympics_bw",
-    "position_code": "it_support",
-    "position_temporary": true,
-    "duration": "From 09th July till 12th July 2025",
-    "weekly_time_commitment": "Maximum 32 hours at all",
-    "organization_name": "Special Olympics Baden-Württemberg e.V.",
-    "project_or_local_group": "Landesspiele Heilbronn/Neckarsulm 2025",
-    "role": "Support IT/results service",
-    "organization_description": "Special Olympics is the world's largest sports movement for people with intellectual and multiple disabilities. The Special Olympics Baden-Württemberg (SOBW) state association now has over 4,500 active athletes who take part in regular training and competitions. The \"Landesspiele Heilbronn/Neckarsulm\" for people with intellectual and multiple disabilities will take place in Heilbronn and Neckarsulm from July 9 to July 12, 2025. There will be a wide range of sports competitions at various locations in the cities, in which 1,100 athletes are expected to take part. There will also be a colorful supporting program with various events and hands-on activities.",
-    "tasks_description": "In the IT/results service, helpers should have good computer skills. Ideally, they should have a professional or educational background in IT. Tasks include, for example, helping to set up the computers in the organization offices (installing programs, connecting printers, etc.). In the event of problems during the event, e.g. if a computer crashes, the volunteers help on site. Another task is to enter results into the relevant program applications.",
-    "benefits": "Enjoy teamwork, experience a major sporting event, and get inspired by the athletes. Volunteers receive a T-shirt, lunch, a leave of absence, and a certificate of participation.",
+    "id": 6,
+    "organization_code": "feuerwehr_heilbronn",
+    "position_code": "volunteer_firefighter",
+    "position_temporary": false,
+    "duration": null,
+    "weekly_time_commitment": "2 - 4 hours",
+    "organization_name": "Volunteer Fire Department Heilbronn",
+    "project_or_local_group": null,
+    "role": "Volunteer Firefighter",
+    "organization_description": "The Volunteer Fire Department Heilbronn is an indispensable support for the professional fire department. During large-scale events, it is regularly called upon to either assist on-site or to staff the main fire station for additional emergencies. Currently, around 300 volunteer members serve across nine divisions in various districts. The central division is located at the main fire station.",
+    "tasks_description": "Regular participation in training, drills, events, and deployments. Volunteers can attend additional specialized training depending on suitability and interest.",
+    "benefits": "Volunteers experience quick integration into the community and have access to a large network. The role emphasizes camaraderie and solidarity. Through varied and challenging activities, volunteers gain skills that are also valuable in everyday life. Volunteering is highly regarded by the public.",
     "faq": [
       {
-        "question": "Is knowledge of German required?",
-        "answer": "Knowledge of German is not required. However, a little knowledge of German would be helpful for the exchange with the contact persons."
+        "question": "What skills do I need?",
+        "answer": "Anyone willing to volunteer in their community is eligible. Professional background does not matter. Volunteer fire departments thrive on the diversity of their members and their talents."
       },
       {
-        "question": "Does the volunteer assignment have to last for the entire duration of the event (4 days)?",
-        "answer": "No, but due to the coordination and the experience, it would be a great help for us to have volunteers for the entire duration of the event! However, if this is not possible for you, it is also possible to volunteer for two or three consecutive days."
+        "question": "What tasks does the fire department perform?",
+        "answer": "The fire department’s responsibilities are summarized as rescue, extinguishing, recovery, and protection. Rescue involves averting life-threatening situations for people and animals through immediate actions."
       },
       {
-        "question": "How much time is required per day for the volunteer assignment?",
-        "answer": "Maximum 8 hours per day. The times vary depending on the area of work and will be announced in good time in advance."
+        "question": "Can my employer prevent me from volunteering?",
+        "answer": "While volunteers should inform their employer, no approval is required. Employers receive compensation for lost wages if an employee participates in a deployment or training."
       },
       {
-        "question": "What information will I receive in advance of the event?",
-        "answer": "You will receive detailed information about your tasks and the exact schedule in advance of the event. There will also be a short helper training session with the most important information about Special Olympics and the event for all helpers."
+        "question": "What level of fitness is required?",
+        "answer": "Basic physical fitness suffices. For tasks requiring breathing apparatus, a medical checkup is done and regularly renewed."
+      },
+      {
+        "question": "Is firefighting a male-dominated field?",
+        "answer": "Not at all. Fire departments have long welcomed female firefighters and value their contributions."
+      },
+      {
+        "question": "Do I get paid for volunteering?",
+        "answer": "This is an unpaid position. Employers are compensated for lost wages during deployments or training. Some positions receive a small allowance."
       }
     ],
     "address": {
-      "postal_code": "76131",
-      "city": "Karlsruhe",
-      "street": "Am Fächerbad",
-      "house_number": "5",
-      "additional_info": null
+      "postal_code": "74074",
+      "city": "Heilbronn",
+      "street": "Beethovenstraße",
+      "house_number": "29",
+      "additional_info": "Main Fire Station"
     },
     "contact": {
-      "name": "Lea Stärk",
-      "phone": "01783269365",
-      "email": "lea.staerk@bw.specialolympics.de",
-      "instagram": null,
-      "facebook": null,
-      "tiktok": null,
-      "linkedin": null,
-      "x_account": null,
-      "website": null,
-      "linktree": null
+      "name": "Secretariat",
+      "phone": "07131/56-2953",
+      "email": "feuerwehr@heilbronn.de",
+      "instagram": "feuerwehrheilbronn",
+      "facebook": "Fire Department Heilbronn",
+      "website": "https://feuerwehr.heilbronn.de"
     },
     "materials": {
       "authors": false,
-      "logo": "images/specialOlympics/special_olympics_logo.png",
+      "logo": "images/fireDepartment/fire_department_logo.jpg",
       "photos": {
         "photo1": {
-          "url": "images/specialOlympics/special_olympics_photo1.jpg",
-          "author": "Andreas Henn"
+          "url": "images/fireDepartment/fire_department_photo1.jpg",
+          "author": ""
         },
         "photo2": {
-          "url": "images/specialOlympics/special_olympics_photo4.jpg",
-          "author": "SOBW/seeboth-photo.de"
+          "url": "images/fireDepartment/fire_department_photo2.jpg",
+          "author": ""
         },
         "photo3": {
-          "url": "images/specialOlympics/special_olympics_photo3.jpg",
-          "author": "Andreas Henn"
+          "url": "images/fireDepartment/fire_department_photo3.jpg",
+          "author": ""
+        },
+        "photo4": {
+          "url": "images/fireDepartment/fire_department_photo4.jpg",
+          "author": ""
+        },
+        "photo5": {
+          "url": "images/fireDepartment/fire_department_photo5.jpg",
+          "author": ""
         }
       }
     },
     "ratings": {
-      "Creative Skills": 2,
-      "Technical Skills": 3,
-      "Social Skills": 1,
-      "Language Skills": 0,
+      "Creative Skills": 1,
+      "Technical Skills": 2,
+      "Social Skills": 2,
+      "Language Skills": 2,
       "Flexibility": 2
     },
-    "tags": ["it", "results service", "special olympics"]
+    "tags": ["firefighting", "emergency", "teamwork"]
+  },
+  {
+    "id": 7,
+    "organization_code": "skjr_heilbronn",
+    "position_code": "web_design_support",
+    "position_temporary": false,
+    "duration": null,
+    "weekly_time_commitment": "Approximately 2 hours per week",
+    "organization_name": "Stadt- und Kreisjugendring Heilbronn e.V.",
+    "project_or_local_group": null,
+    "role": "Volunteer with skills in web design",
+    "organization_description": "We are an umbrella organization for about 65 youth clubs and associations in the city and district of Heilbronn. Our small team of six is based in Heilbronn, and we work on projects, workshops, events, and networking for youth services.",
+    "tasks_description": "The main task involves the redesign and overhaul of one of our existing websites. While we already have the content and texts prepared, we need support in the technical implementation and design. The focus is initially on rebuilding the website, followed by regular updates with new projects and content that we will provide. The student volunteer will be responsible for integrating these updates. GDPR compliance will be reviewed by our management before the website launch.",
+    "benefits": "A great, relaxed team, flexible working hours, mobile work options, certificates for volunteer work, and the opportunity to be credited as a developer in the website's imprint.",
+    "faq": [
+      {
+        "question": "Do you have any questions about your tasks with us?",
+        "answer": "Send us an email at info@skjr-hn.de."
+      },
+      {
+        "question": "What level of technical expertise is required?",
+        "answer": "We exclusively work with WordPress and have self-taught our skills. Prior knowledge would be helpful, but students should be willing to learn the necessary information independently if needed."
+      },
+      {
+        "question": "Are there any specific language requirements?",
+        "answer": "There are no strict language requirements. Communication can be done in English if necessary, and we can use tools like Google Translate if needed."
+      }
+    ],
+    "address": {
+      "postal_code": "74072",
+      "city": "Heilbronn",
+      "street": "Schützenstraße",
+      "house_number": "16",
+      "additional_info": null
+    },
+    "contact": {
+      "name": "Klara Demmer / Josephine Rauner-Schläger",
+      "phone": "07131-2718777",
+      "email": "info@skjr-hn.de",
+      "instagram": "Skjr_heilbronn",
+      "facebook": "Stadt- und Kreisjugendring Heilbronn e.V.",
+      "tiktok": null,
+      "linkedin": null,
+      "x_account": null,
+      "website": "www.skjr-hn.de",
+      "linktree": null
+    },
+    "materials": {
+      "authors": false,
+      "logo": "images/skjr/skjr_logo.png",
+      "photos": {
+        "photo1": {
+          "url": "images/skjr/photo1.jpg",
+          "author": ""
+        },
+        "photo2": {
+          "url": "images/skjr/photo2.jpg",
+          "author": ""
+        },
+        "photo3": {
+          "url": "images/skjr/photo4.jpg",
+          "author": ""
+        }
+      }
+    },
+    "ratings": {
+      "Creative Skills": 3,
+      "Technical Skills": 3,
+      "Social Skills": 1,
+      "Language Skills": 2,
+      "Flexibility": 1
+    },
+    "tags": ["web design", "WordPress", "design"]
+  },
+  {
+    "id": 8,
+    "organization_code": "tedx_hhn",
+    "position_code": "volunteer",
+    "position_temporary": true,
+    "duration": "12 months",
+    "weekly_time_commitment": "Approximately 4 hours per week",
+    "organization_name": "TED×HHN",
+    "project_or_local_group": null,
+    "role": "Volunteer",
+    "organization_description": "We are a group of students from different universities in Heilbronn, working together to bring the TED experience to our city. Our goal is to share knowledge, inspire innovation, and connect people through an annual one-day TEDx event. By organizing this conference, we aim to spread ideas, spark conversations, and create a space for learning and growth.",
+    "tasks_description": "To make this event happen, we need enthusiastic individuals eager to take on various responsibilities, including shaping the event, curating speakers, crafting marketing strategies, managing finances, fostering partnerships, and more.",
+    "benefits": "By joining TEDxHHN, you will take ownership of impactful projects from day one and gain hands-on experience. You will build meaningful connections with a passionate team and contribute to creating an event that inspires deep thinking and positive action, leaving a lasting legacy.",
+    "faq": [
+      {
+        "question": "Do I need experience to apply for the positions provided?",
+        "answer": "You need to be a student at a university in Heilbronn. Prior experience working in teams is expected, as collaboration is a key aspect of our work."
+      },
+      {
+        "question": "Do I need to speak German?",
+        "answer": "Our primary working language is German, so a good level of German proficiency is required. However, we also welcome English-speaking students for specific tasks such as marketing or website management."
+      },
+      {
+        "question": "What does a typical day look like for volunteers during the event?",
+        "answer": "Regular bi-weekly meetings are held for planning. Within your assigned role, you'll have the opportunity to collaborate with like-minded individuals to achieve your team’s goals."
+      },
+      {
+        "question": "How does the team foster collaboration and communication?",
+        "answer": "While most of our interactions are online, we also organize team-building events, dinners, and coffee chats to exchange ideas, strengthen communication, and build a sense of community."
+      }
+    ],
+    "address": {
+      "postal_code": "74081",
+      "city": "Heilbronn",
+      "street": "Max-Planck Straße",
+      "house_number": "39",
+      "additional_info": null
+    },
+    "contact": {
+      "name": null,
+      "phone": null,
+      "email": "info@tedxhhn.com",
+      "instagram": "@tedxhhn",
+      "linkedin": "https://www.linkedin.com/company/tedxhhn/",
+      "application_form": "https://forms.office.com/e/iYcL8g7uB1"
+    },
+    "materials": {
+      "authors": false,
+      "logo": "images/tedx/tedx_logo.png",
+      "photos": {
+        "photo1": {
+          "url": "images/tedx/photo1.jpg",
+          "author": ""
+        },
+        "photo2": {
+          "url": "images/tedx/photo2.jpg",
+          "author": ""
+        },
+        "photo3": {
+          "url": "images/tedx/photo3.jpg",
+          "author": ""
+        }
+      }
+    },
+    "ratings": {
+      "Creative Skills": 3,
+      "Technical Skills": 3,
+      "Social Skills": 2,
+      "Language Skills": 2,
+      "Flexibility": 1
+    },
+    "tags": ["volunteer", "TEDx", "teamwork"]
+  },
+  {
+    "id": 9,
+    "organization_code": "tum_hn",
+    "position_code": "developer",
+    "position_temporary": true,
+    "duration": "",
+    "weekly_time_commitment": "Approximately 2-3 hours per week",
+    "organization_name": "VolunteerHeilbronn.de",
+    "project_or_local_group": null,
+    "role": "Developer",
+    "organization_description": "VolunteerHeilbronn is a pilot project aimed at connecting students from TUM Campus Heilbronn with local volunteer organizations. The goal of our platform is to integrate international students in Heilbronn – and that doesn’t stop with volunteering. We are constantly exploring new ways to expand our platform and offer even more opportunities for students. Currently, the platform is being developed by the TUM Campus Heilbronn Student Service. However, in the future, we aim to transition the project into a fully student-led initiative. And you have the chance to be part of it from the very beginning!",
+    "tasks_description": "With your skills as a developer, you’ll help build the very platform you’re currently using. Believe it or not, what you see here doesn’t have a backend yet. All the information is currently being pulled from a JSON file. Together with you, we want to further develop the project. Our goal is to enhance the UI and enable students and organizations to log in and manage their data independently—without having to constantly reach out to TUM Campus Heilbronn. Which technology will we use? We’re open to your ideas! Together we decide which technologies to use and make the platform even better!",
+    "benefits": "You will, of course, receive a certificate for your participation. Since we plan to make the platform an open-source project on GitHub in the future, your contributions will be documented through GitHub—something you can showcase in your future job applications. Additionally, because it will be an open-source project, you’ll be able to use the code for your own projects in the future.",
+    "faq": [
+      {
+        "question": "What technology is the platform built with?",
+        "answer": "The platform is currently built with Nuxt 3 and hosted on IONOS. We are currently debating whether to develop a standalone backend that communicates with the frontend via an API or to migrate the entire platform to Ruby on Rails or Django to unify the frontend and backend within a single framework."
+      },
+      {
+        "question": "How good do I need to be at programming?",
+        "answer": "You only need to know the basics of programming. One of the main goals of the platform is to use easy-to-learn frameworks to ensure that further development is straightforward. Everything we use here can be easily learned online—for instance, through YouTube tutorials."
+      },
+      {
+        "question": "are there also activities outside of programming?",
+        "answer": "Of course, there are also tasks outside of development, such as marketing or external communication with organizations. For these roles, German language skills at a minimum B1 level are required, as many organizations prefer communication in German."
+      }
+    ],
+    "address": {
+      "postal_code": "74076",
+      "city": "Heilbronn",
+      "street": "Bildungscampus",
+      "house_number": "2",
+      "additional_info": null
+    },
+    "contact": {
+      "name": "David Rischow",
+      "phone": null,
+      "email": "david.rischow@tumheilbronn-ggmbh.de"
+    },
+    "materials": {
+      "authors": false,
+      "logo": "images/stock/volunteerheilbronn_logo.png",
+      "photos": {
+        "photo1": {
+          "url": "images/stock/people_chatting_outside.jpg",
+          "author": ""
+        },
+        "photo2": {
+          "url": "images/stock/students_sitting_for_dinner.jpg",
+          "author": ""
+        },
+        "photo3": {
+          "url": "images/stock/students_sitting_on_the_grass.jpg",
+          "author": ""
+        }
+      }
+    },
+    "ratings": {
+      "Creative Skills": 3,
+      "Technical Skills": 3,
+      "Social Skills": 3,
+      "Language Skills": 1,
+      "Flexibility": 1
+    },
+    "tags": ["Developer", "Volunteer", "Backend"]
   }
-] 
+      
+]
