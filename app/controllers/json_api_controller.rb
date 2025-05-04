@@ -59,6 +59,13 @@ class JsonApiController < ApplicationController
         tasks_description: position.description,
         benefits: position.benefits || "",
         contact: contact,
+        faq: position.respond_to?(:frequently_asked_questions) ? 
+ 
+             position.frequently_asked_questions.map do |faq|
+ 
+               { question: faq.question, answer: faq.answer }
+ 
+             end : [],
         materials: {
           logo: organization.logo.attached? ? rails_blob_url(organization.logo, only_path: false) : nil,
           photos: photos
