@@ -2,14 +2,24 @@ Rails.application.routes.draw do
   # Locale-spezifische Routen
   scope "(:locale)", locale: /en|de/ do
     # Startseite
-    root to: "positions#index"
+    
+    root to: "main#index"
 
     # Statische Seiten
     get "static_pages/privacy"
     get "static_pages/imprint"
-
+    
     # Benutzerbezogene Routen
     get 'users/locked', to: 'users#locked', as: 'users_locked'
+
+    #main_page
+    get "positions", to: "positions#index"
+
+    #show_positions
+    get "show_positions", to: "show_positions#index"
+
+    #matching
+    get "matching", to: "matching#index"
 
     # Ressourcen
     resources :positions do
