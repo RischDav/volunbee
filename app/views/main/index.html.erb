@@ -15,11 +15,10 @@
     
     <div class="mb-8">
 
-      <%= button_to "Volunteer Match in under 1 Minute", matching_path,
-      method: :get,
-      class: "bg-[#c67a28] text-white py-3 px-6 rounded-full text-lg font-medium mb-4 inline-block hover:opacity-90 transition-colors" %>
-
-
+      <%= link_to "Volunteer Match in under 1 Minute", matching_path, 
+          class: "text-white py-3 px-6 rounded-full text-lg font-medium mb-4 inline-block hover:opacity-90 transition-colors",
+          style: "background-color: #c67a28;" %>
+          
       <br> 
        <%= button_to "See all open Positions", show_positions_path, 
           method: :get,
