@@ -1,0 +1,35 @@
+<div class="bg-white min-h-screen">
+  <!-- Your content here -->
+  <div class="flex flex-col md:flex-row min-h-screen">
+  <%# Left side content section %>
+  <div class="flex-1 p-8 md:p-12 flex flex-col justify-center">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4 inline-block border-b-4 border-volunteeryellow pb-1">Together.</h1>
+    
+    <p class="text-base md:text-lg mb-8 max-w-xl leading-relaxed">
+      With your help, we can achieve great things and make a real difference in people's
+      lives. Volunteering isn't just about time—it's about creating positive change. By
+      joining our platform, you can explore a variety of volunteer opportunities tailored to
+      your interests and skills. Whether you want to support local communities, assist
+      those in need, or develop new skills, there's a place for you here.
+    </p>
+    
+    <div class="mb-8">
+      <%= link_to "Volunteer Match in under 1 Minute", "#", 
+          class: "bg-volunteer-orange text-white py-3 px-6 rounded-full text-lg font-medium mb-4 inline-block hover:bg-opacity-90 transition-colors" %>
+      <br>
+      <%= link_to "See all open Positions", "#", 
+          class: "border border-volunteerorange text-volunteerorange py-3 px-6 rounded-full inline-block hover:bg-volunteerorange hover:bg-opacity-10 transition-colors" %>
+    </div>
+    
+    <div class="mt-8">
+      <h2 class="text-xl font-bold mb-4">Our Project-partners:</h2>
+      
+      <div class="flex items-center gap-8 flex-wrap">
+        <% @partners.each do |partner| %>
+          <%= image_tag partner[:logo], alt: partner[:name], class: "h-16 max-w-[120px]" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  
+</div>
