@@ -3,7 +3,7 @@
   <div class="flex flex-col md:flex-row min-h-screen">
   <%# Left side content section %>
   <div class="flex-1 p-8 md:p-12 flex flex-col justify-center">
-    <h1 class="text-4xl md:text-5xl font-bold mb-4 inline-block border-b-4 border-volunteeryellow pb-1">Together.</h1>
+    <h1 class="text-4xl md:text-5xl font-bold mb-4 inline-block border-b-4 pb-1" style="border-color: #f0b442;">Together.</h1>
     
     <p class="text-base md:text-lg mb-8 max-w-xl leading-relaxed">
       With your help, we can achieve great things and make a real difference in people's
@@ -14,11 +14,17 @@
     </p>
     
     <div class="mb-8">
-      <%= link_to "Volunteer Match in under 1 Minute", "#", 
-          class: "bg-volunteer-orange text-white py-3 px-6 rounded-full text-lg font-medium mb-4 inline-block hover:bg-opacity-90 transition-colors" %>
-      <br>
-      <%= link_to "See all open Positions", "#", 
-          class: "border border-volunteerorange text-volunteerorange py-3 px-6 rounded-full inline-block hover:bg-volunteerorange hover:bg-opacity-10 transition-colors" %>
+
+      <%= button_to "Volunteer Match in under 1 Minute", matching_path,
+      method: :get,
+      class: "bg-[#c67a28] text-white py-3 px-6 rounded-full text-lg font-medium mb-4 inline-block hover:opacity-90 transition-colors" %>
+
+
+      <br> 
+       <%= button_to "See all open Positions", show_positions_path, 
+          method: :get,
+          class: "py-3 px-6 rounded-full inline-block hover:bg-gray-50 transition-colors cursor-pointer",
+          style: "border: 1px solid #c67a28; color: #c67a28;" %>
     </div>
     
     <div class="mt-8">
@@ -27,5 +33,9 @@
 
     </div>
   </div>
+
+  <%# Right side image section %>
+  <div class="flex-1 bg-cover bg-center h-[300px] md:h-auto" style="background-image: url('<%= asset_path("students_sitting_for_dinner.jpg") %>');"></div>
+  
   
 </div>
