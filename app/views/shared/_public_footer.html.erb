@@ -11,11 +11,9 @@
       <div class="flex items-center space-x-6">
         <!-- Footer links -->
         <a href="<%= static_pages_imprint_path %>" class="text-white hover:underline">Imprint</a>
-        <a href="#" class="text-white hover:underline">Change Cookie-Settings</a>
         
         <!-- Logos -->
-        <img src="/assets/images/campus_heilbronn_logo.png" alt="Campus Heilbronn Logo" class="h-8">
-        <img src="/assets/images/tum_logo.png" alt="TUM Logo" class="h-8">
+        <%= image_tag("tum_logo.png", alt: "campus heilbronn Logo", class: "h-8") %>
       </div>
     </div>
     
@@ -26,13 +24,7 @@
     <div class="flex justify-center relative">
       <!-- Copyright text -->
       <span class="text-white text-sm">© 2024 TUM Campus Heilbronn gGmbH.</span>
-      
-      <!-- Cookie consent button (positioned absolutely to the left) -->
-      <div class="absolute left-0 bottom-0">
-        <button class="bg-black text-white rounded-full h-10 w-10 flex items-center justify-center">
-          <span>CC</span>
-        </button>
-      </div>
+
     </div>
   </div>
 </footer>
