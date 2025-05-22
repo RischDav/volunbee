@@ -10,7 +10,7 @@
       <!-- Right side - Links and logos -->
       <div class="flex items-center space-x-6">
         <!-- Footer links -->
-        <a href="<%= static_pages_imprint_path %>" class="text-white hover:underline">Imprint</a>
+        <%= link_to "Imprint", static_pages_imprint_path, class: "text-white text-lg font-medium hover:underline" %>
         
         <!-- Logos -->
         <%= image_tag("tum_logo.png", alt: "campus heilbronn Logo", class: "h-8") %>

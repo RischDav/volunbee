@@ -3,7 +3,7 @@ class MainController < ApplicationController
   layout 'volunteer'
   
   def index
-    # Your code here
+    @positions = Position.all.limit(3)
   end
 end
   

@@ -1,8 +1,9 @@
-class ShowPositionsController < ApplicationController
+class ImpressumController < ApplicationController
     skip_before_action :authenticate_user!, only: [:index]
     layout 'volunteer'
+    
     def index
-      @positions = Position.all
+      
+    end
   end
-end
     

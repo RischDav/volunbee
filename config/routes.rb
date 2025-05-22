@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     # Statische Seiten
     get "static_pages/privacy"
     get "static_pages/imprint"
+    get "static_pages/impressum"
     
     # Benutzerbezogene Routen
     get 'users/locked', to: 'users#locked', as: 'users_locked'
