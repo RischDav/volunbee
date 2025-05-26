@@ -1,29 +1,29 @@
-<footer class="bg-[#c9a83f] shadow">
+<footer class="bg-[#264653] shadow">
   <div class="w-full max-w-screen-xl mx-auto p-4">
     <!-- Top section with project info and links -->
     <div class="flex justify-between items-center">
       <!-- Left side - Project credit -->
       <div>
-        <span class="text-white font-medium">Project realized by David Rischow and Mohamed Amine Jradi</span>
+        <span class="text-lg text-white/50">Project realized by David Rischow and Mohamed Amine Jradi</span>
       </div>
       
       <!-- Right side - Links and logos -->
       <div class="flex items-center space-x-6">
         <!-- Footer links -->
-        <%= link_to "Imprint", static_pages_impressum_path, class: "text-white text-lg font-medium hover:underline" %>
+        <%= link_to "Imprint", impressum_path, class: "text-sm font-medium hover:underline", style: "color: #F8F9FA;" %>
         
         <!-- Logos -->
-        <%= image_tag("tum_logo.png", alt: "campus heilbronn Logo", class: "h-8") %>
+        
       </div>
     </div>
     
     <!-- Divider line -->
-    <hr class="my-4 border-[#b89936]" />
+    <hr class="my-4 border-white/50" />
     
     <!-- Bottom section with copyright -->
     <div class="flex justify-center relative">
       <!-- Copyright text -->
-      <span class="text-white text-sm">© 2024 TUM Campus Heilbronn gGmbH.</span>
+      <span class="text-lg text-white/50">© 2024 TUM Campus Heilbronn gGmbH.</span>
 
     </div>
   </div>

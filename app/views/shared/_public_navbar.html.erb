@@ -1,26 +1,26 @@
-<nav class="bg-[#c9a83f] shadow">
+<nav class="fixed top-0 left-0 w-full z-50 bg-white shadow">
   <div class="w-full py-2">
     <div class="flex justify-between items-center mx-5">
       <!-- Left-aligned logo and brand -->
       <div class="flex items-center space-x-2">
         <!-- Logo image path - replace with your actual path -->
-        <%= image_tag("logo.png", alt: "Volunbee Logo", class: "h-10 w-auto") %>
+        <%= image_tag("logo_yellow.jpg", alt: "Volunbee Logo", class: "h-10 w-auto") %>
       </div>
 
       <!-- Center navigation links -->
       <div class="flex space-x-6 items-center">
-        <%= link_to "Home", root_path, class: "text-white text-lg font-medium hover:underline" %>
-        <span class="text-white">|</span>
-        <%= link_to "All Positions", show_positions_path, class: "text-white text-lg font-medium hover:underline" %>
-        <span class="text-white">|</span>
-        <%= link_to "Volunteer match", matching_path, class: "text-white text-lg font-medium hover:underline" %>
+        <%= link_to "Home", root_path, class: "text-lg font-medium hover:underline", style: "color: #264653;" %>
+        <span style="color: #264653;">|</span>
+        <%= link_to "All Positions", show_positions_path, class: "text-lg font-medium hover:underline", style: "color: #264653;" %>
+        <span style="color: #264653;">|</span>
+        <%= link_to "Volunteer match", matching_path, class: "text-lg font-medium hover:underline", style: "color: #264653;" %>
       </div>
 
       <!-- Right-aligned section with logos -->
       <div class="flex items-center space-x-3">
-        <span class="text-white text-lg">A project of</span>
+        <span class="text-lg font-medium" style="color: #264653;">A project of</span>
         <!-- Right logos - replace with your actual paths -->
-        <%= image_tag("tum_logo.png", alt: "campus heilbronn Logo", class: "h-10 w-auto") %>
+        <%= image_tag("Logo-TUM-CHN.jpg", alt: "campus heilbronn Logo", class: "h-10 w-auto") %>
       </div>
     </div>
   </div>

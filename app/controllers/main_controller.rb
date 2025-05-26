@@ -4,6 +4,6 @@ class MainController < ApplicationController
   
   def index
     @positions = Position.all.limit(3)
-    #@organisations = Organisation.all
+    @organisations = Organisation.all
   end
 end
