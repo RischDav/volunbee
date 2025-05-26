@@ -8,4 +8,5 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+
 require_relative 'seed_positions'

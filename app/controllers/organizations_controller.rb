@@ -46,6 +46,19 @@ class OrganizationsController < ApplicationController
   end
 
   def organization_params
-    params.require(:organization).permit(:logo, :name, :email, :contact_person, :instagram_url, :facebook_link, :linkedin_url, :tiktok_url, :linktree_url, :contact_number, :profile_picture, :description, :is_approved, :city, :zip, :street, :housenumber, :website)
+    params.require(:organization).permit(
+      :logo, :name, :email, :contact_person, :instagram_url, :facebook_link, :linkedin_url, :tiktok_url, :linktree_url, :contact_number, :profile_picture, :description, :is_approved, :city, :zip, :street, :housenumber, :website
+    )
   end
 end
+
+<% if @organization.profile_picture.attached? %>
+  <%= image_tag @organization.profile_picture_url, alt: @organization.name, class: "rounded-full w-32 h-32 object-cover" %>
+<% else %>
+  <%= image_tag "default_org.png", alt: "No profile picture", class: "rounded-full w-32 h-32 object-cover" %>
+<% end %>
+
+<%= form_with(model: @organization, local: true, html: { multipart: true }) do |form| %>
+  <%= form.file_field :profile_picture %>
+  <!-- other fields -->
+<% end %>

@@ -1,0 +1,12 @@
+<%= form_with(model: organization, local: true, html: { multipart: true }) do |form| %>
+  <!-- ...existing form fields... -->
+  
+  <div class="field">
+    <%= form.label :profile_picture %>
+    <%= form.file_field :profile_picture, 
+        accept: 'image/png,image/jpeg,image/webp',
+        direct_upload: true %>
+  </div>
+  
+  <!-- ...existing form fields... -->
+<% end %>
