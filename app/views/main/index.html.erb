@@ -38,15 +38,15 @@
       
       <div class="mt-8">
         <h2 class="text-xl font-bold mb-4 text-[#264653]">Our Project-partners:</h2>
-        <!-- Add your project partners content here -->
         <div class="container mx-auto px-4 py-12 md:py-24">
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <% @organisations.each do |position| %>
-            
-          <% end %>    
+          <div class="flex flex-wrap justify-center items-center gap-12">
+            <% @organisations.each do |organization| %>
+              <% if organization.profile_picture.attached? %>
+                <%= image_tag organization.profile_picture, class: "h-32 w-32 object-contain rounded bg-white shadow", alt: organization.name %>
+              <% end %>
+            <% end %>
           </div>
-      </div>  
+        </div>
       </div>
     </div>
 
