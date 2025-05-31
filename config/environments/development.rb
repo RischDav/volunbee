@@ -6,6 +6,7 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = true
   config.active_storage.service = :local
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
   config.assets.debug = true
   # Do not eager load code on boot.
   config.eager_load = false
@@ -70,4 +71,7 @@ Rails.application.configure do
 
   # Allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  config.action_controller.perform_caching = true
+  config.cache_store = :memory_store
 end

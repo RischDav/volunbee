@@ -2,6 +2,7 @@ class Organization < ApplicationRecord
     has_many :positions
     self.table_name = "organizations"
     has_one_attached :logo
+    has_one_attached :profile_picture
     has_many :positions
     has_many :users
     has_one_attached :profile_picture
@@ -36,6 +37,17 @@ class Organization < ApplicationRecord
         fields
     end
 
+    def thumbnail_url
+        return nil unless profile_picture.attached?
+        
+        Rails.application.routes.url_helpers.url_for(
+          profile_picture.variant(
+            resize_to_fill: [300, 300],
+            format: :webp,
+            saver: { quality: 80 }
+          ).processed
+        )
+    end
 
     private
 

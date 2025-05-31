@@ -3,7 +3,7 @@ class MainController < ApplicationController
   layout 'volunteer'
   
   def index
-    @positions = Position.all.limit(3)
-    @organisations = Organization.all
+    @positions = Position.all.select { |position| position.main_picture.attached? }.take(3)
+    
   end
 end

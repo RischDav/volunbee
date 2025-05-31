@@ -1,5 +1,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
+
+
 module.exports = {
   content: [
       './app/views/**/*.{erb,html, html.erb}',
@@ -41,5 +43,6 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/container-queries'),
+      require('@tailwindcss/line-clamp'),
   ]
 }
