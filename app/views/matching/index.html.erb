@@ -1,4 +1,4 @@
-<div class="container mx-auto px-4 pt-32 pb-12 text-center max-w-4xl">
+<div class="container mx-auto px-4 pt-32 pb-12 text-center max-w-5xl">
   <%# Intro Section %>
   <div id="matching-intro" class="matching-section">
     <h1 class="text-3xl md:text-5xl font-bold mb-6 text-[#264653]">Volunteer Match</h1>
@@ -8,11 +8,11 @@
 
     <%# Start Button %>
     <div class="mt-12">
-      <%= link_to "Start", "#", id: "start-matching-button", class: "py-4 px-10 rounded-full text-xl font-semibold inline-block transition-colors cursor-pointer bg-[#F2C94C] text-[#264653] hover:bg-[#E76F51] hover:text-white" %>
+      <%= link_to "Start", "#", id: "start-matching-button", class: "py-5 px-12 rounded-full text-2xl font-semibold inline-block transition-colors cursor-pointer bg-[#F2C94C] text-[#264653] hover:bg-[#E76F51] hover:text-white" %>
     </div>
 
     <%# Image %>
-    <div class="mt-12 max-w-48 mx-auto">
+    <div class="mt-8 max-w-xs mx-auto">
        <%# Assuming the "Okay, let's go!" image is in your assets. If not, replace with correct path %>
        <%= image_tag "okay_lets_go.gif", class: "rounded-lg shadow-md w-full", alt: "Okay, let's go!" %>
     </div>
@@ -199,32 +199,42 @@
 
     // Placeholder function to show quiz results
     function showResults(finalScores) {
-       console.log('Showing results... Final scores:', finalScores);
-       // Hide the quiz section
-       quizSection.classList.add('hidden');
-       // Typically, you would send these scores to your backend to find matching positions
-       // Then redirect the user to a results page showing the matching positions.
-       // Example of sending data (using fetch API):
-       /*
-       fetch('/matching/results', {
-         method: 'POST',
-         headers: {
-           'Content-Type': 'application/json',
-           'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-         },
-         body: JSON.stringify({ user_skills: finalScores })
-       })
-       .then(response => response.json())
-       .then(data => {
-         console.log('Matching results from backend:', data);
-         // Redirect or display results
-       })
-       .catch(error => console.error('Error fetching matching results:', error));
-       */
+    console.log('Showing results... Final scores:', finalScores);
+    
+    // Hide the quiz section
+    quizSection.classList.add('hidden');
+    
+    // Send scores to backend for matching
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+    
+    fetch('/matching/results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken
+      },
+      body: JSON.stringify({
+        creative: finalScores.creative,
+        technical: finalScores.technical,
+        social: finalScores.social,
+        language: finalScores.language,
+        flexibility: finalScores.flexibility
+      })
+    })
+    .then(response => {
+      if (response.ok) {
+        // Redirect to results page
+        window.location.href = `/matching/results?creative=${finalScores.creative}&technical=${finalScores.technical}&social=${finalScores.social}&language=${finalScores.language}&flexibility=${finalScores.flexibility}`;
+      } else {
+        throw new Error('Network response was not ok');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('There was an error processing your results. Please try again.');
+    });
+  }
 
-       alert('Quiz finished! (Matching results coming soon)'); // Simple alert for now
-       // window.location.href = '/matching/results'; // Example redirect to a results page
-    }
 
     // Initial state: Load the first question when the page loads, but keep the quiz hidden
     // loadQuestion(currentStep); // Don't load until Start is clicked
