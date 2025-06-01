@@ -7,6 +7,7 @@ class ShowPositionsController < ApplicationController
                          .with_attached_picture1
                          .with_attached_picture2
                          .with_attached_picture3
+                         .where(online: true, released: true)
 
     @positions.each do |position|
       if position.main_picture.attached?
@@ -24,16 +25,10 @@ class ShowPositionsController < ApplicationController
   end
 
   def show
-    @positions = load_positions
-    # Debug: log params and ids
-    Rails.logger.info "Requested id: #{params[:id]}"
-    Rails.logger.info "Available ids: #{@positions.map { |p| p['id'] }.inspect}"
-    # Ensure both ids are compared as integers
-    @position = @positions.find { |p| p["id"].to_i == params[:id].to_i }
-    if @position.nil?
+    @position = Position.find(params[:id])
+    unless @position.online && @position.released
       render plain: "Position not found", status: :not_found
     end
-    # Rails will automatically render show.html.erb
   end
 
   # Run in rails console
@@ -61,16 +56,7 @@ class ShowPositionsController < ApplicationController
     end
   end
 
-  def show
-  @position = Position.find(params[:id])
-end
-
   private
-
-  def load_positions
-    file = Rails.root.join('db', 'positions.json')
-    JSON.parse(File.read(file))
-  end
 
   def safe_main_picture_url
     if main_picture.attached?
