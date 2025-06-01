@@ -1,0 +1,189 @@
+<div class="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-emerald-100 py-10">
+  <div class="max-w-5xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden">
+    <!-- Header: Organization & Project -->
+    <div class="flex flex-col md:flex-row items-center md:items-start gap-8 p-8 border-b">
+      <!-- Logo -->
+      <div class="flex-shrink-0 flex flex-col items-center md:items-start">
+        <% if @position['materials'] && @position['materials']['logo'].present? %>
+          <%= image_tag @position['materials']['logo'], class: "w-28 h-28 object-contain rounded-xl shadow mb-2 bg-white", alt: "#{@position['organization_name']} logo" %>
+        <% end %>
+        <div class="text-sm text-gray-500 mt-2"><%= @position['organization_name'] %></div>
+      </div>
+      <!-- Main Info -->
+      <div class="flex-1">
+        <div class="flex flex-wrap gap-2 mb-2">
+          <% if @position['project_or_local_group'].present? %>
+            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs font-semibold"><%= @position['project_or_local_group'] %></span>
+          <% end %>
+          <% if @position['position_code'].present? %>
+            <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-xs font-semibold"><%= @position['position_code'].to_s.humanize %></span>
+          <% end %>
+          <% if @position['position_temporary'] %>
+            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-xs font-semibold">Temporary</span>
+          <% end %>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-extrabold text-indigo-700 mb-2"><%= @position['role'] || @position['title'] %></h1>
+        <div class="text-gray-700 text-base mb-2"><%= @position['organization_description'] || @position['description'] %></div>
+        <% if @position['duration'].present? %>
+          <div class="text-xs text-gray-500 mb-1">🗓 <%= @position['duration'] %></div>
+        <% end %>
+        <% if @position['weekly_time_commitment'].present? %>
+          <div class="text-xs text-gray-500 mb-1">⏱ <%= @position['weekly_time_commitment'] %></div>
+        <% end %>
+      </div>
+    </div>
+    <!-- Images Gallery -->
+    <div class="w-full overflow-x-auto bg-gray-50 border-b">
+      <div class="flex gap-4 py-4 px-8">
+        <% photos = @position['materials'] && @position['materials']['photos'] ? @position['materials']['photos'].values : [] %>
+        <% if photos.any? %>
+          <% photos.each_with_index do |photo, idx| %>
+            <div class="flex-shrink-0 w-72 h-44 rounded-xl overflow-hidden shadow relative bg-white">
+              <%= image_tag photo['url'], class: "object-cover w-full h-full", alt: "#{@position['title']} image #{idx + 1}" %>
+              <% if photo['author'].present? %>
+                <span class="absolute bottom-1 right-2 text-xs text-gray-400 bg-white/70 px-2 rounded"><%= photo['author'] %></span>
+              <% end %>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="flex-shrink-0 w-72 h-44 rounded-xl overflow-hidden shadow bg-gray-200 flex items-center justify-center text-gray-400">
+            <span>No images</span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <!-- Details Section -->
+    <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Left: Tasks, Benefits, FAQ, Ratings, Tags -->
+      <div class="space-y-6">
+        <% if @position['tasks_description'].present? %>
+          <div>
+            <div class="font-semibold text-indigo-700 mb-1 flex items-center gap-2">
+              <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-6h13v6M9 17H5a2 2 0 01-2-2V7a2 2 0 012-2h4m0 0V5a2 2 0 012-2h2a2 2 0 012 2v2"></path></svg>
+              Tasks
+            </div>
+            <div class="text-gray-700 text-sm"><%= @position['tasks_description'] %></div>
+          </div>
+        <% end %>
+        <% if @position['benefits'].present? %>
+          <div>
+            <div class="font-semibold text-emerald-700 mb-1 flex items-center gap-2">
+              <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 1.343-3 3 0 1.657 1.343 3 3 3s3-1.343 3-3c0-1.657-1.343-3-3-3zm0 0V4m0 7v7"></path></svg>
+              Benefits
+            </div>
+            <div class="text-emerald-700 text-sm"><%= @position['benefits'] %></div>
+          </div>
+        <% end %>
+        <% if @position['faq'].present? %>
+          <div>
+            <div class="font-semibold text-indigo-700 mb-1 flex items-center gap-2">
+              <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M21 16v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"></path></svg>
+              FAQ
+            </div>
+            <ul class="text-gray-700 text-sm list-disc pl-5 space-y-2">
+              <% @position['faq'].each do |item| %>
+                <li>
+                  <span class="font-semibold"><%= item['question'] %></span><br>
+                  <span><%= item['answer'] %></span>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <% if @position['ratings'].present? %>
+          <div>
+            <div class="font-semibold text-indigo-700 mb-1 flex items-center gap-2">
+              <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 15l4-4 4 4"/></svg>
+              Ratings
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <% @position['ratings'].each do |k, v| %>
+                <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full shadow"><%= k %>: <%= v %>/3</span>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <% if @position['tags'].present? %>
+          <div>
+            <div class="font-semibold text-indigo-700 mb-1 flex items-center gap-2">
+              <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 11h.01M7 15h.01M11 7h.01M11 11h.01M11 15h.01M15 7h.01M15 11h.01M15 15h.01"></path></svg>
+              Tags
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <% @position['tags'].each do |tag| %>
+                <span class="bg-indigo-50 text-indigo-700 text-xs px-3 py-1 rounded-full border border-indigo-200 shadow"><%= tag %></span>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <%# Show organization_code and position_code %>
+        <div>
+          <div class="font-semibold text-indigo-700 mb-1 flex items-center gap-2">
+            Codes
+          </div>
+          <div class="text-xs text-gray-600">
+            <div>Organization Code: <%= @position['organization_code'] %></div>
+            <div>Position Code: <%= @position['position_code'] %></div>
+          </div>
+        </div>
+        <%# Show application form if present %>
+        <% if @position['contact'] && @position['contact']['application_form'].present? %>
+          <div>
+            <div class="font-semibold text-indigo-700 mb-1 flex items-center gap-2">
+              Application Form
+            </div>
+            <a href="<%= @position['contact']['application_form'] %>" target="_blank" class="text-indigo-600 hover:underline">
+              Apply here
+            </a>
+          </div>
+        <% end %>
+      </div>
+      <!-- Right: Address & Contact -->
+      <div class="space-y-6">
+        <% if @position['address'].present? %>
+          <div>
+            <div class="font-semibold text-indigo-700 mb-1 flex items-center gap-2">
+              <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 21l-4.243-4.343A8 8 0 1117.657 16.657z"/><circle cx="12" cy="11" r="3"/></svg>
+              Address
+            </div>
+            <div class="text-gray-700 text-sm">
+              <%= [@position['address']['street'], @position['address']['house_number'], @position['address']['city'], @position['address']['postal_code']].compact.join(', ') %>
+              <% if @position['address']['additional_info'].present? %>
+                <div class="text-xs text-gray-400"><%= @position['address']['additional_info'] %></div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <% if @position['contact'].present? %>
+          <div>
+            <div class="font-semibold text-indigo-700 mb-1 flex items-center gap-2">
+              Contact & Social
+            </div>
+            <div class="text-gray-700 text-sm space-y-1">
+              <% @position['contact'].each do |k, v| %>
+                <% if v.present? %>
+                  <div>
+                    <span class="font-semibold"><%= k.humanize %>:</span>
+                    <% if k == "email" %>
+                      <a href="mailto:<%= v %>" class="text-indigo-600 hover:underline"><%= v %></a>
+                    <% elsif k == "phone" %>
+                      <a href="tel:<%= v %>" class="text-indigo-600 hover:underline"><%= v %></a>
+                    <% elsif v =~ /^https?:\/\// or k =~ /website|linkedin|facebook|instagram|tiktok|linktree|x_account/ %>
+                      <a href="<%= v.starts_with?('http') ? v : "https://#{v}" %>" target="_blank" class="text-indigo-600 hover:underline"><%= v %></a>
+                    <% else %>
+                      <%= v %>
+                    <% end %>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="px-8 pb-8 flex justify-between items-center">
+      <%= link_to "← Back to all positions", show_positions_path, class: "text-indigo-600 hover:underline font-semibold" %>
+      <span class="text-xs text-gray-400">Volunbee</span>
+    </div>
+  </div>
+</div>

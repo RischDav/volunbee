@@ -65,5 +65,7 @@ Rails.application.routes.draw do
       confirmations: "users/confirmations",
       sessions: 'users/sessions'
     }
+
+    resources :show_positions, only: [:index, :show]
   end
 end

@@ -1,5 +1,5 @@
 class ShowPositionsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index]
+  skip_before_action :authenticate_user!, only: [:index, :show]
   layout 'volunteer'
   
   def index
@@ -21,6 +21,19 @@ class ShowPositionsController < ApplicationController
         Rails.logger.debug "No main picture for '#{position.title}'"
       end
     end
+  end
+
+  def show
+    @positions = load_positions
+    # Debug: log params and ids
+    Rails.logger.info "Requested id: #{params[:id]}"
+    Rails.logger.info "Available ids: #{@positions.map { |p| p['id'] }.inspect}"
+    # Ensure both ids are compared as integers
+    @position = @positions.find { |p| p["id"].to_i == params[:id].to_i }
+    if @position.nil?
+      render plain: "Position not found", status: :not_found
+    end
+    # Rails will automatically render show.html.erb
   end
 
   # Run in rails console
@@ -48,7 +61,16 @@ class ShowPositionsController < ApplicationController
     end
   end
 
+  def show
+  @position = Position.find(params[:id])
+end
+
   private
+
+  def load_positions
+    file = Rails.root.join('db', 'positions.json')
+    JSON.parse(File.read(file))
+  end
 
   def safe_main_picture_url
     if main_picture.attached?
