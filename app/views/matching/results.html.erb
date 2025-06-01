@@ -33,7 +33,7 @@
           <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden w-full">
             <div class="relative h-48 w-full">
               <% if position.main_picture.attached? %>
-                <%= image_tag position.main_picture, class: "object-cover w-full h-full", alt: position.title %>
+                <%= image_tag rails_blob_url(position.main_picture), class: "object-cover w-full h-full", alt: position.title %>
               <% else %>
                 <%= image_tag "placeholder.png", class: "object-cover w-full h-full", alt: "No image" %>
               <% end %>
@@ -51,7 +51,7 @@
 
               <%# Button to view position details %>
               <div class="mt-4">
-                <%= link_to "Learn More", position_path(position), 
+                <%= link_to "Learn More", show_positions_path, 
                     class: "inline-block bg-[#F2C94C] text-[#264653] px-6 py-2 rounded-lg font-semibold hover:bg-[#E76F51] hover:text-white transition-colors" %>
               </div>
             </div>

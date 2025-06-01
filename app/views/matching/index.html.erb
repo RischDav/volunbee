@@ -48,7 +48,8 @@
 
 <%# Add JavaScript for interaction and quiz logic %>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  // Wait for both DOM and Turbolinks to be ready
+  document.addEventListener('turbolinks:load', function() {
     const startButton = document.getElementById('start-matching-button');
     const introSection = document.getElementById('matching-intro');
     const quizSection = document.getElementById('matching-quiz');
@@ -110,14 +111,16 @@
     ];
 
     // Handle Start button click
-    startButton.addEventListener('click', function(event) {
-      event.preventDefault();
-      introSection.classList.add('hidden');
-      quizSection.classList.remove('hidden');
-      currentStep = 1; // Start at step 1
-      userSkillScores = { creative: 0, technical: 0, social: 0, language: 0, flexibility: 0 }; // Reset scores
-      loadQuestion(currentStep);
-    });
+    if (startButton) {
+      startButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        introSection.classList.add('hidden');
+        quizSection.classList.remove('hidden');
+        currentStep = 1; // Start at step 1
+        userSkillScores = { creative: 0, technical: 0, social: 0, language: 0, flexibility: 0 }; // Reset scores
+        loadQuestion(currentStep);
+      });
+    }
 
     // Handle Answer card click
     answerCards.forEach(card => {
@@ -163,8 +166,6 @@
       answerCards.forEach((card, index) => {
         const answer = questionData.answers[index];
         card.querySelector('p').textContent = answer.text;
-        // No need to update data-answer-index as it's fixed 0-3
-        // You could store skill data here if needed, but accumulating in click handler is fine
       });
 
       // Update the step indicator
@@ -197,60 +198,53 @@
       });
     }
 
-    // Placeholder function to show quiz results
+    // Function to show quiz results
     function showResults(finalScores) {
-    console.log('Showing results... Final scores:', finalScores);
-    
-    // Hide the quiz section
-    quizSection.classList.add('hidden');
-    
-    // Send scores to backend for matching
-    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-    
-    fetch('/matching/results', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': csrfToken
-      },
-      body: JSON.stringify({
-        creative: finalScores.creative,
-        technical: finalScores.technical,
-        social: finalScores.social,
-        language: finalScores.language,
-        flexibility: finalScores.flexibility
-      })
-    })
-    .then(response => {
-      if (response.ok) {
-        // Redirect to results page
-        window.location.href = `/matching/results?creative=${finalScores.creative}&technical=${finalScores.technical}&social=${finalScores.social}&language=${finalScores.language}&flexibility=${finalScores.flexibility}`;
-      } else {
-        throw new Error('Network response was not ok');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('There was an error processing your results. Please try again.');
-    });
-  }
-
-
-    // Initial state: Load the first question when the page loads, but keep the quiz hidden
-    // loadQuestion(currentStep); // Don't load until Start is clicked
-
-    // You might want to add initial state for the first step circle before the quiz starts
-     stepCircles.forEach(circle => {
-        const step = parseInt(circle.dataset.step);
-         if (step === 1) {
-           circle.classList.add('bg-[#F2C94C]', 'text-[#264653]');
-           circle.classList.remove('text-[#264653]');
-         } else {
-            circle.classList.remove('bg-[#F2C94C]', 'text-[#264653]');
-            circle.classList.add('text-[#264653]');
-         }
+      console.log('Showing results... Final scores:', finalScores);
+      
+      // Calculate average scores (divide by number of questions)
+      const averageScores = {
+        creative: Math.round(finalScores.creative / totalSteps),
+        technical: Math.round(finalScores.technical / totalSteps),
+        social: Math.round(finalScores.social / totalSteps),
+        language: Math.round(finalScores.language / totalSteps),
+        flexibility: Math.round(finalScores.flexibility / totalSteps)
+      };
+      
+      console.log('Averaged scores:', averageScores);
+      
+      // Hide the quiz section
+      quizSection.classList.add('hidden');
+      
+      // Get current locale from URL
+      const pathParts = window.location.pathname.split('/');
+      const locale = pathParts[1] === 'en' || pathParts[1] === 'de' ? pathParts[1] : '';
+      
+      // Create URL with query parameters
+      const params = new URLSearchParams({
+        creative: averageScores.creative,
+        technical: averageScores.technical,
+        social: averageScores.social,
+        language: averageScores.language,
+        flexibility: averageScores.flexibility
       });
 
+      // Redirect to results page with parameters and locale
+      const baseUrl = locale ? `/${locale}/matching/results` : '/matching/results';
+      window.location.href = `${baseUrl}?${params.toString()}`;
+    }
+
+    // Initialize step circles
+    stepCircles.forEach(circle => {
+      const step = parseInt(circle.dataset.step);
+      if (step === 1) {
+        circle.classList.add('bg-[#F2C94C]', 'text-[#264653]');
+        circle.classList.remove('text-[#264653]');
+      } else {
+        circle.classList.remove('bg-[#F2C94C]', 'text-[#264653]');
+        circle.classList.add('text-[#264653]');
+      }
+    });
   });
 </script>
 

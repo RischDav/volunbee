@@ -38,22 +38,13 @@
       
       <div class="mt-8">
         <h2 class="text-xl font-bold mb-6 text-[#264653]">Our Project-partners:</h2>
-        <%# Updated Project Partners Section %>
-        <%# <div class=\"flex flex-wrap gap-6 items-center justify-start\"> %>
-        <%# <% @positions.each do |position| %> %>
-          <%# <% if position.main_picture.attached? %> %>
-            <%# <div class=\"flex-shrink-0\"> %>
-              <%# <%= link_to position_path(position), class: \"block\" do %> %>
-                <%# <% begin %> %>
-                  <%# <%= image_tag(\n                        rails_representation_url(position.main_picture.variant(resize_to_fill: [150, 80]).processed, only_path: true),\n                        class: \"h-16 w-auto object-contain hover:opacity-80 transition-opacity duration-300\",\n                        alt: position.title\n                      ) %> %>
-                <%# <% rescue ActiveStorage::FileNotFoundError %> %>
-                  <%# <%= image_tag \"placeholder.png\", \n                        class: \"h-16 w-auto object-contain hover:opacity-80 transition-opacity duration-300\", \n                        alt: \"\#{position.title} - Image not found\" %> %>
-                <%# <% end %> %>
-              <%# <% end %> %>
-            <%# </div> %>
-          <%# <% end %> %>
-        <%# <% end %> %>
-        <%# </div> %>
+        <div class="flex flex-wrap gap-6 items-center justify-start">
+          <%= image_tag "fire_department_logo.jpg", class: "h-16 w-auto object-contain hover:opacity-80 transition-opacity duration-300", alt: "Partner 1" %>
+          <%= image_tag "skjr_logo.png", class: "h-16 w-auto object-contain hover:opacity-80 transition-opacity duration-300", alt: "Partner 2" %>
+          <%= image_tag "special_olympics_logo.png", class: "h-16 w-auto object-contain hover:opacity-80 transition-opacity duration-300", alt: "Partner 3" %>
+          <%= image_tag "tedx_logo.png", class: "h-16 w-auto object-contain hover:opacity-80 transition-opacity duration-300", alt: "Partner 4" %>
+          <%= image_tag "unicef_hg_logo.jpg", class: "h-16 w-auto object-contain hover:opacity-80 transition-opacity duration-300", alt: "Partner 5" %>
+        </div>
       </div>
     </div>
 

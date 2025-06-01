@@ -1,5 +1,5 @@
 class MatchingController < ApplicationController
-    skip_before_action :authenticate_user!, only: [:index]
+    skip_before_action :authenticate_user!, only: [:index, :results]
     layout 'volunteer'
     def index
     end
@@ -28,7 +28,7 @@ class MatchingController < ApplicationController
     def calculate_position_matches(user_skills, limit: 5)
     # Get all active and released positions with their organizations
     positions = Position.joins(:organization)
-                        .where(is_active: true, released: true)
+                        .where(released: true, online: true)
                         .where(organizations: { is_approved: true, is_deactivated: [false, nil] })
 
     # Calculate match scores for each position
