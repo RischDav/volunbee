@@ -5,6 +5,7 @@ class Organization < ApplicationRecord
     has_one_attached :profile_picture
     has_many :positions
     has_many :users
+    has_one_attached :profile_picture
 
     validate :pictures_size
     after_commit :process_pictures, on: [:update]

@@ -8,6 +8,14 @@ Rails.application.configure do
   config.active_storage.service = :local
   Rails.application.routes.default_url_options[:host] = 'localhost:3000'
   config.assets.debug = true
+  
+  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
+  config.asset_host = 'http://localhost:3000'
+  
+  # Configure ActiveStorage to serve files
+  config.active_storage.resolve_model_to_route = :rails_storage_proxy
+  config.active_storage.routes_prefix = '/rails/active_storage'
+  
   # Do not eager load code on boot.
   config.eager_load = false
   # Reload classes only when files change.
@@ -15,6 +23,8 @@ Rails.application.configure do
 
   # Show full error reports.
   config.consider_all_requests_local = true
+
+  config.public_file_server.enabled = true
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.

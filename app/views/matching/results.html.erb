@@ -1,0 +1,79 @@
+<div class="container mx-auto px-4 pt-32 pb-12 max-w-6xl">
+  <!-- Results Header -->
+  <div class="text-center mb-12">
+    <h1 class="text-3xl md:text-5xl font-bold mb-6 text-[#264653]">Your Volunteer Matches</h1>
+    <p class="text-lg text-[#264653] mb-8">
+      Based on your responses, here are the volunteer positions that best match your skills and interests.
+    </p>
+  </div>
+
+  <!-- User Skills Summary -->
+  <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+    <h2 class="text-xl font-semibold mb-4 text-[#264653]">Your Skill Profile</h2>
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <% @user_skills.each do |skill, score| %>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-[#E76F51]"><%= score %></div>
+          <div class="text-sm text-[#264653] capitalize"><%= skill.to_s.humanize %></div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Matching Results -->
+  <div class="space-y-6">
+    <% if @matching_positions && @matching_positions.any? %>
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 grid-cols-1">
+        <% @matching_positions.each do |match_data| %>
+          <% position = match_data[:position] %>
+          <%# organization = match_data[:organization] %>
+          <% percentage = match_data[:percentage] %>
+
+          <%# Card structure similar to main page positions section %>
+          <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden w-full">
+            <div class="relative h-48 w-full">
+              <% if position.main_picture.attached? %>
+                <%= image_tag rails_blob_url(position.main_picture), class: "object-cover w-full h-full", alt: position.title %>
+              <% else %>
+                <%= image_tag "placeholder.png", class: "object-cover w-full h-full", alt: "No image" %>
+              <% end %>
+            </div>
+
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-[#264653] mb-2"><%= position.title %></h3>
+              <%# Truncate description for card view %>
+              <p class="text-gray-700 leading-relaxed mb-4"><%= truncate(position.description, length: 150, separator: ' ') %></p>
+
+              <%# Display match percentage %>
+              <div class="mt-4 mb-4">
+                <span class="text-sm font-semibold text-[#E76F51]">Match: <%= percentage %>%</span>
+              </div>
+
+              <%# Button to view position details %>
+              <div class="mt-4">
+                <%= link_to "Learn More", show_positions_path, 
+                    class: "inline-block bg-[#F2C94C] text-[#264653] px-6 py-2 rounded-lg font-semibold hover:bg-[#E76F51] hover:text-white transition-colors" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center py-12">
+        <h3 class="text-xl font-semibold text-[#264653] mb-4">No matches found</h3>
+        <p class="text-[#264653] mb-6">
+          We couldn't find any volunteer positions that match your current skills profile. 
+          Try taking the quiz again or contact us for more opportunities.
+        </p>
+        <%= link_to "Take Quiz Again", matching_path, 
+            class: "bg-[#F2C94C] text-[#264653] px-6 py-3 rounded-lg font-semibold hover:bg-[#E76F51] hover:text-white transition-colors" %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Back to Quiz Button -->
+  <div class="text-center mt-12">
+    <%= link_to "Take Quiz Again", matching_path, 
+        class: "bg-[#264653] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#E76F51] transition-colors" %>
+  </div>
+</div>

@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
     #matching
     get "matching", to: "matching#index"
+    post 'matching/results', to: 'matching#results'
+    get 'matching/results', to: 'matching#results'
 
     #impressum
     get "impressum", to: "impressum#index"

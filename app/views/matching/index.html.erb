@@ -1,3 +1,265 @@
-<div class="container">
-  <h1>Matching Is Here</h1>
+<div class="container mx-auto px-4 pt-32 pb-12 text-center max-w-5xl">
+  <%# Intro Section %>
+  <div id="matching-intro" class="matching-section">
+    <h1 class="text-3xl md:text-5xl font-bold mb-6 text-[#264653]">Volunteer Match</h1>
+    <p class="text-lg md:text-xl mb-10 max-w-3xl mx-auto text-[#264653]">
+      You'll be asked 5 simple questions. Just pick the answers that fit you best, and we'll help narrow down the volunteer opportunities that might interest you the most.
+    </p>
+
+    <%# Start Button %>
+    <div class="mt-12">
+      <%= link_to "Start", "#", id: "start-matching-button", class: "py-5 px-12 rounded-full text-2xl font-semibold inline-block transition-colors cursor-pointer bg-[#F2C94C] text-[#264653] hover:bg-[#E76F51] hover:text-white" %>
+    </div>
+
+    <%# Image %>
+    <div class="mt-8 max-w-xs mx-auto">
+       <%# Assuming the "Okay, let's go!" image is in your assets. If not, replace with correct path %>
+       <%= image_tag "okay_lets_go.gif", class: "rounded-lg shadow-md w-full", alt: "Okay, let's go!" %>
+    </div>
+  </div>
+
+  <%# Quiz Section (Initially Hidden) %>
+  <div id="matching-quiz" class="matching-section hidden">
+    <!-- Step Indicator -->
+    <div id="step-indicator" class="flex justify-center items-center space-x-2 mb-8">
+      <% (1..5).each do |step| %>
+        <div class="step-circle w-8 h-8 rounded-full flex items-center justify-center border-2 border-[#F2C94C] text-sm font-semibold <%= step == 1 ? 'bg-[#F2C94C]' : 'text-[#264653]' %>" data-step="<%= step %>"><%= step %></div>
+        <% if step < 5 %>
+          <div class="step-line flex-grow h-0.5 bg-[#F2C94C] max-w-6"></div> <%# Added line %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <!-- Question Area -->
+    <div class="mb-8" id="question-area">
+      <h2 class="text-xl md:text-3xl font-semibold mb-4 text-[#264653]" id="quiz-question"></h2>
+    </div>
+
+    <!-- Answer Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+      <% (1..4).each do |answer_idx| %>
+        <div class="answer-card bg-[#F2C94C] text-[#264653] rounded-lg shadow-md p-6 text-left cursor-pointer hover:shadow-lg transition-shadow" data-answer-index="<%= answer_idx - 1 %>">
+          <p class="font-medium" id="answer-<%= answer_idx %>"></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
+
+<%# Add JavaScript for interaction and quiz logic %>
+<script>
+  // Wait for both DOM and Turbolinks to be ready
+  document.addEventListener('turbolinks:load', function() {
+    const startButton = document.getElementById('start-matching-button');
+    const introSection = document.getElementById('matching-intro');
+    const quizSection = document.getElementById('matching-quiz');
+    const answerCards = document.querySelectorAll('.answer-card');
+    const stepCircles = document.querySelectorAll('.step-circle');
+    const quizQuestionElement = document.getElementById('quiz-question');
+
+    let currentStep = 1;
+    const totalSteps = 5;
+    let userSkillScores = { creative: 0, technical: 0, social: 0, language: 0, flexibility: 0 };
+
+    // Define your quiz questions and answers with skill mappings
+    const quizData = [
+      {
+        question: "You are part of a team organizing a cultural event for a charity. How do you prefer to contribute?",
+        answers: [
+          { text: "I take photos and create creative videos of the event.", skills: { creative: 5, technical: 2, social: 1, language: 1, flexibility: 1 } },
+          { text: "I ensure that all technical requirements, such as audio and video, work flawlessly.", skills: { creative: 1, technical: 5, social: 2, language: 1, flexibility: 3 } },
+          { text: "I make sure that people with special needs receive support and feel comfortable.", skills: { creative: 1, technical: 1, social: 5, language: 2, flexibility: 3 } },
+          { text: "I host the event and welcome guests in fluent German.", skills: { creative: 1, technical: 1, social: 3, language: 5, flexibility: 2 } }
+        ]
+      },
+      {
+        question: "You are working on a long-term nonprofit project. There is a lot to do, and the team needs more commitment. How do you help?",
+        answers: [
+          { text: "I design creative flyers and social media posts to promote the project.", skills: { creative: 5, technical: 2, social: 2, language: 1, flexibility: 1 } },
+          { text: "I program a website or help improve the project's online presence technically.", skills: { creative: 2, technical: 5, social: 1, language: 1, flexibility: 2 } },
+          { text: "I am ready to take on various tasks and adapt to changing requirements.", skills: { creative: 2, technical: 2, social: 3, language: 2, flexibility: 5 } },
+          { text: "I handle written communication in German to gain donations and support.", skills: { creative: 1, technical: 1, social: 3, language: 5, flexibility: 2 } }
+        ]
+      },
+      {
+        question: "A neighborhood initiative is planning a benefit concert. How would you contribute?",
+        answers: [
+          { text: "I take care of the creative design of the stage sets and decorations.", skills: { creative: 5, technical: 2, social: 1, language: 1, flexibility: 2 } },
+          { text: "I help with the technical setup for sound and light show.", skills: { creative: 2, technical: 5, social: 1, language: 1, flexibility: 3 } },
+          { text: "I am on-site and help with guest care as soon as tasks arise.", skills: { creative: 1, technical: 1, social: 5, language: 2, flexibility: 5 } },
+          { text: "I host the event and ensure that everything runs smoothly and fluently in German.", skills: { creative: 1, technical: 1, social: 3, language: 5, flexibility: 3 } }
+        ]
+      },
+      {
+        question: "You are considering volunteering at a local soup kitchen. What would be your contribution?",
+        answers: [
+          { text: "I take creative photos of the activities to generate attention.", skills: { creative: 5, technical: 2, social: 3, language: 1, flexibility: 2 } },
+          { text: "I don't know exactly. I would see where I could help out.", skills: { creative: 2, technical: 2, social: 2, language: 2, flexibility: 5 } }, // Flexibility/Adaptability
+          { text: "I spend a lot of time with the guests and make sure they feel welcome.", skills: { creative: 1, technical: 1, social: 5, language: 3, flexibility: 3 } },
+          { text: "I help with communication with local media to collect more donations.", skills: { creative: 3, technical: 1, social: 3, language: 4, flexibility: 2 } } // Language (Communication)
+        ]
+      },
+      {
+        question: "You join a team of volunteers supporting a school project to help disadvantaged children. How do you contribute?",
+        answers: [
+          { text: "I help the children develop creative projects like painting and crafting.", skills: { creative: 5, technical: 1, social: 3, language: 1, flexibility: 2 } },
+          { text: "I teach the children how to use computers and technical devices.", skills: { creative: 1, technical: 5, social: 2, language: 1, flexibility: 2 } },
+          { text: "I support particularly needy children and help them integrate into the group.", skills: { creative: 1, technical: 1, social: 5, language: 3, flexibility: 3 } }, // Social/Language
+          { text: "I teach the children the basics of the German language.", skills: { creative: 1, technical: 1, social: 2, language: 5, flexibility: 2 } } // Language/Social
+        ]
+      }
+    ];
+
+    // Handle Start button click
+    if (startButton) {
+      startButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        introSection.classList.add('hidden');
+        quizSection.classList.remove('hidden');
+        currentStep = 1; // Start at step 1
+        userSkillScores = { creative: 0, technical: 0, social: 0, language: 0, flexibility: 0 }; // Reset scores
+        loadQuestion(currentStep);
+      });
+    }
+
+    // Handle Answer card click
+    answerCards.forEach(card => {
+      card.addEventListener('click', function() {
+        const answerIndex = parseInt(this.dataset.answerIndex); // Get the selected answer index
+        const currentQuestionData = quizData[currentStep - 1];
+        const selectedAnswer = currentQuestionData.answers[answerIndex];
+
+        // Accumulate skill scores from the selected answer
+        for (const skill in selectedAnswer.skills) {
+          if (userSkillScores.hasOwnProperty(skill)) {
+            userSkillScores[skill] += selectedAnswer.skills[skill];
+          }
+        }
+
+        console.log(`Step ${currentStep}: Selected answer index ${answerIndex}. Accumulated scores:`, userSkillScores);
+
+        // Move to the next step
+        currentStep++;
+        if (currentStep <= totalSteps) {
+          loadQuestion(currentStep);
+        } else {
+          // Quiz finished - show results
+          console.log('Quiz finished! Final scores:', userSkillScores);
+          showResults(userSkillScores);
+        }
+      });
+    });
+
+    // Function to load a question and its answers based on the step number
+    function loadQuestion(step) {
+      if (step > totalSteps || step < 1) {
+        console.error("Invalid step number:", step);
+        return;
+      }
+
+      const questionData = quizData[step - 1]; // step is 1-indexed, array is 0-indexed
+
+      // Update the question text
+      quizQuestionElement.textContent = questionData.question;
+
+      // Update the answer card texts and data attributes
+      answerCards.forEach((card, index) => {
+        const answer = questionData.answers[index];
+        card.querySelector('p').textContent = answer.text;
+      });
+
+      // Update the step indicator
+      updateStepIndicator();
+    }
+
+    // Function to update the step indicator visual
+    function updateStepIndicator() {
+      stepCircles.forEach(circle => {
+        const step = parseInt(circle.dataset.step);
+        if (step === currentStep) {
+          circle.classList.add('bg-[#F2C94C]', 'text-[#264653]');
+          circle.classList.remove('text-[#264653]', 'bg-transparent');
+        } else if (step < currentStep) { // Completed steps
+           circle.classList.remove('bg-[#F2C94C]');
+           circle.classList.add('text-[#264653]'); // Maybe a different color for completed?
+           // Add a class to color the line before it
+           const lineAfter = circle.nextElementSibling; // The line after the circle
+           if(lineAfter && lineAfter.classList.contains('step-line')) {
+              lineAfter.classList.add('bg-[#F2C94C]'); // Color the line gold
+           }
+        } else { // Future steps
+           circle.classList.remove('bg-[#F2C94C]', 'text-[#264653]');
+           circle.classList.add('text-[#264653]');
+             const lineAfter = circle.nextElementSibling; // The line after the circle
+           if(lineAfter && lineAfter.classList.contains('step-line')) {
+              lineAfter.classList.remove('bg-[#F2C94C]'); // Ensure line is not gold
+           }
+        }
+      });
+    }
+
+    // Function to show quiz results
+    function showResults(finalScores) {
+      console.log('Showing results... Final scores:', finalScores);
+      
+      // Calculate average scores (divide by number of questions)
+      const averageScores = {
+        creative: Math.round(finalScores.creative / totalSteps),
+        technical: Math.round(finalScores.technical / totalSteps),
+        social: Math.round(finalScores.social / totalSteps),
+        language: Math.round(finalScores.language / totalSteps),
+        flexibility: Math.round(finalScores.flexibility / totalSteps)
+      };
+      
+      console.log('Averaged scores:', averageScores);
+      
+      // Hide the quiz section
+      quizSection.classList.add('hidden');
+      
+      // Get current locale from URL
+      const pathParts = window.location.pathname.split('/');
+      const locale = pathParts[1] === 'en' || pathParts[1] === 'de' ? pathParts[1] : '';
+      
+      // Create URL with query parameters
+      const params = new URLSearchParams({
+        creative: averageScores.creative,
+        technical: averageScores.technical,
+        social: averageScores.social,
+        language: averageScores.language,
+        flexibility: averageScores.flexibility
+      });
+
+      // Redirect to results page with parameters and locale
+      const baseUrl = locale ? `/${locale}/matching/results` : '/matching/results';
+      window.location.href = `${baseUrl}?${params.toString()}`;
+    }
+
+    // Initialize step circles
+    stepCircles.forEach(circle => {
+      const step = parseInt(circle.dataset.step);
+      if (step === 1) {
+        circle.classList.add('bg-[#F2C94C]', 'text-[#264653]');
+        circle.classList.remove('text-[#264653]');
+      } else {
+        circle.classList.remove('bg-[#F2C94C]', 'text-[#264653]');
+        circle.classList.add('text-[#264653]');
+      }
+    });
+  });
+</script>
+
+<style>
+/* Add basic styling for hidden class if not provided by Tailwind */
+/* Tailwind includes this by default, so this might not be necessary */
+.hidden {
+  display: none !important;
+}
+
+/* Style for the lines in the step indicator */
+/* already added inline styles, but keep for clarity */
+.step-line {
+  /* height: 0.5rem; */
+  /* background-color: #F2C94C; */
+   min-width: 0.5rem; /* Ensure lines are visible */
+}
+</style>

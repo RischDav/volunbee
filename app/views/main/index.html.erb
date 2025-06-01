@@ -37,12 +37,19 @@
       </div>
       
       <div class="mt-8">
-        <!-- Removing the entire organizations section -->
+        <h2 class="text-xl font-bold mb-6 text-[#264653]">Our Project-partners:</h2>
+        <div class="flex flex-wrap gap-6 items-center justify-start">
+          <%= image_tag "fire_department_logo.jpg", class: "h-16 w-auto object-contain hover:opacity-80 transition-opacity duration-300", alt: "Partner 1" %>
+          <%= image_tag "skjr_logo.png", class: "h-16 w-auto object-contain hover:opacity-80 transition-opacity duration-300", alt: "Partner 2" %>
+          <%= image_tag "special_olympics_logo.png", class: "h-16 w-auto object-contain hover:opacity-80 transition-opacity duration-300", alt: "Partner 3" %>
+          <%= image_tag "tedx_logo.png", class: "h-16 w-auto object-contain hover:opacity-80 transition-opacity duration-300", alt: "Partner 4" %>
+          <%= image_tag "unicef_hg_logo.jpg", class: "h-16 w-auto object-contain hover:opacity-80 transition-opacity duration-300", alt: "Partner 5" %>
+        </div>
       </div>
     </div>
 
     <!-- Right side image section -->
-    <div class="flex-1 bg-cover bg-center h-80 md:min-h-screen md:h-auto" style="background-image: url('<%= asset_path("students_sitting_for_dinner.jpg") %>');"></div>
+    <div class="flex-1 bg-cover rounded bg-center h-80 md:h-auto" style="background-image: url('<%= asset_path("students_sitting_for_dinner.jpg") %>');"></div>
   </div>
   <!-- Positions Section -->
   <div class="bg-[#2A9D8F]">
