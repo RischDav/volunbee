@@ -11,11 +11,24 @@
                   <div class="slider-track flex w-full h-full transition-transform duration-700 ease-in-out" style="will-change: transform;">
                     <% images.each_with_index do |img, img_idx| %>
                       <div class="w-full h-full flex-shrink-0">
-                        <%= image_tag(
-                              rails_representation_url(img.variant(resize_to_fill: [600, 250]).processed, only_path: true),
-                              class: "object-cover w-full h-full",
-                              alt: "#{position.title} image #{img_idx + 1}"
-                            ) %>
+                        <% begin %>
+                          <% variant = img.variant(resize_to_fill: [600, 250]) %>
+                          <% if variant.processed? %>
+                            <%= image_tag(
+                                  rails_representation_url(variant, only_path: true),
+                                  class: "object-cover w-full h-full",
+                                  alt: "#{position.title} image #{img_idx + 1}"
+                                ) %>
+                          <% else %>
+                            <%= image_tag(
+                                  rails_representation_url(img, only_path: true),
+                                  class: "object-cover w-full h-full",
+                                  alt: "#{position.title} image #{img_idx + 1}"
+                                ) %>
+                          <% end %>
+                        <% rescue ActiveStorage::IntegrityError, ActiveStorage::FileNotFoundError => e %>
+                          <%= image_tag "placeholder.png", class: "object-cover w-full h-full", alt: "Image not available" %>
+                        <% end %>
                       </div>
                     <% end %>
                   </div>
