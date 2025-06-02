@@ -17,7 +17,7 @@
                           alt: "#{@position.organization&.name || 'Organization'} logo" %>
             <% end %>
           <% rescue ActiveStorage::IntegrityError, ActiveStorage::FileNotFoundError => e %>
-            <%= image_tag "placeholder.png", 
+            <%= image_tag "pb-placeholder.png", 
                         class: "w-28 h-28 object-contain rounded-xl shadow mb-2 bg-white", 
                         alt: "Logo not available" %>
           <% end %>
@@ -60,7 +60,7 @@
                               alt: "#{@position.title} image #{idx + 1}" %>
                 <% end %>
               <% rescue ActiveStorage::IntegrityError, ActiveStorage::FileNotFoundError => e %>
-                <%= image_tag "placeholder.png", 
+                <%= image_tag "pb-placeholder.png", 
                             class: "object-cover w-full h-full", 
                             alt: "Image not available" %>
               <% end %>
