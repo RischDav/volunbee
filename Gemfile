@@ -16,7 +16,7 @@ gem "tailwindcss-rails"
 gem "sqlite3", group: :development
 gem "sprockets-rails"
 gem 'sprockets', '>= 4.0.0'
-gem "image_processing"
+gem "image_processing", "~> 1.2"
 gem "bootsnap", require: false
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "foreman", github: "ddollar/foreman"
@@ -26,6 +26,7 @@ gem "mail", '~> 2.7'
 gem "aws-sdk-s3", require: false
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'view_component'
+gem 'ruby-vips'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
