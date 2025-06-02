@@ -6,16 +6,11 @@
       <div class="flex-shrink-0 flex flex-col items-center md:items-start">
         <% if @position.main_picture.attached? %>
           <% begin %>
-            <% variant = @position.main_picture.variant(resize_to_fill: [112, 112]) %>
-            <% if variant.processed? %>
-              <%= image_tag rails_representation_url(variant, only_path: true), 
-                          class: "w-28 h-28 object-contain rounded-xl shadow mb-2 bg-white", 
-                          alt: "#{@position.organization&.name || 'Organization'} logo" %>
-            <% else %>
-              <%= image_tag rails_representation_url(@position.main_picture, only_path: true), 
-                          class: "w-28 h-28 object-contain rounded-xl shadow mb-2 bg-white", 
-                          alt: "#{@position.organization&.name || 'Organization'} logo" %>
-            <% end %>
+            <%= image_tag(
+                  rails_representation_url(@position.main_picture.variant(resize_to_fill: [112, 112]), only_path: true),
+                  class: "w-28 h-28 object-contain rounded-xl shadow mb-2 bg-white",
+                  alt: "#{@position.organization&.name || 'Organization'} logo"
+                ) %>
           <% rescue ActiveStorage::IntegrityError, ActiveStorage::FileNotFoundError => e %>
             <%= image_tag "pb-placeholder.png", 
                         class: "w-28 h-28 object-contain rounded-xl shadow mb-2 bg-white", 
@@ -49,16 +44,11 @@
           <% images.each_with_index do |image, idx| %>
             <div class="flex-shrink-0 w-72 h-44 rounded-xl overflow-hidden shadow relative bg-white">
               <% begin %>
-                <% variant = image.variant(resize_to_fill: [600, 250]) %>
-                <% if variant.processed? %>
-                  <%= image_tag rails_representation_url(variant, only_path: true), 
-                              class: "object-cover w-full h-full", 
-                              alt: "#{@position.title} image #{idx + 1}" %>
-                <% else %>
-                  <%= image_tag rails_representation_url(image, only_path: true), 
-                              class: "object-cover w-full h-full", 
-                              alt: "#{@position.title} image #{idx + 1}" %>
-                <% end %>
+                <%= image_tag(
+                      rails_representation_url(image.variant(resize_to_fill: [600, 250]), only_path: true),
+                      class: "object-cover w-full h-full",
+                      alt: "#{@position.title} image #{idx + 1}"
+                    ) %>
               <% rescue ActiveStorage::IntegrityError, ActiveStorage::FileNotFoundError => e %>
                 <%= image_tag "pb-placeholder.png", 
                             class: "object-cover w-full h-full", 
