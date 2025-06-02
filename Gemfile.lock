@@ -355,7 +355,7 @@ DEPENDENCIES
   dotenv-rails
   foreman!
   heroicon
-  image_processing
+  image_processing (~> 1.2)
   jsbundling-rails
   listen (~> 3.3)
   mail (~> 2.7)
@@ -363,6 +363,7 @@ DEPENDENCIES
   pg
   puma
   rails
+  ruby-vips
   sidekiq
   simple_form (~> 5.2)
   sprockets (>= 4.0.0)
