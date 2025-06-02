@@ -34,6 +34,11 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :amazon
+  
+  # Configure ActiveStorage for production
+  config.active_storage.resolve_model_to_route = :rails_storage_proxy
+  config.active_storage.routes_prefix = '/rails/active_storage'
+  config.active_storage.variant_processor = :vips
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
