@@ -3,26 +3,22 @@ class ShowPositionsController < ApplicationController
   layout 'volunteer'
   
   def index
-    @positions = Position.with_attached_main_picture
-                         .with_attached_picture1
-                         .with_attached_picture2
-                         .with_attached_picture3
-                         .where(online: true, released: true)
+    @positions = Position.where(online: true, released: true)
 
-    @positions.each do |position|
-      if position.main_picture.attached?
-        begin
-          url = Rails.application.routes.url_helpers.rails_blob_url(position.main_picture, only_path: true)
-          Rails.logger.debug "Main picture URL for '#{position.title}': #{url}"
-        rescue ActiveStorage::FileNotFoundError
-          Rails.logger.debug "Missing file for '#{position.title}', purging attachment."
-          position.main_picture.purge
-        end
-      else
-        Rails.logger.debug "No main picture for '#{position.title}'"
-      end
+    # @positions.each do |position|
+    #   if position.main_picture.attached?
+    #     begin
+    #       url = rails_blob_url(position.main_picture, only_path: true)
+    #       Rails.logger.debug "Main picture URL for '#{position.title}': #{url}"
+    #     rescue ActiveStorage::FileNotFoundError
+    #       Rails.logger.debug "Missing file for '#{position.title}', purging attachment."
+    #       position.main_picture.purge
+    #     end
+    #   else
+    #     Rails.logger.debug "No main picture for '#{position.title}'"
+    #   end
+    # end
     end
-  end
 
   def show
     @position = Position.find(params[:id])
