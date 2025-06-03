@@ -355,7 +355,7 @@ DEPENDENCIES
   dotenv-rails
   foreman!
   heroicon
-  image_processing
+  image_processing (~> 1.2)
   jsbundling-rails
   listen (~> 3.3)
   mail (~> 2.7)
