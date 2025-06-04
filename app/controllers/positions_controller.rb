@@ -26,7 +26,7 @@ class PositionsController < ApplicationController
   
     if @position.save
       # Bilder verarbeiten
-      [@position.mainPicture, @position.picture1, @position.picture2, @position.picture3].each do |picture|
+      [@position.main_picture, @position.picture1, @position.picture2, @position.picture3].each do |picture|
         ProcessPictureJob.set(wait: 5.seconds).perform_later(picture.blob.id) if picture.attached?
       end
   
@@ -52,7 +52,7 @@ class PositionsController < ApplicationController
       end
   
       # Hauptbild-Validierung
-      if @position.errors.include?(:mainPicture)
+      if @position.errors.include?(:main_picture)
         error_messages << "Ein Hauptbild muss hochgeladen werden."
       end
   
@@ -119,7 +119,7 @@ class PositionsController < ApplicationController
 
   def update
     if @position.update(position_params)
-      [@position.mainPicture, @position.picture1, @position.picture2, @position.picture3].each do |picture|
+      [@position.main_picture, @position.picture1, @position.picture2, @position.picture3].each do |picture|
         ProcessPictureJob.set(wait: 10.seconds).perform_later(picture.blob.id) if picture.attached?
       end
       redirect_to positions_path, notice: "Position was successfully updated."
@@ -176,6 +176,6 @@ class PositionsController < ApplicationController
   end
 
   def position_params
-    params.require(:position).permit(:title, :position_temporary, :weekly_time_commitment, :description, :benefits, :mainPicture, :picture1, :picture2, :picture3, :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility, :released, :online, frequently_asked_questions_attributes: [:id, :question, :answer, :_destroy])
+    params.require(:position).permit(:title, :position_temporary, :weekly_time_commitment, :description, :benefits, :main_picture, :picture1, :picture2, :picture3, :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility, :released, :online, frequently_asked_questions_attributes: [:id, :question, :answer, :_destroy])
   end
 end

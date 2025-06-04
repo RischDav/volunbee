@@ -32,9 +32,9 @@ class JsonApiController < ApplicationController
       }
       
       photos = {}
-      if position.mainPicture.attached?
+      if position.main_picture.attached?
         photos[:photo1] = {
-          url: rails_blob_url(position.mainPicture, only_path: false),
+          url: rails_blob_url(position.main_picture, only_path: false),
           author: ""
         }
       end
