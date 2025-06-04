@@ -363,7 +363,6 @@ DEPENDENCIES
   pg
   puma
   rails
-  ruby-vips
   sidekiq
   simple_form (~> 5.2)
   sprockets (>= 4.0.0)
