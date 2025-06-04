@@ -1,2 +1,4 @@
 imagemagick
-libvips 
+libvips42
+libvips-dev
+libvips-tools 
