@@ -1,6 +1,6 @@
 <div class="flex space-x-4">
-  <% if position.mainPicture.attached? %>
-    <%= link_to image_tag(position.mainPicture, style: "max-width: 200px;", class: "rounded"), url_for(position.mainPicture) %>
+  <% if position.main_picture.attached? %>
+    <%= link_to image_tag(position.main_picture, style: "max-width: 200px;", class: "rounded"), url_for(position.main_picture) %>
   <% end %>
   <% if position.picture1.attached? %>
     <%= link_to image_tag(position.picture1, style: "max-width: 200px;", class: "rounded"), url_for(position.picture1) %>

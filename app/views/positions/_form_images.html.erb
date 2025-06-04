@@ -4,9 +4,9 @@
   
   <!-- Main Picture -->
   <div class="field">
-    <%= f.label :mainPicture, t('positions.images.form.main_picture_label'), class: "block text-sm font-medium text-gray-700" %>
-    <%= f.file_field :mainPicture, class: "mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100", accept: 'image/*', id: "position_mainPicture" %>
-    <p id="mainPicture-feedback" class="mt-2 text-sm text-gray-500"><%= t('positions.images.form.main_picture_description') %></p>
+    <%= f.label :main_picture, t('positions.images.form.main_picture_label'), class: "block text-sm font-medium text-gray-700" %>
+    <%= f.file_field :main_picture, class: "mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100", accept: 'image/*', id: "position_main_picture" %>
+    <p id="main_picture-feedback" class="mt-2 text-sm text-gray-500"><%= t('positions.images.form.main_picture_description') %></p>
   </div>
 
   <!-- Additional Pictures -->
