@@ -9,7 +9,7 @@
             <%= image_tag @position.main_picture.variant(resize_to_fill: [600, 250]), class: "position-main-image", alt: "Position main image" %>
           <% rescue ActiveStorage::IntegrityError, ActiveStorage::FileNotFoundError => e %>
             <% Rails.logger.error "Error loading main picture for position #{@position.id}: #{e.message}" %>
-            <%= image_tag "placeholder.jpg", class: "position-main-image", alt: "Position main image" %>
+            <%= image_tag "pb-placeholder.png", class: "position-main-image", alt: "Position main image" %>
           <% end %>
         <% end %>
         <div class="text-sm text-gray-500 mt-2"><%= @position.organization&.name || @position.organization_name %></div>
@@ -48,7 +48,7 @@
                         ) %>
                   <% rescue ActiveStorage::IntegrityError, ActiveStorage::FileNotFoundError => e %>
                     <% Rails.logger.error "Error loading image #{img.id} for position #{@position.id}: #{e.message}" %>
-                    <%= image_tag "placeholder.jpg", 
+                    <%= image_tag "pb-placeholder.png", 
                                 class: "object-cover w-full h-full", 
                                 alt: "Image not available" %>
                   <% end %>
