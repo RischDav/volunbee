@@ -36,22 +36,26 @@
       <div class="flex gap-4 py-4 px-8">
         <% images = [:main_picture, :picture1, :picture2, :picture3].map { |pic| @position.send(pic) if @position.send(pic).attached? }.compact %>
         <% if images.any? %>
-          <% images.each_with_index do |image, idx| %>
-            <div class="flex-shrink-0 w-72 h-44 rounded-xl overflow-hidden shadow relative bg-white">
-              <% begin %>
-                <%= image_tag(
-                      rails_representation_url(image.variant(resize_to_fill: [600, 250]), only_path: true),
-                      class: "object-cover w-full h-full",
-                      alt: "#{@position.title} image #{idx + 1}"
-                    ) %>
-              <% rescue ActiveStorage::IntegrityError, ActiveStorage::FileNotFoundError => e %>
-                <% Rails.logger.error "Error loading image #{image.id} for position #{@position.id}: #{e.message}" %>
-                <%= image_tag "placeholder.jpg", 
-                            class: "object-cover w-full h-full", 
-                            alt: "Image not available" %>
+          <div id="slider-<%= pos_idx %>" class="position-slider relative w-full h-full overflow-hidden">
+            <div class="slider-track flex w-full h-full transition-transform duration-700 ease-in-out" style="will-change: transform;">
+              <% images.each_with_index do |img, img_idx| %>
+                <div class="w-full h-full flex-shrink-0">
+                  <% begin %>
+                    <%= image_tag(
+                          rails_representation_url(img.variant(resize_to_fill: [600, 250]), only_path: true),
+                          class: "object-cover w-full h-full",
+                          alt: "#{@position.title} image #{img_idx + 1}"
+                        ) %>
+                  <% rescue ActiveStorage::IntegrityError, ActiveStorage::FileNotFoundError => e %>
+                    <% Rails.logger.error "Error loading image #{image.id} for position #{@position.id}: #{e.message}" %>
+                    <%= image_tag "placeholder.jpg", 
+                                class: "object-cover w-full h-full", 
+                                alt: "Image not available" %>
+                  <% end %>
+                </div>
               <% end %>
             </div>
-          <% end %>
+          </div>
         <% else %>
           <div class="flex-shrink-0 w-72 h-44 rounded-xl overflow-hidden shadow bg-gray-200 flex items-center justify-center text-gray-400">
             <span>No images</span>
