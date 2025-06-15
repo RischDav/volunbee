@@ -4,13 +4,10 @@
       <%= link_to show_position_path(position['id']), class: "block group bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden w-full cursor-pointer" do %>
         <div class="relative h-80 w-full">
           <% 
-            # Sichere Bildanzeige mit Fehlerbehandlung
             image_url = nil
             if position.main_picture.attached?
               begin
-                # Test ob Bild verfügbar ist
                 position.main_picture.blob.open { |file| file.size }
-                # Verwende direkte URL ohne Varianten bei Problemen
                 image_url = position.main_picture.url
               rescue ActiveStorage::IntegrityError, ActiveStorage::FileNotFoundError => e
                 Rails.logger.warn "Corrupted image for position #{position.id}: #{e.message}"
@@ -21,17 +18,11 @@
               end
             end
           %>
-          
           <% if image_url %>
-            <%= image_tag(image_url, 
-                  class: "object-cover w-full h-full", 
-                  alt: position.title, 
-                  loading: "lazy") %>
+            <%= image_tag(image_url, class: "object-cover w-full h-full", alt: position.title, loading: "lazy") %>
           <% else %>
             <%= image_tag "pb-placeholder.png", class: "object-cover w-full h-full", alt: "No image" %>
           <% end %>
-          
-          <!-- Logo-Overlay von der Organization - 50% größer mit weißem Hintergrund -->
           <% 
             logo_url = nil
             if position.organization&.logo&.attached?
@@ -47,20 +38,14 @@
               end
             end
           %>
-          
           <% if logo_url %>
             <div class="absolute top-4 right-4 bg-white rounded-lg p-3 shadow-lg">
-              <%= image_tag(logo_url, 
-                    class: "w-18 h-18 object-contain", 
-                    alt: "#{position.organization.name} logo", 
-                    loading: "lazy") %>
+              <%= image_tag(logo_url, class: "w-18 h-18 object-contain", alt: "#{position.organization.name} logo", loading: "lazy") %>
             </div>
           <% end %>
         </div>
-        
         <div class="p-8 space-y-3">
           <h2 class="text-xl font-semibold text-indigo-700"><%= position.title %></h2>
-          
           <p class="text-gray-600 text-sm line-clamp-3"><%= truncate(position.description, length: 140) %></p>
           <% if position.benefits.present? %>
             <div class="text-sm text-emerald-600 font-medium">
@@ -84,4 +69,6 @@
           </div>
         </div>
       <% end %>
-    <% end
+    <% end %>
+  </div>
+</div>
