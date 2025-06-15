@@ -19,19 +19,28 @@
 
   <body>
     <% if @custom_navbar %>
-    <%= render partial: "shared/public_navbar" %>
+      <%= render partial: "shared/public_navbar" %>
     <% else %>
-    <%= render partial: "shared/navbar" %>
+      <%= render partial: "shared/navbar" %>
     <% end %>
+    
     <!-- Organization alerts are only showed when there is missing required information for organization -->
     <% unless controller_name == 'organizations' && action_name == 'edit' %>
-    <%= render partial: "shared/organization_alert"%>   
+      <%= render partial: "shared/organization_alert"%>   
     <% end %>
+    
     <main class="m-4">
       <!-- Page Content -->
       <%= yield %>
     </main>
-    <%= render partial: "shared/footer" %>
+    
+    <!-- Conditional Footer -->
+    <% if @custom_navbar %>
+      <%= render partial: "shared/public_footer" %>
+    <% else %>
+      <%= render partial: "shared/footer" %>
+    <% end %>
+    
     <style>
       body {
         display: flex;
