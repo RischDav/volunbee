@@ -10,6 +10,10 @@ Rails.application.configure do
   config.eager_load = true
   config.consider_all_requests_local = false
 
+  # Cache deaktivieren
+  config.action_controller.perform_caching = false
+  config.cache_store = :null_store
+
   # ActiveStorage Konfiguration für direkte S3-URLs
   config.active_storage.service = :amazon
   config.active_storage.resolve_model_to_route = :rails_storage_redirect

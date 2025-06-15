@@ -78,10 +78,6 @@ class Position < ApplicationRecord
     end.compact
   end
 
-  def cache_key_with_version
-    "#{super}-#{main_picture.attached? ? main_picture.blob&.checksum : 'no-image'}"
-  end
-
   def image_url
     direct_image_url
   end

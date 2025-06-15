@@ -1,44 +1,40 @@
-<% cache [@positions.maximum(:updated_at)] do %>
-  <div class="max-w-full mx-auto px-2 sm:px-4 lg:px-8 py-12 mt-8">
-    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 grid-cols-1">
-      <% @positions.each_with_index do |position, pos_idx| %>
-        <% cache [position, 'card'] do %>
-          <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden w-full">
-            <div class="relative h-64 w-full">
-              <% if position.main_picture.attached? && (thumbnail_url = position.direct_thumbnail_url) %>
-                <%= image_tag(thumbnail_url, 
-                      class: "object-cover w-full h-full", 
-                      alt: position.title, 
-                      loading: "lazy") %>
-              <% else %>
-                <%= image_tag "pb-placeholder.png", class: "object-cover w-full h-full", alt: "No image" %>
-              <% end %>
+<div class="max-w-full mx-auto px-2 sm:px-4 lg:px-8 py-12 mt-8">
+  <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 grid-cols-1">
+    <% @positions.each_with_index do |position, pos_idx| %>
+      <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden w-full">
+        <div class="relative h-64 w-full">
+          <% if position.main_picture.attached? && (thumbnail_url = position.direct_thumbnail_url) %>
+            <%= image_tag(thumbnail_url, 
+                  class: "object-cover w-full h-full", 
+                  alt: position.title, 
+                  loading: "lazy") %>
+          <% else %>
+            <%= image_tag "pb-placeholder.png", class: "object-cover w-full h-full", alt: "No image" %>
+          <% end %>
+        </div>
+        <div class="p-8 space-y-3">
+          <h2 class="text-xl font-semibold text-indigo-700"><%= position.title %></h2>
+          <p class="text-gray-600 text-sm line-clamp-3"><%= truncate(position.description, length: 140) %></p>
+          <% if position.benefits.present? %>
+            <div class="text-sm text-emerald-600 font-medium">
+              🎁 <%= position.benefits %>
             </div>
-            <div class="p-8 space-y-3">
-              <h2 class="text-xl font-semibold text-indigo-700"><%= position.title %></h2>
-              <p class="text-gray-600 text-sm line-clamp-3"><%= truncate(position.description, length: 140) %></p>
-              <% if position.benefits.present? %>
-                <div class="text-sm text-emerald-600 font-medium">
-                  🎁 <%= position.benefits %>
-                </div>
-              <% end %>
-              <div class="mt-4 flex justify-between items-center">
-                <span class="inline-flex items-center bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-0.5 rounded">
-                  <%= position.position_code.humanize %>
-                </span>
-                <% if position.weekly_time_commitment && position.weekly_time_commitment > 0 %>
-                  <span class="text-xs text-gray-500">
-                    ⏱ <%= pluralize(position.weekly_time_commitment, "hour") %>/week
-                  </span>
-                <% end %>
-              </div>
-              <div class="mt-4">
-                <%= link_to "View Details", show_position_path(position['id']), class: "inline-block bg-indigo-600 text-white px-4 py-2 rounded-full text-sm hover:bg-indigo-700 transition" %>
-              </div>
-            </div>
+          <% end %>
+          <div class="mt-4 flex justify-between items-center">
+            <span class="inline-flex items-center bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-0.5 rounded">
+              <%= position.position_code.humanize %>
+            </span>
+            <% if position.weekly_time_commitment && position.weekly_time_commitment > 0 %>
+              <span class="text-xs text-gray-500">
+                ⏱ <%= pluralize(position.weekly_time_commitment, "hour") %>/week
+              </span>
+            <% end %>
           </div>
-        <% end %>
-      <% end %>
-    </div>
+          <div class="mt-4">
+            <%= link_to "View Details", show_position_path(position['id']), class: "inline-block bg-indigo-600 text-white px-4 py-2 rounded-full text-sm hover:bg-indigo-700 transition" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
