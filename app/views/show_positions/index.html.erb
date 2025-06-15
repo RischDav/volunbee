@@ -3,8 +3,27 @@
     <% @positions.each_with_index do |position, pos_idx| %>
       <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden w-full">
         <div class="relative h-64 w-full">
-          <% if position.main_picture.attached? && (thumbnail_url = position.direct_thumbnail_url) %>
-            <%= image_tag(thumbnail_url, 
+          <% 
+            # Sichere Bildanzeige mit Fehlerbehandlung
+            image_url = nil
+            if position.main_picture.attached?
+              begin
+                # Test ob Bild verfügbar ist
+                position.main_picture.blob.open { |file| file.size }
+                # Verwende direkte URL ohne Varianten bei Problemen
+                image_url = position.main_picture.url
+              rescue ActiveStorage::IntegrityError, ActiveStorage::FileNotFoundError => e
+                Rails.logger.warn "Corrupted image for position #{position.id}: #{e.message}"
+                image_url = nil
+              rescue => e
+                Rails.logger.error "Image error for position #{position.id}: #{e.message}"
+                image_url = nil
+              end
+            end
+          %>
+          
+          <% if image_url %>
+            <%= image_tag(image_url, 
                   class: "object-cover w-full h-full", 
                   alt: position.title, 
                   loading: "lazy") %>
