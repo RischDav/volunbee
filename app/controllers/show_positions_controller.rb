@@ -1,49 +1,31 @@
 class ShowPositionsController < ApplicationController
+  skip_before_action :authenticate_user!
+  
   def index
-    @positions = Position.includes(:organization, 
-                                  main_picture_attachment: :blob)
-                        .where(online: true, released: true)
+    @positions = Position.where(online: true, released: true)
+    @custom_navbar = true
   end
 
   def show
-    @position = Position.includes(:organization, :frequently_asked_questions,
-                                 main_picture_attachment: :blob,
-                                 picture1_attachment: :blob,
-                                 picture2_attachment: :blob,
-                                 picture3_attachment: :blob)
-                       .find(params[:id])
+    @position = Position.find(params[:id])
+    @custom_navbar = true
   end
 
   # Bereinigungsmethoden für fehlerhafte Varianten
   def self.purge_invalid_variants
-    variant_records = ActiveStorage::VariantRecord.all
+    variant_records = ActiveStorage::VariantRecord.includes(:blob).all
     
     puts "Überprüfe #{variant_records.count} Varianten..."
     
     variant_records.each do |variant|
       begin
-        blob = ActiveStorage::Blob.find_by(id: variant.blob_id)
-        next unless blob
-        
-        attachment = ActiveStorage::Attachment.find_by(record_type: "ActiveStorage::VariantRecord", 
-                                                      record_id: variant.id, 
-                                                      name: "image")
-        
-        if !attachment || !attachment.blob
-          puts "Lösche ungültige Variante ohne Anhang für Blob #{variant.blob_id}"
-          variant.destroy
-          next
-        end
-        
-        begin
-          attachment.blob.open
-        rescue ActiveStorage::FileNotFoundError
-          puts "Lösche Variante mit fehlender Datei für Blob #{variant.blob_id}"
-          attachment.purge
-          variant.destroy
-        end
+        variant.blob.open { |file| file.size }
+      rescue ActiveStorage::FileNotFoundError, ActiveStorage::IntegrityError
+        puts "Lösche korrupte Variante: #{variant.id}"
+        variant.destroy
       rescue => e
         puts "Fehler bei Variante #{variant.id}: #{e.message}"
+        variant.destroy
       end
     end
     
@@ -52,24 +34,22 @@ class ShowPositionsController < ApplicationController
 
   def self.purge_missing_files
     Position.find_each do |position|
-      if position.main_picture.attached?
+      [position.main_picture, position.picture1, position.picture2, position.picture3].each_with_index do |picture, index|
+        next unless picture.attached?
+        
         begin
-          position.main_picture.blob.open
-        rescue ActiveStorage::FileNotFoundError
-          puts "Purging missing file for #{position.title}"
-          position.main_picture.purge
+          picture.blob.open { |file| file.size }
+        rescue ActiveStorage::FileNotFoundError, ActiveStorage::IntegrityError
+          pic_name = index == 0 ? 'main_picture' : "picture#{index}"
+          puts "Lösche korruptes Bild #{pic_name} für Position #{position.id}"
+          picture.purge
         end
       end
       
-      [:picture1, :picture2, :picture3].each do |pic|
-        if position.send(pic).attached?
-          begin
-            position.send(pic).blob.open
-          rescue ActiveStorage::FileNotFoundError
-            puts "Purging missing file for #{position.title} (#{pic})"
-            position.send(pic).purge
-          end
-        end
+      # Position offline nehmen wenn main_picture fehlt
+      if !position.main_picture.attached? && position.online?
+        position.update(online: false)
+        puts "Position #{position.id} offline genommen - kein main_picture"
       end
     end
   end
@@ -79,20 +59,24 @@ class ShowPositionsController < ApplicationController
     failed_count = 0
     
     Position.find_each do |position|
-      [:main_picture, :picture1, :picture2, :picture3].each do |pic_attr|
-        next unless position.send(pic_attr).attached?
+      [position.main_picture, position.picture1, position.picture2, position.picture3].each do |picture|
+        next unless picture.attached?
         
         begin
-          # Erstelle verschiedene Varianten
-          position.send(pic_attr).variant(resize_to_fill: [112, 112]).processed
-          position.send(pic_attr).variant(resize_to_fill: [600, 250]).processed
-          position.send(pic_attr).variant(resize_to_limit: [400, 250]).processed
+          # Prüfe ob Bild verfügbar ist
+          picture.blob.open { |file| file.size }
+          
+          # Erstelle Varianten
+          picture.variant(resize_to_limit: [400, 250]).processed
+          picture.variant(resize_to_fill: [600, 250]).processed
+          picture.variant(resize_to_fill: [112, 112]).processed
           
           processed_count += 1
-          puts "Erfolgreich Varianten für Position ID #{position.id} (#{pic_attr}) erstellt"
+          puts "Varianten erstellt für Position #{position.id}"
+          
         rescue => e
           failed_count += 1
-          puts "Fehler bei Position #{position.id}, #{pic_attr}: #{e.message}"
+          puts "Fehler bei Position #{position.id}: #{e.message}"
         end
       end
     end
@@ -102,13 +86,4 @@ class ShowPositionsController < ApplicationController
 
   private
 
-  def safe_main_picture_url
-    if main_picture.attached?
-      begin
-        main_picture.url
-      rescue ActiveStorage::FileNotFoundError
-        nil
-      end
-    end
-  end
 end
