@@ -31,7 +31,7 @@
             <%= image_tag "pb-placeholder.png", class: "object-cover w-full h-full", alt: "No image" %>
           <% end %>
           
-          <!-- Logo-Overlay von der Organization -->
+          <!-- Logo-Overlay von der Organization - 50% größer mit weißem Hintergrund -->
           <% 
             logo_url = nil
             if position.organization&.logo&.attached?
@@ -49,9 +49,9 @@
           %>
           
           <% if logo_url %>
-            <div class="absolute top-4 right-4 bg-white rounded-lg p-2 shadow-lg">
+            <div class="absolute top-4 right-4 bg-white rounded-lg p-3 shadow-lg">
               <%= image_tag(logo_url, 
-                    class: "w-12 h-12 object-contain", 
+                    class: "w-18 h-18 object-contain", 
                     alt: "#{position.organization.name} logo", 
                     loading: "lazy") %>
             </div>
@@ -59,18 +59,8 @@
         </div>
         
         <div class="p-8 space-y-3">
-          <!-- Logo auch im Text-Bereich (alternative Platzierung) -->
-          <div class="flex items-start justify-between">
-            <h2 class="text-xl font-semibold text-indigo-700 flex-1"><%= position.title %></h2>
-            <% if logo_url %>
-              <div class="ml-4 flex-shrink-0">
-                <%= image_tag(logo_url, 
-                      class: "w-8 h-8 object-contain", 
-                      alt: "#{position.organization.name} logo", 
-                      loading: "lazy") %>
-              </div>
-            <% end %>
-          </div>
+          <!-- Logo neben Titel entfernt -->
+          <h2 class="text-xl font-semibold text-indigo-700"><%= position.title %></h2>
           
           <p class="text-gray-600 text-sm line-clamp-3"><%= truncate(position.description, length: 140) %></p>
           <% if position.benefits.present? %>
