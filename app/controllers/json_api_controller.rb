@@ -1,50 +1,43 @@
 class JsonApiController < ApplicationController
-  # Überspringe Authentifizierung, wenn die JSON-Ausgabe öffentlich sein soll
   skip_before_action :authenticate_user!
-
+  
   def output
-    positions = Position.joins(:organization)
-                      .where(released: true, online: true)
-                      .where.not(
-                        organizations: {
-                          name: [nil, ""],
-                          email: [nil, ""],
-                          contact_number: [nil, ""],
-                          city: [nil, ""],
-                          zip: [nil, ""],
-                          street: [nil, ""],
-                          housenumber: [nil, ""],
-                          description: [nil, ""]
-                        }
-                      )
-    
+    positions = Position.includes(:organization, :frequently_asked_questions, 
+                                 main_picture_attachment: :blob,
+                                 picture1_attachment: :blob,
+                                 picture2_attachment: :blob,
+                                 picture3_attachment: :blob)
+                       .where(online: true, released: true)
+
     formatted_positions = positions.map do |position|
       organization = position.organization
       
       contact = {
-        name: organization.contact_person.presence || nil,
-        phone: organization.contact_number.presence || nil,
-        email: organization.email.presence || nil,
-        instagram: organization.instagram_url.presence || nil,
-        facebook: organization.facebook_link.presence || nil,
-        linkedin: organization.linkedin_url.presence || nil,
+        name: organization.contact_person_name.presence || "",
+        email: organization.contact_email.presence || "",
+        phone: organization.contact_phone.presence || "",
         website: organization.website.presence || nil
       }
       
+      # Verwende direkte S3-URLs
       photos = {}
-      if position.main_picture.attached?
+      if position.main_picture.attached? && (url = position.direct_image_url)
         photos[:photo1] = {
-          url: rails_blob_url(position.main_picture, only_path: false),
+          url: url,
           author: ""
         }
       end
 
       [position.picture1, position.picture2, position.picture3].each_with_index do |picture, index|
         if picture.attached?
-          photos[:"photo#{index + 2}"] = {
-            url: rails_blob_url(picture, only_path: false),
-            author: ""
-          }
+          begin
+            photos[:"photo#{index + 2}"] = {
+              url: picture.url,
+              author: ""
+            }
+          rescue ActiveStorage::FileNotFoundError
+            # Überspringe fehlerhafte Bilder
+          end
         end
       end
 
@@ -59,15 +52,11 @@ class JsonApiController < ApplicationController
         tasks_description: position.description,
         benefits: position.benefits || "",
         contact: contact,
-        faq: position.respond_to?(:frequently_asked_questions) ? 
- 
-             position.frequently_asked_questions.map do |faq|
- 
-               { question: faq.question, answer: faq.answer }
- 
-             end : [],
+        faq: position.frequently_asked_questions.map do |faq|
+          { question: faq.question, answer: faq.answer }
+        end,
         materials: {
-          logo: organization.logo.attached? ? rails_blob_url(organization.logo, only_path: false) : nil,
+          logo: organization.logo.attached? ? organization.logo.url : nil,
           photos: photos
         },
         ratings: {

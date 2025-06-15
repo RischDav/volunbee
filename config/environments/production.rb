@@ -2,7 +2,7 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Code is not reloaded between requests in production
-  config.enable_reloading = false  # ← Korrigiert
+  config.enable_reloading = false
   config.assets.compile = true
   config.assets.css_compressor = nil
   config.assets.digest = true
@@ -10,9 +10,9 @@ Rails.application.configure do
   config.eager_load = true
   config.consider_all_requests_local = false
 
-  # ActiveStorage Konfiguration
+  # ActiveStorage Konfiguration für direkte S3-URLs
   config.active_storage.service = :amazon
-  config.active_storage.resolve_model_to_route = :rails_storage_redirect  # ← Korrigiert
+  config.active_storage.resolve_model_to_route = :rails_storage_redirect
   config.active_storage.routes_prefix = '/rails/active_storage'
   config.active_storage.variant_processor = :vips
 

@@ -25,11 +25,57 @@ class Position < ApplicationRecord
 
   after_commit :process_pictures, on: [:create, :update]
 
+  # Direkte S3-URL Helper-Methoden
+  def direct_image_url(variant_options = nil)
+    return nil unless main_picture.attached?
+    
+    begin
+      if variant_options
+        main_picture.variant(variant_options).processed.url
+      else
+        main_picture.url
+      end
+    rescue ActiveStorage::FileNotFoundError, ActiveStorage::IntegrityError
+      nil
+    end
+  end
+
+  def direct_thumbnail_url
+    direct_image_url(resize_to_limit: [400, 250])
+  end
+
+  def direct_gallery_url
+    direct_image_url(resize_to_fill: [600, 250])
+  end
+
+  def direct_logo_url
+    direct_image_url(resize_to_fill: [112, 112])
+  end
+
+  # Für alle Bilder direkte URLs
+  def all_direct_urls
+    {
+      main_picture: direct_image_url,
+      thumbnail: direct_thumbnail_url,
+      gallery: direct_gallery_url,
+      logo: direct_logo_url,
+      picture1: picture1.attached? ? picture1.url : nil,
+      picture2: picture2.attached? ? picture2.url : nil,
+      picture3: picture3.attached? ? picture3.url : nil
+    }.compact
+  end
+
   def picture_urls
     pictures = [:main_picture, :picture1, :picture2, :picture3]
     pictures.each_with_object({}) do |picture, urls|
-      urls[picture] = Rails.application.routes.url_helpers.rails_blob_url(send(picture), only_path: true) if send(picture).attached?
-    end
+      if send(picture).attached?
+        begin
+          urls[picture] = send(picture).url
+        rescue ActiveStorage::FileNotFoundError
+          urls[picture] = nil
+        end
+      end
+    end.compact
   end
 
   def cache_key_with_version
@@ -37,17 +83,11 @@ class Position < ApplicationRecord
   end
 
   def image_url
-    if main_picture.attached?
-      Rails.application.routes.url_helpers.rails_blob_url(main_picture)
-    end
+    direct_image_url
   end
 
   def thumbnail_url
-    if main_picture.attached?
-      Rails.application.routes.url_helpers.rails_representation_url(
-        main_picture.variant(resize_to_fill: [300, 300]).processed
-      )
-    end
+    direct_thumbnail_url
   end
 
   private
@@ -72,14 +112,3 @@ class Position < ApplicationRecord
     end
   end
 end
-
-# Run this in your terminal:
-# rails console
-#
-# Then paste and run:
-# Position.find_each do |position|
-#   puts "Position: #{position.title}"
-#   position.picture_urls.each do |key, url|
-#     puts "  #{key}: #{url}"
-#   end
-# end
