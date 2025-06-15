@@ -1,4 +1,4 @@
-require 'vips'
+
 
 class ProcessPictureJob < ApplicationJob
   queue_as :default
