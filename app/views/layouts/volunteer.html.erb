@@ -3,48 +3,30 @@
 <html>
   <head>
     <title><%= content_for(:title) || t('application.title', default: "volunbee.com") %></title>
-    
-    <!-- WICHTIG: Dieser Code muss VOR allen anderen Scripts stehen! -->
-    <script>
-    // Usercentrics-Konflikt beheben
-    (function() {
-      // Sichere die ursprüngliche dispatchEvent-Funktion
-      const originalDispatchEvent = window.dispatchEvent;
-      
-      // Überschreibe nur, wenn eine globale dispatchEvent-Funktion existiert
-      if (typeof originalDispatchEvent === 'function') {
-        window.dispatchEvent = function(element, type, eventInit) {
-          // Prüfe, ob element ein echtes DOM-Element ist
-          if (!element || typeof element.dispatchEvent !== 'function') {
-            console.warn('dispatchEvent called with invalid element:', element, 'type:', type);
-            return null;
-          }
-          // Rufe die ursprüngliche Funktion auf
-          return originalDispatchEvent.call(this, element, type, eventInit);
-        };
-      }
-    })();
-    </script>
-
     <!-- Usercentrics Cookie Consent -->
-    <script src="https://web.cmp.usercentrics.eu/modules/autoblocker.js" data-turbolinks-permanent></script> 
+    <script src="https://web.cmp.usercentrics.eu/modules/autoblocker.js" data-turbolinks-permanent></script>
     <script id="usercentrics-cmp" src="https://web.cmp.usercentrics.eu/ui/loader.js" data-settings-id="psL5vcdddzMuDK" data-turbolinks-permanent async></script>
-    
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= yield :head %>
     <link rel="manifest" href="/manifest.json">
+    <!-- The VolunteerHeilbronn Icon -->
     <link rel="icon" href="<%= asset_path('favicon.png') %>" type="image/png">
+    <!-- Integration of Tailwind css -->
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <%= render partial: "shared/public_navbar"%>
+    <!-- Flash Messages are only showed, when there are notices active -->
+    <!-- Organization alerts are only showed when there is missing required information for organization -->
+
     <main class="bg-[#F8F9FA]">
-      <%= yield %>
+      <!-- Page Content -->
+       <%= yield %>
     </main>
     <%= render partial: "shared/public_footer" %>
     <style>
@@ -57,5 +39,6 @@
         flex: 1;
       }
     </style>
+    
   </body>
 </html>
