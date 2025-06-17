@@ -1,1 +1,261 @@
-<script id="usercentrics-cmp" src="https://web.cmp.usercentrics.eu/ui/loader.js" data-settings-id="psL5vcdddzMuDK" async></script>
+<!-- filepath: app/views/shared/_cookie_consent.html.erb -->
+<style>
+/* Cookie Banner Custom Styling */
+.cc-window {
+  z-index: 99999 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  position: fixed !important;
+  border: 1px solid #E5E7EB !important;
+  backdrop-filter: blur(10px) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Desktop: Größeres Fenster unten links */
+@media (min-width: 768px) {
+  .cc-window {
+    bottom: 24px !important;
+    left: 24px !important;
+    right: auto !important;
+    top: auto !important;
+    margin: 0 !important;
+    transform: none !important;
+    max-width: 480px !important;
+    width: 480px !important;
+    padding: 32px !important;
+  }
+}
+
+/* Mobile: Kompakteres Design */
+@media (max-width: 767px) {
+  .cc-window {
+    bottom: 20px !important;
+    left: 50% !important;
+    right: auto !important;
+    top: auto !important;
+    transform: translateX(-50%) !important;
+    margin: 0 !important;
+    max-width: calc(100vw - 32px) !important;
+    width: calc(100vw - 32px) !important;
+    padding: 24px !important;
+  }
+}
+
+/* Überschreibe alle Standard-Positionierungen */
+.cc-window.cc-banner,
+.cc-window.cc-top,
+.cc-window.cc-bottom,
+.cc-window.cc-left,
+.cc-window.cc-right {
+  position: fixed !important;
+}
+
+/* Desktop spezifisch */
+@media (min-width: 768px) {
+  .cc-window.cc-banner,
+  .cc-window.cc-top,
+  .cc-window.cc-bottom,
+  .cc-window.cc-left,
+  .cc-window.cc-right {
+    bottom: 24px !important;
+    left: 24px !important;
+    right: auto !important;
+    top: auto !important;
+    transform: none !important;
+    max-width: 480px !important;
+    width: 480px !important;
+    padding: 32px !important;
+  }
+}
+
+/* Mobile spezifisch */
+@media (max-width: 767px) {
+  .cc-window.cc-banner,
+  .cc-window.cc-top,
+  .cc-window.cc-bottom,
+  .cc-window.cc-left,
+  .cc-window.cc-right {
+    bottom: 20px !important;
+    left: 50% !important;
+    right: auto !important;
+    top: auto !important;
+    transform: translateX(-50%) !important;
+    padding: 24px !important;
+  }
+}
+
+/* Text Styling mit mehr Abstand */
+.cc-message {
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+  margin-bottom: 24px !important; /* Mehr Abstand zu Buttons */
+  color: #374151 !important;
+  font-weight: 400 !important;
+}
+
+/* Desktop: Größerer Text */
+@media (min-width: 768px) {
+  .cc-message {
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+    margin-bottom: 28px !important;
+  }
+}
+
+/* Link Styling */
+.cc-link {
+  color: #3B82F6 !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  border-bottom: 1px solid transparent !important;
+  transition: all 0.2s ease !important;
+}
+
+.cc-link:hover {
+  color: #1D4ED8 !important;
+  border-bottom-color: #1D4ED8 !important;
+}
+
+/* Button Container mit mehr Abstand */
+.cc-compliance {
+  display: flex !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+  margin-top: 8px !important;
+}
+
+/* Desktop: Größere Buttons nebeneinander */
+@media (min-width: 768px) {
+  .cc-compliance {
+    gap: 16px !important;
+    margin-top: 12px !important;
+  }
+}
+
+/* Button Styling */
+.cc-btn {
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  transition: all 0.2s ease !important;
+  border: none !important;
+  cursor: pointer !important;
+  letter-spacing: 0.025em !important;
+  text-transform: none !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Desktop: Größere Buttons */
+@media (min-width: 768px) {
+  .cc-btn {
+    padding: 14px 28px !important;
+    font-size: 15px !important;
+    border-radius: 12px !important;
+  }
+}
+
+/* Mobile: Kompakte Buttons */
+@media (max-width: 767px) {
+  .cc-btn {
+    padding: 12px 20px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* Akzeptieren Button (Grün) */
+.cc-btn.cc-dismiss {
+  background: linear-gradient(135deg, #10B981, #059669) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3) !important;
+}
+
+.cc-btn.cc-dismiss:hover {
+  background: linear-gradient(135deg, #059669, #047857) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4) !important;
+}
+
+/* Ablehnen Button (Grau/Rot) */
+.cc-btn.cc-deny {
+  background: linear-gradient(135deg, #6B7280, #4B5563) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(107, 114, 128, 0.3) !important;
+}
+
+.cc-btn.cc-deny:hover {
+  background: linear-gradient(135deg, #EF4444, #DC2626) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4) !important;
+}
+
+/* Mobile: Buttons untereinander */
+@media (max-width: 767px) {
+  .cc-compliance {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  
+  .cc-btn {
+    width: 100% !important;
+    text-align: center !important;
+  }
+}
+
+/* Schnellere Fade-Out Animation */
+.cc-window.cc-invisible {
+  opacity: 0 !important;
+  transition: opacity 0.3s ease !important;
+  transform: scale(0.95) !important;
+}
+
+/* Erscheinungs-Animation */
+.cc-window {
+  animation: ccSlideIn 0.4s ease-out !important;
+}
+
+@keyframes ccSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Desktop Animation */
+@media (min-width: 768px) {
+  @keyframes ccSlideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+}
+
+/* Cookie Icon Styling (falls vorhanden) */
+.cc-window::before {
+  content: "🍪" !important;
+  font-size: 24px !important;
+  position: absolute !important;
+  top: 20px !important;
+  right: 20px !important;
+  opacity: 0.1 !important;
+  pointer-events: none !important;
+}
+
+@media (min-width: 768px) {
+  .cc-window::before {
+    font-size: 32px !important;
+    top: 24px !important;
+    right: 24px !important;
+  }
+}
+</style>
