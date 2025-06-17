@@ -8,22 +8,9 @@
         <span class="text-lg text-white/50">Project realized by David Rischow and Mohamed Amine Jradi</span>
       </div>
       
-      <!-- Right side - Links and logos -->
+      <!-- Right side - Links -->
       <div class="flex items-center space-x-6">
-        <!-- Footer links -->
         <%= link_to "Impressum", impressum_path, class: "text-sm font-medium hover:underline transition-colors duration-200", style: "color: #F8F9FA;" %>
-        
-        <a href="#" onclick="showCookieSettings(); return false;" class="text-sm font-medium hover:underline transition-colors duration-200" style="color: #F8F9FA;">
-          Cookie-Einstellungen
-        </a>
-        
-        <!-- Cookie Icon Link -->
-        <a href="#" onclick="showCookieSettings(); return false;" title="Cookie-Einstellungen" class="text-white/70 hover:text-white transition-colors duration-200">
-          <span class="text-lg">🍪</span>
-        </a>
-        
-        <!-- Logos -->
-        
       </div>
     </div>
     
@@ -35,7 +22,7 @@
       <!-- Copyright text -->
       <span class="text-lg text-white/50">© 2024 TUM Campus Heilbronn gGmbH.</span>
       
-      <!-- Additional footer links for mobile -->
+      <!-- Additional footer links -->
       <div class="flex flex-wrap justify-center md:justify-end items-center space-x-4 text-sm">
         <a href="/agb" class="text-white/70 hover:text-white transition-colors duration-200">
           AGB
@@ -54,83 +41,10 @@
         </a>
       </div>
     </div>
-    
-    <!-- Mobile-only section for better organization -->
-    <div class="md:hidden mt-4 pt-4 border-t border-white/20">
-      <div class="flex flex-col space-y-2 text-center">
-        <div class="flex justify-center space-x-4 text-sm">
-          <%= link_to "Impressum", impressum_path, class: "text-white/70 hover:text-white transition-colors duration-200" %>
-      
-        </div>
-        <div class="flex justify-center">
-          <a href="#" onclick="showCookieSettings(); return false;" class="inline-flex items-center space-x-2 text-sm text-white/70 hover:text-white transition-colors duration-200">
-            <span>🍪</span>
-            <span>Cookie-Einstellungen verwalten</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Cookie Settings Quick Access Button (visible after first interaction) -->
-  <div id="footer-cookie-indicator" class="hidden fixed bottom-4 right-4 z-50">
-    <button onclick="showCookieSettings()" class="bg-[#264653] text-white border-2 border-white/20 rounded-full p-3 shadow-lg hover:bg-[#2a5a6b] transition-all duration-300 transform hover:scale-110" title="Cookie-Einstellungen">
-      <span class="text-lg">🍪</span>
-    </button>
   </div>
 </footer>
 
-<!-- JavaScript für Footer Cookie Funktionalität -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Zeige Cookie-Indikator nach erstem Consent
-  function checkCookieIndicator() {
-    const existingConsent = localStorage.getItem('volunbee_cookieconsent');
-    const indicator = document.getElementById('footer-cookie-indicator');
-    const floatingBtn = document.getElementById('footer-cookie-btn');
-    
-    if (existingConsent === 'dismissed') {
-      if (indicator) {
-        indicator.classList.remove('hidden');
-      }
-      // Verstecke den ursprünglichen floating button, da wir jetzt den Footer-Button haben
-      if (floatingBtn) {
-        floatingBtn.style.display = 'none';
-      }
-    }
-  }
-  
-  // Initial check
-  checkCookieIndicator();
-  
-  // Override die ursprüngliche saveCookieSettings Funktion um den Indikator zu zeigen
-  const originalSaveCookieSettings = window.saveCookieSettings;
-  if (typeof originalSaveCookieSettings === 'function') {
-    window.saveCookieSettings = function(settings) {
-      originalSaveCookieSettings(settings);
-      checkCookieIndicator();
-    };
-  }
-});
-</script>
-
 <style>
-/* Footer Cookie Button Animation */
-#footer-cookie-indicator button {
-  animation: cookiePulse 2s infinite;
-}
-
-@keyframes cookiePulse {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 4px 12px rgba(38, 70, 83, 0.3);
-  }
-  50% {
-    transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(38, 70, 83, 0.4);
-  }
-}
-
 /* Hover effects */
 footer a:hover {
   text-decoration: underline;
@@ -147,14 +61,6 @@ footer a:hover {
     margin-top: 1rem;
     flex-wrap: wrap;
     justify-content: center;
-  }
-}
-
-/* Better mobile cookie button positioning */
-@media (max-width: 640px) {
-  #footer-cookie-indicator {
-    bottom: 80px; /* Platz für mobile Navigation falls vorhanden */
-    right: 16px;
   }
 }
 </style>

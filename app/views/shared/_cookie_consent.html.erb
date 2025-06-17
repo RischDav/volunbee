@@ -154,29 +154,6 @@ input:checked + .cookie-slider:before {
   opacity: 0.8 !important;
 }
 
-/* Footer Cookie Button */
-.footer-cookie-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #374151;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 56px;
-  height: 56px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-  z-index: 9999;
-  font-size: 20px;
-}
-
-.footer-cookie-btn:hover {
-  background: #1F2937;
-  transform: scale(1.1);
-}
-
 /* Button Styling - ALLE BUTTONS GLEICH */
 .cc-btn, .cookie-settings-btn, .cookie-save-btn {
   border-radius: 10px !important;
@@ -367,12 +344,6 @@ input:checked + .cookie-slider:before {
   </div>
 </div>
 
-<!-- Footer Cookie Button -->
-<button id="footer-cookie-btn" class="footer-cookie-btn" title="Cookie-Einstellungen" style="display: none;">
-  🍪
-</button>
-
-<!-- Rest des JavaScript-Codes bleibt gleich -->
 <script>
 // Cookie Management Functions
 function toggleCookieCategory(header) {
@@ -407,9 +378,6 @@ function saveCookieSettings(settings) {
   localStorage.setItem('volunbee_cookie_consent', JSON.stringify(settings));
   localStorage.setItem('volunbee_cookieconsent', 'dismissed');
   
-  // Zeige Footer-Button
-  document.getElementById('footer-cookie-btn').style.display = 'block';
-  
   // Triggere Analytics/Marketing basierend auf Einstellungen
   if (settings.analytics) {
     enableAnalytics();
@@ -442,9 +410,6 @@ function disableMarketing() {
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
-  // Footer Button
-  document.getElementById('footer-cookie-btn').addEventListener('click', showCookieSettings);
-  
   // Modal Close
   document.getElementById('close-cookie-settings').addEventListener('click', hideCookieSettings);
   
@@ -492,11 +457,5 @@ document.addEventListener('DOMContentLoaded', function() {
       banner.style.display = 'none';
     }
   });
-  
-  // Prüfe, ob bereits Einstellungen vorhanden sind
-  const existingConsent = localStorage.getItem('volunbee_cookieconsent');
-  if (existingConsent === 'dismissed') {
-    document.getElementById('footer-cookie-btn').style.display = 'block';
-  }
 });
 </script>
