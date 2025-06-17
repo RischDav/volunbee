@@ -23,6 +23,25 @@ Turbolinks.start()
 ActiveStorage.start()
 
 document.addEventListener("DOMContentLoaded", function() {
+  // Prüfe, ob bereits Einstellungen vorhanden sind
+  const existingConsent = localStorage.getItem('volunbee_cookieconsent');
+  if (existingConsent === 'dismissed') {
+    // Lade gespeicherte Einstellungen
+    const settings = JSON.parse(localStorage.getItem('volunbee_cookie_consent') || '{"necessary":true,"analytics":false,"marketing":false}');
+    
+    if (settings.analytics) {
+      // Aktiviere Analytics
+      console.log('Analytics aus gespeicherten Einstellungen aktiviert');
+    }
+    
+    if (settings.marketing) {
+      // Aktiviere Marketing
+      console.log('Marketing aus gespeicherten Einstellungen aktiviert');
+    }
+    
+    return; // Zeige Banner nicht an
+  }
+
   if (typeof window.cookieconsent === 'undefined' || !window.cookieconsent.initialise) {
     console.error('CookieConsent ist nicht verfügbar!');
     return;
@@ -36,30 +55,38 @@ document.addEventListener("DOMContentLoaded", function() {
         "border": "#E5E7EB"
       },
       "button": {
-        "background": "#10B981", // Grün für "Akzeptieren"
+        "background": "#10B981",
         "text": "#ffffff",
         "border": "transparent"
       },
       "highlight": {
-        "background": "#EF4444", // Rot für "Ablehnen"
+        "background": "#EF4444",
         "text": "#ffffff",
         "border": "transparent"
       }
     },
     "theme": "edgeless",
-    "position": "bottom-left", // Explizit unten links
+    "position": "bottom-left",
     "type": "opt-in",
     "layout": "block",
-    "animateRevokable": false, // Deaktiviert langsame Animationen
+    "animateRevokable": false,
     "content": {
       "message": "🍪 Wir verwenden Cookies, um Ihnen die bestmögliche Erfahrung auf unserer Website zu bieten.",
       "dismiss": "Alle akzeptieren",
-      "deny": "Ablehnen",
-      "link": "Datenschutzerklärung",
-      "href": "/datenschutz",
+      "deny": "Alle ablehnen", 
+      "link": "Einstellungen",
+      "href": "#",
       "close": "✕",
       "policy": "Cookie-Richtlinie",
-      "target": "_blank"
+      "target": "_self"
+    },
+    "elements": {
+      "messagelink": `
+        <span id="cookieconsent:desc" class="cc-message">{{message}}</span>
+        <div style="margin-top: 16px;">
+          <a aria-label="Cookie-Einstellungen anpassen" role="button" tabindex="0" class="cookie-settings-btn" onclick="showCookieSettings(); return false;">{{link}}</a>
+        </div>
+      `,
     },
     "cookie": {
       "name": "volunbee_cookieconsent",
@@ -69,12 +96,14 @@ document.addEventListener("DOMContentLoaded", function() {
       "secure": true,
       "sameSite": "lax"
     },
-    // Schnellere Callbacks
     "onStatusChange": function(status, chosenBefore) {
       console.log('Cookie consent status:', status);
       
-      // Sofortiges Ausblenden bei Ablehnung
       if (status === 'deny') {
+        // Alle optionalen Cookies ablehnen
+        const settings = { necessary: true, analytics: false, marketing: false };
+        localStorage.setItem('volunbee_cookie_consent', JSON.stringify(settings));
+        
         const popup = document.querySelector('.cc-window');
         if (popup) {
           popup.style.transition = 'opacity 0.2s ease';
@@ -83,36 +112,37 @@ document.addEventListener("DOMContentLoaded", function() {
             popup.style.display = 'none';
           }, 200);
         }
+        
+        // Zeige Footer-Button
+        document.getElementById('footer-cookie-btn').style.display = 'block';
+        
         console.log('Cookies wurden abgelehnt');
       } else if (status === 'allow') {
-        console.log('Cookies wurden akzeptiert');
+        // Alle Cookies akzeptieren
+        const settings = { necessary: true, analytics: true, marketing: true };
+        localStorage.setItem('volunbee_cookie_consent', JSON.stringify(settings));
+        
+        // Zeige Footer-Button
+        document.getElementById('footer-cookie-btn').style.display = 'block';
+        
+        // Aktiviere alle Services
+        console.log('Alle Cookies wurden akzeptiert');
+        // Hier würdest du Analytics und Marketing aktivieren
       }
     },
     "onInitialise": function(status) {
       console.log('Cookie consent initialisiert mit Status:', status);
-    },
-    "onPopupOpen": function() {
-      // Stelle sicher, dass Positionierung korrekt ist
-      setTimeout(() => {
-        const popup = document.querySelector('.cc-window');
-        if (popup && window.innerWidth >= 768) {
-          // Desktop: unten links
-          popup.style.bottom = '20px';
-          popup.style.left = '20px';
-          popup.style.right = 'auto';
-          popup.style.top = 'auto';
-          popup.style.transform = 'none';
-        } else if (popup) {
-          // Mobile: unten mittig
-          popup.style.bottom = '20px';
-          popup.style.left = '50%';
-          popup.style.right = 'auto';
-          popup.style.top = 'auto';
-          popup.style.transform = 'translateX(-50%)';
-        }
-      }, 50);
     }
   });
 });
+
+// Globale Funktion für Cookie-Einstellungen
+window.showCookieSettings = function() {
+  document.getElementById('cookie-settings-modal').style.display = 'flex';
+  // Lade aktuelle Einstellungen
+  const settings = JSON.parse(localStorage.getItem('volunbee_cookie_consent') || '{"necessary":true,"analytics":false,"marketing":false}');
+  document.getElementById('analytics-cookies').checked = settings.analytics;
+  document.getElementById('marketing-cookies').checked = settings.marketing;
+};
 
 import "./controllers"

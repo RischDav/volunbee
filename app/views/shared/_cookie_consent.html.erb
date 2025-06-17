@@ -9,7 +9,7 @@
   position: fixed !important;
   border: 1px solid #E5E7EB !important;
   backdrop-filter: blur(10px) !important;
-  background: rgba(255, 255, 255, 0.95) !important;
+  background: rgba(255, 255, 255, 0.98) !important;
 }
 
 /* Desktop: Größeres Fenster unten links */
@@ -21,8 +21,8 @@
     top: auto !important;
     margin: 0 !important;
     transform: none !important;
-    max-width: 480px !important;
-    width: 480px !important;
+    max-width: 520px !important;
+    width: 520px !important;
     padding: 32px !important;
   }
 }
@@ -42,152 +42,200 @@
   }
 }
 
-/* Überschreibe alle Standard-Positionierungen */
-.cc-window.cc-banner,
-.cc-window.cc-top,
-.cc-window.cc-bottom,
-.cc-window.cc-left,
-.cc-window.cc-right {
-  position: fixed !important;
+/* Cookie Settings Modal */
+.cookie-settings-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 999999;
+  display: none;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Desktop spezifisch */
-@media (min-width: 768px) {
-  .cc-window.cc-banner,
-  .cc-window.cc-top,
-  .cc-window.cc-bottom,
-  .cc-window.cc-left,
-  .cc-window.cc-right {
-    bottom: 24px !important;
-    left: 24px !important;
-    right: auto !important;
-    top: auto !important;
-    transform: none !important;
-    max-width: 480px !important;
-    width: 480px !important;
-    padding: 32px !important;
-  }
+.cookie-settings-content {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 75px rgba(0, 0, 0, 0.2);
 }
 
-/* Mobile spezifisch */
-@media (max-width: 767px) {
-  .cc-window.cc-banner,
-  .cc-window.cc-top,
-  .cc-window.cc-bottom,
-  .cc-window.cc-left,
-  .cc-window.cc-right {
-    bottom: 20px !important;
-    left: 50% !important;
-    right: auto !important;
-    top: auto !important;
-    transform: translateX(-50%) !important;
-    padding: 24px !important;
-  }
+/* Cookie Category Styling */
+.cookie-category {
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  overflow: hidden;
 }
 
-/* Text Styling mit mehr Abstand */
-.cc-message {
-  font-size: 15px !important;
-  line-height: 1.6 !important;
-  margin-bottom: 24px !important; /* Mehr Abstand zu Buttons */
-  color: #374151 !important;
-  font-weight: 400 !important;
+.cookie-category-header {
+  background: #F9FAFB;
+  padding: 16px 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #E5E7EB;
 }
 
-/* Desktop: Größerer Text */
-@media (min-width: 768px) {
-  .cc-message {
-    font-size: 16px !important;
-    line-height: 1.7 !important;
-    margin-bottom: 28px !important;
-  }
+.cookie-category-content {
+  padding: 20px;
+  display: none;
 }
 
-/* Link Styling */
-.cc-link {
-  color: #3B82F6 !important;
-  text-decoration: none !important;
-  font-weight: 600 !important;
-  border-bottom: 1px solid transparent !important;
-  transition: all 0.2s ease !important;
+.cookie-category.active .cookie-category-content {
+  display: block;
 }
 
-.cc-link:hover {
-  color: #1D4ED8 !important;
-  border-bottom-color: #1D4ED8 !important;
+.cookie-toggle {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
 }
 
-/* Button Container mit mehr Abstand */
-.cc-compliance {
-  display: flex !important;
-  gap: 12px !important;
-  flex-wrap: wrap !important;
-  margin-top: 8px !important;
+.cookie-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
-/* Desktop: Größere Buttons nebeneinander */
-@media (min-width: 768px) {
-  .cc-compliance {
-    gap: 16px !important;
-    margin-top: 12px !important;
-  }
+.cookie-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 24px;
 }
 
-/* Button Styling */
-.cc-btn {
+.cookie-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .cookie-slider {
+  background-color: #10B981;
+}
+
+input:checked + .cookie-slider:before {
+  transform: translateX(26px);
+}
+
+/* Disabled/grayed out toggle für notwendige Cookies */
+.cookie-toggle.disabled .cookie-slider {
+  background-color: #9CA3AF !important;
+  cursor: not-allowed !important;
+  opacity: 0.6 !important;
+}
+
+.cookie-toggle.disabled input:checked + .cookie-slider {
+  background-color: #9CA3AF !important;
+}
+
+.cookie-toggle.disabled .cookie-slider:before {
+  opacity: 0.8 !important;
+}
+
+/* Footer Cookie Button */
+.footer-cookie-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #374151;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 9999;
+  font-size: 20px;
+}
+
+.footer-cookie-btn:hover {
+  background: #1F2937;
+  transform: scale(1.1);
+}
+
+/* Button Styling - ALLE BUTTONS GLEICH */
+.cc-btn, .cookie-settings-btn, .cookie-save-btn {
   border-radius: 10px !important;
   font-weight: 600 !important;
   font-size: 14px !important;
   transition: all 0.2s ease !important;
   border: none !important;
   cursor: pointer !important;
-  letter-spacing: 0.025em !important;
-  text-transform: none !important;
-  position: relative !important;
-  overflow: hidden !important;
+  padding: 12px 24px !important;
+  margin: 0 8px 8px 0 !important;
+  display: inline-block !important;
 }
 
-/* Desktop: Größere Buttons */
-@media (min-width: 768px) {
-  .cc-btn {
-    padding: 14px 28px !important;
-    font-size: 15px !important;
-    border-radius: 12px !important;
-  }
-}
-
-/* Mobile: Kompakte Buttons */
-@media (max-width: 767px) {
-  .cc-btn {
-    padding: 12px 20px !important;
-    font-size: 14px !important;
-  }
-}
-
-/* Akzeptieren Button (Grün) */
-.cc-btn.cc-dismiss {
+/* Grüne Buttons (Akzeptieren/Speichern) */
+.cc-btn.cc-dismiss, .cookie-save-btn {
   background: linear-gradient(135deg, #10B981, #059669) !important;
   color: #ffffff !important;
   box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3) !important;
 }
 
-.cc-btn.cc-dismiss:hover {
-  background: linear-gradient(135deg, #059669, #047857) !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4) !important;
+/* Rote Buttons (Ablehnen) */
+.cc-btn.cc-deny {
+  background: linear-gradient(135deg, #EF4444, #DC2626) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3) !important;
 }
 
-/* Ablehnen Button (Grau/Rot) */
-.cc-btn.cc-deny {
+/* Graue Buttons (Einstellungen) */
+.cookie-settings-btn {
   background: linear-gradient(135deg, #6B7280, #4B5563) !important;
   color: #ffffff !important;
   box-shadow: 0 4px 14px rgba(107, 114, 128, 0.3) !important;
 }
 
-.cc-btn.cc-deny:hover {
-  background: linear-gradient(135deg, #EF4444, #DC2626) !important;
+.cc-btn:hover, .cookie-settings-btn:hover, .cookie-save-btn:hover {
   transform: translateY(-2px) !important;
-  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4) !important;
+}
+
+/* Banner Button Container - NEBENEINANDER */
+.cc-compliance {
+  display: flex !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  margin-top: 16px !important;
+}
+
+/* Desktop: Buttons nebeneinander */
+@media (min-width: 768px) {
+  .cc-compliance {
+    flex-wrap: nowrap !important;
+    gap: 16px !important;
+  }
+  
+  .cc-btn, .cookie-settings-btn {
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+  }
 }
 
 /* Mobile: Buttons untereinander */
@@ -197,65 +245,258 @@
     gap: 12px !important;
   }
   
-  .cc-btn {
+  .cc-btn, .cookie-settings-btn {
     width: 100% !important;
+    margin: 0 !important;
     text-align: center !important;
   }
 }
 
-/* Schnellere Fade-Out Animation */
-.cc-window.cc-invisible {
-  opacity: 0 !important;
-  transition: opacity 0.3s ease !important;
-  transform: scale(0.95) !important;
+/* Modal Button Container */
+.modal-button-container {
+  margin-top: 32px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-/* Erscheinungs-Animation */
-.cc-window {
-  animation: ccSlideIn 0.4s ease-out !important;
-}
-
-@keyframes ccSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
+@media (max-width: 767px) {
+  .modal-button-container {
+    flex-direction: column;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* Desktop Animation */
-@media (min-width: 768px) {
-  @keyframes ccSlideIn {
-    from {
-      opacity: 0;
-      transform: translateX(-20px) scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0) scale(1);
-    }
-  }
-}
-
-/* Cookie Icon Styling (falls vorhanden) */
-.cc-window::before {
-  content: "🍪" !important;
-  font-size: 24px !important;
-  position: absolute !important;
-  top: 20px !important;
-  right: 20px !important;
-  opacity: 0.1 !important;
-  pointer-events: none !important;
-}
-
-@media (min-width: 768px) {
-  .cc-window::before {
-    font-size: 32px !important;
-    top: 24px !important;
-    right: 24px !important;
+  
+  .modal-button-container .cc-btn,
+  .modal-button-container .cookie-save-btn {
+    width: 100% !important;
+    margin: 0 0 12px 0 !important;
   }
 }
 </style>
+
+<!-- Cookie Settings Modal -->
+<div id="cookie-settings-modal" class="cookie-settings-modal">
+  <div class="cookie-settings-content">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+      <h2 style="font-size: 24px; font-weight: 700; color: #111827;">Cookie-Einstellungen</h2>
+      <button id="close-cookie-settings" style="background: none; border: none; font-size: 24px; cursor: pointer;">✕</button>
+    </div>
+    
+    <p style="color: #6B7280; margin-bottom: 24px;">
+      Wählen Sie aus, welche Cookies Sie zulassen möchten. Sie können diese Einstellungen jederzeit ändern.
+    </p>
+
+    <div id="cookie-categories">
+      <!-- Notwendige Cookies -->
+      <div class="cookie-category active">
+        <div class="cookie-category-header" onclick="toggleCookieCategory(this)">
+          <div>
+            <h3 style="font-weight: 600; color: #111827;">Notwendige Cookies</h3>
+            <p style="font-size: 14px; color: #6B7280; margin: 4px 0 0 0;">Für die Grundfunktionen der Website erforderlich</p>
+          </div>
+          <label class="cookie-toggle disabled">
+            <input type="checkbox" checked disabled>
+            <span class="cookie-slider"></span>
+          </label>
+        </div>
+        <div class="cookie-category-content">
+          <p style="color: #374151; font-size: 14px; line-height: 1.6;">
+            Diese Cookies sind für das ordnungsgemäße Funktionieren der Website unerlässlich und können nicht deaktiviert werden. Sie werden normalerweise nur als Reaktion auf Ihre Aktionen gesetzt.
+          </p>
+          <ul style="color: #6B7280; font-size: 13px; margin-top: 12px; padding-left: 20px;">
+            <li>Session-Management</li>
+            <li>Sicherheitstoken</li>
+            <li>Cookie-Einstellungen</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Analytics Cookies -->
+      <div class="cookie-category">
+        <div class="cookie-category-header" onclick="toggleCookieCategory(this)">
+          <div>
+            <h3 style="font-weight: 600; color: #111827;">Analytics Cookies</h3>
+            <p style="font-size: 14px; color: #6B7280; margin: 4px 0 0 0;">Helfen uns, die Website zu verbessern</p>
+          </div>
+          <label class="cookie-toggle">
+            <input type="checkbox" id="analytics-cookies">
+            <span class="cookie-slider"></span>
+          </label>
+        </div>
+        <div class="cookie-category-content">
+          <p style="color: #374151; font-size: 14px; line-height: 1.6;">
+            Diese Cookies helfen uns zu verstehen, wie Besucher mit der Website interagieren, indem sie Informationen anonym sammeln und melden.
+          </p>
+          <ul style="color: #6B7280; font-size: 13px; margin-top: 12px; padding-left: 20px;">
+            <li>Google Analytics</li>
+            <li>Besucherstatistiken</li>
+            <li>Performance-Monitoring</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Marketing Cookies -->
+      <div class="cookie-category">
+        <div class="cookie-category-header" onclick="toggleCookieCategory(this)">
+          <div>
+            <h3 style="font-weight: 600; color: #111827;">Marketing Cookies</h3>
+            <p style="font-size: 14px; color: #6B7280; margin: 4px 0 0 0;">Für personalisierte Inhalte und Werbung</p>
+          </div>
+          <label class="cookie-toggle">
+            <input type="checkbox" id="marketing-cookies">
+            <span class="cookie-slider"></span>
+          </label>
+        </div>
+        <div class="cookie-category-content">
+          <p style="color: #374151; font-size: 14px; line-height: 1.6;">
+            Diese Cookies können von unseren Werbepartnern über unsere Website gesetzt werden, um ein Profil Ihrer Interessen zu erstellen.
+          </p>
+          <ul style="color: #6B7280; font-size: 13px; margin-top: 12px; padding-left: 20px;">
+            <li>Werbe-Tracking</li>
+            <li>Social Media Integration</li>
+            <li>Personalisierte Inhalte</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-button-container">
+      <button id="accept-selected-cookies" class="cookie-save-btn">Auswahl speichern</button>
+      <button id="accept-all-cookies" class="cc-btn cc-dismiss">Alle akzeptieren</button>
+      <button id="reject-all-cookies" class="cc-btn cc-deny">Alle ablehnen</button>
+    </div>
+  </div>
+</div>
+
+<!-- Footer Cookie Button -->
+<button id="footer-cookie-btn" class="footer-cookie-btn" title="Cookie-Einstellungen" style="display: none;">
+  🍪
+</button>
+
+<!-- Rest des JavaScript-Codes bleibt gleich -->
+<script>
+// Cookie Management Functions
+function toggleCookieCategory(header) {
+  const category = header.parentElement;
+  category.classList.toggle('active');
+}
+
+function showCookieSettings() {
+  document.getElementById('cookie-settings-modal').style.display = 'flex';
+  loadCurrentCookieSettings();
+}
+
+function hideCookieSettings() {
+  document.getElementById('cookie-settings-modal').style.display = 'none';
+}
+
+function loadCurrentCookieSettings() {
+  const settings = getCookieSettings();
+  document.getElementById('analytics-cookies').checked = settings.analytics;
+  document.getElementById('marketing-cookies').checked = settings.marketing;
+}
+
+function getCookieSettings() {
+  const consent = localStorage.getItem('volunbee_cookie_consent');
+  if (consent) {
+    return JSON.parse(consent);
+  }
+  return { necessary: true, analytics: false, marketing: false };
+}
+
+function saveCookieSettings(settings) {
+  localStorage.setItem('volunbee_cookie_consent', JSON.stringify(settings));
+  localStorage.setItem('volunbee_cookieconsent', 'dismissed');
+  
+  // Zeige Footer-Button
+  document.getElementById('footer-cookie-btn').style.display = 'block';
+  
+  // Triggere Analytics/Marketing basierend auf Einstellungen
+  if (settings.analytics) {
+    enableAnalytics();
+  } else {
+    disableAnalytics();
+  }
+  
+  if (settings.marketing) {
+    enableMarketing();
+  } else {
+    disableMarketing();
+  }
+}
+
+function enableAnalytics() {
+  console.log('Analytics aktiviert');
+}
+
+function disableAnalytics() {
+  console.log('Analytics deaktiviert');
+}
+
+function enableMarketing() {
+  console.log('Marketing aktiviert');
+}
+
+function disableMarketing() {
+  console.log('Marketing deaktiviert');
+}
+
+// Event Listeners
+document.addEventListener('DOMContentLoaded', function() {
+  // Footer Button
+  document.getElementById('footer-cookie-btn').addEventListener('click', showCookieSettings);
+  
+  // Modal Close
+  document.getElementById('close-cookie-settings').addEventListener('click', hideCookieSettings);
+  
+  // Modal Background Click
+  document.getElementById('cookie-settings-modal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      hideCookieSettings();
+    }
+  });
+  
+  // Cookie Settings Buttons
+  document.getElementById('accept-selected-cookies').addEventListener('click', function() {
+    const settings = {
+      necessary: true,
+      analytics: document.getElementById('analytics-cookies').checked,
+      marketing: document.getElementById('marketing-cookies').checked
+    };
+    saveCookieSettings(settings);
+    hideCookieSettings();
+    
+    const banner = document.querySelector('.cc-window');
+    if (banner) {
+      banner.style.display = 'none';
+    }
+  });
+  
+  document.getElementById('accept-all-cookies').addEventListener('click', function() {
+    const settings = { necessary: true, analytics: true, marketing: true };
+    saveCookieSettings(settings);
+    hideCookieSettings();
+    
+    const banner = document.querySelector('.cc-window');
+    if (banner) {
+      banner.style.display = 'none';
+    }
+  });
+  
+  document.getElementById('reject-all-cookies').addEventListener('click', function() {
+    const settings = { necessary: true, analytics: false, marketing: false };
+    saveCookieSettings(settings);
+    hideCookieSettings();
+    
+    const banner = document.querySelector('.cc-window');
+    if (banner) {
+      banner.style.display = 'none';
+    }
+  });
+  
+  // Prüfe, ob bereits Einstellungen vorhanden sind
+  const existingConsent = localStorage.getItem('volunbee_cookieconsent');
+  if (existingConsent === 'dismissed') {
+    document.getElementById('footer-cookie-btn').style.display = 'block';
+  }
+});
+</script>
