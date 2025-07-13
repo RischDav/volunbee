@@ -1,0 +1,24 @@
+<div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg border border-slate-200">
+  <h2 class="text-2xl font-bold text-center text-[#003359] mb-6">Volunteer Login</h2>
+
+  <%= form_with url: students_path, method: :post, local: true, html: { class: "space-y-4" } do |f| %>
+    <div class="field">
+      <%= f.label :email, 'Email', class: "block text-sm font-medium text-gray-700" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-[#003359] focus:border-[#003359]" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password, 'Password', class: "block text-sm font-medium text-gray-700" %>
+      <%= f.password_field :password, autocomplete: "current-password", class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-[#003359] focus:border-[#003359]" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit 'Login', class: "w-full py-2 px-4 bg-[#003359] text-white font-medium text-sm rounded-md shadow-sm hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-[#003359] focus:ring-offset-2" %>
+    </div>
+  <% end %>
+
+  <div class="text-center mt-4">
+    <%= link_to "Register", new_student_registration_path, class: "inline-block px-4 py-2 mb-2 text-[#003359] hover:text-blue-800 hover:underline transition-colors" %><br />
+    <%= link_to "Forgot your password?", new_student_password_path, class: "inline-block px-4 py-2 mb-2 text-[#003359] hover:text-blue-800 hover:underline transition-colors" %>
+  </div>
+</div> 

@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     #impressum
     get "impressum", to: "impressum#index"
 
+    #students
+    get "students", to: "students#index"
     # Ressourcen
     resources :positions do
       member do
@@ -68,6 +70,13 @@ Rails.application.routes.draw do
       sessions: 'users/sessions'
     }
 
+    devise_for :students, controllers: {
+      registrations: "students/registrations",
+      confirmations: "students/confirmations",
+      sessions: 'students/sessions'
+    }
+
     resources :show_positions, only: [:index, :show]
+    resources :students, only: [:index]
   end
 end

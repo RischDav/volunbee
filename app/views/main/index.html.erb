@@ -29,10 +29,16 @@
         </div>
         
         <div class="mb-8 space-x-4">
-          <%= button_to "For organisations", positions_path, 
-              method: :get,
-              class: "py-3 px-6 rounded-full inline-block transition-colors cursor-pointer border 
-                      bg-[#2A9D8F] text-white hover:bg-white hover:text-[#2A9D8F]" %>   
+          <div class="flex space-x-4">
+            <%= button_to "For organisations", positions_path, 
+                method: :get,
+                class: "py-3 px-6 rounded-full inline-block transition-colors cursor-pointer border 
+                        bg-[#2A9D8F] text-white hover:bg-white hover:text-[#2A9D8F]" %>
+            <%= button_to "For Students", students_path, 
+                method: :get,
+                class: "py-3 px-6 rounded-full inline-block transition-colors cursor-pointer border 
+                        border-[#2A9D8F] text-[#2A9D8F] hover:bg-[#2A9D8F] hover:text-white" %>
+          </div>
         </div>
       </div>
       
