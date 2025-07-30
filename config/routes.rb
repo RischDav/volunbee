@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
     #students
     get "students", to: "students#index"
+    get 'students/locked', to: 'students#locked', as: 'students_locked'
     # Ressourcen
     resources :positions do
       member do
@@ -71,9 +72,7 @@ Rails.application.routes.draw do
     }
 
     devise_for :students, controllers: {
-      registrations: "students/registrations",
-      confirmations: "students/confirmations",
-      sessions: 'students/sessions'
+      registrations: "students/registrations"
     }
 
     resources :show_positions, only: [:index, :show]

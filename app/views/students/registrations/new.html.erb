@@ -1,0 +1,38 @@
+<div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg border border-slate-200">
+  <h2 class="text-2xl font-bold text-center text-[#003359] mb-6">Student Sign Up</h2>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-4" }) do |f| %>
+    <%= render "students/shared/error_messages", resource: resource %>
+
+    <div class="field">
+      <%= f.label :name, "First Name", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :name, autofocus: true, autocomplete: "given-name", class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-[#003359] focus:border-[#003359]" %>
+    </div>
+    <div class="field">
+      <%= f.label :last_name, "Last Name", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :last_name, autocomplete: "family-name", class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-[#003359] focus:border-[#003359]" %>
+    </div>
+    <div class="field">
+      <%= f.label :email, "Email", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.email_field :email, autocomplete: "email", class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-[#003359] focus:border-[#003359]" %>
+    </div>
+    <div class="field">
+      <%= f.label :password, "Password", class: "block text-sm font-medium text-gray-700" %>
+      <% if @minimum_password_length %>
+        <em class="text-sm text-gray-500">(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %>
+      <%= f.password_field :password, autocomplete: "new-password", class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-[#003359] focus:border-[#003359]" %>
+    </div>
+    <div class="field">
+      <%= f.label :password_confirmation, "Confirm Password", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-[#003359] focus:border-[#003359]" %>
+    </div>
+    <div class="actions">
+      <%= f.submit "Sign up", class: "w-full py-2 px-4 bg-[#003359] text-white font-medium text-sm rounded-md shadow-sm hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-[#003359] focus:ring-offset-2" %>
+    </div>
+  <% end %>
+
+  <div class="text-center mt-4">
+    <%= render "students/shared/links" %>
+  </div>
+</div>
