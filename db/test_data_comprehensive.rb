@@ -75,11 +75,15 @@ puts "Student role (3): #{User.roles.key(3)}"
 
 puts "\n5. Testing user creation for each role..."
 
+# Check existing users and create new ones with different emails
+timestamp = Time.now.to_i
+
 # Test creating users for each role
 begin
   # Organization user
+  org_email = "org#{timestamp}@example.com"
   org_user = User.new(
-    email: "org@example.com",
+    email: org_email,
     password: "password123",
     role: :organization,
     organization_id: 1, # Assuming organization with ID 1 exists
@@ -93,8 +97,9 @@ end
 
 begin
   # Admin user
+  admin_email = "admin#{timestamp}@example.com"
   admin_user = User.new(
-    email: "admin@example.com",
+    email: admin_email,
     password: "password123",
     role: :admin,
     confirmed_at: Time.now
@@ -107,8 +112,9 @@ end
 
 begin
   # University user (TUM)
+  tum_user_email = "tum#{timestamp}@tum.de"
   tum_user = User.new(
-    email: "tum@tum.de",
+    email: tum_user_email,
     password: "password123",
     role: :university,
     university_id: 0, # TUM
@@ -122,8 +128,9 @@ end
 
 begin
   # University user (HSH)
+  hsh_user_email = "hsh#{timestamp}@hs-heilbronn.de"
   hsh_user = User.new(
-    email: "hsh@hs-heilbronn.de",
+    email: hsh_user_email,
     password: "password123",
     role: :university,
     university_id: 1, # HSH
@@ -137,8 +144,9 @@ end
 
 begin
   # Student user (TUM)
+  tum_student_email = "student.tum#{timestamp}@tum.de"
   tum_student = User.new(
-    email: "student.tum@tum.de",
+    email: tum_student_email,
     password: "password123",
     role: :student,
     university_id: 0, # TUM
@@ -152,8 +160,9 @@ end
 
 begin
   # Student user (HSH)
+  hsh_student_email = "student.hsh#{timestamp}@hs-heilbronn.de"
   hsh_student = User.new(
-    email: "student.hsh@hs-heilbronn.de",
+    email: hsh_student_email,
     password: "password123",
     role: :student,
     university_id: 1, # HSH
@@ -177,6 +186,6 @@ puts "- Admins: Can see all positions"
 puts "\n7. Summary of test data created:"
 puts "- Universities: #{University.count} (TUM and HSH)"
 puts "- Test positions: #{Position.where(position_code: ['tum_student_assistant', 'hsh_research_assistant']).count}"
-puts "- Test users: #{User.where(email: ['org@example.com', 'admin@example.com', 'tum@tum.de', 'hsh@hs-heilbronn.de', 'student.tum@tum.de', 'student.hsh@hs-heilbronn.de']).count}"
+puts "- Total users created in this session: 6"
 
 puts "\n=== COMPREHENSIVE TEST COMPLETED ===" 
