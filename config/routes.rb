@@ -71,9 +71,8 @@ Rails.application.routes.draw do
       sessions: 'users/sessions'
     }
 
-    devise_for :students, controllers: {
-      registrations: "students/registrations"
-    }
+    # Students are now users with role 3, so we use the main user routes
+    # The students registration will be handled through the main user registration
 
     resources :show_positions, only: [:index, :show]
     resources :students, only: [:index]

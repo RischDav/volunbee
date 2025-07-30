@@ -1,6 +1,9 @@
 class Position < ApplicationRecord
-  # Each position belongs to an organization
-  belongs_to :organization
+  belongs_to :organization, optional: true
+  belongs_to :university, optional: true
+  has_many :frequently_asked_questions, dependent: :destroy
+  has_many :messages, dependent: :destroy
+  accepts_nested_attributes_for :frequently_asked_questions, allow_destroy: true, reject_if: :all_blank
 
   # Each position can have multiple images
   has_one_attached :main_picture
@@ -8,14 +11,11 @@ class Position < ApplicationRecord
   has_one_attached :picture2
   has_one_attached :picture3
 
-  # Each position can have multiple questions and answers
-  has_many :frequently_asked_questions, dependent: :destroy
-  accepts_nested_attributes_for :frequently_asked_questions, allow_destroy: true, reject_if: :all_blank
-
   # Validations
   validates :title, presence: true, length: { in: 15..75 }
   validates :benefits, length: { in: 100..1000 }
   validates :description, length: { in: 100..1000 }
+  validate :organization_or_university_present
   
   # Main picture validations
   validates :main_picture, presence: true
@@ -30,6 +30,10 @@ class Position < ApplicationRecord
   validate :organization_position_limit
 
   after_commit :process_pictures, on: [:create, :update]
+
+  scope :active, -> { where(is_active: true) }
+  scope :released, -> { where(released: true) }
+  scope :online, -> { where(online: true) }
 
   # Direkte S3-URL Helper-Methoden
   def direct_image_url(variant_options = nil)
@@ -135,6 +139,12 @@ class Position < ApplicationRecord
   end
 
   private
+
+  def organization_or_university_present
+    if organization.nil? && university.nil?
+      errors.add(:base, "Position must belong to either an organization or university")
+    end
+  end
 
   # Validiert das Format des main_picture
   def main_picture_format

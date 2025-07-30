@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_21_135528) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_30_222638) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -89,7 +89,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_21_135528) do
     t.string "title"
     t.text "description"
     t.boolean "is_active"
-    t.bigint "organization_id", null: false
+    t.bigint "organization_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "benefits"
@@ -103,6 +103,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_21_135528) do
     t.boolean "position_temporary"
     t.integer "weekly_time_commitment"
     t.string "position_code"
+    t.integer "university_id"
     t.index ["organization_id"], name: "index_positions_on_organization_id"
   end
 
@@ -124,6 +125,32 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_21_135528) do
     t.index ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
   end
 
+  create_table "universities", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password"
+    t.string "contact_number"
+    t.string "profile_picture"
+    t.boolean "is_approved"
+    t.boolean "is_deactivated"
+    t.string "city"
+    t.string "zip"
+    t.string "street"
+    t.string "housenumber"
+    t.string "website"
+    t.text "description"
+    t.string "instagram_url"
+    t.string "linkedin_url"
+    t.boolean "facebook_link"
+    t.boolean "released"
+    t.string "organization_code"
+    t.string "contact_person"
+    t.string "tiktok_url"
+    t.string "linktree_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -139,6 +166,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_21_135528) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
+    t.integer "university_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organization_id"], name: "index_users_on_organization_id"
