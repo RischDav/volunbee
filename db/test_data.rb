@@ -13,11 +13,11 @@ tum = University.find_by(name: 'Technische Universität München')
 if tum
   puts "Found TUM university (ID: #{tum.id})"
   
-  # Create a test position for TUM (skip validations for testing)
+  # Create a test position for TUM with proper validation lengths
   position = Position.new(
-    title: "Student Assistant - TUM Campus Heilbronn",
-    description: "We are looking for motivated students to support various projects at TUM Campus Heilbronn. This position involves assisting with research projects, helping with campus events, and supporting administrative tasks. Perfect opportunity for students who want to gain practical experience while studying.",
-    benefits: "Gain valuable work experience, flexible working hours, networking opportunities with professors and industry partners, potential for thesis collaboration, competitive compensation, and a great addition to your CV.",
+    title: "Student Assistant Position at TUM Campus Heilbronn",
+    description: "We are looking for motivated students to support various projects at TUM Campus Heilbronn. This position involves assisting with research projects, helping with campus events, and supporting administrative tasks. Perfect opportunity for students who want to gain practical experience while studying. The role includes project coordination, event planning, data management, and collaboration with faculty and staff.",
+    benefits: "Gain valuable work experience, flexible working hours, networking opportunities with professors and industry partners, potential for thesis collaboration, competitive compensation, and a great addition to your CV. You will develop professional skills, build your network, and gain insights into academic and industry practices.",
     creative_skills: 2,
     technical_skills: 3,
     social_skills: 4,

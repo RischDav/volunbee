@@ -1,4 +1,5 @@
 # Comprehensive test data for all 4 roles
+# run this: rails runner db/test_data_comprehensive.rb
 
 puts "=== COMPREHENSIVE TEST DATA ==="
 
@@ -15,11 +16,11 @@ hsh = University.find_by(name: 'Hochschule Heilbronn')
 if hsh
   puts "Found Hochschule Heilbronn university (ID: #{hsh.id})"
   
-  # Create a test position for HSH
+  # Create a test position for HSH with proper validation lengths
   position = Position.new(
-    title: "Research Assistant - Hochschule Heilbronn",
-    description: "We are seeking motivated students to assist with research projects at Hochschule Heilbronn. This position involves data collection, analysis, and supporting faculty research initiatives. Ideal for students interested in gaining research experience.",
-    benefits: "Hands-on research experience, mentorship from faculty, potential for publication, flexible schedule, networking opportunities, and academic credit possibilities.",
+    title: "Research Assistant Position at Hochschule Heilbronn Campus",
+    description: "We are seeking motivated students to assist with research projects at Hochschule Heilbronn. This position involves data collection, analysis, and supporting faculty research initiatives. Ideal for students interested in gaining research experience and working closely with professors on cutting-edge projects. The role includes literature reviews, data entry, statistical analysis, and preparation of research materials.",
+    benefits: "Hands-on research experience, mentorship from faculty, potential for publication, flexible schedule, networking opportunities, and academic credit possibilities. You will gain valuable skills in research methodology, data analysis, and academic writing. This position can also lead to thesis collaboration and potential employment opportunities after graduation.",
     creative_skills: 3,
     technical_skills: 4,
     social_skills: 2,
