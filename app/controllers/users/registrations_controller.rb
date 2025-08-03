@@ -1,7 +1,9 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   def create
-
     build_resource(sign_up_params)
+    
+    # Prüfe die Rolle und handle entsprechend
+    user_role = params[:user][:role]
     
     #Neu mit Fehlermeldung laden, wenn Passwort nicht stark genug
     unless password_strong_enough?(params[:user][:password])
@@ -12,8 +14,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       clean_up_passwords(resource)
       set_minimum_password_length
       
-      # Stelle die organization_name zurück in das Resource-Objekt
-      @organization_name = params[:user][:organization_name]
+      # Stelle die organization_name zurück in das Resource-Objekt (nur für Organisation)
+      @organization_name = params[:user][:organization_name] if user_role == 'organization'
       
       # Rendere das Formular erneut, anstatt umzuleiten
       respond_with(resource)
@@ -21,21 +23,35 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     #Wenn passwort stark genug ist, dann Folgender Weg:
+    
+    if user_role == 'organization'
+      # Erstelle zuerst die Organisation
+      organization = Organization.new(
+        name: params[:user][:organization_name],
+        organization_code: params[:user][:organization_name].downcase.gsub(/[^a-z0-9\s]/, '').gsub(/\s+/, '_')
+      )
 
-    # Erstelle zuerst die Organisation
-    organization = Organization.new(
-      name: params[:user][:organization_name],
-      organization_code: params[:user][:organization_name].downcase.gsub(/[^a-z0-9\s]/, '').gsub(/\s+/, '_')
-    )
-
-    if organization.save
-      # Wenn die Organisation erfolgreich gespeichert wurde, weise sie dem Benutzer zu
-      resource.organization_id = organization.id
+      if organization.save
+        # Wenn die Organisation erfolgreich gespeichert wurde, weise sie dem Benutzer zu
+        resource.organization_id = organization.id
+        resource.role = 'organization'
+        resource.save
+      else
+        # Wenn die Organisation nicht erstellt werden konnte
+        clean_up_passwords resource
+        set_minimum_password_length
+        respond_with resource, location: new_registration_path(resource_name)
+        return
+      end
+    else
+      # Student-Registrierung
+      resource.role = 'student'
       resource.save
+    end
 
-      yield resource if block_given?
+    yield resource if block_given?
 
-      if resource.persisted?
+    if resource.persisted?
         # Setze Flash-Nachrichten je nach Aktivierungsstatus
         if is_flashing_format?
           flash_key = resource.active_for_authentication? ? :signed_up : :"signed_up_but_#{resource.inactive_message}"
