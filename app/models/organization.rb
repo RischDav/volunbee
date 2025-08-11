@@ -4,7 +4,8 @@ class Organization < ApplicationRecord
     has_one_attached :logo
     has_one_attached :profile_picture
     has_many :positions
-    has_many :users
+    has_many :user_affiliations, dependent: :nullify
+    has_many :users, through: :user_affiliations
     has_one_attached :profile_picture
 
     validate :pictures_size

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_02_221909) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_11_155318) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -133,6 +133,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_02_221909) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_affiliations", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "organization_id"
+    t.integer "university_id"
+    t.integer "role", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_user_affiliations_on_organization_id"
+    t.index ["university_id"], name: "index_user_affiliations_on_university_id"
+    t.index ["user_id"], name: "index_user_affiliations_on_user_id", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -141,17 +153,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_02_221909) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "organization_id"
-    t.integer "role", default: 0
     t.boolean "released", default: false
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.integer "university_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -160,4 +168,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_02_221909) do
   add_foreign_key "frequently_asked_questions", "positions"
   add_foreign_key "messages", "positions"
   add_foreign_key "positions", "organizations"
+  add_foreign_key "user_affiliations", "organizations"
+  add_foreign_key "user_affiliations", "universities"
+  add_foreign_key "user_affiliations", "users"
 end

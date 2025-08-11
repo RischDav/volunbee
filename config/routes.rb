@@ -71,6 +71,16 @@ Rails.application.routes.draw do
       sessions: 'users/sessions'
     }
 
+    # Eigene Devise-Routen im Mapping-Kontext
+    devise_scope :user do
+      # komplette Auswahlseite deaktivieren: leite /users/sign_up nach Organisation
+      get 'users/sign_up', to: redirect('/%{locale}/users/sign_up/organization')
+
+      # getrennte Registrierungen
+      get 'users/sign_up/organization', to: 'users/registrations#new_organization', as: :new_organization_registration
+      get 'users/sign_up/student', to: 'users/registrations#new_student', as: :new_student_registration
+    end
+
     # Students are now users with role 3, so we use the main user routes
     # The students registration will be handled through the main user registration
 

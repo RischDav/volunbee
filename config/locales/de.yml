@@ -447,7 +447,7 @@ de:
         password_confirmation_label: "Passwort bestätigen"
         organization_name_label: "Name Ihrer Organisation"
         organization_name_hint: "Bitte geben Sie den vollen Namen mit Rechtsform an (zum Beispiel gGmbH oder e.V.)"
-        sign_up_button: "Anmelden"
+        sign_up_button: "Registrieren"
         password_minimum_length: "Zeichen Minimum"
       edit:
         title: "Profil bearbeiten"

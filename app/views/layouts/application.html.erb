@@ -19,36 +19,127 @@
 
   <body>
     <% if @custom_navbar %>
+      <!-- Public Layout mit Standard Navbar/Footer -->
       <%= render partial: "shared/public_navbar" %>
-    <% else %>
-      <%= render partial: "shared/navbar" %>
-    <% end %>
-    
-    <!-- Organization alerts are only showed when there is missing required information for organization -->
-    <% unless controller_name == 'organizations' && action_name == 'edit' %>
-      <%= render partial: "shared/organization_alert"%>   
-    <% end %>
-    
-    <main class="m-4">
-      <!-- Page Content -->
-      <%= yield %>
-    </main>
-    
-    <!-- Conditional Footer -->
-    <% if @custom_navbar %>
+      
+      <!-- Organization alerts are only showed when there is missing required information for organization -->
+      <% unless controller_name == 'organizations' && action_name == 'edit' %>
+        <%= render partial: "shared/organization_alert"%>   
+      <% end %>
+      
+      <main class="m-4">
+        <!-- Page Content -->
+        <%= yield %>
+      </main>
+      
       <%= render partial: "shared/public_footer" %>
     <% else %>
-      <%= render partial: "shared/footer" %>
+      <!-- Dashboard Layout with Sidebar Only -->
+      <div class="dashboard-container">
+        <%= render partial: "shared/dashboard_sidebar" %>
+        
+        <div class="dashboard-main">
+          <!-- Mobile Menu Toggle Button -->
+          <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+            <svg class="menu-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          
+          <!-- Organization alerts für Dashboard -->
+          <% unless controller_name == 'organizations' && action_name == 'edit' %>
+            <div class="dashboard-alerts">
+              <%= render partial: "shared/organization_alert"%>   
+            </div>
+          <% end %>
+          
+          <main class="dashboard-content">
+            <!-- Page Content -->
+            <%= yield %>
+          </main>
+        </div>
+      </div>
     <% end %>
     
     <style>
+      /* Public Layout Styles */
       body {
         display: flex;
         flex-direction: column;
         min-height: 99vh;
       }
+      
       main {
         flex: 1;
+      }
+      
+      /* Dashboard Layout Styles */
+      .dashboard-container {
+        display: flex;
+        min-height: 100vh;
+        background-color: #f8f9fa;
+      }
+      
+      .dashboard-main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        margin-left: 280px; /* Sidebar width */
+        position: relative;
+      }
+      
+      .mobile-menu-toggle {
+        display: none;
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 1001;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 0.5rem;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        color: #374151;
+      }
+      
+      .mobile-menu-toggle:hover {
+        background-color: #f3f4f6;
+      }
+      
+      .menu-icon {
+        width: 24px;
+        height: 24px;
+      }
+      
+      .dashboard-alerts {
+        padding: 1rem 2rem 0;
+      }
+      
+      .dashboard-content {
+        flex: 1;
+        padding: 2rem;
+        overflow-y: auto;
+      }
+      
+      /* Mobile Responsive */
+      @media (max-width: 768px) {
+        .dashboard-main {
+          margin-left: 0;
+          padding-top: 4rem; /* Space for mobile toggle button */
+        }
+        
+        .mobile-menu-toggle {
+          display: block;
+        }
+        
+        .dashboard-content {
+          padding: 1rem;
+        }
+        
+        .dashboard-alerts {
+          padding: 0.5rem 1rem 0;
+        }
       }
     </style>
     

@@ -53,7 +53,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           UserAffiliation.create!(
             user: resource,
             organization: organization,
-            role: UserAffiliation::NORMAL_USER
+            role: :user
           )
 
           yield resource if block_given?
@@ -105,19 +105,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
       ApplicationRecord.transaction do
         if resource.save
           # Erstelle UserAffiliation für Student
-          affiliation = UserAffiliation.new(
+          UserAffiliation.create!(
             user: resource,
             university: university,
-            role: UserAffiliation::NORMAL_USER
+            role: :user
           )
-          
-          unless affiliation.valid?
-            puts "UserAffiliation validation errors: #{affiliation.errors.full_messages}"
-            affiliation.errors.full_messages.each { |msg| resource.errors.add(:base, msg) }
-            raise ActiveRecord::Rollback
-          end
-          
-          affiliation.save!
 
           yield resource if block_given?
 
@@ -164,7 +156,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       :email,
       :password,
       :password_confirmation,
-      :organization_name
+      :organization_name,
+      :role
     )
   end
 
