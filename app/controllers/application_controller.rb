@@ -25,8 +25,8 @@ class ApplicationController < ActionController::Base
   def check_user_status
     if user_signed_in? && 
        !current_user.full_access? && # Verwende die neue Methode
-       request.path != user_locked_path
-      redirect_to user_locked_path
+       request.path != users_locked_path
+      redirect_to users_locked_path
     end
   end
 end

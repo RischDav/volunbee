@@ -1,4 +1,30 @@
 <nav class="rounded-lg shadow bg-[#003359] m-4">
+  <!-- User Profile Header (nur wenn eingeloggt) -->
+  <% if user_signed_in? %>
+    <div class="bg-[#002847] rounded-t-lg px-6 py-3 border-b border-[#004070]">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <!-- Profilbild Placeholder -->
+          <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+            <svg class="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <!-- User Info -->
+          <div class="text-white">
+            <p class="text-sm font-medium">Eingeloggt als</p>
+            <p class="text-xs text-gray-300"><%= current_user.email %></p>
+          </div>
+        </div>
+        <!-- Account Link -->
+        <div>
+          <%= link_to "Zu meinem Account", edit_user_registration_path, 
+              class: "text-xs text-blue-300 hover:text-blue-200 underline" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  
   <div class="w-full md:py-8">
     <div class="flex justify-between items-center md:mx-5">
       <!-- Linksbündiges Menü -->
@@ -17,7 +43,6 @@
       <!-- Rechtsbündiger Bereich -->
       <div class="flex items-center space-x-4">
         <% if user_signed_in? %>
-          <%= link_to t('shared.navbar.profile.edit_profile'), edit_user_registration_path, class: "rounded-md px-4 py-2 text-md font-medium text-white hover:bg-[#3578a8]" %>
           <%= button_to t('shared.navbar.profile.logout'), destroy_user_session_path, method: :delete, class: "rounded-md px-4 py-2 text-md font-medium text-white bg-yellow-700 hover:bg-red-700" %>
         <% else %>
         <% end %>
