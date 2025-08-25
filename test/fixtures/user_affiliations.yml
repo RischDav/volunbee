@@ -1,0 +1,11 @@
+org_affiliation:
+  id: 1
+  user_id: 1 # admin
+  organization_id: 1
+  role: 1
+
+regular_affiliation:
+  id: 2
+  user_id: 0 # regular_user
+  organization_id: 1
+  role: 0

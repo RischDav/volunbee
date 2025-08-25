@@ -5,10 +5,10 @@
       <%= t('shared.organization_alert.description') %>
       <br>
       <strong><%= t('shared.organization_alert.missing_info') %></strong>
-      <%= current_user.organization.incomplete_fields.join(", ") %>
+      <%= current_user.organization&.incomplete_fields&.join(", ") %>
     </p>
     <div class="mt-4">
-      <%= link_to t('shared.organization_alert.cta'), edit_organization_path(current_user.organization), class: "bg-yellow-700 text-white font-bold py-2 px-4 rounded hover:bg-red-800" %>
+      <%= link_to t('shared.organization_alert.cta'), edit_organization_path(current_user.organization&.id), class: "bg-yellow-700 text-white font-bold py-2 px-4 rounded hover:bg-red-800" %>
     </div>
   </div>
 <% end %>

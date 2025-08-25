@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   # Neue Beziehung zur UserAffiliation
   has_one :affiliation, class_name: "UserAffiliation", dependent: :destroy
-  
+
   # Für Kompatibilität mit bestehenden Formularen
   attr_accessor :organization_name, :university_name
 
