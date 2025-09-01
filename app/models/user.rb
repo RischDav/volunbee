@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   # Neue Beziehung zur UserAffiliation
   has_one :affiliation, class_name: "UserAffiliation", dependent: :destroy
-
+  
   # Für Kompatibilität mit bestehenden Formularen
   attr_accessor :organization_name, :university_name
 
@@ -57,6 +57,15 @@ class User < ApplicationRecord
 
   def university
     affiliation&.university
+  end
+
+  # Add missing ID methods that controllers are calling
+  def organization_id
+    affiliation&.organization_id
+  end
+
+  def university_id
+    affiliation&.university_id
   end
 
   def admin?

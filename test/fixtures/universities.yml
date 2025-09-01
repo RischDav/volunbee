@@ -1,0 +1,49 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+tum:
+  id: 1
+  name: "Technische Universität München"
+  email: "info@tum.de"
+  password: "password"
+  contact_number: "+4989289-0"
+  profile_picture: "tum_logo.jpg"
+  is_approved: true
+  is_deactivated: false
+  city: "München"
+  zip: "80333"
+  street: "Arcisstraße"
+  housenumber: "21"
+  website: "https://www.tum.de"
+  description: "Technische Universität München - Excellence in research and teaching"
+  instagram_url: "https://instagram.com/tum_muenchen"
+  linkedin_url: "https://linkedin.com/school/technische-universitat-munchen"
+  facebook_link: "https://facebook.com/TU.Muenchen"
+  released: true
+  organization_code: "TUM001"
+  contact_person: "Prof. Dr. Thomas Hofmann"
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
+
+hsh:
+  id: 2
+  name: "Hochschule Heilbronn"
+  email: "info@hs-heilbronn.de"
+  password: "password"
+  contact_number: "+497131504-0"
+  profile_picture: "hsh_logo.jpg"
+  is_approved: true
+  is_deactivated: false
+  city: "Heilbronn"
+  zip: "74081"
+  street: "Max-Planck-Straße"
+  housenumber: "39"
+  website: "https://www.hs-heilbronn.de"
+  description: "Hochschule Heilbronn - University of Applied Sciences"
+  instagram_url: "https://instagram.com/hs_heilbronn"
+  linkedin_url: "https://linkedin.com/school/hochschule-heilbronn"
+  facebook_link: "https://facebook.com/HochschuleHeilbronn"
+  released: true
+  organization_code: "HSH001"
+  contact_person: "Prof. Dr. Nicole Graf"
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>

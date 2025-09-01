@@ -1,19 +1,24 @@
 require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
-  # Use fixtures to load data
-  fixtures :users, :organizations
-
-  def setup
-    @user = users(:regular_user)    # Use the user fixture data
-    @admin = users(:admin)  # Use the admin fixture data
-   # @organization = organizations(:org_one)  # Use the organization fixture data
-  end
-
-  # Test that user is valid with correct attributes
   test "should be valid with valid attributes" do
-    assert @user.valid?
-    assert @admin.valid?
+    user = User.new(
+      email: "test@example.com",
+      password: "password123",
+      password_confirmation: "password123"
+    )
+    assert user.valid?
   end
-
+  
+  test "should require email" do
+    user = User.new(password: "password123")
+    assert_not user.valid?
+    assert_includes user.errors[:email], "can't be blank"
+  end
+  
+  test "should require password" do
+    user = User.new(email: "test@example.com")
+    assert_not user.valid?
+    assert_includes user.errors[:password], "can't be blank"
+  end
 end

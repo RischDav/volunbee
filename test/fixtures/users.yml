@@ -1,20 +1,25 @@
 admin:
   id: 1
-  email: "org_admin@volnet.org"
-  encrypted_password: "password"
-  organization_id: 1
-  role: 1 # assuming 1 is organization admin
+  email: "admin@volnet.org"
+  encrypted_password: "$2a$12$KjL3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq"
   released: true
   confirmed_at: <%= Time.now %>
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>
 
 regular_user:
-  id: 0
+  id: 2
   email: "regular@example.com"
-  encrypted_password: "password"
-  organization_id: null
-  role: 0 # assuming 0 is regular user
+  encrypted_password: "$2a$12$KjL3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq"
+  released: true
+  confirmed_at: <%= Time.now %>
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
+
+student_user:
+  id: 3
+  email: "student@tum.de"
+  encrypted_password: "$2a$12$KjL3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq3Jq"
   released: true
   confirmed_at: <%= Time.now %>
   created_at: <%= Time.now %>

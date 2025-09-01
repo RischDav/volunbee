@@ -6,7 +6,7 @@ class OrganizationsController < ApplicationController
     if current_user.admin?
       @organizations = Organization.all
     else
-      @organization = Organization.find_by(id: current_user.organization&.id)
+      @organization = Organization.find_by(id: current_user.organization_id)
     end
   end
 
@@ -42,7 +42,7 @@ class OrganizationsController < ApplicationController
   private
 
   def set_organization
-    @organization = Organization.find_by(id: current_user.organization&.id)
+    @organization = Organization.find_by(id: current_user.organization_id)
   end
 
   def organization_params

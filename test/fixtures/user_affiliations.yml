@@ -1,11 +1,20 @@
-org_affiliation:
+admin_affiliation:
   id: 1
   user_id: 1 # admin
-  organization_id: 1
-  role: 1
+  organization_id: 
+  university_id: 
+  role: 1 # ADMIN
 
 regular_affiliation:
   id: 2
-  user_id: 0 # regular_user
+  user_id: 2 # regular_user
   organization_id: 1
-  role: 0
+  university_id: 
+  role: 0 # NORMAL_USER
+
+student_affiliation:
+  id: 3
+  user_id: 3 # student_user
+  organization_id: 
+  university_id: 1
+  role: 0 # NORMAL_USER
