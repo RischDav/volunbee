@@ -40,13 +40,15 @@ en:
         check_remaining: "Check if any flash messages remain"
         hide_container: "Hide container with animation"
     navbar:
+      university:
+        my_university: "My University"
       admin:
         organizations: "Organizations"
         positions: "Positions"
         user_management: "User Management"
       organization:
         my_organization: "My Organization"
-        my_positions: "My Positions"
+        my_positions: "Positions"
       profile:
         edit_profile: "Edit Profile"
         logout: "Logout"

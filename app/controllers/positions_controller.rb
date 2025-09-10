@@ -7,11 +7,11 @@ class PositionsController < ApplicationController
       if current_user.admin?
         @positions = Position.all
       elsif current_user.organization?
-        @positions = Position.where(organization_id: current_user.organization_id)
+        @positions = Position.where(organization_id: current_user.organization&.id)
       elsif current_user.university?
-        @positions = Position.where(university_id: current_user.university_id)
+        @positions = Position.where(university_id: current_user.university&.id)
       elsif current_user.student?
-        @positions = Position.where(university_id: current_user.university_id)
+        @positions = Position.where(university_id: current_user.university&.id)
       else
         @positions = Position.none
       end
@@ -30,9 +30,9 @@ class PositionsController < ApplicationController
     
     # Set the appropriate ID based on user role
     if current_user.organization?
-      @position.organization_id = current_user.organization_id
+      @position.organization_id = current_user.organization&.id
     elsif current_user.university?
-      @position.university_id = current_user.university_id
+      @position.university_id = current_user.university&.id
     end
     
     @position.position_code = @position.title.downcase.gsub(/[^a-z0-9\s]/, '').gsub(/\s+/, '_')

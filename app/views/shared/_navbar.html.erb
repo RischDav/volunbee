@@ -35,7 +35,11 @@
             <%= link_to t('shared.navbar.admin.positions'), positions_path, class: "rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
             <%= link_to t('shared.navbar.admin.user_management'), admin_index_path, class: "rounded-md bg-[#003359] hover:bg-gray-900 px-3 py-2 text-md font-medium text-white" %>
           <% elsif current_user.confirmed? %>
+            <% if current_user.university? %>
             <%= link_to t('shared.navbar.organization.my_organization'), organizations_path, class: "rounded-md px-4 py-2 text-md font-medium text-white hover:bg-[#3578a8]" %>
+            <% else %>
+            <%= link_to t('shared.navbar.organization.my_organization'), organizations_path, class: "rounded-md px-4 py-2 text-md font-medium text-white hover:bg-[#3578a8]" %>
+            <% end %>
             <%= link_to t('shared.navbar.organization.my_positions'), positions_path, class: "rounded-md px-4 py-2 text-md font-medium text-white hover:bg-[#3578a8]" %>
           <% end %>
         <% end %>

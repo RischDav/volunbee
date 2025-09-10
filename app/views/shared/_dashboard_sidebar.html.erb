@@ -27,7 +27,7 @@
           <% elsif current_user.organization? %>
             Organisation
           <% elsif current_user.university? %>
-            Universität
+            <%= current_user.university&.name || "Universität" %>
           <% else %>
             Nutzer
           <% end %>
@@ -79,13 +79,35 @@
           <% end %>
           
         <% elsif current_user.confirmed? %>
-          <!-- Organization Navigation -->
-          <div class="nav-label">Meine Organisation</div>
-          <%= link_to organizations_path, class: "nav-item #{'active' if controller_name == 'organizations'}" do %>
-            <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-            </svg>
-            <%= t('shared.navbar.organization.my_organization') %>
+          <% if current_user.university? %>
+            <!-- University Navigation -->
+            <div class="nav-label">Meine Universität</div>
+            <% if current_user.university_staff? %>
+              <!-- University Staff can edit -->
+              <%= link_to universities_path, class: "nav-item #{'active' if controller_name == 'universities'}" do %>
+                <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+                <%= t('shared.navbar.university.my_university') %>
+              <% end %>
+            <% else %>
+              <!-- Students can only view -->
+              <%= link_to university_path(current_user.university), class: "nav-item #{'active' if controller_name == 'universities'}" do %>
+                <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+                <%= t('shared.navbar.university.my_university') %>
+              <% end %>
+            <% end %>
+          <% elsif current_user.organization? %>
+            <!-- Organization Navigation -->
+            <div class="nav-label">Meine Organisation</div>
+            <%= link_to organization_path(current_user.organization), class: "nav-item #{'active' if controller_name == 'organizations'}" do %>
+              <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+              <%= t('shared.navbar.organization.my_organization') %>
+            <% end %>
           <% end %>
           
           <%= link_to positions_path, class: "nav-item #{'active' if controller_name == 'positions'}" do %>

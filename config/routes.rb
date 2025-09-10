@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   # Locale-spezifische Routen
   scope "(:locale)", locale: /en|de/ do
     # Startseite
-    
     root to: "main#index"
 
     # Statische Seiten
@@ -26,10 +25,6 @@ Rails.application.routes.draw do
 
     #impressum
     get "impressum", to: "impressum#index"
-
-    #students
-    get "students", to: "students#index"
-    get 'students/locked', to: 'students#locked', as: 'students_locked'
     # Ressourcen
     resources :positions do
       member do
@@ -51,6 +46,13 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :universities do
+      member do
+        patch 'release'
+        patch 'lock'
+      end
+    end
+
     resources :admin, only: [:index] do
       member do
         patch 'release_user'
@@ -60,9 +62,6 @@ Rails.application.routes.draw do
 
     # JSON-API
     get 'json_api', to: 'json_api#output'
-
-    # Health-Check
-    get "up", to: "health#up"
 
     # Devise-Routen
     devise_for :users, controllers: {
@@ -85,6 +84,5 @@ Rails.application.routes.draw do
     # The students registration will be handled through the main user registration
 
     resources :show_positions, only: [:index, :show]
-    resources :students, only: [:index]
   end
 end

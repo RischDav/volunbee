@@ -1,4 +1,30 @@
 de:
+  activerecord:
+    errors:
+      messages:
+        taken: "Diese Email gehört bereits einem Nutzer. Nöchtest du dich vielleicht einloggen?"
+        blank: "muss ausgefüllt werden"
+        invalid: "ist nicht gültig"
+        too_short: "ist zu kurz (mindestens %{count} Zeichen)"
+        too_long: "ist zu lang (maximal %{count} Zeichen)"
+        confirmation: "stimmt nicht mit %{attribute} überein"
+      models:
+        user:
+          attributes:
+            email:
+              taken: "Diese E-Mail-Adresse ist bereits registriert"
+              blank: "E-Mail-Adresse muss ausgefüllt werden"
+              invalid: "E-Mail-Adresse ist nicht gültig"
+            password:
+              blank: "Passwort muss ausgefüllt werden"
+              too_short: "Passwort ist zu kurz (mindestens %{count} Zeichen)"
+            password_confirmation:
+              confirmation: "Passwort-Bestätigung stimmt nicht überein"
+  errors:
+    messages:
+      taken: "ist bereits vergeben"
+      blank: "muss ausgefüllt werden"
+      invalid: "ist nicht gültig"
   users:
     locked:
       title: "Bestätigung Ihrer E-Mail-Adresse"
@@ -40,13 +66,15 @@ de:
         check_remaining: "Prüfen, ob noch Flash-Nachrichten vorhanden sind"
         hide_container: "Container mit Animation ausblenden"
     navbar:
+      university:
+        my_university: "Meine Universität"
       admin:
         organizations: "Organisationen"
         positions: "Stellen"
         user_management: "User-Verwaltung"
       organization:
         my_organization: "Meine Organisation"
-        my_positions: "Meine Stellen"
+        my_positions: "Stellen"
       profile:
         edit_profile: "Profil bearbeiten"
         logout: "Ausloggen"
@@ -390,6 +418,44 @@ de:
       linktree_url: "LinkTree URL"
       confirmations_title: "Bestätigungen"
       english_confirmation: "Ich bestätige, dass die Beschreibung der Organisation in englischer Sprache verfasst wurde."
+
+  universities:
+    index:
+      admin_title: "Universitäten-Verwaltung"
+      user_title: "Meine Universität"
+      unreleased_universities: "Nicht freigegebene Universitäten"
+      released_universities: "Freigegebene Universitäten"
+    admin_card:
+      email: "E-Mail"
+      contact_number: "Telefonnummer"
+      released: "Freigegeben"
+      yes: "Ja"
+      no: "Nein"
+      view_data: "Daten anzeigen"
+      lock: "Sperren"
+    card:
+      awaiting_approval: "Diese Universität wartet auf Freigabe"
+      email: "E-Mail"
+      contact_number: "Telefonnummer"
+      not_available: "Nicht verfügbar"
+      details: "Details"
+      approve: "Freigeben"
+      lock: "Sperren"
+    details:
+      email: "E-Mail"
+      contact_number: "Telefonnummer"
+      website: "Website"
+      description: "Beschreibung"
+      not_available: "Nicht verfügbar"
+      edit_data: "Daten bearbeiten"
+    unreleased:
+      title: "Es gibt nicht freigegebene Universitäten!"
+      card:
+        email: "E-Mail"
+        contact_number: "Telefonnummer"
+        released: "Freigegeben"
+        view_data: "Daten anzeigen"
+        release: "Freigeben"
       terms_confirmation: "Ich habe die <a href='/agb' class='text-blue-600 underline'>AGB</a> und die <a href='/datenschutz' class='text-blue-600 underline'>Datenschutzerklärung</a> gelesen und akzeptiere sie."
       save: "Speichern"
       back_without_saving: "Zurück ohne zu speichern"

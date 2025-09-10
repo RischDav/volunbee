@@ -92,4 +92,8 @@ class User < ApplicationRecord
   def normal_user?
     affiliation&.normal_user? || false
   end
+
+  def university_staff?
+    affiliation&.university_staff? || false
+  end
 end

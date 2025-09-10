@@ -1,0 +1,19 @@
+<div class="mx-auto my-8 p-8 bg-blue-50 rounded-lg shadow-md">
+<% if current_user.admin? %>
+  <h1 class="text-3xl font-bold"><%= t('universities.index.admin_title') %></h1>
+
+  <% if @universities.where(released: false).exists? %>
+    <h2 class="text-2xl font-bold mt-8"><%= t('universities.index.unreleased_universities') %></h2>
+    <%= render partial: 'unreleased_universities', locals: { universities: @universities.where(released: false) } %>
+  <% end %>
+
+  <h2 class="text-2xl font-bold mt-8"><%= t('universities.index.released_universities') %></h2>
+  <% @universities.where(released: true).each do |university| %>
+    <%= render partial: 'university_card_admin', locals: { university: university } %>
+  <% end %>
+<% else %>
+  <h1 class="text-3xl font-bold"><%= t('universities.index.user_title') %></h1>
+
+  <%= render partial: 'university_details', locals: { university: @university } %>
+<% end %>
+</div> 

@@ -6,8 +6,9 @@ class UserAffiliation < ApplicationRecord
   # Einfache Konstanten statt enum
   NORMAL_USER = 0
   ADMIN = 1
+  UNIVERSITY_STAFF = 2
 
-  validates :role, inclusion: { in: [NORMAL_USER, ADMIN] }
+  validates :role, inclusion: { in: [NORMAL_USER, ADMIN, UNIVERSITY_STAFF] }
   validate :affiliation_logic
 
   def normal_user?
@@ -18,6 +19,10 @@ class UserAffiliation < ApplicationRecord
     role == ADMIN
   end
 
+  def university_staff?
+    role == UNIVERSITY_STAFF
+  end
+
   private
 
   def affiliation_logic
@@ -25,6 +30,13 @@ class UserAffiliation < ApplicationRecord
       # Admins dürfen weder Organization noch University haben
       if organization_id.present? || university_id.present?
         errors.add(:base, "Admins dürfen weder einer Organisation noch einer Universität angehören")
+      end
+    elsif university_staff?
+      # University Staff müssen einer Universität angehören
+      if organization_id.present?
+        errors.add(:base, "Universitätsmitarbeiter können nicht einer Organisation angehören")
+      elsif university_id.blank?
+        errors.add(:base, "Universitätsmitarbeiter müssen einer Universität angehören")
       end
     else
       # Normale User müssen genau eine Zugehörigkeit haben

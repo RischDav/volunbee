@@ -1,0 +1,36 @@
+<div class="mt-8 p-6 bg-white rounded-lg shadow-md border border-slate-200">
+  <% if unreleased.present? %>
+    <div class="mb-4 py-2 px-4 bg-yellow-100 text-yellow-800 rounded">
+      <%= t('universities.card.awaiting_approval') %>
+    </div>
+  <% end %>
+
+  <% if university.logo.attached? %>
+    <div class="mt-4 mb-4">
+      <%= image_tag university.logo, style: "max-width: 200px;", class: "rounded" %>
+    </div>
+  <% end %>
+
+  <h2 class="text-2xl font-semibold mb-4"><%= university.name %></h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+    <div class="bg-gray-100 p-4 rounded">
+      <p class="text-gray-700"><strong><%= t('universities.card.email') %>:</strong> <%= university.email.presence || t('universities.card.not_available') %></p>
+    </div>
+    <div class="bg-gray-100 p-4 rounded">
+      <p class="text-gray-700"><strong><%= t('universities.card.contact_number') %>:</strong> <%= university.contact_number.presence || t('universities.card.not_available') %></p>
+    </div>
+  </div>
+
+  <div class="mt-4 flex space-x-2">
+    <%= link_to t('universities.card.details'), university_path(university), class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
+
+    <% if admin_actions %>
+      <% if unreleased.present? %>
+        <%= button_to t('universities.card.approve'), release_university_path(university), method: :patch, class: "px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" %>
+      <% else %>
+        <%= button_to t('universities.card.lock'), lock_university_path(university), method: :patch, class: "px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
