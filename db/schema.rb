@@ -104,7 +104,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_11_155318) do
     t.integer "weekly_time_commitment"
     t.string "position_code"
     t.integer "university_id"
+    t.bigint "user_id"
     t.index ["organization_id"], name: "index_positions_on_organization_id"
+    t.index ["user_id"], name: "index_positions_on_user_id"
   end
 
   create_table "universities", force: :cascade do |t|
@@ -168,6 +170,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_11_155318) do
   add_foreign_key "frequently_asked_questions", "positions"
   add_foreign_key "messages", "positions"
   add_foreign_key "positions", "organizations"
+  add_foreign_key "positions", "users"
   add_foreign_key "user_affiliations", "organizations"
   add_foreign_key "user_affiliations", "universities"
   add_foreign_key "user_affiliations", "users"

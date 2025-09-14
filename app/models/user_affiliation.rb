@@ -27,9 +27,9 @@ class UserAffiliation < ApplicationRecord
 
   def affiliation_logic
     if admin?
-      # Admins dürfen weder Organization noch University haben
-      if organization_id.present? || university_id.present?
-        errors.add(:base, "Admins dürfen weder einer Organisation noch einer Universität angehören")
+      # Admins dürfen entweder einer Organisation ODER einer Universität angehören, aber nicht beiden
+      if organization_id.present? && university_id.present?
+        errors.add(:base, "Admins dürfen nicht gleichzeitig einer Organisation und einer Universität angehören")
       end
     elsif university_staff?
       # University Staff müssen einer Universität angehören
