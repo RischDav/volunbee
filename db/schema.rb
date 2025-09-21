@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_11_155318) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_16_184322) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -104,7 +104,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_11_155318) do
     t.integer "weekly_time_commitment"
     t.string "position_code"
     t.integer "university_id"
+    t.bigint "user_id"
     t.index ["organization_id"], name: "index_positions_on_organization_id"
+    t.index ["user_id"], name: "index_positions_on_user_id"
+  end
+
+  create_table "positions_visible_fors", force: :cascade do |t|
+    t.integer "position_id", null: false
+    t.integer "university_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["position_id", "university_id"], name: "index_positions_visible_fors_on_position_id_and_university_id", unique: true
+    t.index ["position_id"], name: "index_positions_visible_fors_on_position_id"
+    t.index ["university_id"], name: "index_positions_visible_fors_on_university_id"
   end
 
   create_table "universities", force: :cascade do |t|
@@ -168,6 +180,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_11_155318) do
   add_foreign_key "frequently_asked_questions", "positions"
   add_foreign_key "messages", "positions"
   add_foreign_key "positions", "organizations"
+  add_foreign_key "positions", "users"
+  add_foreign_key "positions_visible_fors", "positions"
+  add_foreign_key "positions_visible_fors", "universities"
   add_foreign_key "user_affiliations", "organizations"
   add_foreign_key "user_affiliations", "universities"
   add_foreign_key "user_affiliations", "users"
