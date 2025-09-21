@@ -1,4 +1,53 @@
 de:
+  confirmations:
+      confirmed: "Ihre E-Mail-Adresse wurde erfolgreich bestätigt."
+      send_instructions: "Sie erhalten in wenigen Minuten eine E-Mail mit Anweisungen, wie Sie Ihre E-Mail-Adresse bestätigen können."
+      send_paranoid_instructions: "Falls Ihre E-Mail-Adresse in unserer Datenbank existiert, erhalten Sie in wenigen Minuten eine E-Mail mit Anweisungen zur Bestätigung Ihrer E-Mail-Adresse."
+      new:
+        title: "Bestätigungsmail erneut senden"
+        email_label: "Email"
+        submit_button: "Bestätigungsmail erneut senden"
+  failure:
+      already_authenticated: "Sie sind bereits angemeldet."
+      inactive: "Ihr Konto ist noch nicht aktiviert."
+      invalid: "Ungültige %{authentication_keys} oder Passwort."
+      locked: "Ihr Konto ist gesperrt."
+      last_attempt: "Sie haben noch einen Versuch, bevor Ihr Konto gesperrt wird."
+      not_found_in_database: "Ungültige %{authentication_keys} oder Passwort."
+      timeout: "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an."
+      unauthenticated: "Sie müssen sich anmelden oder registrieren, bevor Sie fortfahren können."
+      unconfirmed: "Sie müssen Ihre E-Mail-Adresse bestätigen, bevor Sie fortfahren können."
+      not_approved: "Ihr Konto wurde noch nicht freigegeben."
+  mailer:
+      confirmation_instructions:
+        subject: "Anleitung zur Bestätigung Ihres Kontos"
+      reset_password_instructions:
+        subject: "Anleitung zum Zurücksetzen Ihres Passworts"
+      unlock_instructions:
+        subject: "Anleitung zur Entsperrung Ihres Kontos"
+      email_changed:
+        subject: "E-Mail-Adresse geändert"
+      password_change:
+        subject: "Passwort geändert"
+  omniauth_callbacks:
+      failure: "Sie konnten nicht mit Ihrem %{kind}-Konto authentifiziert werden, weil \"%{reason}\"."
+      success: "Erfolgreich mit Ihrem %{kind}-Konto authentifiziert."
+  passwords:
+      no_token: "Sie können auf diese Seite nur über den Link aus einer E-Mail zum Zurücksetzen des Passworts zugreifen. Wenn Sie über einen solchen Link hierher gekommen sind, stellen Sie sicher, dass Sie die vollständige URL verwendet haben."
+      send_instructions: "Sie erhalten in wenigen Minuten eine E-Mail mit Anweisungen zum Zurücksetzen Ihres Passworts."
+      send_paranoid_instructions: "Falls Ihre E-Mail-Adresse in unserer Datenbank existiert, erhalten Sie in wenigen Minuten eine E-Mail mit Anweisungen zum Zurücksetzen Ihres Passworts."
+      updated: "Ihr Passwort wurde erfolgreich geändert. Sie sind jetzt angemeldet."
+      updated_not_active: "Ihr Passwort wurde erfolgreich geändert."
+  errors:
+    messages:
+      already_confirmed: "wurde bereits bestätigt, bitte versuchen Sie, sich anzumelden"
+      confirmation_period_expired: "muss innerhalb von %{period} bestätigt werden, bitte fordern Sie eine neue an"
+      expired: "ist abgelaufen, bitte fordern Sie eine neue an"
+      not_found: "nicht gefunden"
+      not_locked: "war nicht gesperrt"
+      not_saved:
+        one: "Ein Fehler verhinderte das Speichern dieses %{resource}:"
+        other: "%{count} Fehler verhinderten das Speichern dieses %{resource}:"
   activerecord:
     errors:
       messages:
@@ -344,6 +393,33 @@ de:
       pictures:
         too_large: "Jede Bilddatei muss kleiner als 10 Megabyte sein."
   organizations:
+    edit:
+      back_without_saving: "Zurück ohne zu speichern"
+      save: "Speichern"
+      terms_confirmation: "Ich habe die <a href='/agb' class='text-blue-600 underline'>AGB</a> und die <a href='/datenschutz' class='text-blue-600 underline'>Datenschutzerklärung</a> gelesen und akzeptiere sie."
+    index:
+      admin_title: "Informationen zu Organisationen"
+      user_title: "Informationen zu Ihrer Organisation"
+      unreleased_organizations: "Unveröffentlichte Organisationen"
+      released_organizations: "Veröffentlichte Organisationen"
+    show:
+      approved: "Organisation ist freigegeben. Somit sind alle veröffentlichte Stellen einsehbar."
+      back: "Zurück"
+      city: "Stadt"
+      contact_number: "Kontakt Nummer"
+      contact_person: "Kontaktperson"
+      description: "Beschreibung"
+      edit: "Nochmal bearbeiten"
+      email: "Email"
+      housenumber: "Hausnummer"
+      name_not_available: "Nicht vorhanden"
+      not_approved: "Die Organisation ist noch nicht von einem Administrator freigegeben. Die Freigabe erfolgt in den nächsten 24 Stunden. Bis zur Freigabe werden die geposteten Stellen nicht angezeigt."
+      not_available: "Nicht vorhanden"
+      status: "Status"
+      street: "Straße"
+      title: "Organisation Details"
+      website: "Website"
+      zip: "PLZ"
     admin_card:
       email: "Email"
       phone: "Phone Number"
@@ -486,9 +562,17 @@ de:
       edit: "Nochmal bearbeiten"
       back: "Zurück"
   layouts:
-      application:
-        title: "Volunteer Heilbronn Dashboard"
+    application:
+      title: "Volunteer Heilbronn Dashboard"
   devise:
+    sessions:
+      signed_in: "Erfolgreich angemeldet."
+      signed_out: "Erfolgreich abgemeldet."
+      already_signed_out: "Erfolgreich abgemeldet."
+    unlocks:
+      send_instructions: "Sie erhalten in wenigen Minuten eine E-Mail mit Anweisungen zur Entsperrung Ihres Kontos."
+      send_paranoid_instructions: "Falls Ihr Konto existiert, erhalten Sie in wenigen Minuten eine E-Mail mit Anweisungen zur Entsperrung."
+      unlocked: "Ihr Konto wurde erfolgreich entsperrt. Bitte melden Sie sich an, um fortzufahren."
     shared:
       login: "Zum Login"
       register: "Registrieren"
@@ -508,7 +592,11 @@ de:
     registrations:
       new:
         title: "Anmelden"
-        email_label: "Email"
+        join_as: "Registrieren als"
+        organization: "Organisation"
+        organization_register: "Organisation registrieren"
+        switch_to_student_registration: "Zur Registrierung für Studierende wechseln"
+        email_label: "E-Mail"
         password_label: "Passwort"
         password_confirmation_label: "Passwort bestätigen"
         organization_name_label: "Name Ihrer Organisation"
@@ -527,6 +615,64 @@ de:
         delete_account_warning: "Diese Aktion kann nicht rückgängig gemacht werden."
         delete_account_confirm: "Sind Sie sicher?"
         back_link: "Zurück"
+      new:
+        title: "Anmelden"
+        join_as: "Registrieren als"
+        organization: "Organisation"
+        organization_register: "Organisation registrieren"
+        switch_to_student_registration: "Zur Registrierung für Studierende wechseln"
+        email_label: "E-Mail"
+        password_label: "Passwort"
+        password_confirmation_label: "Passwort bestätigen"
+        organization_name_label: "Name Ihrer Organisation"
+        organization_name_hint: "Bitte geben Sie den vollen Namen mit Rechtsform an (zum Beispiel gGmbH oder e.V.)"
+        sign_up_button: "Registrieren"
+        password_minimum_length: "Zeichen Minimum"
+      new_student:
+        title: "Als Studierender registrieren"
+        join_as: "Registrieren als"
+        student: "Studierender"
+        student_register: "Als Studierender registrieren"
+        switch_to_organization_registration: "Zur Registrierung für Organisationen wechseln"
+        email_label: "E-Mail"
+        password_label: "Passwort"
+        password_confirmation_label: "Passwort bestätigen"
+        university_label: "Universität"
+        university_hint: "Bitte wählen Sie Ihre Universität aus der Liste."
+        sign_up_button: "Registrieren"
+        password_minimum_length: "Zeichen Minimum"
+      edit:
+        title: "Profil bearbeiten"
+        email_label: "E-Mail"
+        password_label: "Neues Passwort"
+        password_confirmation_label: "Neues Passwort bestätigen"
+        current_password_label: "Aktuelles Passwort"
+        current_password_hint: "(wir benötigen Ihr aktuelles Passwort zur Bestätigung der Änderungen)"
+        update_button: "Aktualisieren"
+        delete_account: "Account löschen"
+        delete_account_warning: "Diese Aktion kann nicht rückgängig gemacht werden."
+        delete_account_confirm: "Sind Sie sicher?"
+        back_link: "Zurück"
+      edit_student:
+        title: "Studentenprofil bearbeiten"
+        email_label: "E-Mail"
+        password_label: "Neues Passwort"
+        password_confirmation_label: "Neues Passwort bestätigen"
+        current_password_label: "Aktuelles Passwort"
+        current_password_hint: "(wir benötigen Ihr aktuelles Passwort zur Bestätigung der Änderungen)"
+        update_button: "Aktualisieren"
+        delete_account: "Account löschen"
+        delete_account_warning: "Diese Aktion kann nicht rückgängig gemacht werden."
+        delete_account_confirm: "Sind Sie sicher?"
+        back_link: "Zurück"
+      destroyed: "Auf Wiedersehen! Ihr Konto wurde erfolgreich gekündigt. Wir hoffen, Sie bald wiederzusehen."
+      signed_up: "Willkommen! Sie haben sich erfolgreich registriert."
+      signed_up_but_inactive: "Sie haben sich erfolgreich registriert. Wir konnten Sie jedoch nicht anmelden, da Ihr Konto noch nicht aktiviert ist."
+      signed_up_but_locked: "Sie haben sich erfolgreich registriert. Wir konnten Sie jedoch nicht anmelden, da Ihr Konto gesperrt ist."
+      signed_up_but_unconfirmed: "Eine Nachricht mit einem Bestätigungslink wurde an Ihre E-Mail-Adresse gesendet. Bitte folgen Sie dem Link, um Ihr Konto zu aktivieren."
+      update_needs_confirmation: "Sie haben Ihre Kontodaten erfolgreich aktualisiert, wir müssen jedoch Ihre neue E-Mail-Adresse überprüfen. Bitte prüfen Sie Ihre E-Mails und folgen Sie dem Bestätigungslink, um Ihre neue E-Mail-Adresse zu bestätigen."
+      updated: "Ihre Kontodaten wurden erfolgreich aktualisiert."
+      updated_but_not_signed_in: "Ihre Kontodaten wurden erfolgreich aktualisiert, da jedoch Ihr Passwort geändert wurde, müssen Sie sich erneut anmelden."  
     passwords:
       new:
         title: "Passwort vergessen?"
