@@ -1,6 +1,9 @@
 class PositionsController < ApplicationController
   before_action :authenticate_user!, except: [:json_output]
   before_action :set_position, only: [:show, :edit, :update, :destroy, :release, :lock, :delete_picture]
+  before_action :check_edit_permissions, only: [:edit, :update, :destroy]
+  before_action :check_admin_permissions, only: [:release, :lock]
+  before_action :check_online_offline_permissions, only: [:online, :offline]
 
   def index
     if user_signed_in?
@@ -191,6 +194,42 @@ class PositionsController < ApplicationController
 
   def set_position
     @position = Position.find(params[:id])
+  end
+
+  def check_edit_permissions
+    unless can_edit_position?(@position)
+      redirect_to positions_path, alert: 'Sie sind nicht berechtigt, diese Position zu bearbeiten.'
+    end
+  end
+
+  def check_admin_permissions
+    unless current_user.admin?
+      redirect_to positions_path, alert: 'Nur Administratoren können Positionen freigeben oder sperren.'
+    end
+  end
+
+  def check_online_offline_permissions
+    position = Position.find(params[:id])
+    unless can_edit_position?(position)
+      redirect_to positions_path, alert: 'Sie sind nicht berechtigt, den Status dieser Position zu ändern.'
+    end
+  end
+
+  def can_edit_position?(position)
+    return true if current_user.admin?
+    
+    # Organization User kann nur eigene Organisationspositionen bearbeiten
+    if current_user.organization? && position.organization_id.present?
+      return position.organization_id == current_user.organization&.id
+    end
+    
+    # University Staff kann nur eigene Universitätspositionen bearbeiten
+    if current_user.university_staff? && position.university_id.present?
+      return position.university_id == current_user.university&.id
+    end
+    
+    # Normale Students und andere User können nichts bearbeiten
+    false
   end
 
   def position_params
