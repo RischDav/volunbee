@@ -27,7 +27,6 @@ class PositionsController < ApplicationController
 
   def create
     @position = Position.new(position_params)
-    @position.user = current_user
     
     # Set the appropriate ID based on user role
     if current_user.organization?
@@ -195,11 +194,6 @@ class PositionsController < ApplicationController
   end
 
   def position_params
-    params.require(:position).permit(
-      :title, :description, :benefits, :weekly_time_commitment, :position_temporary,
-      :main_picture, :creative_skills, :technical_skills, :social_skills,
-      :language_skills, :flexibility,
-      frequently_asked_questions_attributes: [:id, :question, :answer, :_destroy]
-    )
+    params.require(:position).permit(:title, :position_temporary, :weekly_time_commitment, :description, :benefits, :main_picture, :picture1, :picture2, :picture3, :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility, :released, :online, frequently_asked_questions_attributes: [:id, :question, :answer, :_destroy])
   end
 end
