@@ -26,8 +26,10 @@
             Administrator
           <% elsif current_user.organization? %>
             Organisation
-          <% elsif current_user.university? %>
-            <%= current_user.university&.name || "Universität" %>
+          <% elsif current_user.university_admin? %>
+            Universität
+          <% elsif current_user.student? %>
+            Student
           <% else %>
             Nutzer
           <% end %>

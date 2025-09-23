@@ -2,19 +2,20 @@
   <div class="max-w-lg mx-auto p-8 bg-white shadow-xl rounded-2xl border border-gray-100">
     <div class="text-center mb-8">
       <h1 class="text-4xl font-bold mb-2">
-        <span class="text-[#264653]">Join as</span>
-        <span class="text-[#F2C94C]">Student</span>
+        <span class="text-[#264653]"><%= t('devise.registrations.new_student.join_as') %></span>
+        <span class="text-[#F2C94C]"><%= t('devise.registrations.new_student.student') %></span>
       </h1>
-      <p class="text-[#264653]/70 text-lg">Student registrieren</p>
+      <p class="text-[#264653]/70 text-lg"><%= t('devise.registrations.new_student.student_register') %></p>
     </div>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-6" }) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
-      <%= f.hidden_field :role, value: "student" %>
+
+  <%= f.hidden_field :role, value: "student" %>
 
       <div class="space-y-6">
         <div class="field group">
-          <%= f.label :email, t('devise.registrations.new.email_label'), class: "block text-sm font-semibold text-[#264653] mb-2" %>
+          <%= f.label :email, t('devise.registrations.new_student.email_label'), class: "block text-sm font-semibold text-[#264653] mb-2" %>
           <div class="relative">
             <div class="absolute inset-y-0 left-2 pl-3 flex items-center pointer-events-none">
               <svg class="h-5 w-5 text-[#2A9D8F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -26,9 +27,9 @@
         </div>
 
         <div class="field group">
-          <%= f.label :password, t('devise.registrations.new.password_label'), class: "block text-sm font-semibold text-[#264653] mb-2" %>
+          <%= f.label :password, t('devise.registrations.new_student.password_label'), class: "block text-sm font-semibold text-[#264653] mb-2" %>
           <% if @minimum_password_length %>
-            <p class="text-xs text-[#264653]/60 mb-2">(<%= t('devise.registrations.new.password_minimum_length', count: @minimum_password_length) %>)</p>
+            <p class="text-xs text-[#264653]/60 mb-2">(<%= t('devise.registrations.new_student.password_minimum_length', count: @minimum_password_length) %>)</p>
           <% end %>
           <div class="relative">
             <div class="absolute inset-y-0 left-2 pl-3 flex items-center pointer-events-none">
@@ -39,17 +40,42 @@
             <%= f.password_field :password, autocomplete: "new-password", class: "w-full mx-2 pl-12 pr-5 py-3 border-2 border-gray-200 rounded-xl shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#2A9D8F]/30 focus:border-[#2A9D8F] hover:border-[#2A9D8F]/50 group-hover:shadow-md group-hover:border-[#2A9D8F]/50 transform focus:-translate-y-0.5" %>
           </div>
         </div>
+
+        <div class="field group" id="password-confirmation-field">
+          <%= f.label :password_confirmation, t('devise.registrations.new_student.password_confirmation_label'), class: "block text-sm font-semibold text-[#264653] mb-2" %>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-2 pl-3 flex items-center pointer-events-none">
+              <svg class="h-5 w-5 text-[#2A9D8F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full mx-2 pl-12 pr-5 py-3 border-2 border-gray-200 rounded-xl shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#2A9D8F]/30 focus:border-[#2A9D8F] hover:border-[#2A9D8F]/50 group-hover:shadow-md group-hover:border-[#2A9D8F]/50 transform focus:-translate-y-0.5" %>
+          </div>
+        </div>
+
+        <div class="field group" id="university-field">
+          <%= f.label :university, t('devise.registrations.new_student.university_label'), class: "block text-sm font-semibold text-[#264653] mb-2" %>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-2 pl-3 flex items-center pointer-events-none">
+              <svg class="h-5 w-5 text-[#2A9D8F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+            </div>
+            <%= f.text_field :university, class: "w-full mx-2 pl-12 pr-5 py-3 border-2 border-gray-200 rounded-xl shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#2A9D8F]/30 focus:border-[#2A9D8F] hover:border-[#2A9D8F]/50 group-hover:shadow-md group-hover:border-[#2A9D8F]/50 transform focus:-translate-y-0.5" %>
+          </div>
+          <p class="text-xs text-[#264653]/60 mt-2 ml-1"><%= t('devise.registrations.new_student.university_hint') %></p>
+        </div>
       </div>
 
       <div class="actions mt-8">
-        <%= f.submit t('devise.registrations.new.sign_up_button'), class: "w-full py-4 px-6 bg-gradient-to-r from-orange-500 to-orange-600 text-slate-400 font-semibold text-lg rounded-xl shadow-lg hover:from-orange-600 hover:to-orange-700 focus:outline-none focus:ring-4 focus:ring-orange-300 transform transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95 border-2 border-orange-700" %>
+        <%= f.submit t('devise.registrations.new_student.sign_up_button'), class: "w-full py-4 px-6 bg-gradient-to-r from-orange-500 to-orange-600 text-slate-400 font-semibold text-lg rounded-xl shadow-lg hover:from-orange-600 hover:to-orange-700 focus:outline-none focus:ring-4 focus:ring-orange-300 transform transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95 border-2 border-orange-700" %>
       </div>
     <% end %>
 
     <div class="text-center mt-8 pt-6 border-t border-gray-100">
       <%= render "devise/shared/links" %>
       <div class="mt-4">
-        <%= link_to "Zur Registrierung für Organisationen wechseln", new_organization_registration_path, class: "text-[#2A9D8F] hover:underline" %>
+        <%= link_to t('devise.registrations.new_student.switch_to_organization_registration'), new_organization_registration_path, class: "text-[#2A9D8F] hover:underline" %>
       </div>
     </div>
   </div>

@@ -106,17 +106,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_16_184322) do
     t.integer "university_id"
     t.bigint "user_id"
     t.index ["organization_id"], name: "index_positions_on_organization_id"
-    t.index ["user_id"], name: "index_positions_on_user_id"
-  end
-
-  create_table "positions_visible_fors", force: :cascade do |t|
-    t.integer "position_id", null: false
-    t.integer "university_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["position_id", "university_id"], name: "index_positions_visible_fors_on_position_id_and_university_id", unique: true
-    t.index ["position_id"], name: "index_positions_visible_fors_on_position_id"
-    t.index ["university_id"], name: "index_positions_visible_fors_on_university_id"
   end
 
   create_table "universities", force: :cascade do |t|

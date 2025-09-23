@@ -73,15 +73,28 @@ class User < ApplicationRecord
   end
 
   def organization?
-    affiliation&.organization_id.present?
+    affiliation&.organization_id.present? && affiliation&.role == 1
   end
 
   def university?
-    affiliation&.university_id.present?
+    affiliation&.university_id.present? && affiliation&.role == 1
+  end
+
+  # Returns the user's affiliation for the current university or organization
+  def affiliation
+    UserAffiliation.find_by(user_id: id)
   end
 
   def student?
-    university?
+    affiliation&.university_id.present? && affiliation&.role == UserAffiliation::NORMAL_USER
+  end
+
+  def university_admin?
+    affiliation&.university_id.present? && affiliation&.role == UserAffiliation::ADMIN
+  end
+
+  def organization_admin?
+    affiliation&.organization_id.present? && affiliation&.role == UserAffiliation::ADMIN
   end
 
   # Neue Helper-Methoden
