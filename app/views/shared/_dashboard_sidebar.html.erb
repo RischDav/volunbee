@@ -25,7 +25,7 @@
           <% if current_user.admin? %>
             Administrator
           <% elsif current_user.organization? %>
-            Organisation
+            <%= current_user.organization&.name || "Organisation" %>
           <% elsif current_user.university? %>
             <%= current_user.university&.name || "Universität" %>
           <% else %>

@@ -415,7 +415,7 @@ de:
       contact_number: "Kontakt Nummer"
       contact_person: "Kontaktperson"
       description: "Beschreibung"
-      edit: "Nochmal bearbeiten"
+      edit: "Bearbeiten"
       email: "Email"
       housenumber: "Hausnummer"
       name_not_available: "Nicht vorhanden"
@@ -565,7 +565,7 @@ de:
       approved: "Organisation ist freigegeben. Somit sind alle veröffentlichte Stellen einsehbar."
       not_approved: "Die Organisation ist noch nicht von einem Administrator freigegeben. Die Freigabe erfolgt in den nächsten 24 Stunden. Bis zur Freigabe werden die geposteten Stellen nicht angezeigt."
       not_available: "Nicht vorhanden"
-      edit: "Nochmal bearbeiten"
+      edit: "Bearbeiten"
       back: "Zurück"
   layouts:
     application:
