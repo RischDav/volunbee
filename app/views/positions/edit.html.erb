@@ -2,6 +2,16 @@
   <div class="relative py-3 sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto">
     <div class="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
       <%= form_with model: @position, local: true, class: "space-y-4" do |f| %>
+        <% if @position.errors.any? %>
+          <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+            <h2 class="font-bold mb-2">Fehler beim Speichern:</h2>
+            <ul class="list-disc pl-5">
+              <% @position.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
         <div class="space-y-4">
           <h1 class="text-3xl font-bold text-gray-900"><%= t('positions.edit.title') %></h1>
           

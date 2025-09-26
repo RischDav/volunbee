@@ -1,4 +1,4 @@
-en:
+ en:
   confirmations:
     confirmed: "Your email address has been successfully confirmed."
     send_instructions: "You will receive an email with instructions on how to confirm your email address in a few minutes."
@@ -270,6 +270,8 @@ en:
       no_user_info: "No user information available."
   shared:
     word_count:
+    navbar:
+      all_positions: "All Positions"
       too_short: "Need %{remaining} more characters"
       too_long: "Text is too long"
       good: "Good length"
@@ -432,6 +434,10 @@ en:
         description_description: "Please provide a detailed description of the position..."
         benefits_label: "Benefits for Volunteers"
         benefits_description: "What benefits do volunteers expect in your organization?"
+        visibility_label: "Position Visibility"
+        visibility_all: "All students"
+        visibility_university: "Only students from my university"
+        visibility_description: "Choose who can see this position."
     images:
       form:
         header: "Images"
@@ -706,6 +712,19 @@ en:
     application:
       title: "Volunteer Heilbronn Dashboard"
   devise:
+    sessions:
+      login: "Login"
+      email: "Email"
+      password: "Password"
+      remember_me: "Remember me"
+      login_button: "Log in"
+    shared:
+      login: "Login"
+      register: "Register"
+      forgot_password: "Forgot your password?"
+      no_confirmation: "Didn't receive confirmation instructions?"
+      no_unlock_instructions: "Didn't receive unlock instructions?"
+      login_with: "Login with %{provider}"
     registrations:
       new:
         title: "Sign up"
@@ -735,18 +754,6 @@ en:
         password_minimum_length: "characters minimum"
       edit:
         title: "Edit Profile"
-        email_label: "Email"
-        password_label: "New Password"
-        password_confirmation_label: "Confirm New Password"
-        current_password_label: "Current Password"
-        current_password_hint: "(we need your current password to confirm changes)"
-        update_button: "Update"
-        delete_account: "Delete Account"
-        delete_account_warning: "This action cannot be undone."
-        delete_account_confirm: "Are you sure?"
-        back_link: "Back"
-      edit_student:
-        title: "Edit Student Profile"
         email_label: "Email"
         password_label: "New Password"
         password_confirmation_label: "Confirm New Password"

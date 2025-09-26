@@ -39,4 +39,12 @@
     <%= f.select :position_temporary, [["Yes", true], ["No", false]], {}, { class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500", id: "position_temporary_select" } %>
     <p id="temporary-info-text" class="mt-2 text-sm text-red-400"><%= t('positions.edit.position_temporary.description') %></p>
   </div>
+
+  <% if current_user&.university_staff? %>
+    <div class="field">
+      <%= f.label :visibility, t('positions.general_information.form.visibility_label', default: 'Position Visibility'), class: "block text-sm font-medium text-gray-700" %>
+      <%= f.select :visibility, [[t('positions.general_information.form.visibility_all', default: 'All students'), 'all'], [t('positions.general_information.form.visibility_university', default: 'Only students from my university'), 'university']], {}, { class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500", id: "position_visibility_select" } %>
+      <p class="mt-2 text-sm text-gray-500"><%= t('positions.general_information.form.visibility_description', default: 'Choose who can see this position.') %></p>
+    </div>
+  <% end %>
 </div>

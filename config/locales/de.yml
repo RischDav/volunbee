@@ -87,6 +87,8 @@ de:
       no_user_info: "Keine Benutzerinformationen verfügbar."
   shared:
     word_count:
+    navbar:
+      all_positions: "Alle Positionen"
       too_short: "Noch %{remaining} Zeichen benötigt"
       too_long: "Text ist zu lang"
       good: "Gute Länge"
@@ -249,6 +251,10 @@ de:
         description_description: "Bitte geben Sie eine ausführliche Beschreibung der Position an..."
         benefits_label: "Benefits für Ehrenamtliche"
         benefits_description: "Welche Benefits erwarten Volunteers in Ihrem Verein?"
+        visibility_label: "Sichtbarkeit der Position"
+        visibility_all: "Alle Studierenden"
+        visibility_university: "Nur Studierende meiner Universität"
+        visibility_description: "Wählen Sie, wer diese Position sehen kann."
     images:
       form:
         header: "Bilder"
@@ -566,29 +572,28 @@ de:
       title: "Volunteer Heilbronn Dashboard"
   devise:
     sessions:
-      signed_in: "Erfolgreich angemeldet."
-      signed_out: "Erfolgreich abgemeldet."
-      already_signed_out: "Erfolgreich abgemeldet."
-    unlocks:
-      send_instructions: "Sie erhalten in wenigen Minuten eine E-Mail mit Anweisungen zur Entsperrung Ihres Kontos."
-      send_paranoid_instructions: "Falls Ihr Konto existiert, erhalten Sie in wenigen Minuten eine E-Mail mit Anweisungen zur Entsperrung."
-      unlocked: "Ihr Konto wurde erfolgreich entsperrt. Bitte melden Sie sich an, um fortzufahren."
-    shared:
-      login: "Zum Login"
-      register: "Registrieren"
-      forgot_password: "Passwort vergessen?"
-      no_confirmation: "Sie haben keine Bestätigungsmail erhalten?"
-      no_unlock_instructions: "Sie haben keine Anweisungen zum Freischalten erhalten?"
-      login_with: "Einloggen mit %{provider}"
-    unlocks:
-      resend_instructions: "Resend unlock instructions"
-      resend_button: "Resend unlock instructions"
-    sessions:
       login: "Einloggen"
       email: "E-Mail"
       password: "Passwort"
       remember_me: "Merke meinen Login"
       login_button: "Einloggen"
+      signed_in: "Erfolgreich angemeldet."
+      signed_out: "Erfolgreich abgemeldet."
+      already_signed_out: "Erfolgreich abgemeldet."
+    shared:
+      login: "Einloggen"
+      register: "Registrieren"
+      forgot_password: "Passwort vergessen?"
+      no_confirmation: "Keine Bestätigungsmail erhalten?"
+      no_unlock_instructions: "Keine Anweisungen zum Freischalten erhalten?"
+      login_with: "Einloggen mit %{provider}"
+    unlocks:
+      send_instructions: "Sie erhalten in wenigen Minuten eine E-Mail mit Anweisungen zur Entsperrung Ihres Kontos."
+      send_paranoid_instructions: "Falls Ihr Konto existiert, erhalten Sie in wenigen Minuten eine E-Mail mit Anweisungen zur Entsperrung."
+      unlocked: "Ihr Konto wurde erfolgreich entsperrt. Bitte melden Sie sich an, um fortzufahren."
+    unlocks:
+      resend_instructions: "Anweisungen zum Entsperren erneut senden"
+      resend_button: "Anweisungen zum Entsperren erneut senden"
     registrations:
       new:
         title: "Anmelden"
@@ -615,19 +620,6 @@ de:
         delete_account_warning: "Diese Aktion kann nicht rückgängig gemacht werden."
         delete_account_confirm: "Sind Sie sicher?"
         back_link: "Zurück"
-      new:
-        title: "Anmelden"
-        join_as: "Registrieren als"
-        organization: "Organisation"
-        organization_register: "Organisation registrieren"
-        switch_to_student_registration: "Zur Registrierung für Studierende wechseln"
-        email_label: "E-Mail"
-        password_label: "Passwort"
-        password_confirmation_label: "Passwort bestätigen"
-        organization_name_label: "Name Ihrer Organisation"
-        organization_name_hint: "Bitte geben Sie den vollen Namen mit Rechtsform an (zum Beispiel gGmbH oder e.V.)"
-        sign_up_button: "Registrieren"
-        password_minimum_length: "Zeichen Minimum"
       new_student:
         title: "Als Studierender registrieren"
         join_as: "Registrieren als"
@@ -641,30 +633,6 @@ de:
         university_hint: "Bitte wählen Sie Ihre Universität aus der Liste."
         sign_up_button: "Registrieren"
         password_minimum_length: "Zeichen Minimum"
-      edit:
-        title: "Profil bearbeiten"
-        email_label: "E-Mail"
-        password_label: "Neues Passwort"
-        password_confirmation_label: "Neues Passwort bestätigen"
-        current_password_label: "Aktuelles Passwort"
-        current_password_hint: "(wir benötigen Ihr aktuelles Passwort zur Bestätigung der Änderungen)"
-        update_button: "Aktualisieren"
-        delete_account: "Account löschen"
-        delete_account_warning: "Diese Aktion kann nicht rückgängig gemacht werden."
-        delete_account_confirm: "Sind Sie sicher?"
-        back_link: "Zurück"
-      edit_student:
-        title: "Studentenprofil bearbeiten"
-        email_label: "E-Mail"
-        password_label: "Neues Passwort"
-        password_confirmation_label: "Neues Passwort bestätigen"
-        current_password_label: "Aktuelles Passwort"
-        current_password_hint: "(wir benötigen Ihr aktuelles Passwort zur Bestätigung der Änderungen)"
-        update_button: "Aktualisieren"
-        delete_account: "Account löschen"
-        delete_account_warning: "Diese Aktion kann nicht rückgängig gemacht werden."
-        delete_account_confirm: "Sind Sie sicher?"
-        back_link: "Zurück"
       destroyed: "Auf Wiedersehen! Ihr Konto wurde erfolgreich gekündigt. Wir hoffen, Sie bald wiederzusehen."
       signed_up: "Willkommen! Sie haben sich erfolgreich registriert."
       signed_up_but_inactive: "Sie haben sich erfolgreich registriert. Wir konnten Sie jedoch nicht anmelden, da Ihr Konto noch nicht aktiviert ist."

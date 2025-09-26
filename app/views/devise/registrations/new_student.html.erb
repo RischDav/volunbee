@@ -53,18 +53,6 @@
           </div>
         </div>
 
-        <div class="field group" id="university-field">
-          <%= f.label :university, t('devise.registrations.new_student.university_label'), class: "block text-sm font-semibold text-[#264653] mb-2" %>
-          <div class="relative">
-            <div class="absolute inset-y-0 left-2 pl-3 flex items-center pointer-events-none">
-              <svg class="h-5 w-5 text-[#2A9D8F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
-            </div>
-            <%= f.text_field :university, class: "w-full mx-2 pl-12 pr-5 py-3 border-2 border-gray-200 rounded-xl shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#2A9D8F]/30 focus:border-[#2A9D8F] hover:border-[#2A9D8F]/50 group-hover:shadow-md group-hover:border-[#2A9D8F]/50 transform focus:-translate-y-0.5" %>
-          </div>
-          <p class="text-xs text-[#264653]/60 mt-2 ml-1"><%= t('devise.registrations.new_student.university_hint') %></p>
-        </div>
       </div>
 
       <div class="actions mt-8">

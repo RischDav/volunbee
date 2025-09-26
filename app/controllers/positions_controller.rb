@@ -14,7 +14,10 @@ class PositionsController < ApplicationController
       elsif current_user.university?
         @positions = Position.where(university_id: current_user.university&.id)
       elsif current_user.student?
-        @positions = Position.where(university_id: current_user.university&.id)
+        @positions = Position.where(
+          "(visibility = ? OR ((visibility IS NULL OR visibility = ?) AND university_id = ?)) AND released = ? AND online = ?",
+          'all', 'university', current_user.university_id, true, true
+        )
       else
         @positions = Position.none
       end
@@ -30,16 +33,21 @@ class PositionsController < ApplicationController
 
   def create
     @position = Position.new(position_params)
-    
+
+
+
     # Set the appropriate ID based on user role
     if current_user.organization?
       @position.organization_id = current_user.organization&.id
-    elsif current_user.university?
+    elsif current_user.university? || current_user.university_staff?
       @position.university_id = current_user.university&.id
     end
-    
+
+    # Always set the user_id to the current user
+    @position.user_id = current_user.id
+
     @position.position_code = @position.title.downcase.gsub(/[^a-z0-9\s]/, '').gsub(/\s+/, '_')
-  
+
     if @position.save
       # Bilder verarbeiten
       [@position.main_picture, @position.picture1, @position.picture2, @position.picture3].each do |picture|
@@ -233,6 +241,6 @@ class PositionsController < ApplicationController
   end
 
   def position_params
-    params.require(:position).permit(:title, :position_temporary, :weekly_time_commitment, :description, :benefits, :main_picture, :picture1, :picture2, :picture3, :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility, :released, :online, frequently_asked_questions_attributes: [:id, :question, :answer, :_destroy])
+  params.require(:position).permit(:title, :position_temporary, :weekly_time_commitment, :description, :benefits, :main_picture, :picture1, :picture2, :picture3, :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility, :released, :online, :visibility, :visible_university_id, frequently_asked_questions_attributes: [:id, :question, :answer, :_destroy])
   end
 end

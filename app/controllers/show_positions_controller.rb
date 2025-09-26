@@ -2,7 +2,24 @@ class ShowPositionsController < ApplicationController
   skip_before_action :authenticate_user!
   
   def index
-    @positions = Position.where(online: true, released: true)
+    if user_signed_in?
+      if current_user.organization?
+        # Organization users: only their own org positions
+        @positions = Position.where(online: true, released: true, organization_id: current_user.organization_id)
+      elsif current_user.student?
+        # Students: org positions + university positions (visibility logic)
+        @positions = Position.where(online: true, released: true).where(
+          '(visibility = ? OR (visibility = ? AND university_id = ?))',
+          'all', 'university', current_user.university_id
+        )
+      else
+        # Other users (admins, university staff, etc): show all
+        @positions = Position.where(online: true, released: true)
+      end
+    else
+      # Not logged in: show only organization positions
+      @positions = Position.where(online: true, released: true).where.not(organization_id: nil)
+    end
     @custom_navbar = true
   end
 
