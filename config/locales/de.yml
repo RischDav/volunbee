@@ -289,6 +289,13 @@ de:
       lock: "Sperren"
     position_card:
       not_released: "Die Position wurde von uns noch nicht freigegeben und wird dem Endnutzer dementsprechend nicht angezeigt."
+      benefits_label: "Was du bekommst:"
+      temporary: "Temporär"
+      skills:
+        creative: "Kreativ"
+        technical: "Technisch"
+        social: "Sozial"
+        language: "Sprachen"
     edit:
       title: "Position bearbeiten"
       submit: "Speichern"

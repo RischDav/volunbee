@@ -85,8 +85,6 @@
       take_offline: "Take offline"
       take_online: "Take online"
       lock: "Lock"
-    position_card:
-      not_released: "The position has not yet been released and will not be visible to the end user."
     edit:
       title: "Edit position"
       submit: "Save"
@@ -469,6 +467,13 @@
       lock: "Lock"
     position_card:
       not_released: "The position has not yet been released by us and will therefore not be visible to the end user."
+      benefits_label: "What you'll get:"
+      temporary: "Temporary"
+      skills:
+        creative: "Creative"
+        technical: "Technical"
+        social: "Social"
+        language: "Languages"
     edit:
       title: "Edit Position"
       submit: "Save"
