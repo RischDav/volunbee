@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     #main_page
     get "positions", to: "positions#index"
 
+    #analytics_page
+    get "analytics", to: "analytics#index"
+    
     #show_positions
     get "show_positions", to: "show_positions#index"
 

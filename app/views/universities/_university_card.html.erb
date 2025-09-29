@@ -1,36 +1,123 @@
-<div class="mt-8 p-6 bg-white rounded-lg shadow-md border border-slate-200">
+<div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 mb-8">
+  <!-- Status Banner -->
   <% if unreleased.present? %>
-    <div class="mb-4 py-2 px-4 bg-yellow-100 text-yellow-800 rounded">
-      <%= t('universities.card.awaiting_approval') %>
+    <div class="bg-gradient-to-r from-yellow-400 to-orange-500 px-6 py-3">
+      <div class="flex items-center">
+        <svg class="w-5 h-5 text-white mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+        </svg>
+        <p class="text-white font-medium">
+          <%= t('universities.card.awaiting_approval') %>
+        </p>
+      </div>
     </div>
   <% end %>
 
-  <% if university.logo.attached? %>
-    <div class="mt-4 mb-4">
-      <%= image_tag university.logo, style: "max-width: 200px;", class: "rounded" %>
-    </div>
-  <% end %>
-
-  <h2 class="text-2xl font-semibold mb-4"><%= university.name %></h2>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-    <div class="bg-gray-100 p-4 rounded">
-      <p class="text-gray-700"><strong><%= t('universities.card.email') %>:</strong> <%= university.email.presence || t('universities.card.not_available') %></p>
-    </div>
-    <div class="bg-gray-100 p-4 rounded">
-      <p class="text-gray-700"><strong><%= t('universities.card.contact_number') %>:</strong> <%= university.contact_number.presence || t('universities.card.not_available') %></p>
-    </div>
-  </div>
-
-  <div class="mt-4 flex space-x-2">
-    <%= link_to t('universities.card.details'), university_path(university), class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
-
-    <% if admin_actions %>
-      <% if unreleased.present? %>
-        <%= button_to t('universities.card.approve'), release_university_path(university), method: :patch, class: "px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" %>
+  <!-- Header Section with Logo and Name -->
+  <div class="p-8">
+    <div class="flex items-center mb-6">
+      <% if university.logo.attached? %>
+        <div class="flex-shrink-0 mr-6">
+          <div class="w-24 h-24 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-4 flex items-center justify-center border border-blue-100 shadow-sm">
+            <%= image_tag university.logo, class: "w-full h-full object-contain", alt: "#{university.name} Logo" %>
+          </div>
+        </div>
       <% else %>
-        <%= button_to t('universities.card.lock'), lock_university_path(university), method: :patch, class: "px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700" %>
+        <div class="flex-shrink-0 mr-6">
+          <div class="w-24 h-24 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-md">
+            <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+            </svg>
+          </div>
+        </div>
       <% end %>
-    <% end %>
+      
+      <div class="flex-1">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2 leading-tight">
+          <%= university.name %>
+        </h2>
+        <div class="flex items-center text-sm text-gray-500">
+          <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+          </svg>
+          <span>Hochschuleinrichtung</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <!-- Email Card -->
+      <div class="bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-100 rounded-xl p-5 hover:shadow-md transition-shadow duration-200">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4 flex-1">
+            <p class="text-sm font-medium text-blue-900">
+              <%= t('universities.card.email') %>
+            </p>
+            <p class="text-sm text-blue-700 font-medium mt-1">
+              <%= university.email.presence || t('universities.card.not_available') %>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone Card -->
+      <div class="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-100 rounded-xl p-5 hover:shadow-md transition-shadow duration-200">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4 flex-1">
+            <p class="text-sm font-medium text-green-900">
+              <%= t('universities.card.contact_number') %>
+            </p>
+            <p class="text-sm text-green-700 font-medium mt-1">
+              <%= university.contact_number.presence || t('universities.card.not_available') %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex flex-wrap gap-3">
+      <%= link_to university_path(university), class: "inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5" do %>
+        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+          <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+        </svg>
+        <%= t('universities.card.details') %>
+      <% end %>
+
+      <% if admin_actions %>
+        <% if unreleased.present? %>
+          <%= button_to release_university_path(university), method: :patch, class: "inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white font-medium rounded-xl hover:from-green-700 hover:to-green-800 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5" do %>
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+            </svg>
+            <%= t('universities.card.approve') %>
+          <% end %>
+        <% else %>
+          <%= button_to lock_university_path(university), method: :patch, class: "inline-flex items-center px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white font-medium rounded-xl hover:from-red-700 hover:to-red-800 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5" do %>
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+            </svg>
+            <%= t('universities.card.lock') %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

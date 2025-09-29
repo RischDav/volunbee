@@ -1,4 +1,9 @@
 de:
+  date:
+    formats:
+      default: "%d.%m.%Y"
+      short: "%d.%m."
+      long: "%d. %B %Y"
   confirmations:
       confirmed: "Ihre E-Mail-Adresse wurde erfolgreich bestätigt."
       send_instructions: "Sie erhalten in wenigen Minuten eine E-Mail mit Anweisungen, wie Sie Ihre E-Mail-Adresse bestätigen können."

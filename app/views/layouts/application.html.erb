@@ -13,8 +13,8 @@
     <!-- The VolunteerHeilbronn Icon -->
     <link rel="icon" href="<%= asset_path('favicon.png') %>" type="image/png">
     <!-- Integration of Tailwind css -->
-    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload', defer: true, 'data-turbolinks-suppress-warning': true %>
   </head>
 
   <body>
