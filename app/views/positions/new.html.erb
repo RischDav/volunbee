@@ -83,7 +83,7 @@
 
       if (charCount < minLength) {
         // Richtiger Weg, um eine Rails-Übersetzung mit variablen Werten in JavaScript zu verwenden
-        counter.textContent = '<%= t("positions.new.word_count.title") %>'.replace('%{min_length}', minLength - charCount);
+        counter.textContent = '<%= t("positions.new.word_count.too_short") %>'.replace('%{min_length}', minLength - charCount);
         counter.style.color = 'red';
       } else if (charCount > perfectLength) {
         counter.textContent = '<%= t("positions.new.word_count.too_long") %>';
@@ -92,7 +92,7 @@
         counter.textContent = '<%= t("positions.new.word_count.good_length") %>';
         counter.style.color = 'green';
       } else if (charCount > goodLength && charCount <= perfectLength) {
-        counter.textContent = '<%= t("positions.new.word_count.perfect_length") %>';
+        counter.textContent = '<%= t("positions.new.word_count.perfect") %>';
         counter.style.color = 'green';
       } else {
         counter.textContent = '';

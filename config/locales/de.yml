@@ -92,21 +92,21 @@ de:
       no_user_info: "Keine Benutzerinformationen verfügbar."
   shared:
     word_count:
-    navbar:
-      all_positions: "Alle Positionen"
-      too_short: "Noch %{remaining} Zeichen benötigt"
-      too_long: "Text ist zu lang"
-      good: "Gute Länge"
-      perfect: "Perfekte Länge"
-    faq:
-      title: "Fragen und Antworten"
-      description: "Mit Hilfe eines FAQ-Bereichs können Sie häufig gestellte Fragen beantworten."
-      question_label: "Frage"
-      answer_label: "Antwort"
-      question_placeholder: "Geben Sie hier Ihre Frage ein..."
-      answer_placeholder: "Geben Sie hier Ihre Antwort ein..."
-      add_button: "FAQ hinzufügen"
-      remove_button: "Entfernen"
+      navbar:
+        all_positions: "Alle Positionen"
+        too_short: "Noch %{remaining} Zeichen benötigt"
+        too_long: "Text ist zu lang"
+        good: "Gute Länge"
+        perfect: "Perfekte Länge"
+      faq:
+        title: "Fragen und Antworten"
+        description: "Mit Hilfe eines FAQ-Bereichs können Sie häufig gestellte Fragen beantworten."
+        question_label: "Frage"
+        answer_label: "Antwort"
+        question_placeholder: "Geben Sie hier Ihre Frage ein..."
+        answer_placeholder: "Geben Sie hier Ihre Antwort ein..."
+        add_button: "FAQ hinzufügen"
+        remove_button: "Entfernen"
     footer:
       site_name: "Volunteer-Heilbronn.de"
       privacy_policy: "Datenschutzerklärung"
@@ -260,7 +260,7 @@ de:
         visibility_all: "Alle Studierenden"
         visibility_university: "Nur Studierende meiner Universität"
         visibility_description: "Wählen Sie, wer diese Position sehen kann."
-    images:
+  images:
       form:
         header: "Bilder"
         main_picture_label: "Hauptbild"
@@ -272,7 +272,7 @@ de:
         file_selected: "Bild '%{filename}' wurde ausgewählt"
         upload_hint: "Bitte ein Bild hochladen"
         delete_image: "Bild löschen"
-    score:
+  score:
       form:
         header: "Score"
         description: "Auf unserer Plattform bieten wir einen Algorithmus an, der es Usern ermöglicht durch die Beantwortung weniger Fragen die passende Stelle zu finden. Um dies für Ihre Stelle ebenfalls zu ermöglichen, benötigen wir in Folgendem einen 'Score'. Es funktioniert ganz einfach: Sie haben fünf Eigenschaften und 15 verfügbare Punkte. Verteilen Sie die Punkte über die Eigenschaften. Welche Eigenschaften werden für die ausgeschriebene Position besonders benötigt, welche eher weniger?"
@@ -282,26 +282,55 @@ de:
         social_skills_label: "Soziale Skills"
         language_skills_label: "Sprachliche Skills"
         flexibility_label: "Flexibilität"
-    new_position:
+  new_position:
       create_button: "Neue Position erstellen (%{available} verfügbar)"
       create_button_disabled: "Neue Position erstellen (0 verfügbar)"
-    position_actions:
+  position_actions:
       view: "Ansehen"
       delete: "Löschen"
       edit: "Bearbeiten"
       take_offline: "Offline nehmen"
       take_online: "Online nehmen"
       lock: "Sperren"
-    position_card:
+  position_card:
       not_released: "Die Position wurde von uns noch nicht freigegeben und wird dem Endnutzer dementsprechend nicht angezeigt."
-      benefits_label: "Was du bekommst:"
-      temporary: "Temporär"
-      skills:
-        creative: "Kreativ"
-        technical: "Technisch"
-        social: "Sozial"
-        language: "Sprachen"
-    edit:
+  edit:
+    title: "Position bearbeiten"
+    submit: "Speichern"
+    description:
+      title: "Bezeichnung der Position"
+      description: "Bitte geben Sie eine Bezeichnung für die Position an. Statt einfach die Bezeichnung 'Volunteer' zu nutzen, nutzen Sie bitte eine ausführliche Bezeichnung, wie zum Beispiel 'Volunteer in the field of web design', damit sich interessenten mit den gewünschten Interessen angesprochener fühlen."
+    position_description: "Beschreibung der Position"
+    description_text: "Bitte geben Sie eine ausführliche Beschreibung der Position an. Stellen Sie sicher, dass die Beschreibung alle wichtigen Informationen enthält, die für die Volunteers relevant sind und das Interesse an Ihrem Verein wecken."
+    benefits:
+      title: "Benefits für Ehrenamtliche"
+      description: "Welche Benefits erwarten Volunteers in Ihrem Verein?"
+    weekly_time_commitment:
+      title: "Wöchentlicher Zeitaufwand (in Stunden)"
+      description: "Bitte wählen Sie aus, wie viele Stunden pro Woche für diese Position benötigt werden."
+    position_temporary:
+      title: "Ist die Position zeitlich begrenzt?"
+      description: "Bitte wählen Sie aus, ob die Position zeitlich begrenzt ist."
+      temporary_info: "Bitte vergessen Sie nicht, in der Beschreibung der Position anzugeben, wann genau die Hilfe benötigt wird."
+    images:
+      title: "Bilder"
+      description: "Laden Sie ein Bild hoch, welches die Stelle repräsentiert. Achten Sie bitte darauf, dass die Nutzungsrechte des Hochgeladenen Bildes bei Ihnen liegen."
+      upload_hint: "Bitte ein Bild hochladen"
+      delete_image: "Bild löschen"
+    score:
+      title: "Score"
+      description: "Auf unserer Plattform bieten wir einen Algorithmus an, der es Usern ermöglicht durch die beantwortung weniger Fragen die passende Stelle zu finden. Um dies für Ihre Stelle ebenfalls zu ermöglichen, benötigen wir in Folgenden einen 'Score'. Es funktioneirt ganz einfach: sie haben fünf eigenschaften und 15 verfügbare Punkte. Verteilen sie die punkte über die eigenschaften. Welche eigenschaften werden für die ausgeschriebene position besonders benötigt, welche eher weniger?"
+      remaining_points: "Verbleibende Punkte: 15"
+      creative_skills: "Kreativität"
+      technical_skills: "Technische Skills"
+      social_skills: "Soziale Skills"
+      language_skills: "Sprachliche Skills"
+      flexibility: "Flexibilität"
+    faq:
+      title: "Fragen und Antworten"
+      description: "Mithilfe eines FAQ-Bereichs können sie auf häufig gestellte Fragen antworten. Zum Beispiel: 'Wie lange dauert ein Einsatz?' oder 'Welche Voraussetzungen muss ich erfüllen?'. Bitte geben Sie hier die häufigsten Fragen und Antworten an. Unser Tipp: fügen Sie mindestens drei Fragen und Antworten hinzu."
+      add_faq: "Frage und Antwort hinzufügen"
+      remove_faq: "Entfernen"
       title: "Position bearbeiten"
       submit: "Speichern"
       description: 
@@ -338,10 +367,10 @@ de:
         description: "Mithilfe eines FAQ-Bereichs können sie auf häufig gestellte Fragen antworten. Zum Beispiel: 'Wie lange dauert ein Einsatz?' oder 'Welche Voraussetzungen muss ich erfüllen?'. Bitte geben Sie hier die häufigsten Fragen und Antworten an. Unser Tipp: fügen Sie mindestens drei Fragen und Antworten hinzu."
         add_faq: "Frage und Antwort hinzufügen"
         remove_faq: "Entfernen"
-    index:
+  index:
       title: "Offene Stellen"
       no_positions_available: "Es sind derzeit keine offenen Stellen verfügbar."
-    new:
+  new:
       title: "Neue Position erstellen"
       subtitle: "Bitte achten Sie darauf, dass alle Felder in englischer Sprache ausgefüllt werden!"
       confirmation:
@@ -351,11 +380,14 @@ de:
       button:
         create: "Erstellen"
       word_count:
-        title: "Du benötigst noch mindestens %{min_length} Buchstaben"
-        description: "Du benötigst noch mindestens %{min_length} Buchstaben"
+        title: "Du benötigst noch mindestens %{min_length} Buchstaben" # Placeholder
+        description: "Du benötigst noch mindestens %{min_length} Buchstaben" # Placeholder
+        good_length: "👍 Mindestlänge erreicht (könnte aber mehr sein)" # Placeholder
+        perfect_length: "👍 Perfekte Länge" # Placeholder
+        too_short: "Du benötigst noch mindestens %{min_length} Buchstaben"
         benefits: "Du benötigst noch mindestens %{min_length} Buchstaben"
-        good_length: "👍 Mindestlänge erreicht (könnte aber mehr sein)"
-        perfect_length: "👍 Perfekte Länge"
+        good: "👍 Mindestlänge erreicht (könnte aber mehr sein)"
+        perfect: "👍 Perfekte Länge"
         too_long: "Zu viele Buchstaben"
       upload_feedback:
         default: "Bitte ein Bild hochladen"
@@ -370,7 +402,7 @@ de:
         terms_and_conditions: "Ich habe die AGB und die Datenschutzerklärung gelesen und akzeptiere sie."
       remaining_points: "Verbleibende Punkte: %{remaining_points}"
       submit_disabled: "Der Absenden-Button ist deaktiviert. Bitte überprüfen Sie alle Felder."
-    show:
+  show:
       title: "Positionsdetails"
       no_title: "Titel nicht vorhanden"
       general_info: "Allgemeine Informationen"
@@ -397,7 +429,7 @@ de:
       not_available: "Nicht vorhanden"
       yes: "Ja"
       no: "Nein"
-    errors:
+  errors:
       limit_reached: "Sie haben das Maximum von 3 Positionen pro Organisation erreicht."
       benefits:
         blank: "Die Vorteile dürfen nicht leer sein."
@@ -406,9 +438,12 @@ de:
         blank: "Die Beschreibung darf nicht leer sein."
         length: "Die Beschreibung muss zwischen 100 und 1000 Zeichen lang sein (aktuell: %{length} Zeichen)."
       skills:
+        invalid: "Ungültiger Wert für %{name}." # Placeholder
+        sum_exceeded: "Die Summe der Fähigkeiten darf 15 nicht überschreiten (aktuell: %{sum})." # Placeholder
         invalid: "Ungültiger Wert für %{name}."
         sum_exceeded: "Die Summe der Fähigkeiten darf 15 nicht überschreiten (aktuell: %{sum})."
       pictures:
+        too_large: "Jede Bilddatei muss kleiner als 10 Megabyte sein." # Placeholder
         too_large: "Jede Bilddatei muss kleiner als 10 Megabyte sein."
   organizations:
     edit:

@@ -140,11 +140,10 @@
       button:
         create: "Create"
       word_count:
-        title: "You need at least %{min_length} characters"
-        description: "You need at least %{min_length} characters"
+        too_short: "You need at least %{min_length} characters"
         benefits: "You need at least %{min_length} characters"
-        good_length: "👍 Minimum length reached (but could be more)"
-        perfect_length: "👍 Perfect length"
+  good: "👍 Minimum length reached (but could be more)"
+        perfect: "👍 Perfect length"
         too_long: "Too many characters"
       upload_feedback:
         default: "Please upload an image"
@@ -273,21 +272,21 @@
       no_user_info: "No user information available."
   shared:
     word_count:
-    navbar:
-      all_positions: "All Positions"
-      too_short: "Need %{remaining} more characters"
-      too_long: "Text is too long"
-      good: "Good length"
-      perfect: "Perfect length"
-    faq:
-      title: "Questions and Answers"
-      description: "With the help of an FAQ section, you can answer frequently asked questions."
-      question_label: "Question"
-      answer_label: "Answer"
-      question_placeholder: "Enter your question here..."
-      answer_placeholder: "Enter your answer here..."
-      add_button: "Add FAQ"
-      remove_button: "Remove"
+      navbar:
+        all_positions: "All Positions"
+        too_short: "Need %{remaining} more characters"
+        too_long: "Text is too long"
+        good: "Good length"
+        perfect: "Perfect length"
+      faq:
+        title: "Questions and Answers"
+        description: "With the help of an FAQ section, you can answer frequently asked questions."
+        question_label: "Question"
+        answer_label: "Answer"
+        question_placeholder: "Enter your question here..."
+        answer_placeholder: "Enter your answer here..."
+        add_button: "Add FAQ"
+        remove_button: "Remove"
     footer:
       site_name: "Volunteer-Heilbronn.de"
       privacy_policy: "Privacy Policy"

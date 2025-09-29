@@ -49,16 +49,16 @@
     function updateWordCount(field, counter, minLength, goodLength, perfectLength) {
       const charCount = field.value.length;
       if (charCount < minLength) {
-        counter.textContent = '<%= t("shared.word_count.too_short") %>'.replace('%{remaining}', minLength - charCount);
+        counter.textContent = '<%= t("positions.new.word_count.too_short") %>'.replace('%{remaining}', minLength - charCount);
         counter.className = "text-red-600";
       } else if (charCount > perfectLength) {
-        counter.textContent = '<%= t("shared.word_count.too_long") %>';
+        counter.textContent = '<%= t("positions.new.word_count.too_long") %>';
         counter.className = "text-red-600";
       } else if (charCount >= minLength && charCount <= goodLength) {
-        counter.textContent = '<%= t("shared.word_count.good") %>';
+  counter.textContent = '<%= t("positions.new.word_count.good") %>';
         counter.className = "text-green-600";
       } else {
-        counter.textContent = '<%= t("shared.word_count.perfect") %>';
+        counter.textContent = '<%= t("positions.new.word_count.perfect") %>';
         counter.className = "text-green-600";
       }
     }
