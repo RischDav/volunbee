@@ -35,6 +35,6 @@ class Users::SessionsController < Devise::SessionsController
 
   # Nach Login weiterleiten
   def after_sign_in_path_for(resource)
-    dashboard_path # Passe an deinen Dashboard-Pfad an
+    root_path
   end
 end

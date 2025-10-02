@@ -799,6 +799,43 @@ en:
         message: "An organization has changed information for one or more positions. Please review the changes and approve the positions so that the updated information becomes visible on the platform."
         thank_you: "Thank you,"
         team: "The VolunteerHeilbronn Team"
+  analytics:
+    index:
+      badge: "Analytics Dashboard"
+      heading: "Engagement Insights"
+      description: "Discover how student engagement is evolving. The visualization works entirely without external chart libraries."
+      period_label: "Active period:"
+      filter:
+        title: "Adjust time range"
+        description: "Refine your analysis by selecting a specific time window."
+        available_data: "Available data: %{start} – %{end}"
+        start_label: "Start date"
+        end_label: "End date"
+        submit: "Update"
+      cards:
+        range_days:
+          one: "%{count} day"
+          other: "%{count} days"
+        registrations:
+          title: "New registrations"
+          subtitle: "Students"
+          description: "Total number of new accounts"
+        contact_requests:
+          title: "Contact requests"
+          subtitle: "to organizations"
+          description: "Sum of all contact requests"
+        activity:
+          title: "Student activity"
+          subtitle: "Engagement"
+          description: "Cumulative activities"
+      table:
+        title: "Daily metrics"
+        description: "A detailed breakdown of the key figures for the selected period."
+        headers:
+          date: "Date"
+          registrations: "Registrations"
+          contact_requests: "Contact requests"
+          activity: "Activities"
   admin:
     index:
       title: "All Users"
