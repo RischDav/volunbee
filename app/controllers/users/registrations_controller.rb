@@ -74,7 +74,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           session[:temp_email_access] = resource.email
 
           UserEvent.create!(
-            user_role: :organization_staff,
+            user_type: :organization_staff,
             action_type: :sign_up,
             organization: organization,
           )
@@ -142,7 +142,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           session[:temp_email_access] = resource.email
 
           UserEvent.create!(
-            user_role: :student,
+            user_type: :student,
             action_type: :sign_up,
             university: university,
           )

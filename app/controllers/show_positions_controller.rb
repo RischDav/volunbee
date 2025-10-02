@@ -26,6 +26,14 @@ class ShowPositionsController < ApplicationController
   def show
     @position = Position.find(params[:id])
     @custom_navbar = true
+    if current_user.student?
+      UserEvent.create!(
+        user_type: :student,
+        action_type: :view_position,
+        position: @position,
+        university: current_user.university,
+      )
+    end
   end
 
   # Bereinigungsmethoden für fehlerhafte Varianten

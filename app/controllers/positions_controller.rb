@@ -138,7 +138,14 @@ class PositionsController < ApplicationController
   end
 
   def show
-    # Position details view
+    if current_user.student?
+      UserEvent.create!(
+        user_type: :student,
+        action_type: :view_position,
+        position: @position,
+        university: current_user.university,
+      )
+    end
   end
 
   def edit

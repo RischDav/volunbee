@@ -4,7 +4,7 @@ class UserMailer < ApplicationMailer
   #Wird Stand jetzt nicht verwendet, da Bestätigungsmail von Devises alle Informationen enthält
   def welcome_email(user)
     @user = user
-    mail(to: @user.email, subject: "Wilkommen bei volunteer-heilbronn.de")
+    mail(to: @user.email, subject: "Wilkommen bei Volunbee!")
   end
 
   def unlocked_welcome_email(user)

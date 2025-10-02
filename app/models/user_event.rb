@@ -1,6 +1,7 @@
 class UserEvent < ApplicationRecord
   belongs_to :university, optional: true
   belongs_to :organization, optional: true
+  belongs_to :position, optional: true
 
   enum :action_type, {
     contacted_organization: 0,

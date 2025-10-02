@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_02_065019) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_02_111417) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -167,7 +167,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_02_065019) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_type", default: 0, null: false
+    t.integer "position_id"
     t.index ["organization_id"], name: "index_user_events_on_organization_id"
+    t.index ["position_id"], name: "index_user_events_on_position_id"
     t.index ["university_id"], name: "index_user_events_on_university_id"
   end
 
@@ -202,5 +204,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_02_065019) do
   add_foreign_key "user_affiliations", "universities"
   add_foreign_key "user_affiliations", "users"
   add_foreign_key "user_events", "organizations"
+  add_foreign_key "user_events", "positions"
   add_foreign_key "user_events", "universities"
 end
