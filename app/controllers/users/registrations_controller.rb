@@ -72,6 +72,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
           
           # WICHTIG: Setze temporären Token in der Session
           session[:temp_email_access] = resource.email
+
+          UserEvent.create!(
+            user_role: :organization_staff,
+            action_type: :sign_up,
+            organization: organization,
+          )
           
           # Leite direkt zur locked-Seite weiter, mit Email-Parameter
           redirect_to users_locked_path(email: resource.email)
@@ -119,6 +125,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
           
           affiliation.save!
 
+
+
           yield resource if block_given?
 
           # Setze Flash-Nachrichten je nach Aktivierungsstatus
@@ -132,6 +140,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
           
           # WICHTIG: Setze temporären Token in der Session
           session[:temp_email_access] = resource.email
+
+          UserEvent.create!(
+            user_role: :student,
+            action_type: :sign_up,
+            university: university,
+          )
           
           # Leite direkt zur locked-Seite weiter, mit Email-Parameter
           redirect_to users_locked_path(email: resource.email)
