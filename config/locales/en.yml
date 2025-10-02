@@ -1,4 +1,4 @@
- en:
+en:
   date:
     formats:
       default: "%b %-d, %Y"
@@ -70,8 +70,20 @@
       blank: "must be filled in"
       invalid: "is not valid"
   positions:
+    # Merged all keys from both sections, grouped and deduplicated
     errors:
       limit_reached: "You have reached the maximum of 3 positions per organization."
+      benefits:
+        blank: "Benefits cannot be empty."
+        length: "Benefits must be between 100 and 1000 characters long (currently: %{length} characters)."
+      description:
+        blank: "Description cannot be empty."
+        length: "Description must be between 100 and 1000 characters long (currently: %{length} characters)."
+      skills:
+        invalid: "Invalid value for %{name}."
+        sum_exceeded: "The sum of all skills must not exceed 15. Current sum: %{sum}."
+      pictures:
+        too_large: "Each image file must be smaller than 10 megabytes."
     images:
       form:
         delete_image: "Delete image"
@@ -90,6 +102,8 @@
       take_offline: "Take offline"
       take_online: "Take online"
       lock: "Lock"
+    position_card:
+      not_released: "The position has not yet been released and will not be visible to the end user."
     edit:
       title: "Edit position"
       submit: "Save"
@@ -142,7 +156,7 @@
       word_count:
         too_short: "You need at least %{min_length} characters"
         benefits: "You need at least %{min_length} characters"
-  good: "👍 Minimum length reached (but could be more)"
+        good: "👍 Minimum length reached (but could be more)"
         perfect: "👍 Perfect length"
         too_long: "Too many characters"
       upload_feedback:
@@ -185,19 +199,6 @@
       not_available: "Not available"
       yes: "Yes"
       no: "No"
-    errors:
-      limit_reached: "You have reached the maximum of 3 positions per organization."
-      benefits:
-        blank: "Benefits cannot be empty."
-        length: "Benefits must be between 100 and 1000 characters long (currently: %{length} characters)."
-      description:
-        blank: "Description cannot be empty."
-        length: "Description must be between 100 and 1000 characters long (currently: %{length} characters)."
-      skills:
-        invalid: "Invalid value for %{name}."
-        sum_exceeded: "The sum of all skills must not exceed 15. Current sum: %{sum}."
-      pictures:
-        too_large: "Each image file must be smaller than 10 megabytes."
   universities:
     admin_card:
       contact_number: "Phone number"

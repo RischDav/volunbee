@@ -14,10 +14,8 @@ class PositionsController < ApplicationController
       elsif current_user.university?
         @positions = Position.where(university_id: current_user.university&.id)
       elsif current_user.student?
-        @positions = Position.where(
-          "(visibility = ? OR ((visibility IS NULL OR visibility = ?) AND university_id = ?)) AND released = ? AND online = ?",
-          'all', 'university', current_user.university_id, true, true
-        )
+        # Show all released and online positions for students
+        @positions = Position.where(released: true, online: true)
       else
         @positions = Position.none
       end
