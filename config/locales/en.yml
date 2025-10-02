@@ -1,4 +1,4 @@
- en:
+en:
   date:
     formats:
       default: "%b %-d, %Y"
@@ -142,7 +142,7 @@
       word_count:
         too_short: "You need at least %{min_length} characters"
         benefits: "You need at least %{min_length} characters"
-  good: "👍 Minimum length reached (but could be more)"
+        good: "👍 Minimum length reached (but could be more)"
         perfect: "👍 Perfect length"
         too_long: "Too many characters"
       upload_feedback:
