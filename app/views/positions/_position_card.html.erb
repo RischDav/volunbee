@@ -1,13 +1,17 @@
 <% if current_user.student? %>
   <!-- Student Design: Ausführlich und visuell ansprechend -->
-  <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 mb-8">
+  <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
     <!-- Hero Image Section -->
     <div class="relative h-64 w-full">
-      <% if position.main_picture.attached? %>
-        <%= image_tag position.main_picture.variant(resize_to_limit: [1200, 600]).processed, class: "w-full h-full object-cover", alt: position.title %>
-      <% elsif position.picture1.attached? %>
-        <%= image_tag position.picture1.variant(resize_to_limit: [1200, 600]).processed, class: "w-full h-full object-cover", alt: position.title %>
-      <% else %>
+      <% begin %>
+        <% if position.main_picture.attached? %>
+          <%= image_tag position.main_picture.variant(resize_to_limit: [1200, 600]).processed, class: "w-full h-full object-cover", alt: position.title %>
+        <% elsif position.picture1.attached? %>
+          <%= image_tag position.picture1.variant(resize_to_limit: [1200, 600]).processed, class: "w-full h-full object-cover", alt: position.title %>
+        <% else %>
+          <% raise "no_image" %>
+        <% end %>
+      <% rescue ActiveStorage::FileNotFoundError, StandardError %>
         <div class="w-full h-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center">
           <div class="text-white text-center">
             <svg class="w-16 h-16 mx-auto mb-4 opacity-80" fill="currentColor" viewBox="0 0 20 20">
@@ -34,18 +38,22 @@
     <div class="p-8">
       <!-- Organization/University Info mit Logo -->
       <div class="flex items-center mb-6 space-x-4">
-        <% if position.organization&.logo&.attached? %>
-          <div class="bg-gray-50 rounded-xl p-2 shadow border border-gray-200 w-14 h-14 flex items-center justify-center">
-            <%= image_tag position.organization.logo.variant(resize_to_limit: [56, 56]).processed,
-                  class: "object-contain w-full h-full",
-                  alt: position.organization.name %>
-          </div>
-        <% elsif position.university&.logo&.attached? %>
-          <div class="bg-gray-50 rounded-xl p-2 shadow border border-gray-200 w-14 h-14 flex items-center justify-center">
-            <%= image_tag position.university.logo.variant(resize_to_limit: [56, 56]).processed,
-                  class: "object-contain w-full h-full",
-                  alt: position.university.name %>
-          </div>
+        <% begin %>
+          <% if position.organization&.logo&.attached? %>
+            <div class="bg-gray-50 rounded-xl p-2 shadow border border-gray-200 w-14 h-14 flex items-center justify-center">
+              <%= image_tag position.organization.logo.variant(resize_to_limit: [56, 56]).processed,
+                    class: "object-contain w-full h-full",
+                    alt: position.organization.name %>
+            </div>
+          <% elsif position.university&.logo&.attached? %>
+            <div class="bg-gray-50 rounded-xl p-2 shadow border border-gray-200 w-14 h-14 flex items-center justify-center">
+              <%= image_tag position.university.logo.variant(resize_to_limit: [56, 56]).processed,
+                    class: "object-contain w-full h-full",
+                    alt: position.university.name %>
+            </div>
+          <% end %>
+        <% rescue ActiveStorage::FileNotFoundError, StandardError %>
+          <!-- Fallback: No logo displayed -->
         <% end %>
 
         <div>
@@ -96,7 +104,7 @@
 
 <% elsif current_user.organization? || current_user.university? %>
   <!-- Organization/University Staff Design: Kompakt und funktional -->
-  <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 border border-gray-200 mb-6">
+  <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 border border-gray-200">
     <div class="p-6">
       <div class="flex items-start justify-between mb-4">
         <div class="flex-1">
@@ -111,11 +119,15 @@
         
         <!-- Thumbnail Image -->
         <div class="ml-4 flex-shrink-0">
-          <% if position.main_picture.attached? %>
-            <%= image_tag position.main_picture.variant(resize_to_limit: [80, 80]).processed, class: "w-20 h-20 object-cover rounded-lg", alt: position.title %>
-          <% elsif position.picture1.attached? %>
-            <%= image_tag position.picture1.variant(resize_to_limit: [80, 80]).processed, class: "w-20 h-20 object-cover rounded-lg", alt: position.title %>
-          <% else %>
+          <% begin %>
+            <% if position.main_picture.attached? %>
+              <%= image_tag position.main_picture.variant(resize_to_limit: [80, 80]).processed, class: "w-20 h-20 object-cover rounded-lg", alt: position.title %>
+            <% elsif position.picture1.attached? %>
+              <%= image_tag position.picture1.variant(resize_to_limit: [80, 80]).processed, class: "w-20 h-20 object-cover rounded-lg", alt: position.title %>
+            <% else %>
+              <% raise "no_image" %>
+            <% end %>
+          <% rescue ActiveStorage::FileNotFoundError, StandardError %>
             <div class="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center">
               <svg class="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
@@ -142,7 +154,7 @@
 
 <% else %>
   <!-- Fallback Design: Standard -->
-  <div class="bg-white shadow-md rounded-lg p-6 my-6 border border-gray-200">
+  <div class="bg-white shadow-md rounded-lg p-6 border border-gray-200">
     <% if position.released == false %>
       <span style="color: orange;"><%= t('positions.position_card.not_released') %></span>
     <% end %>

@@ -11,13 +11,10 @@ class PositionsController < ApplicationController
         @positions = Position.all
       elsif current_user.organization?
         @positions = Position.where(organization_id: current_user.organization&.id)
+      elsif current_user.student?
+        @positions = Position.where(released: true, online: true)
       elsif current_user.university?
         @positions = Position.where(university_id: current_user.university&.id)
-      elsif current_user.student?
-        @positions = Position.where(
-          "(visibility = ? OR ((visibility IS NULL OR visibility = ?) AND university_id = ?)) AND released = ? AND online = ?",
-          'all', 'university', current_user.university_id, true, true
-        )
       else
         @positions = Position.none
       end
@@ -26,11 +23,6 @@ class PositionsController < ApplicationController
       @positions = nil
     end
   end
-
-  def new
-    @position = Position.new
-  end
-
   def create
     @position = Position.new(position_params)
 
