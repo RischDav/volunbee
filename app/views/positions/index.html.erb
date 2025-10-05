@@ -7,8 +7,8 @@
   <!-- Admin-Bereich für nicht freigegebene Positionen -->
   <%= render partial: 'admin_unreleased_positions', locals: { positions: @positions.where(released: false) } if current_user.admin? && @positions.where(released: false).exists? %>
 
-  <!-- Positionen meiner Uni (nur für Studierende) -->
-  <% if current_user.student? && current_user.university.present? %>
+  <!-- Positionen meiner Uni (nur für Studierende & Personal Uni) -->
+  <% if current_user.university.present? %>
     <% university_positions = @positions.where(university_id: current_user.university.id) %>
     <% if university_positions.any? %>
       <div class="mb-12">
@@ -27,9 +27,10 @@
     <% end %>
   <% end %>
 </div>
+  <% if @positions.present? && !current_user.university_staff? %>
 <div class="mx-auto my-6 p-8 bg-blue-50 rounded-lg shadow-md">
   <!-- Alle Positionen -->
-  <% if @positions.present? %>
+
     <div class="mb-8">
       <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
         <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -49,8 +50,7 @@
         <% end %>
       </div>
     </div>
-  <% else %>
-    <p class="text-gray-600 text-center mt-8"><%= t('positions.index.no_positions_available') %></p>
-  <% end %>
+
 </div>
+  <% end %>
 </div>

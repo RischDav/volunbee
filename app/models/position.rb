@@ -4,6 +4,7 @@ class Position < ApplicationRecord
   belongs_to :user
   has_many :frequently_asked_questions, dependent: :destroy
   has_many :messages, dependent: :destroy
+  has_many :user_events, dependent: :destroy
   accepts_nested_attributes_for :frequently_asked_questions, allow_destroy: true, reject_if: :all_blank
 
   # Each position can have multiple images
@@ -21,9 +22,9 @@ class Position < ApplicationRecord
 
   # Main picture validations
   # validates :main_picture, presence: true
-  validate :main_picture_format
-  validate :main_picture_size
-  validate :main_picture_exists_in_storage
+validates :main_picture, presence: true
+validate :main_picture_format
+validate :main_picture_size
 
   validates :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility,
             numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }

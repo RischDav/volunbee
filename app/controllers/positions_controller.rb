@@ -23,6 +23,13 @@ class PositionsController < ApplicationController
       @positions = nil
     end
   end
+
+  def new
+    @position = Position.new
+    # Initialize some nested attributes if needed
+    3.times { @position.frequently_asked_questions.build }
+  end
+
   def create
     @position = Position.new(position_params)
 

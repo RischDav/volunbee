@@ -81,7 +81,7 @@ class User < ApplicationRecord
   end
 
   def student?
-    university?
+    university? && normal_user?
   end
 
   # Neue Helper-Methoden

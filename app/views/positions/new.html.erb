@@ -2,6 +2,41 @@
   <div class="relative py-4 sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto">
     <div class="relative mx-4 rounded-3xl bg-white px-6 py-12 shadow sm:mx-0 sm:px-12 sm:py-14 lg:px-16">
       <%= form_with model: @position, url: positions_path, local: true, class: "space-y-12", multipart: true do |f| %>
+      <!-- Flash Alerts for custom error messages -->
+<% if flash[:alert] %>
+  <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+    <div class="flex items-start">
+      <svg class="w-5 h-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+      </svg>
+      <div>
+        <h3 class="font-bold mb-2">Fehler beim Erstellen der Position:</h3>
+        <div class="text-sm">
+          <%= flash[:alert].html_safe %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<!-- Standard Rails Errors for fallback -->
+<% if @position.errors.any? %>
+  <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+    <div class="flex items-start">
+      <svg class="w-5 h-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+      </svg>
+      <div>
+        <h3 class="font-bold mb-2">Fehler beim Speichern (<%= pluralize(@position.errors.count, "Fehler") %>):</h3>
+        <ul class="list-disc pl-5 text-sm space-y-1">
+          <% @position.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+<% end %>
         <div class="space-y-10">
           <h1 class="text-3xl font-bold text-gray-900"><%= t('positions.new.title') %></h1>
           <h2 class="text-2xl font-bold text-red-600"><%= t('positions.new.subtitle') %></h2>
