@@ -8,36 +8,38 @@ class CreateUserAffiliations < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    # Daten von der alten Struktur migrieren
+    # Verwende ActiveRecord statt rohem SQL (datenbankunabhängig)
     reversible do |dir|
       dir.up do
-        # Migriere bestehende User-Daten zur neuen Struktur
-        execute <<-SQL
-          INSERT INTO user_affiliations (user_id, organization_id, university_id, role, created_at, updated_at)
-          SELECT 
-            id as user_id,
-            CASE WHEN organization_id IS NOT NULL THEN organization_id ELSE NULL END as organization_id,
-            CASE WHEN university_id IS NOT NULL THEN university_id ELSE NULL END as university_id,
-            CASE 
-              WHEN role = 1 THEN 1  -- Admin bleibt Admin
-              WHEN organization_id IS NOT NULL OR university_id IS NOT NULL THEN 0  -- User mit Org/Uni
-              ELSE 1  -- User ohne Org/Uni wird Admin
-            END as role,
-            datetime('now') as created_at,
-            datetime('now') as updated_at
-          FROM users;
-        SQL
+        User.find_each do |user|
+          # Bestimme die Rolle basierend auf vorhandenen Daten
+          role = if user.role == 1
+                   1 # Admin bleibt Admin
+                 elsif user.organization_id.present? || user.university_id.present?
+                   0 # User mit Organisation/Universität
+                 else
+                   1 # User ohne wird Admin
+                 end
+          
+          UserAffiliation.create!(
+            user_id: user.id,
+            organization_id: user.organization_id,
+            university_id: user.university_id,
+            role: role
+            # created_at und updated_at werden automatisch gesetzt!
+          )
+        end
       end
 
       dir.down do
-        # Beim Rollback: Daten zurück in users Tabelle schreiben
-        execute <<-SQL
-          UPDATE users 
-          SET 
-            organization_id = (SELECT organization_id FROM user_affiliations WHERE user_affiliations.user_id = users.id),
-            university_id = (SELECT university_id FROM user_affiliations WHERE user_affiliations.user_id = users.id),
-            role = (SELECT role FROM user_affiliations WHERE user_affiliations.user_id = users.id);
-        SQL
+        UserAffiliation.find_each do |affiliation|
+          user = User.find(affiliation.user_id)
+          user.update!(
+            organization_id: affiliation.organization_id,
+            university_id: affiliation.university_id,
+            role: affiliation.role
+          )
+        end
       end
     end
   end
