@@ -1,4 +1,6 @@
 class DebugController < ApplicationController
+    skip_before_action :authenticate_user!
+    
   def schema
     render json: {
       positions_columns: Position.column_names,
