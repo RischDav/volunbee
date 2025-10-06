@@ -13,6 +13,7 @@ class DebugController < ApplicationController
       positions_columns: Position.column_names,
       users_columns: User.column_names,
       organizations_columns: Organization.column_names,
+      universities: University.all.pluck(:id, :name),
       migration_status: ActiveRecord::Base.connection.execute("SELECT version FROM schema_migrations ORDER BY version DESC LIMIT 10").to_a,
       pending_migrations: pending,
       latest_migration: ActiveRecord::Base.connection.execute("SELECT MAX(version) as latest FROM schema_migrations").first["latest"]
