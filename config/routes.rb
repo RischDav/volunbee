@@ -87,5 +87,8 @@ Rails.application.routes.draw do
     # The students registration will be handled through the main user registration
 
     resources :show_positions, only: [:index, :show]
+    
+    # Temporary debug route
+    get 'debug/schema', to: 'debug#schema'
   end
 end
