@@ -1,8 +1,43 @@
-<div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
-  <div class="relative py-3 sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto">
-    <div class="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
-      <%= form_with model: @position, url: positions_path, local: true, class: "space-y-4", multipart: true do |f| %>
-        <div class="space-y-4">
+<div class="min-h-screen bg-gray-100 py-8 flex flex-col justify-center sm:py-14">
+  <div class="relative py-4 sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto">
+    <div class="relative mx-4 rounded-3xl bg-white px-6 py-12 shadow sm:mx-0 sm:px-12 sm:py-14 lg:px-16">
+      <%= form_with model: @position, url: positions_path, local: true, class: "space-y-12", multipart: true do |f| %>
+      <!-- Flash Alerts for custom error messages -->
+<% if flash[:alert] %>
+  <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+    <div class="flex items-start">
+      <svg class="w-5 h-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+      </svg>
+      <div>
+        <h3 class="font-bold mb-2">Fehler beim Erstellen der Position:</h3>
+        <div class="text-sm">
+          <%= flash[:alert].html_safe %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<!-- Standard Rails Errors for fallback -->
+<% if @position.errors.any? %>
+  <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+    <div class="flex items-start">
+      <svg class="w-5 h-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+      </svg>
+      <div>
+        <h3 class="font-bold mb-2">Fehler beim Speichern (<%= pluralize(@position.errors.count, "Fehler") %>):</h3>
+        <ul class="list-disc pl-5 text-sm space-y-1">
+          <% @position.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+<% end %>
+        <div class="space-y-10">
           <h1 class="text-3xl font-bold text-gray-900"><%= t('positions.new.title') %></h1>
           <h2 class="text-2xl font-bold text-red-600"><%= t('positions.new.subtitle') %></h2>
 
@@ -11,23 +46,23 @@
           <%= render 'form_score', f: f %>
           
           <!-- FAQ Section -->
-          <div class="space-y-4 mt-8">
+          <div class="mt-12 space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm lg:p-8">
             <h2 class="text-2xl font-bold"><%= t('positions.faqs.form.header') %></h2>
             <p class="text-sm text-gray-700"><%= t('positions.faqs.form.description') %></p>
-            <div id="faqs" class="space-y-4">
+            <div id="faqs" class="space-y-5">
               <!-- FAQ blocks will be added here dynamically -->
             </div>
-            <button type="button" id="add_faq" class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <button type="button" id="add_faq" class="mt-6 inline-flex items-center rounded-md border border-transparent px-5 py-3 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               <%= t('positions.faqs.form.add_new') %>
             </button>
           </div>
 
           <!-- Checkbox-Bereich -->
           <h2 class="text-2xl font-bold"><%= t('positions.new.confirmation.title') %></h2>
-          <div class="bg-slate-100 rounded-lg p-6">
-            <div class="gap-4">
+          <div class="bg-slate-100 rounded-xl p-8 space-y-6">
+            <div class="space-y-6">
               <!-- Checkbox: Textbeschreibungen in englischer Sprache -->
-              <div class="field m-3">
+              <div class="field space-y-3">
                 <div class="border-2 border-gray-300 p-4 rounded-md">
                   <label class="inline-flex items-center">
                     <input type="checkbox" id="english-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
@@ -39,7 +74,7 @@
               </div>
 
               <!-- Checkbox: Zustimmung zu AGB und Datenschutz -->
-              <div class="field m-3">
+              <div class="field space-y-3">
                 <div class="border-2 border-gray-300 p-4 rounded-md">
                   <label class="inline-flex items-center">
                     <input type="checkbox" id="terms-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
@@ -53,7 +88,7 @@
           </div>
 
           <!-- Submit-Button -->
-          <div class="actions my-10">
+          <div class="actions mt-12">
             <%= f.submit t('positions.new.button.create'), id: "submit-button", class: "w-full py-2 bg-gray-400 text-white font-medium text-sm rounded-md shadow-sm cursor-not-allowed", disabled: true %>
           </div>
         </div>
@@ -68,13 +103,16 @@
     const infoText = document.getElementById("temporary-info-text");
 
     if (temporarySelect && infoText) {
-      temporarySelect.addEventListener("change", function () {
+      const toggleTemporaryInfo = () => {
         if (temporarySelect.value === "true") {
           infoText.classList.remove("hidden");
         } else {
           infoText.classList.add("hidden");
         }
-      });
+      };
+
+      temporarySelect.addEventListener("change", toggleTemporaryInfo);
+      toggleTemporaryInfo();
     }
 
     // Word count logic
@@ -83,16 +121,16 @@
 
       if (charCount < minLength) {
         // Richtiger Weg, um eine Rails-Übersetzung mit variablen Werten in JavaScript zu verwenden
-        counter.textContent = '<%= t("positions.new.word_count.title") %>'.replace('%{min_length}', minLength - charCount);
+        counter.textContent = '<%= t("positions.new.word_count.too_short") %>'.replace('%{min_length}', minLength - charCount);
         counter.style.color = 'red';
       } else if (charCount > perfectLength) {
         counter.textContent = '<%= t("positions.new.word_count.too_long") %>';
         counter.style.color = 'red';
       } else if (charCount > minLength && charCount <= goodLength) {
-        counter.textContent = '<%= t("positions.new.word_count.good_length") %>';
+        counter.textContent = '<%= t("positions.new.word_count.good") %>';
         counter.style.color = 'green';
       } else if (charCount > goodLength && charCount <= perfectLength) {
-        counter.textContent = '<%= t("positions.new.word_count.perfect_length") %>';
+        counter.textContent = '<%= t("positions.new.word_count.perfect") %>';
         counter.style.color = 'green';
       } else {
         counter.textContent = '';
@@ -178,47 +216,52 @@
     const addFaqButton = document.getElementById("add_faq");
     const faqsContainer = document.getElementById("faqs");
 
-    if (addFaqButton && faqsContainer) {
-      // Definiere Übersetzungsvariablen vor dem Template
-const questionLabel = '<%= t("positions.faqs.form.question_label") %>';
-const answerLabel = '<%= t("positions.faqs.form.answer_label") %>';
-const removeButton = '<%= t("positions.faqs.form.remove") %>';
+      if (addFaqButton && faqsContainer) {
+        const questionLabel = '<%= j t("positions.faqs.form.question_label") %>';
+        const answerLabel = '<%= j t("positions.faqs.form.answer_label") %>';
+        const removeButton = '<%= j t("positions.faqs.form.remove") %>';
 
-// Im Event-Listener:
-addFaqButton.addEventListener("click", function (e) {
-  e.preventDefault();
-  var new_id = new Date().getTime();
-  var newFaq = document.createElement("div");
-  newFaq.innerHTML = `
-    <div class="field bg-gray-50 p-4 rounded-lg">
-      <div class="space-y-4">
-        <label class="block text-sm font-medium text-gray-700">${questionLabel}</label>
-        <input type="text" name="position[frequently_asked_questions_attributes][${new_id}][question]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-        
-        <label class="block text-sm font-medium text-gray-700">${answerLabel}</label>
-        <textarea name="position[frequently_asked_questions_attributes][${new_id}][answer]" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
-        
-        <button type="button" class="remove-faq mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-          ${removeButton}
-        </button>
-      </div>
-    </div>
-  `;
-        faqsContainer.appendChild(newFaq);
-      });
+        const addFaqFields = () => {
+          const newId = Date.now();
+          const wrapper = document.createElement("div");
+          wrapper.innerHTML = `
+            <div class="faq-item field bg-gray-50 p-4 rounded-lg">
+              <div class="space-y-4">
+                <label class="block text-sm font-medium text-gray-700">${questionLabel}</label>
+                <input type="text" name="position[frequently_asked_questions_attributes][${newId}][question]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
 
-      // Event-Delegation für das Entfernen von FAQs
-      faqsContainer.addEventListener("click", function(e) {
-        if (e.target && e.target.classList.contains("remove-faq")) {
-          e.preventDefault();
-          // Das übergeordnete Element finden und entfernen
-          const faqItem = e.target.closest(".field");
-          if (faqItem) {
-            faqItem.remove();
+                <label class="block text-sm font-medium text-gray-700">${answerLabel}</label>
+                <textarea name="position[frequently_asked_questions_attributes][${newId}][answer]" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+
+                <button type="button" class="remove-faq mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                  ${removeButton}
+                </button>
+              </div>
+            </div>
+          `;
+
+          const faqElement = wrapper.firstElementChild;
+          if (faqElement) {
+            faqsContainer.appendChild(faqElement);
           }
-        }
-      });
-    }
+        };
+
+        addFaqButton.addEventListener("click", function (e) {
+          e.preventDefault();
+          addFaqFields();
+        });
+
+        faqsContainer.addEventListener("click", function(e) {
+          const removeButtonElement = e.target.closest?.(".remove-faq");
+          if (removeButtonElement) {
+            e.preventDefault();
+            const faqItem = removeButtonElement.closest(".faq-item");
+            if (faqItem) {
+              faqItem.remove();
+            }
+          }
+        });
+      }
 
     // Checkbox logic for enabling the submit button
     const englishCheckbox = document.getElementById("english-checkbox");

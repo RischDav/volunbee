@@ -1,12 +1,12 @@
 <!-- Score Section -->
-<div class="space-y-4 mt-8">
+<div class="space-y-6 mt-12 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm lg:p-8">
   <h2 class="text-2xl font-bold"><%= t('positions.score.form.header') %></h2>
   <p class="text-sm text-gray-700"><%= t('positions.score.form.description') %></p>
-  <p id="remaining-points" class="text-sm font-medium"></p>
+  <p id="remaining-points" class="text-sm font-medium text-gray-700"></p>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
     <!-- Creative Skills -->
-    <div class="field">
+  <div class="field space-y-2">
       <%= f.label :creative_skills, t('positions.score.form.creative_skills_label'), class: "block text-sm font-medium text-gray-700" %>
       <div class="mt-2">
         <% (1..5).each do |value| %>
@@ -19,7 +19,7 @@
     </div>
 
     <!-- Technical Skills -->
-    <div class="field">
+  <div class="field space-y-2">
       <%= f.label :technical_skills, t('positions.score.form.technical_skills_label'), class: "block text-sm font-medium text-gray-700" %>
       <div class="mt-2">
         <% (1..5).each do |value| %>
@@ -32,7 +32,7 @@
     </div>
 
     <!-- Social Skills -->
-    <div class="field">
+  <div class="field space-y-2">
       <%= f.label :social_skills, t('positions.score.form.social_skills_label'), class: "block text-sm font-medium text-gray-700" %>
       <div class="mt-2">
         <% (1..5).each do |value| %>
@@ -45,7 +45,7 @@
     </div>
 
     <!-- Language Skills -->
-    <div class="field">
+  <div class="field space-y-2">
       <%= f.label :language_skills, t('positions.score.form.language_skills_label'), class: "block text-sm font-medium text-gray-700" %>
       <div class="mt-2">
         <% (1..5).each do |value| %>
@@ -58,7 +58,7 @@
     </div>
 
     <!-- Flexibility -->
-    <div class="field">
+  <div class="field space-y-2">
       <%= f.label :flexibility, t('positions.score.form.flexibility_label'), class: "block text-sm font-medium text-gray-700" %>
       <div class="mt-2">
         <% (1..5).each do |value| %>

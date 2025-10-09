@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_02_172715) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_05_003929) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -89,7 +89,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_02_172715) do
     t.string "title"
     t.text "description"
     t.boolean "is_active"
-    t.bigint "organization_id", null: false
+    t.bigint "organization_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "benefits"
@@ -103,7 +103,74 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_02_172715) do
     t.boolean "position_temporary"
     t.integer "weekly_time_commitment"
     t.string "position_code"
+    t.integer "university_id"
+    t.bigint "user_id"
+    t.string "visibility", default: "all", null: false
+    t.integer "visible_university_id"
     t.index ["organization_id"], name: "index_positions_on_organization_id"
+    t.index ["user_id"], name: "index_positions_on_user_id"
+    t.index ["visible_university_id"], name: "index_positions_on_visible_university_id"
+  end
+
+  create_table "positions_visible_fors", force: :cascade do |t|
+    t.integer "position_id", null: false
+    t.integer "university_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["position_id", "university_id"], name: "index_positions_visible_fors_on_position_id_and_university_id", unique: true
+    t.index ["position_id"], name: "index_positions_visible_fors_on_position_id"
+    t.index ["university_id"], name: "index_positions_visible_fors_on_university_id"
+  end
+
+  create_table "universities", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password"
+    t.string "contact_number"
+    t.string "profile_picture"
+    t.boolean "is_approved"
+    t.boolean "is_deactivated"
+    t.string "city"
+    t.string "zip"
+    t.string "street"
+    t.string "housenumber"
+    t.string "website"
+    t.text "description"
+    t.string "instagram_url"
+    t.string "linkedin_url"
+    t.boolean "facebook_link"
+    t.boolean "released"
+    t.string "organization_code"
+    t.string "contact_person"
+    t.string "tiktok_url"
+    t.string "linktree_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_affiliations", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "organization_id"
+    t.integer "university_id"
+    t.integer "role", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_user_affiliations_on_organization_id"
+    t.index ["university_id"], name: "index_user_affiliations_on_university_id"
+    t.index ["user_id"], name: "index_user_affiliations_on_user_id", unique: true
+  end
+
+  create_table "user_events", force: :cascade do |t|
+    t.integer "university_id"
+    t.integer "action_type", null: false
+    t.integer "organization_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_type", default: 0, null: false
+    t.integer "position_id"
+    t.index ["organization_id"], name: "index_user_events_on_organization_id"
+    t.index ["position_id"], name: "index_user_events_on_position_id"
+    t.index ["university_id"], name: "index_user_events_on_university_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -114,8 +181,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_02_172715) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "organization_id"
-    t.integer "role", default: 0
     t.boolean "released", default: false
     t.string "confirmation_token"
     t.datetime "confirmed_at"
@@ -123,7 +188,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_02_172715) do
     t.string "unconfirmed_email"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -132,4 +196,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_02_172715) do
   add_foreign_key "frequently_asked_questions", "positions"
   add_foreign_key "messages", "positions"
   add_foreign_key "positions", "organizations"
+  add_foreign_key "positions", "universities", column: "visible_university_id"
+  add_foreign_key "positions", "users"
+  add_foreign_key "positions_visible_fors", "positions"
+  add_foreign_key "positions_visible_fors", "universities"
+  add_foreign_key "user_affiliations", "organizations"
+  add_foreign_key "user_affiliations", "universities"
+  add_foreign_key "user_affiliations", "users"
+  add_foreign_key "user_events", "organizations"
+  add_foreign_key "user_events", "positions"
+  add_foreign_key "user_events", "universities"
 end

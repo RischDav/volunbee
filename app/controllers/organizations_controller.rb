@@ -6,7 +6,7 @@ class OrganizationsController < ApplicationController
     if current_user.admin?
       @organizations = Organization.all
     else
-      @organization = Organization.find_by(id: current_user.organization_id)
+      @organization = current_user.organization
     end
   end
 
@@ -19,7 +19,7 @@ class OrganizationsController < ApplicationController
 
   def update
     if @organization.update(organization_params)
-      redirect_to organization_path, notice: "Organisation wurde aktualisiert."
+      redirect_to organization_path(@organization), notice: "Organisation wurde aktualisiert."
       ProcessPictureJob.set(wait: 5.seconds).perform_later(@organization.logo.blob.id) if @organization.logo.attached?
       AdminMailer.organization_change_email.deliver_later
     else
@@ -42,7 +42,7 @@ class OrganizationsController < ApplicationController
   private
 
   def set_organization
-    @organization = Organization.find_by(id: current_user.organization_id)
+    @organization = current_user.organization
   end
 
   def organization_params

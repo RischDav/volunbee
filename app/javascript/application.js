@@ -1,26 +1,17 @@
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
+import { Chart, registerables } from "chart.js"
 import 'cookieconsent/build/cookieconsent.min.css';
 import 'cookieconsent';
-
-// FIX: Sichere dispatchEvent vor cookieconsent
-(function() {
-  const originalDispatchEvent = window.dispatchEvent;
-  if (typeof originalDispatchEvent === 'function') {
-    window.dispatchEvent = function(element, type, eventInit) {
-      if (!element || typeof element.dispatchEvent !== 'function') {
-        console.warn('dispatchEvent called with invalid element:', element);
-        return null;
-      }
-      return originalDispatchEvent.call(this, element, type, eventInit);
-    };
-  }
-})();
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+// Registriere Chart.js global
+Chart.register(...registerables)
+window.Chart = Chart
 
 document.addEventListener("DOMContentLoaded", function() {
   // Prüfe, ob bereits Einstellungen vorhanden sind

@@ -1,8 +1,18 @@
 <div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
-  <div class="relative py-3 sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto">
-    <div class="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
-      <%= form_with model: @position, local: true, class: "space-y-4" do |f| %>
-        <div class="space-y-4">
+  <div class="relative py-4 sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto">
+    <div class="relative mx-4 rounded-3xl bg-white px-6 py-12 shadow sm:mx-0 sm:px-12 sm:py-14 lg:px-16">
+      <%= form_with model: @position, local: true, class: "space-y-12" do |f| %>
+        <% if @position.errors.any? %>
+          <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+            <h2 class="font-bold mb-2">Fehler beim Speichern:</h2>
+            <ul class="list-disc pl-5">
+              <% @position.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+  <div class="space-y-10">
           <h1 class="text-3xl font-bold text-gray-900"><%= t('positions.edit.title') %></h1>
           
           <%= render 'form_general_information', f: f %>
@@ -10,19 +20,19 @@
           <%= render 'form_score', f: f %>
           
           <!-- FAQ Section -->
-          <div class="space-y-4 mt-8">
+          <div class="mt-12 space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm lg:p-8">
             <h2 class="text-2xl font-bold"><%= t('positions.faqs.form.header') %></h2>
             <p class="text-sm text-gray-700"><%= t('positions.faqs.form.description') %></p>
-            <div id="faqs" class="space-y-4">
+            <div id="faqs" class="space-y-5">
               <!-- FAQ blocks will be added here dynamically -->
             </div>
-            <button type="button" id="add_faq" class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <button type="button" id="add_faq" class="mt-6 inline-flex items-center rounded-md border border-transparent px-5 py-3 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               <%= t('positions.faqs.form.add_new') %>
             </button>
           </div>
 
           <!-- Submit Button -->
-          <div class="pt-5">
+          <div class="pt-10">
             <div class="flex justify-end">
               <%= f.submit t('positions.edit.submit'), class: "ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
             </div>
@@ -36,19 +46,35 @@
 <%= javascript_tag do %>
   document.addEventListener("turbolinks:load", function() {
     // Word count validation
+    const temporarySelect = document.getElementById("position_temporary_select");
+    const infoText = document.getElementById("temporary-info-text");
+
+    if (temporarySelect && infoText) {
+      const toggleTemporaryInfo = () => {
+        if (temporarySelect.value === "true") {
+          infoText.classList.remove("hidden");
+        } else {
+          infoText.classList.add("hidden");
+        }
+      };
+
+      temporarySelect.addEventListener("change", toggleTemporaryInfo);
+      toggleTemporaryInfo();
+    }
+
     function updateWordCount(field, counter, minLength, goodLength, perfectLength) {
       const charCount = field.value.length;
       if (charCount < minLength) {
-        counter.textContent = '<%= t("shared.word_count.too_short") %>'.replace('%{remaining}', minLength - charCount);
+        counter.textContent = '<%= t("positions.new.word_count.too_short") %>'.replace('%{min_length}', minLength - charCount);
         counter.className = "text-red-600";
       } else if (charCount > perfectLength) {
-        counter.textContent = '<%= t("shared.word_count.too_long") %>';
+        counter.textContent = '<%= t("positions.new.word_count.too_long") %>';
         counter.className = "text-red-600";
       } else if (charCount >= minLength && charCount <= goodLength) {
-        counter.textContent = '<%= t("shared.word_count.good") %>';
+  counter.textContent = '<%= t("positions.new.word_count.good") %>';
         counter.className = "text-green-600";
       } else {
-        counter.textContent = '<%= t("shared.word_count.perfect") %>';
+        counter.textContent = '<%= t("positions.new.word_count.perfect") %>';
         counter.className = "text-green-600";
       }
     }
@@ -81,7 +107,7 @@
       });
 
       const remainingPoints = maxPoints - totalPoints;
-      remainingPointsDisplay.textContent = '<%= t("positions.score.form.remaining_points") %>'.replace('%{points}', remainingPoints);
+  remainingPointsDisplay.textContent = '<%= t("positions.score.form.remaining_points") %>'.replace('%{remaining_points}', remainingPoints);
       remainingPointsDisplay.className = remainingPoints < 0 ? "text-red-600 font-medium" : "text-gray-700 font-medium";
     }
 
@@ -97,30 +123,41 @@
     const faqsContainer = document.getElementById('faqs');
 
     if (addFaqButton && faqsContainer) {
-      addFaqButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        const timestamp = new Date().getTime();
+      const questionLabel = '<%= j t("positions.faqs.form.question_label") %>';
+      const answerLabel = '<%= j t("positions.faqs.form.answer_label") %>';
+      const removeButton = '<%= j t("positions.faqs.form.remove") %>';
+
+      const addFaqFields = () => {
+        const newId = Date.now();
         const template = `
-          <div class="field bg-gray-50 p-4 rounded-lg">
+          <div class="faq-item field bg-gray-50 p-4 rounded-lg">
             <div class="space-y-4">
-              <label class="block text-sm font-medium text-gray-700">${'<%= j t("positions.faqs.form.question_label") %>'}</label>
-              <input type="text" name="position[faqs_attributes][${new_id}][question]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" >
-              <label class="block text-sm font-medium text-gray-700">${'<%= j t("positions.faqs.form.answer_label") %>'}</label>
-              <textarea name="position[faqs_attributes][${new_id}][answer]" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+              <label class="block text-sm font-medium text-gray-700">${questionLabel}</label>
+              <input type="text" name="position[frequently_asked_questions_attributes][${newId}][question]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" >
+              <label class="block text-sm font-medium text-gray-700">${answerLabel}</label>
+              <textarea name="position[frequently_asked_questions_attributes][${newId}][answer]" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
               <button type="button" class="remove-faq mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                ${'<%= j t("positions.faqs.form.remove") %>'}
+                ${removeButton}
               </button>
             </div>
           </div>
         `;
         faqsContainer.insertAdjacentHTML('beforeend', template);
+      };
+
+      addFaqButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        addFaqFields();
       });
 
-      // Event delegation for FAQ removal
       faqsContainer.addEventListener('click', function(e) {
-        if (e.target.classList.contains('remove-faq')) {
+        const removeButtonElement = e.target.closest?.('.remove-faq');
+        if (removeButtonElement) {
           e.preventDefault();
-          e.target.closest('.field').remove();
+          const faqItem = removeButtonElement.closest('.faq-item');
+          if (faqItem) {
+            faqItem.remove();
+          }
         }
       });
     }

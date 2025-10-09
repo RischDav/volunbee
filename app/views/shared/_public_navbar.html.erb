@@ -1,129 +1,21 @@
 <!-- filepath: app/views/shared/_public_navbar.html.erb -->
-<nav class="fixed top-0 left-0 w-full z-50 bg-white shadow">
-  <div class="w-full py-2">
-    <div class="flex justify-between items-center mx-5">
-      <!-- Logo -->
-      <div class="flex items-center space-x-2">
-        <%= image_tag("logo_yellow.jpg", alt: "Volunbee Logo", class: "h-10 w-auto") %>
+<nav class="fixed top-0 left-0 w-full z-50 bg-white">
+  <div class=" mx-auto px-6 lg:px-8">
+    <div class="flex justify-between items-center py-6">
+      <!-- Logo - Left aligned -->
+      <div class="flex items-center group">
+        <%= link_to root_path, class: "transition-transform duration-200 hover:scale-105" do %>
+          <%= image_tag("logo_yellow.jpg", alt: "Volunbee Logo", class: "h-16 w-auto drop-shadow-sm") %>
+        <% end %>
       </div>
-
-      <!-- Navigation: nur auf Laptop/Desktop sichtbar -->
-      <div class="hidden lg:flex space-x-6 items-center">
-        <%= link_to "Home", root_path, class: "text-lg font-medium hover:underline", style: "color: #264653;" %>
-        <span style="color: #264653;">|</span>
-        <%= link_to "All Positions", show_positions_path, class: "text-lg font-medium hover:underline", style: "color: #264653;" %>
-        <span style="color: #264653;">|</span>
-        <%= link_to "Volunteer match", matching_path, class: "text-lg font-medium hover:underline", style: "color: #264653;" %>
-      </div>
-
-      <!-- Rechts: nur auf Laptop/Desktop sichtbar -->
-      <div class="hidden lg:flex items-center space-x-3">
-        <span class="text-lg font-medium" style="color: #264653;">A project of</span>
-        <%= image_tag("sc_logo.png", alt: "campus heilbronn Logo", class: "h-10 w-auto") %>
-      </div>
-
-      <!-- Burger-Button: nur auf Tablet/Handy sichtbar -->
-      <div class="lg:hidden">
-        <button type="button" 
-                id="mobile-menu-button"
-                class="inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-100 focus:outline-none"
-                aria-controls="mobile-menu" 
-                aria-expanded="false">
-          <!-- Hamburger Icon -->
-          <svg id="hamburger-icon" class="block h-6 w-6" style="color: #264653;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-          <!-- Close Icon -->
-          <svg id="close-icon" class="hidden h-6 w-6" style="color: #264653;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile-Menü: nur auf Tablet/Handy sichtbar -->
-    <div id="mobile-menu" class="hidden bg-white border-t shadow-lg lg:hidden">
-      <div class="px-5 py-4 space-y-4">
-        <div class="space-y-3">
-          <%= link_to "Home", root_path, class: "block text-lg font-medium hover:underline", style: "color: #264653;" %>
-          <%= link_to "All Positions", show_positions_path, class: "block text-lg font-medium hover:underline", style: "color: #264653;" %>
-          <%= link_to "Volunteer match", matching_path, class: "block text-lg font-medium hover:underline", style: "color: #264653;" %>
-        </div>
-        <div class="pt-4 border-t border-gray-200">
-          <div class="flex items-center space-x-3">
-            <span class="text-lg font-medium" style="color: #264653;">A project of</span>
-            <%= image_tag("sc_logo.png", alt: "campus heilbronn Logo", class: "h-10 w-auto") %>
-          </div>
+      
+      <!-- Project attribution - Right aligned -->
+      <div class="flex items-center space-x-4 bg-gradient-to-r from-slate-50 to-gray-50 px-6 py-3 ">
+        <span class="text-lg font-semibold text-slate-700 tracking-wide">A project of</span>
+        <div class="transition-transform duration-200 hover:scale-105">
+          <%= image_tag("sc_logo.png", alt: "Campus Heilbronn Logo", class: "h-10 w-auto drop-shadow-sm") %>
         </div>
       </div>
     </div>
   </div>
 </nav>
-
-<script>
-(function() {
-  // Damit das Script auch bei Turbo/Turbolinks funktioniert:
-  function ready(fn) {
-    if (document.readyState != 'loading'){
-      fn();
-    } else if (window.Turbo) {
-      document.addEventListener('turbo:load', fn);
-    } else {
-      document.addEventListener('DOMContentLoaded', fn);
-    }
-  }
-
-  ready(function() {
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const hamburgerIcon = document.getElementById('hamburger-icon');
-    const closeIcon = document.getElementById('close-icon');
-    let isMenuOpen = false;
-
-    function toggleMobileMenu() {
-      isMenuOpen = !isMenuOpen;
-      if (isMenuOpen) {
-        mobileMenu.classList.remove('hidden');
-        hamburgerIcon.classList.add('hidden');
-        closeIcon.classList.remove('hidden');
-        mobileMenuButton.setAttribute('aria-expanded', 'true');
-      } else {
-        mobileMenu.classList.add('hidden');
-        hamburgerIcon.classList.remove('hidden');
-        closeIcon.classList.add('hidden');
-        mobileMenuButton.setAttribute('aria-expanded', 'false');
-      }
-    }
-
-    if (mobileMenuButton) {
-      mobileMenuButton.addEventListener('click', function(e) {
-        e.stopPropagation();
-        toggleMobileMenu();
-      });
-    }
-
-    document.addEventListener('click', function(event) {
-      if (isMenuOpen && mobileMenu && !mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
-        toggleMobileMenu();
-      }
-    });
-
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape' && isMenuOpen) {
-        toggleMobileMenu();
-      }
-    });
-
-    if (mobileMenu) {
-      const mobileLinks = mobileMenu.querySelectorAll('a');
-      mobileLinks.forEach(link => {
-        link.addEventListener('click', function() {
-          if (isMenuOpen) {
-            toggleMobileMenu();
-          }
-        });
-      });
-    }
-  });
-})();
-</script>

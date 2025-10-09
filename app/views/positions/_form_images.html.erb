@@ -1,29 +1,29 @@
 <!-- Images Section -->
-<div class="space-y-4 mt-8">
+<div class="space-y-6 mt-12 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm lg:p-8">
   <h2 class="text-2xl font-bold"><%= t('positions.images.form.header') %></h2>
   
   <!-- Main Picture -->
-  <div class="field">
+  <div class="field space-y-3">
     <%= f.label :main_picture, t('positions.images.form.main_picture_label'), class: "block text-sm font-medium text-gray-700" %>
     <%= f.file_field :main_picture, class: "mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100", accept: 'image/*', id: "position_main_picture" %>
     <p id="main_picture-feedback" class="mt-2 text-sm text-gray-500"><%= t('positions.images.form.main_picture_description') %></p>
   </div>
 
   <!-- Additional Pictures -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    <div class="field">
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+  <div class="field space-y-2">
       <%= f.label :picture1, t('positions.images.form.additional_pictures_label'), class: "block text-sm font-medium text-gray-700" %>
       <%= f.file_field :picture1, class: "mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100", accept: 'image/*', id: "position_picture1" %>
       <p id="picture1-feedback" class="mt-2 text-sm text-gray-500"><%= t('positions.images.form.additional_picture_feedback') %></p>
     </div>
 
-    <div class="field">
+  <div class="field space-y-2">
       <%= f.label :picture2, t('positions.images.form.additional_pictures_label'), class: "block text-sm font-medium text-gray-700" %>
       <%= f.file_field :picture2, class: "mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100", accept: 'image/*', id: "position_picture2" %>
       <p id="picture2-feedback" class="mt-2 text-sm text-gray-500"><%= t('positions.images.form.additional_picture_feedback') %></p>
     </div>
 
-    <div class="field">
+  <div class="field space-y-2">
       <%= f.label :picture3, t('positions.images.form.additional_pictures_label'), class: "block text-sm font-medium text-gray-700" %>
       <%= f.file_field :picture3, class: "mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100", accept: 'image/*', id: "position_picture3" %>
       <p id="picture3-feedback" class="mt-2 text-sm text-gray-500"><%= t('positions.images.form.additional_picture_feedback') %></p>

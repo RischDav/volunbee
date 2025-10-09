@@ -1,4 +1,264 @@
 en:
+  date:
+    formats:
+      default: "%b %-d, %Y"
+      short: "%b %-d"
+      long: "%B %-d, %Y"
+  confirmations:
+    confirmed: "Your email address has been successfully confirmed."
+    send_instructions: "You will receive an email with instructions on how to confirm your email address in a few minutes."
+    send_paranoid_instructions: "If your email address exists in our database, you will receive an email with confirmation instructions in a few minutes."
+    new:
+      title: "Resend confirmation email"
+      email_label: "Email"
+      submit_button: "Resend confirmation email"
+  failure:
+    already_authenticated: "You are already signed in."
+    inactive: "Your account is not yet activated."
+    invalid: "Invalid %{authentication_keys} or password."
+    locked: "Your account is locked."
+    last_attempt: "You have one more attempt before your account is locked."
+    not_found_in_database: "Invalid %{authentication_keys} or password."
+    timeout: "Your session has expired. Please sign in again."
+    unauthenticated: "You need to sign in or sign up before continuing."
+    unconfirmed: "You need to confirm your email address before continuing."
+    not_approved: "Your account has not been approved yet."
+  mailer:
+    confirmation_instructions:
+      subject: "Instructions to confirm your account"
+    reset_password_instructions:
+      subject: "Instructions to reset your password"
+    unlock_instructions:
+      subject: "Instructions to unlock your account"
+    email_changed:
+      subject: "Email address changed"
+    password_change:
+      subject: "Password changed"
+  omniauth_callbacks:
+    failure: "Could not authenticate you from your %{kind} account because \"%{reason}\"."
+    success: "Successfully authenticated from your %{kind} account."
+  passwords:
+    no_token: "You can only access this page from the password reset email link. If you came here from such a link, please make sure you used the full URL."
+    send_instructions: "You will receive an email with instructions on how to reset your password in a few minutes."
+    send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions on how to reset your password in a few minutes."
+    updated: "Your password has been changed successfully. You are now signed in."
+    updated_not_active: "Your password has been changed successfully."
+  activerecord:
+    errors:
+      messages:
+        taken: "This email already belongs to a user. Maybe you want to log in?"
+        blank: "must be filled in"
+        invalid: "is not valid"
+        too_short: "is too short (minimum %{count} characters)"
+        too_long: "is too long (maximum %{count} characters)"
+        confirmation: "does not match %{attribute}"
+      models:
+        user:
+          attributes:
+            email:
+              taken: "This email address is already registered"
+              blank: "Email address must be filled in"
+              invalid: "Email address is not valid"
+            password:
+              blank: "Password must be filled in"
+              too_short: "Password is too short (minimum %{count} characters)"
+            password_confirmation:
+              confirmation: "Password confirmation does not match"
+  errors:
+    messages:
+      taken: "is already taken"
+      blank: "must be filled in"
+      invalid: "is not valid"
+  positions:
+    errors:
+      limit_reached: "You have reached the maximum of 3 positions per organization."
+    images:
+      form:
+        delete_image: "Delete image"
+        file_selected: "Image '%{filename}' has been selected"
+        upload_hint: "Please upload an image"
+    score:
+      form:
+        remaining_points: "Remaining points: %{points}"
+    new_position:
+      create_button: "Create new position (%{available} available)"
+      create_button_disabled: "Create new position (0 available)"
+    position_actions:
+      view: "View"
+      delete: "Delete"
+      edit: "Edit"
+      take_offline: "Take offline"
+      take_online: "Take online"
+      lock: "Lock"
+    edit:
+      title: "Edit position"
+      submit: "Save"
+      description:
+        title: "Position title"
+        description: "Please enter a title for the position. Instead of simply using 'Volunteer', use a detailed title such as 'Volunteer in the field of web design', so that interested parties with the desired interests feel addressed."
+      position_description: "Position description"
+      description_text: "Please provide a detailed description of the position. Make sure the description contains all important information relevant to volunteers and arouses interest in your organization."
+      benefits:
+        title: "Benefits for volunteers"
+        description: "What benefits can volunteers expect in your organization?"
+      weekly_time_commitment:
+        title: "Weekly time commitment (in hours)"
+        description: "Please select how many hours per week are required for this position."
+      position_temporary:
+        title: "Is the position temporary?"
+        description: "Please select whether the position is temporary."
+        temporary_info: "Please remember to specify in the position description when exactly the help is needed."
+      images:
+        title: "Images"
+        description: "Upload an image that represents the position. Please make sure that you have the rights to use the uploaded image."
+        upload_hint: "Please upload an image"
+        delete_image: "Delete image"
+      score:
+        title: "Score"
+        description: "On our platform, we offer an algorithm that allows users to find the right position by answering a few questions. To make this possible for your position as well, we need a 'score'. It works quite simply: you have five attributes and 15 available points. Distribute the points among the attributes. Which attributes are particularly important for the advertised position, and which are less important?"
+        remaining_points: "Remaining points: 15"
+        creative_skills: "Creativity"
+        technical_skills: "Technical skills"
+        social_skills: "Social skills"
+        language_skills: "Language skills"
+        flexibility: "Flexibility"
+      faq:
+        title: "Questions and answers"
+        description: "With the help of an FAQ section, you can answer frequently asked questions. For example: 'How long does an assignment take?' or 'What requirements do I need to fulfill?' Please provide the most common questions and answers here. Our tip: add at least three questions and answers."
+        add_faq: "Add question and answer"
+        remove_faq: "Remove"
+    index:
+      title: "Open positions"
+      no_positions_available: "There are currently no open positions available."
+    new:
+      title: "Create new position"
+      subtitle: "Please make sure all fields are filled out in English!"
+      confirmation:
+        title: "Confirmations"
+        text: "I confirm that all text descriptions are written in English."
+        terms: "I have read and accept the <a href='/agb' class='text-blue-600 underline'>Terms & Conditions</a> and the <a href='/datenschutz' class='text-blue-600 underline'>Privacy Policy</a>."
+      button:
+        create: "Create"
+      word_count:
+        too_short: "You need at least %{min_length} characters"
+        benefits: "You need at least %{min_length} characters"
+        good: "👍 Minimum length reached (but could be more)"
+        perfect: "👍 Perfect length"
+        too_long: "Too many characters"
+      upload_feedback:
+        default: "Please upload an image"
+        success: "Image '%{file_name}' has been uploaded."
+      faq:
+        add_button: "Add FAQ"
+        remove_button: "Remove"
+        question_label: "Question"
+        answer_label: "Answer"
+      checkbox:
+        english_description: "I confirm that all text descriptions are written in English."
+        terms_and_conditions: "I have read and accept the Terms & Conditions and the Privacy Policy."
+      remaining_points: "Remaining points: %{remaining_points}"
+      submit_disabled: "Submit button is disabled. Please check all the boxes."
+    show:
+      title: "Position details"
+      no_title: "Title not available"
+      general_info: "General information"
+      description: "Description"
+      benefits: "Benefits"
+      weekly_commitment: "Weekly time commitment"
+      temporary: "Temporary"
+      online: "Online"
+      status: "Status"
+      released: "Position is released and visible."
+      not_released: "The position will be released soon. Until then, it is not visible."
+      skills: "Required skills"
+      creative_skills: "Creative skills"
+      technical_skills: "Technical skills"
+      social_skills: "Social skills"
+      language_skills: "Language skills"
+      flexibility: "Flexibility"
+      images: "Images"
+      main_picture: "Main picture"
+      picture_1: "Picture 1"
+      picture_2: "Picture 2"
+      picture_3: "Picture 3"
+      back: "Back"
+      not_available: "Not available"
+      yes: "Yes"
+      no: "No"
+    errors:
+      limit_reached: "You have reached the maximum of 3 positions per organization."
+      benefits:
+        blank: "Benefits cannot be empty."
+        length: "Benefits must be between 100 and 1000 characters long (currently: %{length} characters)."
+      description:
+        blank: "Description cannot be empty."
+        length: "Description must be between 100 and 1000 characters long (currently: %{length} characters)."
+      skills:
+        invalid: "Invalid value for %{name}."
+        sum_exceeded: "The sum of all skills must not exceed 15. Current sum: %{sum}."
+      pictures:
+        too_large: "Each image file must be smaller than 10 megabytes."
+  universities:
+    admin_card:
+      contact_number: "Phone number"
+      email: "Email"
+      false: "No"
+      lock: "Lock"
+      released: "Released"
+      true: "Yes"
+      view_data: "View data"
+    card:
+      approve: "Approve"
+      awaiting_approval: "This university is awaiting approval"
+      contact_number: "Phone number"
+      details: "Details"
+      email: "Email"
+      lock: "Lock"
+      not_available: "Not available"
+    details:
+      contact_number: "Phone number"
+      description: "Description"
+      edit_data: "Edit data"
+      email: "Email"
+      not_available: "Not available"
+      website: "Website"
+    index:
+      admin_title: "University administration"
+      released_organizations: "Released organizations"
+      unreleased_organizations: "Unreleased organizations"
+      user_title: "My university"
+    show:
+      approved: "University is approved. All released positions are visible."
+      back: "Back"
+      city: "City"
+      contact_number: "Contact number"
+      contact_person: "Contact person"
+      description: "Description"
+      edit: "Edit again"
+      email: "Email"
+      housenumber: "House number"
+      name_not_available: "Not available"
+      not_approved: "The university is not yet approved by an administrator. Approval will happen within the next 24 hours. Posted positions will not be displayed until approval."
+      not_available: "Not available"
+      status: "Status"
+      street: "Street"
+      title: "University details"
+      website: "Website"
+      zip: "ZIP code"
+    unreleased:
+      back_without_saving: "Back without saving"
+      card:
+        contact_number: "Phone number"
+        email: "Email"
+        release: "Release"
+        released: "Released"
+        view_data: "View data"
+      js:
+        characters_needed: "You still need at least %{count} characters"
+        perfect_length: "👍 Perfect length"
+      save: "Save"
+      terms_confirmation: "I have read and accept the <a href='/agb' class='text-blue-600 underline'>Terms & Conditions</a> and the <a href='/datenschutz' class='text-blue-600 underline'>Privacy Policy</a>."
+      title: "There are unreleased universities!"
   users:
     locked:
       title: "E-mail Address Confirmation"
@@ -12,19 +272,21 @@ en:
       no_user_info: "No user information available."
   shared:
     word_count:
-      too_short: "Need %{remaining} more characters"
-      too_long: "Text is too long"
-      good: "Good length"
-      perfect: "Perfect length"
-    faq:
-      title: "Questions and Answers"
-      description: "With the help of an FAQ section, you can answer frequently asked questions."
-      question_label: "Question"
-      answer_label: "Answer"
-      question_placeholder: "Enter your question here..."
-      answer_placeholder: "Enter your answer here..."
-      add_button: "Add FAQ"
-      remove_button: "Remove"
+      navbar:
+        all_positions: "All Positions"
+        too_short: "Need %{remaining} more characters"
+        too_long: "Text is too long"
+        good: "Good length"
+        perfect: "Perfect length"
+      faq:
+        title: "Questions and Answers"
+        description: "With the help of an FAQ section, you can answer frequently asked questions."
+        question_label: "Question"
+        answer_label: "Answer"
+        question_placeholder: "Enter your question here..."
+        answer_placeholder: "Enter your answer here..."
+        add_button: "Add FAQ"
+        remove_button: "Remove"
     footer:
       site_name: "Volunteer-Heilbronn.de"
       privacy_policy: "Privacy Policy"
@@ -40,13 +302,15 @@ en:
         check_remaining: "Check if any flash messages remain"
         hide_container: "Hide container with animation"
     navbar:
+      university:
+        my_university: "My University"
       admin:
         organizations: "Organizations"
         positions: "Positions"
         user_management: "User Management"
       organization:
         my_organization: "My Organization"
-        my_positions: "My Positions"
+        my_positions: "Positions"
       profile:
         edit_profile: "Edit Profile"
         logout: "Logout"
@@ -172,6 +436,10 @@ en:
         description_description: "Please provide a detailed description of the position..."
         benefits_label: "Benefits for Volunteers"
         benefits_description: "What benefits do volunteers expect in your organization?"
+        visibility_label: "Position Visibility"
+        visibility_all: "All students"
+        visibility_university: "Only students from my university"
+        visibility_description: "Choose who can see this position."
     images:
       form:
         header: "Images"
@@ -203,6 +471,13 @@ en:
       lock: "Lock"
     position_card:
       not_released: "The position has not yet been released by us and will therefore not be visible to the end user."
+      benefits_label: "What you'll get:"
+      temporary: "Temporary"
+      skills:
+        creative: "Creative"
+        technical: "Technical"
+        social: "Social"
+        language: "Languages"
     edit:
       title: "Edit Position"
       submit: "Save"
@@ -312,6 +587,33 @@ en:
       pictures:
         too_large: "Images must be smaller than 5MB."
   organizations:
+    edit:
+      back_without_saving: "Back without saving"
+      save: "Save"
+      terms_confirmation: "I have read and accept the <a href='/agb' class='text-blue-600 underline'>Terms and Conditions</a> and the <a href='/datenschutz' class='text-blue-600 underline'>Privacy Policy</a>."
+    index:
+      admin_title: "Organization Information"
+      user_title: "Your Organization Information"
+      unreleased_organizations: "Unreleased Organizations"
+      released_organizations: "Released Organizations"
+    show:
+      approved: "Organization is approved. All released positions are visible."
+      back: "Back"
+      city: "City"
+      contact_number: "Contact Number"
+      contact_person: "Contact Person"
+      description: "Description"
+      edit: "Edit again"
+      email: "Email"
+      housenumber: "House Number"
+      name_not_available: "Not available"
+      not_approved: "The organization is not yet approved by an administrator. Approval will happen within the next 24 hours. Posted positions will not be displayed until approval."
+      not_available: "Not available"
+      status: "Status"
+      street: "Street"
+      title: "Organization Details"
+      website: "Website"
+      zip: "ZIP Code"
     admin_card:
       email: "Email"
       phone: "Phone Number"
@@ -419,87 +721,58 @@ en:
     application:
       title: "Volunteer Heilbronn Dashboard"
   devise:
-      shared:
-        login: "Login"
-        register: "Register"
-        forgot_password: "Forgot Password?"
-        no_confirmation: "Didn't receive a confirmation email?"
-        no_unlock_instructions: "Didn't receive unlock instructions?"
-        login_with: "Login with %{provider}"
-      unlocks:
-        resend_instructions: "Resend unlock instructions"
-        resend_button: "Resend unlock instructions"
-      sessions:
-        login: "Login"
-        email: "Email"
-        password: "Password"
-        remember_me: "Remember me"
-        login_button: "Login"
-      registrations:
-        new:
-          title: "Sign up"
-          email_label: "Email"
-          password_label: "Password"
-          password_confirmation_label: "Confirm Password"
-          organization_name_label: "Name of Your Organization"
-          organization_name_hint: "Please provide the full name including the legal form (e.g., gGmbH or e.V.)"
-          sign_up_button: "Sign up"
-          password_minimum_length: "characters minimum"
-        edit:
-          title: "Edit Profile"
-          email_label: "Email"
-          password_label: "New Password"
-          password_confirmation_label: "Confirm New Password"
-          current_password_label: "Current Password"
-          current_password_hint: "(we need your current password to confirm changes)"
-          update_button: "Update"
-          delete_account: "Delete Account"
-          delete_account_warning: "This action cannot be undone."
-          delete_account_confirm: "Are you sure?"
-          back_link: "Back"
-      passwords:
-        new:
-          title: "Forgot your password?"
-          email_label: "Email"
-          submit_button: "Send reset instructions"
-        edit:
-          title: "Change your password"
-          password_label: "New Password"
-          password_confirmation_label: "Confirm New Password"
-          password_min_length: "characters minimum"
-          submit_button: "Change Password"
-      mailer:
-        confirmation_instructions:
-          header: "Welcome to LetsGoVolunteer!"
-          greeting: "Hello, %{email}!"
-          confirmation_link: "You can confirm your email address via the following link:"
-          confirm_link_text: "Confirm my account"
-          welcome_message: "You have just registered with your email address. We will review your registration and activate your account soon. You will receive an email once the review is complete!"
-          thank_you: "Thank you,"
-          team_name: "The VolunteerHeilbronn Team"
-        email_changed:
-          greeting: "Hello, %{email}!"
-          notification: "We're contacting you to notify you that your email is being changed to %{email}."
-          notification_confirmed: "We're contacting you to notify you that your email has been changed to %{email}."
-        password_change:
-          greeting: "Hello, %{email}!"
-          notification: "We're contacting you to notify you that your password has been changed."
-        reset_password_instructions:
-          greeting: "Hello, %{email}!"
-          request_message: "Someone has requested a link to change your password. You can do this through the link below."
-          change_password: "Change my password"
-          ignore_message: "If you didn't request this, please ignore this email."
-          reminder: "Your password won't change until you access the link above and create a new one."
-        unlock_instructions:
-          greeting: "Hello, %{email}!"
-          locked_message: "Your account has been locked due to an excessive number of unsuccessful sign-in attempts."
-          unlock_message: "Click the link below to unlock your account:"
-          unlock_account: "Unlock my account"
-        confirmations:
-          new:
-            title: "Resend Confirmation Email"
-            email_label: "Email"
-            submit_button: "Resend Confirmation Email"
+    sessions:
+      login: "Login"
+      email: "Email"
+      password: "Password"
+      remember_me: "Remember me"
+      login_button: "Log in"
+    shared:
+      login: "Login"
+      register: "Register"
+      forgot_password: "Forgot your password?"
+      no_confirmation: "Didn't receive confirmation instructions?"
+      no_unlock_instructions: "Didn't receive unlock instructions?"
+      login_with: "Login with %{provider}"
+    registrations:
+      new:
+        title: "Sign up"
+        join_as: "Join as"
+        organization: "Organization"
+        organization_register: "Register Organization"
+        switch_to_student_registration: "Switch to student registration"
+        email_label: "Email"
+        password_label: "Password"
+        password_confirmation_label: "Confirm Password"
+        organization_name_label: "Name of Your Organization"
+        organization_name_hint: "Please provide the full name including the legal form (e.g., gGmbH or e.V.)"
+        sign_up_button: "Sign up"
+        password_minimum_length: "characters minimum"
+      new_student:
+        title: "Sign up as Student"
+        join_as: "Join as"
+        student: "Student"
+        student_register: "Register as Student"
+        switch_to_organization_registration: "Switch to organization registration"
+        email_label: "Email"
+        password_label: "Password"
+        password_confirmation_label: "Confirm Password"
+        university_label: "University"
+        university_hint: "Please select your university from the list."
+        sign_up_button: "Sign up"
+        password_minimum_length: "characters minimum"
+      edit:
+        title: "Edit Profile"
+        email_label: "Email"
+        password_label: "New Password"
+        password_confirmation_label: "Confirm New Password"
+        current_password_label: "Current Password"
+        current_password_hint: "(we need your current password to confirm changes)"
+        update_button: "Update"
+        delete_account: "Delete Account"
+        delete_account_warning: "This action cannot be undone."
+        delete_account_confirm: "Are you sure?"
+        back_link: "Back"
   admin_mailer:
       new_position_email:
         header: "New Position Added"
@@ -526,6 +799,43 @@ en:
         message: "An organization has changed information for one or more positions. Please review the changes and approve the positions so that the updated information becomes visible on the platform."
         thank_you: "Thank you,"
         team: "The VolunteerHeilbronn Team"
+  analytics:
+    index:
+      badge: "Analytics Dashboard"
+      heading: "Engagement Insights"
+      description: "Discover how student engagement is evolving. The visualization works entirely without external chart libraries."
+      period_label: "Active period:"
+      filter:
+        title: "Adjust time range"
+        description: "Refine your analysis by selecting a specific time window."
+        available_data: "Available data: %{start} – %{end}"
+        start_label: "Start date"
+        end_label: "End date"
+        submit: "Update"
+      cards:
+        range_days:
+          one: "%{count} day"
+          other: "%{count} days"
+        registrations:
+          title: "New registrations"
+          subtitle: "Students"
+          description: "Total number of new accounts"
+        contact_requests:
+          title: "Contact requests"
+          subtitle: "to organizations"
+          description: "Sum of all contact requests"
+        activity:
+          title: "Student activity"
+          subtitle: "Engagement"
+          description: "Cumulative activities"
+      table:
+        title: "Daily metrics"
+        description: "A detailed breakdown of the key figures for the selected period."
+        headers:
+          date: "Date"
+          registrations: "Registrations"
+          contact_requests: "Contact requests"
+          activity: "Activities"
   admin:
     index:
       title: "All Users"

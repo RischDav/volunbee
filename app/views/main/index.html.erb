@@ -22,17 +22,23 @@
             class: "text-white py-3 px-6 rounded-full text-lg font-medium inline-block transition-colors cursor-pointer border 
                       bg-[#E76F51] text-white hover:bg-white border-[#E76F51] hover:text-[#E76F51]" %>
 
-          <%= button_to "Find opportunities", show_positions_path, 
+          <%= button_to "Find opportunities", positions_path, 
               method: :get,
               class: "py-3 px-6 rounded-full inline-block transition-colors cursor-pointer border 
                       border-[#E76F51] text-[#E76F51] hover:bg-[#E76F51] hover:text-white" %>  
         </div>
         
         <div class="mb-8 space-x-4">
-          <%= button_to "For organisations", positions_path, 
-              method: :get,
-              class: "py-3 px-6 rounded-full inline-block transition-colors cursor-pointer border 
-                      bg-[#2A9D8F] text-white hover:bg-white hover:text-[#2A9D8F]" %>   
+          <div class="flex space-x-4">
+            <%= button_to "Login for students", positions_path, 
+                method: :get,
+                class: "py-3 px-6 rounded-full inline-block transition-colors cursor-pointer border 
+                        bg-[#2A9D8F] text-white hover:bg-white hover:text-[#2A9D8F]" %>
+            <%= button_to "Signup", new_student_registration_path, 
+                method: :get,
+                class: "py-3 px-6 rounded-full inline-block transition-colors cursor-pointer border 
+                        border-[#2A9D8F] text-[#2A9D8F] hover:bg-white hover:[#2A9D8F]" %>
+          </div>
         </div>
       </div>
       
@@ -66,7 +72,7 @@
               <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
                 <h3 class="text-xl font-semibold text-gray-900 mb-2"><%= position.title %></h3>
                 <p class="text-gray-700 mb-4"><%= truncate(position.description, length: 120) %></p>
-                <%= link_to "View Details", show_positions_path, 
+                <%= link_to "View Details", positions_path, 
                   class: "inline-block bg-[#E76F51] text-white px-4 py-2 rounded-full text-sm hover:opacity-90 transition" %>
               </div>
             <% end %>

@@ -1,0 +1,33 @@
+<div class="mt-8 p-6 bg-white rounded-lg shadow-md border border-slate-200">
+  <h2 class="text-2xl font-semibold mb-4"><%= university.name %></h2>
+  <% if university.logo.attached? %>
+    <div class="mt-4 flex justify-center">
+      <%= image_tag university.logo, style: "max-width: 200px;", class: "rounded my-2" %>
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+    <div class="bg-gray-100 p-4 rounded">
+      <p class="text-gray-700"><strong><%= t('universities.details.email') %>:</strong> <%= university.email.presence || t('universities.details.not_available') %></p>
+    </div>
+    <div class="bg-gray-100 p-4 rounded">
+      <p class="text-gray-700"><strong><%= t('universities.details.contact_number') %>:</strong> <%= university.contact_number.presence || t('universities.details.not_available') %></p>
+    </div>
+    <% if university.website.present? %>
+      <div class="bg-gray-100 p-4 rounded">
+        <p class="text-gray-700"><strong><%= t('universities.details.website') %>:</strong> 
+          <%= link_to university.website, university.website, target: '_blank', class: 'text-blue-600 hover:underline' %>
+        </p>
+      </div>
+    <% end %>
+    <% if university.description.present? %>
+      <div class="bg-gray-100 p-4 rounded md:col-span-2">
+        <p class="text-gray-700"><strong><%= t('universities.details.description') %>:</strong> <%= university.description %></p>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mt-6 flex justify-end">
+    <%= link_to t('universities.details.edit_data'), edit_university_path(university), class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
+  </div>
+</div>

@@ -1,9 +1,12 @@
 class MatchingController < ApplicationController
     skip_before_action :authenticate_user!, only: [:index, :results]
-    layout 'volunteer'
+    
     def index
+        @custom_navbar = true
     end
+    
     def results
+        @custom_navbar = true
         # Get user skill scores from the frontend
         user_skills = {
           creative: params[:creative]&.to_i || 0,

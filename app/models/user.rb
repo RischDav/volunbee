@@ -1,15 +1,14 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable, :trackable and :omniauthable
-  enum :role, { user: 0, admin: 1 }
-
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-  belongs_to :organization, optional: true
-  attr_accessor :organization_name
-
-  validate :organization_presence_for_user_role
+  # Neue Beziehung zur UserAffiliation
+  has_one :affiliation, class_name: "UserAffiliation", dependent: :destroy
+  
+  # Für Kompatibilität mit bestehenden Formularen
+  attr_accessor :organization_name, :university_name
 
   # Überschreibt Devise's Standardverhalten für die Authentifizierung
   # Ein User kann sich einloggen, wenn er bestätigt ist
@@ -41,14 +40,60 @@ class User < ApplicationRecord
   def restricted_access?
     !confirmed?
   end
-  
-  private
 
-  def organization_presence_for_user_role
-    if user? && organization.nil?
-      errors.add(:organization, "must exist for users with role 'user'")
-    elsif admin? && organization.present?
-      errors.add(:organization, "must be blank for users with role 'admin'")
+  # Determine university based on email domain for students
+  def determine_university_from_email
+    if email.end_with?('@tum.de') || email.end_with?('@mytum.de')
+      University.find_by(name: 'Technische Universität München')
+    elsif email.end_with?('@stud.hs-heilbronn.de')
+      University.find_by(name: 'Hochschule Heilbronn')
     end
+  end
+
+  # Kompatibilitäts-Helper für die alte API
+  def organization
+    affiliation&.organization
+  end
+
+  def university
+    affiliation&.university
+  end
+
+  # Add missing ID methods that controllers are calling
+  def organization_id
+    affiliation&.organization_id
+  end
+
+  def university_id
+    affiliation&.university_id
+  end
+
+  def admin?
+    affiliation&.admin? || false
+  end
+
+  def organization?
+    affiliation&.organization_id.present?
+  end
+
+  def university?
+    affiliation&.university_id.present?
+  end
+
+  def student?
+    university? && normal_user?
+  end
+
+  # Neue Helper-Methoden
+  def platform_admin?
+    admin? && affiliation&.organization_id.blank? && affiliation&.university_id.blank?
+  end
+
+  def normal_user?
+    affiliation&.normal_user? || false
+  end
+
+  def university_staff?
+    affiliation&.university_staff? || false
   end
 end

@@ -1,4 +1,4 @@
-<% if current_user && !current_user.admin? && current_user.organization && !current_user.organization.complete_profile? && current_user.confirmed? %>
+<% if current_user && !current_user.admin? && current_user.organization? && current_user.organization && !current_user.organization.complete_profile? && current_user.confirmed? %>
   <div class="border-4 border-yellow-500 text-yellow-700 m-4 p-6 mb-4 rounded-lg shadow-lg" role="alert">
     <p class="font-bold"><%= t('shared.organization_alert.title') %></p>
     <p>

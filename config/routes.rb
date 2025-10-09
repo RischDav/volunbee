@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   # Locale-spezifische Routen
   scope "(:locale)", locale: /en|de/ do
     # Startseite
-    
     root to: "main#index"
 
     # Statische Seiten
@@ -16,6 +15,9 @@ Rails.application.routes.draw do
     #main_page
     get "positions", to: "positions#index"
 
+    #analytics_page
+    get "analytics", to: "analytics#index"
+    
     #show_positions
     get "show_positions", to: "show_positions#index"
 
@@ -26,7 +28,6 @@ Rails.application.routes.draw do
 
     #impressum
     get "impressum", to: "impressum#index"
-
     # Ressourcen
     resources :positions do
       member do
@@ -48,6 +49,13 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :universities do
+      member do
+        patch 'release'
+        patch 'lock'
+      end
+    end
+
     resources :admin, only: [:index] do
       member do
         patch 'release_user'
@@ -58,9 +66,6 @@ Rails.application.routes.draw do
     # JSON-API
     get 'json_api', to: 'json_api#output'
 
-    # Health-Check
-    get "up", to: "health#up"
-
     # Devise-Routen
     devise_for :users, controllers: {
       registrations: "users/registrations",
@@ -68,6 +73,22 @@ Rails.application.routes.draw do
       sessions: 'users/sessions'
     }
 
+    # Eigene Devise-Routen im Mapping-Kontext
+    devise_scope :user do
+      # komplette Auswahlseite deaktivieren: leite /users/sign_up nach Organisation
+      get 'users/sign_up', to: redirect('/%{locale}/users/sign_up/organization')
+
+      # getrennte Registrierungen
+      get 'users/sign_up/organization', to: 'users/registrations#new_organization', as: :new_organization_registration
+      get 'users/sign_up/student', to: 'users/registrations#new_student', as: :new_student_registration
+    end
+
+    # Students are now users with role 3, so we use the main user routes
+    # The students registration will be handled through the main user registration
+
     resources :show_positions, only: [:index, :show]
+    
+    # Temporary debug route
+    get 'debug/schema', to: 'debug#schema'
   end
 end

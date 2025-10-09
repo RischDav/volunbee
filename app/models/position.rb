@@ -1,6 +1,11 @@
 class Position < ApplicationRecord
-  # Each position belongs to an organization
-  belongs_to :organization
+  belongs_to :organization, optional: true
+  belongs_to :university, optional: true
+  belongs_to :user
+  has_many :frequently_asked_questions, dependent: :destroy
+  has_many :messages, dependent: :destroy
+  has_many :user_events, dependent: :destroy
+  accepts_nested_attributes_for :frequently_asked_questions, allow_destroy: true, reject_if: :all_blank
 
   # Each position can have multiple images
   has_one_attached :main_picture
@@ -8,22 +13,20 @@ class Position < ApplicationRecord
   has_one_attached :picture2
   has_one_attached :picture3
 
-  # Each position can have multiple questions and answers
-  has_many :frequently_asked_questions, dependent: :destroy
-  accepts_nested_attributes_for :frequently_asked_questions, allow_destroy: true, reject_if: :all_blank
-
   # Validations
   validates :title, presence: true, length: { in: 15..75 }
   validates :benefits, length: { in: 100..1000 }
   validates :description, length: { in: 100..1000 }
-  
+  validate :organization_or_university_present
+  validate :student_cannot_create_position, on: :create
+
   # Main picture validations
-  validates :main_picture, presence: true
-  validate :main_picture_format
-  validate :main_picture_size
-  validate :main_picture_exists_in_storage
-  
-  validates :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility, 
+  # validates :main_picture, presence: true
+validates :main_picture, presence: true
+validate :main_picture_format
+validate :main_picture_size
+
+  validates :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility,
             numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }
 
   validate :pictures_size
@@ -31,10 +34,14 @@ class Position < ApplicationRecord
 
   after_commit :process_pictures, on: [:create, :update]
 
+  scope :active, -> { where(is_active: true) }
+  scope :released, -> { where(released: true) }
+  scope :online, -> { where(online: true) }
+
   # Direkte S3-URL Helper-Methoden
   def direct_image_url(variant_options = nil)
     return nil unless main_picture.attached?
-    
+
     begin
       if variant_options
         main_picture.variant(variant_options).processed.url
@@ -103,7 +110,7 @@ class Position < ApplicationRecord
   # Check if main picture is accessible
   def main_picture_accessible?
     return false unless main_picture.attached?
-    
+
     begin
       main_picture.blob.open { |file| file.size > 0 }
       true
@@ -119,7 +126,7 @@ class Position < ApplicationRecord
   def safe_main_picture_url
     url = direct_image_url
     return url if url && main_picture_accessible?
-    
+
     # Fallback zu anderen Bildern wenn main_picture nicht verfügbar
     [:picture1, :picture2, :picture3].each do |pic|
       if send(pic).attached?
@@ -130,16 +137,29 @@ class Position < ApplicationRecord
         end
       end
     end
-    
+
     nil # Kein Bild verfügbar
   end
 
   private
 
+  def organization_or_university_present
+    if organization.nil? && university.nil?
+      errors.add(:base, "Position must belong to either an organization or university")
+    end
+  end
+
+  def student_cannot_create_position
+    # Only block if user has university affiliation AND role 0 (normal user)
+    if user&.affiliation&.university_id.present? && user&.affiliation&.role == UserAffiliation::NORMAL_USER
+      errors.add(:base, 'Studenten können keine neuen Positionen erstellen.')
+    end
+  end
+
   # Validiert das Format des main_picture
   def main_picture_format
     return unless main_picture.attached?
-    
+
     unless main_picture.blob.content_type.in?(['image/jpeg', 'image/jpg', 'image/png', 'image/webp'])
       errors.add(:main_picture, 'must be a JPEG, PNG, or WebP image')
     end
@@ -148,11 +168,11 @@ class Position < ApplicationRecord
   # Validiert die Größe des main_picture
   def main_picture_size
     return unless main_picture.attached?
-    
+
     if main_picture.blob.byte_size > 10.megabytes
       errors.add(:main_picture, 'file size must be less than 10 MB')
     end
-    
+
     if main_picture.blob.byte_size < 1.kilobyte
       errors.add(:main_picture, 'file size must be at least 1 KB')
     end
@@ -161,7 +181,7 @@ class Position < ApplicationRecord
   # Validiert dass das main_picture tatsächlich in S3 existiert
   def main_picture_exists_in_storage
     return unless main_picture.attached?
-    
+
     begin
       # Versuche die Datei zu öffnen um sicherzustellen dass sie existiert
       main_picture.blob.open do |file|
@@ -183,13 +203,13 @@ class Position < ApplicationRecord
   def pictures_size
     [main_picture, picture1, picture2, picture3].each_with_index do |picture, index|
       next unless picture.attached?
-      
+
       picture_name = index == 0 ? 'main_picture' : "picture#{index}"
-      
+
       if picture.blob.byte_size > 10.megabytes
         errors.add(picture_name.to_sym, "file size must be less than 10 MB")
       end
-      
+
       unless picture.blob.content_type.in?(['image/jpeg', 'image/jpg', 'image/png', 'image/webp'])
         errors.add(picture_name.to_sym, 'must be a JPEG, PNG, or WebP image')
       end
@@ -199,7 +219,7 @@ class Position < ApplicationRecord
   # Validiert das Limit von Positionen pro Organisation
   def organization_position_limit
     return unless organization
-    
+
     if new_record? && organization.positions.count >= 3
       errors.add(:base, "Maximum of 3 positions allowed per organization")
     end
@@ -211,7 +231,7 @@ class Position < ApplicationRecord
     if main_picture.attached? && saved_change_to_attribute?('main_picture')
       ProcessPictureJob.set(wait: 10.seconds).perform_later(main_picture.blob.id)
     end
-    
+
     # Andere Bilder verarbeiten wenn sie sich geändert haben
     [picture1, picture2, picture3].each_with_index do |picture, index|
       attribute_name = "picture#{index + 1}"
@@ -225,7 +245,7 @@ class Position < ApplicationRecord
   def safe_picture_url(picture_name)
     picture = send(picture_name)
     return nil unless picture.attached?
-    
+
     begin
       picture.url
     rescue ActiveStorage::FileNotFoundError
