@@ -1,0 +1,14 @@
+<div class="faq-item field bg-gray-50 p-4 rounded-lg" data-faq-id="<%= f.index %>">
+  <div class="space-y-4">
+    <label class="block text-sm font-medium text-gray-700">Frage</label>
+    <%= f.text_field :question, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" %>
+
+    <label class="block text-sm font-medium text-gray-700">Antwort</label>
+    <%= f.text_area :answer, rows: 3, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" %>
+
+    <%= f.hidden_field :_destroy, value: false, class: "destroy-field" %>
+    <button type="button" class="remove-faq mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+      Entfernen
+    </button>
+  </div>
+</div>

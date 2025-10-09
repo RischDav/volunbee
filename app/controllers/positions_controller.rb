@@ -26,14 +26,16 @@ class PositionsController < ApplicationController
 
   def new
     @position = Position.new
-    # Initialize some nested attributes if needed
-    3.times { @position.frequently_asked_questions.build }
   end
 
   def create
     @position = Position.new(position_params)
 
-
+    # Debug: Log FAQ parameters
+    Rails.logger.debug "FAQ parameters: #{params[:position][:frequently_asked_questions_attributes]}"
+    Rails.logger.debug "Position FAQ count after build: #{@position.frequently_asked_questions.size}"
+    Rails.logger.debug "Position valid? #{@position.valid?}"
+    Rails.logger.debug "Position errors: #{@position.errors.full_messages}"
 
     # Set the appropriate ID based on user role
     if current_user.organization?
@@ -132,6 +134,12 @@ class PositionsController < ApplicationController
   
       # Fehler anzeigen
       flash.now[:alert] = error_messages.join("<br>").html_safe
+      
+      # FAQ-Objekte wieder aufbauen, falls sie verloren gegangen sind
+      if @position.frequently_asked_questions.empty?
+        3.times { @position.frequently_asked_questions.build }
+      end
+      
       render :new, status: :unprocessable_entity
     end
   end
@@ -207,7 +215,7 @@ class PositionsController < ApplicationController
   private
 
   def set_position
-    @position = Position.find(params[:id])
+    @position = Position.includes(:frequently_asked_questions).find(params[:id])
   end
 
   def check_edit_permissions

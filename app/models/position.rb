@@ -5,7 +5,7 @@ class Position < ApplicationRecord
   has_many :frequently_asked_questions, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :user_events, dependent: :destroy
-  accepts_nested_attributes_for :frequently_asked_questions, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :frequently_asked_questions, allow_destroy: true, reject_if: ->(attributes) { attributes['question'].blank? && attributes['answer'].blank? }
 
   # Each position can have multiple images
   has_one_attached :main_picture

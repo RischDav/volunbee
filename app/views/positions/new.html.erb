@@ -50,10 +50,29 @@
             <h2 class="text-2xl font-bold"><%= t('positions.faqs.form.header') %></h2>
             <p class="text-sm text-gray-700"><%= t('positions.faqs.form.description') %></p>
             <div id="faqs" class="space-y-5">
+              <!-- Existing FAQ blocks -->
+              <% @position.frequently_asked_questions.each_with_index do |faq, index| %>
+                <div class="faq-item field bg-gray-50 p-4 rounded-lg">
+                  <%= f.fields_for :frequently_asked_questions, faq do |faq_form| %>
+                    <div class="space-y-4">
+                      <label class="block text-sm font-medium text-gray-700"><%= t('positions.faqs.form.question_label') %></label>
+                      <%= faq_form.text_field :question, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" %>
+
+                      <label class="block text-sm font-medium text-gray-700"><%= t('positions.faqs.form.answer_label') %></label>
+                      <%= faq_form.text_area :answer, rows: 2, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" %>
+
+                      <%= faq_form.hidden_field :_destroy, value: false, class: "destroy-field" %>
+                      <button type="button" class="remove-faq mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                        Entfernen
+                      </button>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
               <!-- FAQ blocks will be added here dynamically -->
             </div>
             <button type="button" id="add_faq" class="mt-6 inline-flex items-center rounded-md border border-transparent px-5 py-3 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              <%= t('positions.faqs.form.add_new') %>
+              FAQ hinzufügen
             </button>
           </div>
 
@@ -97,7 +116,7 @@
   </div>
 </div>
 <script>
-  document.addEventListener("turbolinks:load", function () {
+  function initPositionNewForm () {
     // Temporäre Position: Hinweistext anzeigen/verbergen
     const temporarySelect = document.getElementById("position_temporary_select");
     const infoText = document.getElementById("temporary-info-text");
@@ -212,56 +231,60 @@
     handleFileUpload("position_picture2", "picture2-feedback");
     handleFileUpload("position_picture3", "picture3-feedback");
 
-    // FAQ logic
+    // FAQ Management - Robust approach
     const addFaqButton = document.getElementById("add_faq");
     const faqsContainer = document.getElementById("faqs");
 
-      if (addFaqButton && faqsContainer) {
-        const questionLabel = '<%= j t("positions.faqs.form.question_label") %>';
-        const answerLabel = '<%= j t("positions.faqs.form.answer_label") %>';
-        const removeButton = '<%= j t("positions.faqs.form.remove") %>';
+    if (addFaqButton && faqsContainer) {
+      if (faqsContainer.dataset.initialized === 'true') return;
+      faqsContainer.dataset.initialized = 'true';
+      let faqCounter = Date.now(); // Use timestamp to avoid conflicts
 
-        const addFaqFields = () => {
-          const newId = Date.now();
-          const wrapper = document.createElement("div");
-          wrapper.innerHTML = `
-            <div class="faq-item field bg-gray-50 p-4 rounded-lg">
-              <div class="space-y-4">
-                <label class="block text-sm font-medium text-gray-700">${questionLabel}</label>
-                <input type="text" name="position[frequently_asked_questions_attributes][${newId}][question]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+      function addFaqFields() {
+        const newId = faqCounter++;
+        const faqHtml = `
+          <div class="faq-item field bg-gray-50 p-4 rounded-lg">
+            <div class="space-y-4">
+              <label class="block text-sm font-medium text-gray-700">Frage</label>
+              <input type="text" name="position[frequently_asked_questions_attributes][${newId}][question]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
 
-                <label class="block text-sm font-medium text-gray-700">${answerLabel}</label>
-                <textarea name="position[frequently_asked_questions_attributes][${newId}][answer]" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+              <label class="block text-sm font-medium text-gray-700">Antwort</label>
+              <textarea name="position[frequently_asked_questions_attributes][${newId}][answer]" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
 
-                <button type="button" class="remove-faq mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                  ${removeButton}
-                </button>
-              </div>
+              <button type="button" class="remove-faq mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                Entfernen
+              </button>
             </div>
-          `;
-
-          const faqElement = wrapper.firstElementChild;
-          if (faqElement) {
-            faqsContainer.appendChild(faqElement);
-          }
-        };
-
-        addFaqButton.addEventListener("click", function (e) {
-          e.preventDefault();
-          addFaqFields();
-        });
-
-        faqsContainer.addEventListener("click", function(e) {
-          const removeButtonElement = e.target.closest?.(".remove-faq");
-          if (removeButtonElement) {
-            e.preventDefault();
-            const faqItem = removeButtonElement.closest(".faq-item");
-            if (faqItem) {
-              faqItem.remove();
-            }
-          }
-        });
+          </div>
+        `;
+        faqsContainer.insertAdjacentHTML('beforeend', faqHtml);
       }
+
+      // Add new FAQ
+      addFaqButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        addFaqFields();
+      });
+
+      // Remove FAQ using event delegation
+      faqsContainer.addEventListener("click", function(e) {
+        const btn = e.target.closest('.remove-faq');
+        if (!btn) return;
+        e.preventDefault();
+        const faqItem = btn.closest('.faq-item');
+        if (faqItem) {
+          const destroyField = faqItem.querySelector('.destroy-field');
+          if (destroyField) {
+            // Existing FAQ - mark for destruction
+            destroyField.value = "1";
+            faqItem.style.display = "none";
+          } else {
+            // New FAQ - remove completely
+            faqItem.remove();
+          }
+        }
+      });
+    }
 
     // Checkbox logic for enabling the submit button
     const englishCheckbox = document.getElementById("english-checkbox");
@@ -288,5 +311,8 @@
       englishCheckbox.addEventListener("change", updateSubmitButtonState);
       termsCheckbox.addEventListener("change", updateSubmitButtonState);
     }
-  });
+  }
+  document.addEventListener('DOMContentLoaded', initPositionNewForm);
+  document.addEventListener('turbolinks:load', initPositionNewForm);
+  document.addEventListener('turbo:load', initPositionNewForm);
 </script>
