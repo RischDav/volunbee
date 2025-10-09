@@ -21,7 +21,7 @@ class ShowPositionsController < ApplicationController
   end
 
   def show
-    @position = Position.find(params[:id])
+    @position = Position.includes(:frequently_asked_questions).find(params[:id])
     @custom_navbar = true
     if current_user.student?
       UserEvent.create!(

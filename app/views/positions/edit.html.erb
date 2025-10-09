@@ -24,10 +24,29 @@
             <h2 class="text-2xl font-bold"><%= t('positions.faqs.form.header') %></h2>
             <p class="text-sm text-gray-700"><%= t('positions.faqs.form.description') %></p>
             <div id="faqs" class="space-y-5">
+              <!-- Existing FAQ blocks -->
+              <% @position.frequently_asked_questions.each_with_index do |faq, index| %>
+                <div class="faq-item field bg-gray-50 p-4 rounded-lg">
+                  <%= f.fields_for :frequently_asked_questions, faq do |faq_form| %>
+                    <div class="space-y-4">
+                      <label class="block text-sm font-medium text-gray-700"><%= t('positions.faqs.form.question_label') %></label>
+                      <%= faq_form.text_field :question, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" %>
+
+                      <label class="block text-sm font-medium text-gray-700"><%= t('positions.faqs.form.answer_label') %></label>
+                      <%= faq_form.text_area :answer, rows: 3, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" %>
+
+                      <%= faq_form.hidden_field :_destroy, value: false, class: "destroy-field" %>
+                      <button type="button" class="remove-faq mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                        Entfernen
+                      </button>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
               <!-- FAQ blocks will be added here dynamically -->
             </div>
             <button type="button" id="add_faq" class="mt-6 inline-flex items-center rounded-md border border-transparent px-5 py-3 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              <%= t('positions.faqs.form.add_new') %>
+              FAQ hinzufügen
             </button>
           </div>
 
@@ -43,8 +62,8 @@
   </div>
 </div>
 
-<%= javascript_tag do %>
-  document.addEventListener("turbolinks:load", function() {
+<script>
+  function initPositionEditForm() {
     // Word count validation
     const temporarySelect = document.getElementById("position_temporary_select");
     const infoText = document.getElementById("temporary-info-text");
@@ -66,32 +85,43 @@
       const charCount = field.value.length;
       if (charCount < minLength) {
         counter.textContent = '<%= t("positions.new.word_count.too_short") %>'.replace('%{min_length}', minLength - charCount);
-        counter.className = "text-red-600";
+        counter.style.color = 'red';
       } else if (charCount > perfectLength) {
         counter.textContent = '<%= t("positions.new.word_count.too_long") %>';
-        counter.className = "text-red-600";
-      } else if (charCount >= minLength && charCount <= goodLength) {
-  counter.textContent = '<%= t("positions.new.word_count.good") %>';
-        counter.className = "text-green-600";
-      } else {
+        counter.style.color = 'red';
+      } else if (charCount > minLength && charCount <= goodLength) {
+        counter.textContent = '<%= t("positions.new.word_count.good") %>';
+        counter.style.color = 'green';
+      } else if (charCount > goodLength && charCount <= perfectLength) {
         counter.textContent = '<%= t("positions.new.word_count.perfect") %>';
-        counter.className = "text-green-600";
+        counter.style.color = 'green';
+      } else {
+        counter.textContent = '';
+        counter.style.color = 'black';
       }
     }
 
     // Initialize word counters
-    const fields = {
-      title: { elem: document.querySelector('[name="position[title]"]'), counter: document.getElementById('word-count-title'), min: 15, good: 30, perfect: 75 },
-      description: { elem: document.querySelector('[name="position[position_description]"]'), counter: document.getElementById('word-count-description'), min: 100, good: 500, perfect: 1000 },
-      benefits: { elem: document.querySelector('[name="position[benefits]"]'), counter: document.getElementById('word-count-benefits'), min: 100, good: 500, perfect: 1000 }
-    };
+    const titleField = document.querySelector('input[name="position[title]"]');
+    const descriptionField = document.querySelector('textarea[name="position[description]"]');
+    const benefitsField = document.querySelector('textarea[name="position[benefits]"]');
+    const wordCountTitle = document.getElementById('word-count-title');
+    const wordCountDescription = document.getElementById('word-count-description');
+    const wordCountBenefits = document.getElementById('word-count-benefits');
 
-    Object.entries(fields).forEach(([name, config]) => {
-      if (config.elem && config.counter) {
-        config.elem.addEventListener('input', () => updateWordCount(config.elem, config.counter, config.min, config.good, config.perfect));
-        updateWordCount(config.elem, config.counter, config.min, config.good, config.perfect);
-      }
-    });
+    if (titleField && descriptionField && benefitsField) {
+      titleField.addEventListener('input', function () {
+        updateWordCount(titleField, wordCountTitle, 15, 20, 75);
+      });
+
+      descriptionField.addEventListener('input', function () {
+        updateWordCount(descriptionField, wordCountDescription, 100, 700, 900);
+      });
+
+      benefitsField.addEventListener('input', function () {
+        updateWordCount(benefitsField, wordCountBenefits, 100, 700, 900);
+      });
+    }
 
     // Score calculation
     const maxPoints = 15;
@@ -107,8 +137,8 @@
       });
 
       const remainingPoints = maxPoints - totalPoints;
-  remainingPointsDisplay.textContent = '<%= t("positions.score.form.remaining_points") %>'.replace('%{remaining_points}', remainingPoints);
-      remainingPointsDisplay.className = remainingPoints < 0 ? "text-red-600 font-medium" : "text-gray-700 font-medium";
+      remainingPointsDisplay.textContent = '<%= t("positions.new.remaining_points") %>'.replace('%{remaining_points}', remainingPoints);
+      remainingPointsDisplay.style.color = remainingPoints < 0 ? 'red' : 'black';
     }
 
     if (ratingInputs.length > 0 && remainingPointsDisplay) {
@@ -118,72 +148,87 @@
       updateRemainingPoints();
     }
 
-    // FAQ Management
+    // Upload feedback logic (missing before)
+    function handleFileUpload(inputId, feedbackId) {
+      const input = document.getElementById(inputId);
+      const feedback = document.getElementById(feedbackId);
+
+      if (input && feedback) {
+        input.addEventListener("change", function () {
+          if (input.files && input.files.length > 0) {
+            feedback.textContent = '<%= t("positions.new.upload_feedback.success") %>'.replace('%{file_name}', input.files[0].name);
+            feedback.classList.remove("text-gray-500");
+            feedback.classList.add("text-green-600");
+          } else {
+            feedback.textContent = '<%= t("positions.new.upload_feedback.default") %>';
+            feedback.classList.remove("text-green-600");
+            feedback.classList.add("text-gray-500");
+          }
+        });
+      }
+    }
+
+    handleFileUpload("position_main_picture", "main_picture-feedback");
+    handleFileUpload("position_picture1", "picture1-feedback");
+    handleFileUpload("position_picture2", "picture2-feedback");
+    handleFileUpload("position_picture3", "picture3-feedback");
+
+    // FAQ Management - Robust approach
     const addFaqButton = document.getElementById('add_faq');
     const faqsContainer = document.getElementById('faqs');
 
     if (addFaqButton && faqsContainer) {
-      const questionLabel = '<%= j t("positions.faqs.form.question_label") %>';
-      const answerLabel = '<%= j t("positions.faqs.form.answer_label") %>';
-      const removeButton = '<%= j t("positions.faqs.form.remove") %>';
+      if (faqsContainer.dataset.initialized === 'true') return;
+      faqsContainer.dataset.initialized = 'true';
+      let faqCounter = Date.now(); // Use timestamp to avoid conflicts
 
-      const addFaqFields = () => {
-        const newId = Date.now();
-        const template = `
+      function addFaqFields() {
+        const newId = faqCounter++;
+        const faqHtml = `
           <div class="faq-item field bg-gray-50 p-4 rounded-lg">
             <div class="space-y-4">
-              <label class="block text-sm font-medium text-gray-700">${questionLabel}</label>
-              <input type="text" name="position[frequently_asked_questions_attributes][${newId}][question]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" >
-              <label class="block text-sm font-medium text-gray-700">${answerLabel}</label>
+              <label class="block text-sm font-medium text-gray-700">Frage</label>
+              <input type="text" name="position[frequently_asked_questions_attributes][${newId}][question]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+
+              <label class="block text-sm font-medium text-gray-700">Antwort</label>
               <textarea name="position[frequently_asked_questions_attributes][${newId}][answer]" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+
               <button type="button" class="remove-faq mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                ${removeButton}
+                Entfernen
               </button>
             </div>
           </div>
         `;
-        faqsContainer.insertAdjacentHTML('beforeend', template);
-      };
+        faqsContainer.insertAdjacentHTML('beforeend', faqHtml);
+      }
 
+      // Add new FAQ
       addFaqButton.addEventListener('click', function(e) {
         e.preventDefault();
         addFaqFields();
       });
 
+      // Remove FAQ using event delegation
       faqsContainer.addEventListener('click', function(e) {
-        const removeButtonElement = e.target.closest?.('.remove-faq');
-        if (removeButtonElement) {
-          e.preventDefault();
-          const faqItem = removeButtonElement.closest('.faq-item');
-          if (faqItem) {
+        const btn = e.target.closest('.remove-faq');
+        if (!btn) return;
+        e.preventDefault();
+        const faqItem = btn.closest('.faq-item');
+        if (faqItem) {
+          const destroyField = faqItem.querySelector('.destroy-field');
+          if (destroyField) {
+            // Existing FAQ - mark for destruction
+            destroyField.value = "1";
+            faqItem.style.display = "none";
+          } else {
+            // New FAQ - remove completely
             faqItem.remove();
           }
         }
       });
     }
-
-    // File upload feedback
-    function updateFileUploadFeedback(input, feedbackElement) {
-      if (input.files && input.files[0]) {
-        feedbackElement.textContent = '<%= t("positions.shared.images.file_selected") %>'.replace('%{filename}', input.files[0].name);
-        feedbackElement.className = "mt-2 text-sm text-green-600";
-      } else {
-        feedbackElement.textContent = '<%= t("positions.shared.images.upload_hint") %>';
-        feedbackElement.className = "mt-2 text-sm text-gray-500";
-      }
-    }
-
-    const fileInputs = {
-      main_picture: { input: document.getElementById('position_main_picture'), feedback: document.getElementById('main_picture-feedback') },
-      picture1: { input: document.getElementById('position_picture1'), feedback: document.getElementById('picture1-feedback') },
-      picture2: { input: document.getElementById('position_picture2'), feedback: document.getElementById('picture2-feedback') },
-      picture3: { input: document.getElementById('position_picture3'), feedback: document.getElementById('picture3-feedback') }
-    };
-
-    Object.entries(fileInputs).forEach(([name, config]) => {
-      if (config.input && config.feedback) {
-        config.input.addEventListener('change', () => updateFileUploadFeedback(config.input, config.feedback));
-      }
-    });
-  });
-<% end %>
+  }
+  document.addEventListener('DOMContentLoaded', initPositionEditForm);
+  document.addEventListener('turbolinks:load', initPositionEditForm);
+  document.addEventListener('turbo:load', initPositionEditForm);
+</script>
