@@ -34,6 +34,14 @@ en:
       subject: "Email address changed"
     password_change:
       subject: "Password changed"
+    confirmation_instructions:
+      header: "Welcome to VolunBee!"
+      greeting: "Hello %{email}!"
+      confirmation_link: "You can confirm your account by clicking the link below:"
+      confirm_link_text: "Confirm my account"
+      welcome_message: "Thank you for registering with VolunBee. We're excited to have you join our community of volunteers!"
+      thank_you: "Thank you for your registration!"
+      team_name: "The VolunBee Team"
   omniauth_callbacks:
     failure: "Could not authenticate you from your %{kind} account because \"%{reason}\"."
     success: "Successfully authenticated from your %{kind} account."

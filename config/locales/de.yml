@@ -665,38 +665,39 @@ de:
       updated: "Ihr Passwort wurde erfolgreich geändert. Sie sind jetzt angemeldet."
       updated_not_active: "Ihr Passwort wurde erfolgreich geändert."
     
-    mailer:
-      confirmation_instructions:
-        subject: "Anleitung zur Bestätigung Ihres Kontos"
-        header: "Willkommen bei LetsGoVolunteer!"
-        greeting: "Hallo, %{email}!"
-        confirmation_link: "Du kannst deine E-Mail-Adresse über den folgenden Link bestätigen:"
-        confirm_link_text: "Bestätige meinen Account"
-        welcome_message: "Du hast dich gerade mit deiner E-Mail registriert. Wir werden deine Registrierung prüfen und dich dann demnächst freischalten. Du bekommst eine E-Mail, sobald die Prüfung durch ist!"
-        thank_you: "Vielen Dank,"
-        team_name: "Das VolunteerHeilbronn-Team"
-      reset_password_instructions:
-        subject: "Anleitung zum Zurücksetzen Ihres Passworts"
-        greeting: "Hallo, %{email}!"
-        request_message: "Jemand hat einen Link angefordert, um dein Passwort zu ändern. Du kannst dies über den folgenden Link tun."
-        change_password: "Passwort ändern"
-        ignore_message: "Wenn du diese Anfrage nicht gestellt hast, ignoriere bitte diese E-Mail."
-        reminder: "Dein Passwort wird nicht geändert, bis du den oben stehenden Link aufrufst und ein neues erstellst."
-      unlock_instructions:
-        subject: "Anleitung zur Entsperrung Ihres Kontos"
-        greeting: "Hallo, %{email}!"
-        locked_message: "Dein Konto wurde aufgrund einer zu hohen Anzahl an erfolglosen Anmeldeversuchen gesperrt."
-        unlock_message: "Klicke auf den folgenden Link, um dein Konto zu entsperren:"
-        unlock_account: "Konto entsperren"
-      email_changed:
-        subject: "E-Mail-Adresse geändert"
-        greeting: "Hallo, %{email}!"
-        notification: "Wir kontaktieren dich, um dich darüber zu informieren, dass deine E-Mail-Adresse auf %{email} geändert wird."
-        notification_confirmed: "Wir kontaktieren dich, um dich darüber zu informieren, dass deine E-Mail-Adresse auf %{email} geändert wurde."
-      password_change:
-        subject: "Passwort geändert"
-        greeting: "Hallo, %{email}!"
-        notification: "Wir kontaktieren dich, um dich darüber zu informieren, dass dein Passwort geändert wurde."
+
+      mailer:
+        confirmation_instructions:
+          subject: "Anleitung zur Bestätigung Ihres Kontos"
+          header: "Willkommen bei VolunBee!"
+          greeting: "Hallo, %{email}!"
+          confirmation_link: "Du kannst deine E-Mail-Adresse über den folgenden Link bestätigen:"
+          confirm_link_text: "Bestätige meinen Account"
+          welcome_message: "Du hast dich gerade mit deiner E-Mail registriert. Wir werden deine Registrierung prüfen und dich dann demnächst freischalten. Du bekommst eine E-Mail, sobald die Prüfung durch ist!"
+          thank_you: "Vielen Dank,"
+          team_name: "Das VolunBee-Team"
+        reset_password_instructions:
+          subject: "Anleitung zum Zurücksetzen Ihres Passworts"
+          greeting: "Hallo, %{email}!"
+          request_message: "Jemand hat einen Link angefordert, um dein Passwort zu ändern. Du kannst dies über den folgenden Link tun."
+          change_password: "Passwort ändern"
+          ignore_message: "Wenn du diese Anfrage nicht gestellt hast, ignoriere bitte diese E-Mail."
+          reminder: "Dein Passwort wird nicht geändert, bis du den oben stehenden Link aufrufst und ein neues erstellst."
+        unlock_instructions:
+          subject: "Anleitung zur Entsperrung Ihres Kontos"
+          greeting: "Hallo, %{email}!"
+          locked_message: "Dein Konto wurde aufgrund einer zu hohen Anzahl an erfolglosen Anmeldeversuchen gesperrt."
+          unlock_message: "Klicke auf den folgenden Link, um dein Konto zu entsperren:"
+          unlock_account: "Konto entsperren"
+        email_changed:
+          subject: "E-Mail-Adresse geändert"
+          greeting: "Hallo, %{email}!"
+          notification: "Wir kontaktieren dich, um dich darüber zu informieren, dass deine E-Mail-Adresse auf %{email} geändert wird."
+          notification_confirmed: "Wir kontaktieren dich, um dich darüber zu informieren, dass deine E-Mail-Adresse auf %{email} geändert wurde."
+        password_change:
+          subject: "Passwort geändert"
+          greeting: "Hallo, %{email}!"
+          notification: "Wir kontaktieren dich, um dich darüber zu informieren, dass dein Passwort geändert wurde."
     
     omniauth_callbacks:
       failure: "Sie konnten nicht mit Ihrem %{kind}-Konto authentifiziert werden, weil \"%{reason}\"."
