@@ -1,13 +1,21 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
   <div class="bg-white shadow-lg rounded-lg overflow-hidden">
     <!-- Header -->
-    <div class="relative h-48 bg-gradient-to-r from-blue-600 to-blue-800">
-      <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+    <div class="relative h-48 overflow-hidden">
+      <% if @university.cover_image.attached? %>
+        <% begin %>
+          <%= image_tag @university.cover_image.variant(resize_to_fill: [1200, 300]).processed, alt: "#{@university.name} Cover", class: "absolute inset-0 w-full h-full object-cover" %>
+        <% rescue => e %>
+          <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-800"></div>
+        <% end %>
+      <% else %>
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-800"></div>
+      <% end %>
       <div class="relative h-full flex items-end p-8">
         <div class="flex items-center space-x-6">
           <% if @university.logo.attached? %>
             <div class="w-24 h-24 bg-white rounded-lg shadow-lg flex items-center justify-center overflow-hidden">
-              <%= image_tag @university.logo, alt: @university.name, class: "w-full h-full object-cover" %>
+              <%= image_tag @university.logo.variant(resize_to_fill: [96, 96]).processed, alt: @university.name, class: "w-full h-full object-cover" %>
             </div>
           <% else %>
             <div class="w-24 h-24 bg-white rounded-lg shadow-lg flex items-center justify-center">
@@ -18,13 +26,17 @@
               </svg>
             </div>
           <% end %>
-          <div class="text-white">
-            <h1 class="text-3xl font-bold"><%= @university.name %></h1>
-            <% if current_user.university_staff? %>
-              <p class="text-blue-100">Mitarbeiter-Ansicht</p>
-            <% else %>
-              <p class="text-blue-100">Student</p>
-            <% end %>
+          <div class="relative inline-block">
+            <!-- Visible overlay behind title -->
+            <div class="absolute inset-0 bg-black bg-opacity-60 rounded-lg"></div>
+            <div class="relative text-white px-4 py-2">
+              <h1 class="text-3xl font-bold"><%= @university.name %></h1>
+              <% if current_user.university_staff? %>
+                <p class="text-gray-200">Mitarbeiter-Ansicht</p>
+              <% else %>
+                <p class="text-gray-200">Student</p>
+              <% end %>
+            </div>
           </div>
         </div>
         
