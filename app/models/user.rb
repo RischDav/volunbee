@@ -44,9 +44,9 @@ class User < ApplicationRecord
   # Determine university based on email domain for students
   def determine_university_from_email
     if email.end_with?('@tum.de') || email.end_with?('tum.de')
-      University.find_by(name: 'Technische Universität München')
+      University.find_by(id: 0)
     elsif email.end_with?('hs-heilbronn.de')
-      University.find_by(name: 'Hochschule Heilbronn')
+      University.find_by(id: 1)
     end
   end
 
