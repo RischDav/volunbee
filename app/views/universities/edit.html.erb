@@ -4,14 +4,14 @@
     <div class="bg-gradient-to-r from-blue-600 to-blue-800 px-8 py-6">
       <div class="flex items-center justify-between">
         <div>
-          <h1 class="text-2xl font-bold text-white">Universität bearbeiten</h1>
+          <h1 class="text-2xl font-bold text-white"><%= t('universities.edit.title') %></h1>
           <p class="text-blue-100 mt-1"><%= @university.name %></p>
         </div>
         <%= link_to university_path(@university), class: "inline-flex items-center px-4 py-2 bg-white text-blue-700 font-medium rounded-lg hover:bg-blue-50 transition-colors duration-200" do %>
           <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
-          Zurück
+          <%= t('universities.edit.back_button') %>
         <% end %>
       </div>
     </div>
@@ -28,7 +28,7 @@
                 </svg>
               </div>
               <div class="ml-3">
-                <h3 class="text-sm font-medium text-red-800">Fehler beim Speichern:</h3>
+                <h3 class="text-sm font-medium text-red-800"><%= t('universities.edit.save_errors') %></h3>
                 <div class="mt-2 text-sm text-red-700">
                   <ul class="list-disc pl-5 space-y-1">
                     <% @university.errors.full_messages.each do |message| %>
@@ -43,7 +43,7 @@
 
         <!-- Logo Upload -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Logo</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2"><%= t('universities.edit.logo_label') %></label>
           <div class="flex items-center space-x-6">
             <% if @university.logo.attached? %>
               <div class="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
@@ -65,7 +65,7 @@
 
         <!-- Cover Image Upload -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Cover Image</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2"><%= t('universities.edit.cover_image_label') %></label>
           <div class="space-y-4">
             <% if @university.cover_image.attached? %>
               <% begin %>
@@ -73,9 +73,9 @@
                   <%= image_tag @university.cover_image.variant(resize_to_fill: [400, 100]).processed, alt: "#{@university.name} Cover Image", class: "w-full h-full object-cover" %>
                 </div>
                 <div class="text-sm text-gray-600">
-                  Current file: <%= @university.cover_image.filename %>
+                  <%= t('universities.edit.current_image') %>: <%= @university.cover_image.filename %>
                   <br>
-                  <em>To change the cover image, upload a new one below.</em>
+                  <em><%= t('universities.edit.upload_new') %></em>
                 </div>
               <% rescue => e %>
                 <div class="w-full h-32 bg-red-100 rounded-lg flex items-center justify-center">
@@ -94,7 +94,7 @@
             <% end %>
             <div>
               <%= form.file_field :cover_image, class: "block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" %>
-              <p class="mt-1 text-sm text-gray-500">PNG, JPG bis zu 10MB. Empfohlene Größe: 1200x300px. Upload a landscape photo or banner image for best results.</p>
+              <p class="mt-1 text-sm text-gray-500">PNG, JPG bis zu 10MB. Empfohlene Größe: 1200x300px. <%= t('universities.edit.validation_note') %></p>
             </div>
           </div>
         </div>
@@ -102,51 +102,51 @@
         <!-- Basic Information -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div>
-            <%= form.label :name, class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= form.label :name, t('universities.edit.name_label'), class: "block text-sm font-medium text-gray-700 mb-2" %>
             <%= form.text_field :name, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
           </div>
 
           <div>
-            <%= form.label :email, class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= form.label :email, t('universities.edit.email_label'), class: "block text-sm font-medium text-gray-700 mb-2" %>
             <%= form.email_field :email, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
           </div>
 
           <div>
-            <%= form.label :contact_number, "Telefonnummer", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= form.label :contact_number, t('universities.edit.contact_number_label'), class: "block text-sm font-medium text-gray-700 mb-2" %>
             <%= form.telephone_field :contact_number, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
           </div>
 
           <div>
-            <%= form.label :contact_person, "Kontaktperson", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= form.label :contact_person, t('universities.edit.contact_person_label'), class: "block text-sm font-medium text-gray-700 mb-2" %>
             <%= form.text_field :contact_person, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
           </div>
 
           <div>
-            <%= form.label :website, class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= form.label :website, t('universities.edit.website_label'), class: "block text-sm font-medium text-gray-700 mb-2" %>
             <%= form.url_field :website, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
           </div>
         </div>
 
         <!-- Social Media Links -->
         <div class="bg-gray-50 p-6 rounded-lg">
-          <h3 class="text-lg font-medium text-gray-900 mb-4">Social Media Links</h3>
+          <h3 class="text-lg font-medium text-gray-900 mb-4"><%= t('universities.edit.social_media') %></h3>
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div>
-              <%= form.label :instagram_url, "Instagram URL", class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= form.label :instagram_url, t('universities.edit.instagram_url_label'), class: "block text-sm font-medium text-gray-700 mb-2" %>
               <%= form.url_field :instagram_url, placeholder: "https://www.instagram.com/youruniversity/", class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
             </div>
 
             <div>
-              <%= form.label :linkedin_url, "LinkedIn URL", class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= form.label :linkedin_url, t('universities.edit.linkedin_url_label'), class: "block text-sm font-medium text-gray-700 mb-2" %>
               <%= form.url_field :linkedin_url, placeholder: "https://www.linkedin.com/school/youruniversity/", class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
             </div>
           </div>
-          <p class="mt-2 text-sm text-gray-500">Diese Links werden im Kontakt-Bereich der Universitätsseite angezeigt.</p>
+          <p class="mt-2 text-sm text-gray-500"><%= t('universities.edit.social_media_hint') %></p>
         </div>
 
         <!-- Description -->
         <div>
-          <%= form.label :description, "Beschreibung", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= form.label :description, t('universities.edit.description_label'), class: "block text-sm font-medium text-gray-700 mb-2" %>
           <%= form.text_area :description, rows: 5, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
           <p class="mt-1 text-sm text-gray-500">Beschreiben Sie Ihre Universität und was Sie besonders macht.</p>
         </div>
@@ -154,27 +154,27 @@
         <!-- Submit Buttons -->
         <div class="flex items-center justify-between pt-6 border-t border-gray-200">
           <div class="flex space-x-3">
-            <%= form.submit "Änderungen speichern", class: "inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200" %>
+            <%= form.submit t('universities.edit.save_button'), class: "inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200" %>
             <%= link_to university_path(@university), class: "inline-flex items-center px-6 py-3 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 transition-colors duration-200" do %>
-              Abbrechen
+              <%= t('universities.edit.cancel_button') %>
             <% end %>
           </div>
           
           <% if current_user.admin? %>
             <div class="flex space-x-2">
               <% if @university.released? %>
-                <%= link_to lock_university_path(@university), method: :patch, class: "inline-flex items-center px-4 py-2 bg-yellow-600 text-white font-medium rounded-lg hover:bg-yellow-700 transition-colors duration-200", data: { confirm: "Universität sperren?" } do %>
+                <%= link_to lock_university_path(@university), method: :patch, class: "inline-flex items-center px-4 py-2 bg-yellow-600 text-white font-medium rounded-lg hover:bg-yellow-700 transition-colors duration-200", data: { confirm: t('universities.edit.lock_confirm') } do %>
                   <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
-                  Sperren
+                  <%= t('universities.edit.lock_button') %>
                 <% end %>
               <% else %>
-                <%= link_to release_university_path(@university), method: :patch, class: "inline-flex items-center px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200", data: { confirm: "Universität freigeben?" } do %>
+                <%= link_to release_university_path(@university), method: :patch, class: "inline-flex items-center px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200", data: { confirm: t('universities.edit.release_confirm') } do %>
                   <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
                   </svg>
-                  Freigeben
+                  <%= t('universities.edit.release_button') %>
                 <% end %>
               <% end %>
             </div>
