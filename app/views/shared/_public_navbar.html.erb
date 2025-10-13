@@ -5,15 +5,15 @@
       <!-- Logo - Left aligned -->
       <div class="flex items-center group">
         <%= link_to root_path, class: "transition-transform duration-200 hover:scale-105" do %>
-          <%= image_tag("logo_yellow.jpg", alt: "Volunbee Logo", class: "h-16 w-auto drop-shadow-sm") %>
+          <%= image_tag("logo_yellow.jpg", alt: "Volunbee Logo", class: "h-16 w-auto") %>
         <% end %>
       </div>
       
       <!-- Project attribution - Right aligned -->
-      <div class="flex items-center space-x-4 bg-gradient-to-r from-slate-50 to-gray-50 px-6 py-3 ">
+      <div class="flex items-center space-x-4 bg-white px-6 py-3 ">
         <span class="text-lg font-semibold text-slate-700 tracking-wide">A project of</span>
         <div class="transition-transform duration-200 hover:scale-105">
-          <%= image_tag("sc_logo.png", alt: "Campus Heilbronn Logo", class: "h-10 w-auto drop-shadow-sm") %>
+          <%= image_tag("sc_logo.png", alt: "Campus Heilbronn Logo", class: "h-10 w-auto") %>
         </div>
       </div>
     </div>
