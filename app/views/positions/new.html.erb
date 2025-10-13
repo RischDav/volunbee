@@ -1,318 +1,121 @@
-<div class="min-h-screen bg-gray-100 py-8 flex flex-col justify-center sm:py-14">
+<div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-8 flex flex-col justify-center sm:py-14">
   <div class="relative py-4 sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto">
-    <div class="relative mx-4 rounded-3xl bg-white px-6 py-12 shadow sm:mx-0 sm:px-12 sm:py-14 lg:px-16">
-      <%= form_with model: @position, url: positions_path, local: true, class: "space-y-12", multipart: true do |f| %>
-      <!-- Flash Alerts for custom error messages -->
-<% if flash[:alert] %>
-  <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-    <div class="flex items-start">
-      <svg class="w-5 h-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-      </svg>
-      <div>
-        <h3 class="font-bold mb-2">Fehler beim Erstellen der Position:</h3>
-        <div class="text-sm">
-          <%= flash[:alert].html_safe %>
-        </div>
+    <div class="relative mx-4 rounded-3xl bg-white px-6 py-12 shadow-xl sm:mx-0 sm:px-12 sm:py-14 lg:px-16 border border-gray-100">
+      
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">Neue Position erstellen</h1>
+        <p class="text-lg text-gray-600 mb-8">Wähle zuerst den Typ deiner Position aus</p>
       </div>
-    </div>
-  </div>
-<% end %>
 
-<!-- Standard Rails Errors for fallback -->
-<% if @position.errors.any? %>
-  <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-    <div class="flex items-start">
-      <svg class="w-5 h-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-      </svg>
-      <div>
-        <h3 class="font-bold mb-2">Fehler beim Speichern (<%= pluralize(@position.errors.count, "Fehler") %>):</h3>
-        <ul class="list-disc pl-5 text-sm space-y-1">
-          <% @position.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  </div>
-<% end %>
-        <div class="space-y-10">
-          <h1 class="text-3xl font-bold text-gray-900"><%= t('positions.new.title') %></h1>
-          <h2 class="text-2xl font-bold text-red-600"><%= t('positions.new.subtitle') %></h2>
-
-          <%= render 'form_general_information', f: f %>
-          <%= render 'form_images', f: f %>
-          <%= render 'form_score', f: f %>
+      <!-- Type Selector -->
+      <%= form_with url: new_position_path, method: :get, local: true, class: "text-center" do |f| %>
+        <div class="max-w-2xl mx-auto bg-gradient-to-r from-indigo-50 to-blue-50 rounded-2xl p-8 border border-indigo-200">
           
-          <!-- FAQ Section -->
-          <div class="mt-12 space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm lg:p-8">
-            <h2 class="text-2xl font-bold"><%= t('positions.faqs.form.header') %></h2>
-            <p class="text-sm text-gray-700"><%= t('positions.faqs.form.description') %></p>
-            <div id="faqs" class="space-y-5">
-              <!-- Existing FAQ blocks -->
-              <% @position.frequently_asked_questions.each_with_index do |faq, index| %>
-                <div class="faq-item field bg-gray-50 p-4 rounded-lg">
-                  <%= f.fields_for :frequently_asked_questions, faq do |faq_form| %>
-                    <div class="space-y-4">
-                      <label class="block text-sm font-medium text-gray-700"><%= t('positions.faqs.form.question_label') %></label>
-                      <%= faq_form.text_field :question, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" %>
-
-                      <label class="block text-sm font-medium text-gray-700"><%= t('positions.faqs.form.answer_label') %></label>
-                      <%= faq_form.text_area :answer, rows: 2, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" %>
-
-                      <%= faq_form.hidden_field :_destroy, value: false, class: "destroy-field" %>
-                      <button type="button" class="remove-faq mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                        Entfernen
-                      </button>
-                    </div>
-                  <% end %>
-                </div>
-              <% end %>
-              <!-- FAQ blocks will be added here dynamically -->
-            </div>
-            <button type="button" id="add_faq" class="mt-6 inline-flex items-center rounded-md border border-transparent px-5 py-3 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              FAQ hinzufügen
-            </button>
+          <!-- Type Selection -->
+          <div class="mb-6">
+            <label for="type" class="block text-xl font-semibold text-gray-900 mb-4">
+              <%= t('positions.type_selector.label') %>
+            </label>
+            <p class="text-gray-600 mb-6">
+              <%= t('positions.type_selector.help') %>
+            </p>
+            
+            <%= f.select :type,
+                options_for_select([
+                  [t('positions.type_selector.options.volunteering'), 'volunteering'],
+                  [t('positions.type_selector.options.freetime'), 'freetime'],
+                  [t('positions.type_selector.options.university_position'), 'university_position']
+                ], params[:type]),
+                { prompt: t('positions.type_selector.prompt') },
+                { 
+                  class: "mx-auto block w-full max-w-md rounded-xl border border-gray-300 bg-white px-4 py-3 text-lg text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500",
+                  required: true,
+                  onchange: "this.form.submit();"
+                } %>
           </div>
+          
+          <p class="text-sm text-gray-500 mt-4">
+            Wähle einen Typ aus und du wirst automatisch zum entsprechenden Formular weitergeleitet.
+          </p>
+        </div>
+      <% end %>
 
-          <!-- Checkbox-Bereich -->
-          <h2 class="text-2xl font-bold"><%= t('positions.new.confirmation.title') %></h2>
-          <div class="bg-slate-100 rounded-xl p-8 space-y-6">
-            <div class="space-y-6">
-              <!-- Checkbox: Textbeschreibungen in englischer Sprache -->
-              <div class="field space-y-3">
-                <div class="border-2 border-gray-300 p-4 rounded-md">
-                  <label class="inline-flex items-center">
-                    <input type="checkbox" id="english-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
-                    <span class="ml-2 text-sm text-gray-700">
-                      <%= t('positions.new.confirmation.text') %>
-                    </span>
-                  </label>
-                </div>
+      <!-- Type-specific action cards (shown after selection) -->
+      <% if params[:type].present? %>
+        <div class="mt-12 max-w-4xl mx-auto">
+          <% case params[:type] %>
+          <% when 'volunteering' %>
+            <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-200 text-center">
+              <div class="mb-6">
+                <h2 class="text-3xl font-bold text-green-800 mb-4">🤝 Ehrenamtliche Position</h2>
+                <p class="text-lg text-green-700 mb-8">Erstelle eine Position für Freiwilligenarbeit und gesellschaftliches Engagement</p>
               </div>
-
-              <!-- Checkbox: Zustimmung zu AGB und Datenschutz -->
-              <div class="field space-y-3">
-                <div class="border-2 border-gray-300 p-4 rounded-md">
-                  <label class="inline-flex items-center">
-                    <input type="checkbox" id="terms-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
-                    <span class="ml-2 text-sm text-gray-700">
-                      <%= raw t('positions.new.confirmation.terms') %>
-                    </span>
-                  </label>
-                </div>
-              </div>
+              <%= link_to "Ehrenamtliche Position erstellen", 
+                  new_volunteering_position_path, 
+                  class: "inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 px-8 py-4 text-lg font-semibold text-white shadow-lg hover:from-green-700 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transform transition-all duration-200 hover:scale-105" %>
             </div>
-          </div>
-
-          <!-- Submit-Button -->
-          <div class="actions mt-12">
-            <%= f.submit t('positions.new.button.create'), id: "submit-button", class: "w-full py-2 bg-gray-400 text-white font-medium text-sm rounded-md shadow-sm cursor-not-allowed", disabled: true %>
+          
+          <% when 'freetime' %>
+            <div class="bg-gradient-to-r from-blue-50 to-sky-50 rounded-2xl p-8 border border-blue-200 text-center">
+              <div class="mb-6">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">🎯 Freizeitaktivität</h2>
+                <p class="text-lg text-blue-700 mb-8">Organisiere spannende Freizeitaktivitäten für die Community</p>
+              </div>
+              <%= link_to "Freizeitaktivität erstellen", 
+                  new_freetime_position_path, 
+                  class: "inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-sky-600 px-8 py-4 text-lg font-semibold text-white shadow-lg hover:from-blue-700 hover:to-sky-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform transition-all duration-200 hover:scale-105" %>
+            </div>
+          
+          <% when 'university_position' %>
+            <div class="bg-gradient-to-r from-purple-50 to-violet-50 rounded-2xl p-8 border border-purple-200 text-center">
+              <div class="mb-6">
+                <h2 class="text-3xl font-bold text-purple-800 mb-4">🎓 Universitätsposition</h2>
+                <p class="text-lg text-purple-700 mb-8">Biete studentische Stellen und Universitätspositionen an</p>
+              </div>
+              <%= link_to "Universitätsposition erstellen", 
+                  new_university_position_position_path, 
+                  class: "inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-purple-600 to-violet-600 px-8 py-4 text-lg font-semibold text-white shadow-lg hover:from-purple-700 hover:to-violet-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transform transition-all duration-200 hover:scale-105" %>
+            </div>
+          <% end %>
+          
+          <!-- Back button -->
+          <div class="text-center mt-8">
+            <%= link_to "Anderer Typ wählen", 
+                new_position_path, 
+                class: "inline-flex items-center text-gray-600 hover:text-gray-800" %>
           </div>
         </div>
       <% end %>
     </div>
   </div>
 </div>
-<script>
-  function initPositionNewForm () {
-    // Temporäre Position: Hinweistext anzeigen/verbergen
-    const temporarySelect = document.getElementById("position_temporary_select");
-    const infoText = document.getElementById("temporary-info-text");
 
-    if (temporarySelect && infoText) {
-      const toggleTemporaryInfo = () => {
-        if (temporarySelect.value === "true") {
-          infoText.classList.remove("hidden");
-        } else {
-          infoText.classList.add("hidden");
-        }
-      };
-
-      temporarySelect.addEventListener("change", toggleTemporaryInfo);
-      toggleTemporaryInfo();
-    }
-
-    // Word count logic
-    function updateWordCount(field, counter, minLength, goodLength, perfectLength) {
-      const charCount = field.value.length;
-
-      if (charCount < minLength) {
-        // Richtiger Weg, um eine Rails-Übersetzung mit variablen Werten in JavaScript zu verwenden
-        counter.textContent = '<%= t("positions.new.word_count.too_short") %>'.replace('%{min_length}', minLength - charCount);
-        counter.style.color = 'red';
-      } else if (charCount > perfectLength) {
-        counter.textContent = '<%= t("positions.new.word_count.too_long") %>';
-        counter.style.color = 'red';
-      } else if (charCount > minLength && charCount <= goodLength) {
-        counter.textContent = '<%= t("positions.new.word_count.good") %>';
-        counter.style.color = 'green';
-      } else if (charCount > goodLength && charCount <= perfectLength) {
-        counter.textContent = '<%= t("positions.new.word_count.perfect") %>';
-        counter.style.color = 'green';
-      } else {
-        counter.textContent = '';
-        counter.style.color = 'black';
-      }
-    }
-
-    const titleField = document.querySelector('input[name="position[title]"]');
-    const descriptionField = document.querySelector('textarea[name="position[description]"]');
-    const benefitsField = document.querySelector('textarea[name="position[benefits]"]');
-    const wordCountTitle = document.getElementById('word-count-title');
-    const wordCountDescription = document.getElementById('word-count-description');
-    const wordCountBenefits = document.getElementById('word-count-benefits');
-
-    if (titleField && descriptionField && benefitsField) {
-      titleField.addEventListener('input', function () {
-        updateWordCount(titleField, wordCountTitle, 15, 20, 75);
-      });
-
-      descriptionField.addEventListener('input', function () {
-        updateWordCount(descriptionField, wordCountDescription, 100, 700, 900);
-      });
-
-      benefitsField.addEventListener('input', function () {
-        updateWordCount(benefitsField, wordCountBenefits, 100, 700, 900);
-      });
-    }
-
-    // Rating points logic
-    const maxPoints = 15;
-    const ratingInputs = document.querySelectorAll('.rating-input');
-    const remainingPointsDisplay = document.getElementById('remaining-points');
-
-    function updateRemainingPoints() {
-      let totalPoints = 0;
-      ratingInputs.forEach(input => {
-        if (input.checked) {
-          totalPoints += parseInt(input.value);
-        }
-      });
-
-      const remainingPoints = maxPoints - totalPoints;
-      // Richtiger Weg für Ruby-Übersetzungen in JavaScript
-      remainingPointsDisplay.textContent = '<%= t("positions.new.remaining_points") %>'.replace('%{remaining_points}', remainingPoints);
-      remainingPointsDisplay.style.color = remainingPoints < 0 ? 'red' : 'black';
-    }
-
-    if (ratingInputs.length > 0 && remainingPointsDisplay) {
-      ratingInputs.forEach(input => {
-        input.addEventListener('change', updateRemainingPoints);
-      });
-
-      updateRemainingPoints();
-    }
-
-    // Upload feedback logic
-    function handleFileUpload(inputId, feedbackId) {
-      const input = document.getElementById(inputId);
-      const feedback = document.getElementById(feedbackId);
-
-      if (input && feedback) {
-        input.addEventListener("change", function () {
-          if (input.files && input.files.length > 0) {
-            // Richtiger Weg für Übersetzungen mit Variablen
-            feedback.textContent = '<%= t("positions.new.upload_feedback.success") %>'.replace('%{file_name}', input.files[0].name);
-            feedback.classList.remove("text-gray-500");
-            feedback.classList.add("text-green-600");
-          } else {
-            feedback.textContent = '<%= t("positions.new.upload_feedback.default") %>';
-            feedback.classList.remove("text-green-600");
-            feedback.classList.add("text-gray-500");
-          }
-        });
-      }
-    }
-
-    handleFileUpload("position_main_picture", "main_picture-feedback");
-    handleFileUpload("position_picture1", "picture1-feedback");
-    handleFileUpload("position_picture2", "picture2-feedback");
-    handleFileUpload("position_picture3", "picture3-feedback");
-
-    // FAQ Management - Robust approach
-    const addFaqButton = document.getElementById("add_faq");
-    const faqsContainer = document.getElementById("faqs");
-
-    if (addFaqButton && faqsContainer) {
-      if (faqsContainer.dataset.initialized === 'true') return;
-      faqsContainer.dataset.initialized = 'true';
-      let faqCounter = Date.now(); // Use timestamp to avoid conflicts
-
-      function addFaqFields() {
-        const newId = faqCounter++;
-        const faqHtml = `
-          <div class="faq-item field bg-gray-50 p-4 rounded-lg">
-            <div class="space-y-4">
-              <label class="block text-sm font-medium text-gray-700">Frage</label>
-              <input type="text" name="position[frequently_asked_questions_attributes][${newId}][question]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-
-              <label class="block text-sm font-medium text-gray-700">Antwort</label>
-              <textarea name="position[frequently_asked_questions_attributes][${newId}][answer]" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
-
-              <button type="button" class="remove-faq mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                Entfernen
-              </button>
-            </div>
-          </div>
-        `;
-        faqsContainer.insertAdjacentHTML('beforeend', faqHtml);
-      }
-
-      // Add new FAQ
-      addFaqButton.addEventListener("click", function(e) {
-        e.preventDefault();
-        addFaqFields();
-      });
-
-      // Remove FAQ using event delegation
-      faqsContainer.addEventListener("click", function(e) {
-        const btn = e.target.closest('.remove-faq');
-        if (!btn) return;
-        e.preventDefault();
-        const faqItem = btn.closest('.faq-item');
-        if (faqItem) {
-          const destroyField = faqItem.querySelector('.destroy-field');
-          if (destroyField) {
-            // Existing FAQ - mark for destruction
-            destroyField.value = "1";
-            faqItem.style.display = "none";
-          } else {
-            // New FAQ - remove completely
-            faqItem.remove();
-          }
-        }
-      });
-    }
-
-    // Checkbox logic for enabling the submit button
-    const englishCheckbox = document.getElementById("english-checkbox");
-    const termsCheckbox = document.getElementById("terms-checkbox");
-    const submitButton = document.getElementById("submit-button");
-
-    function updateSubmitButtonState() {
-      if (englishCheckbox.checked && termsCheckbox.checked) {
-        submitButton.disabled = false;
-        submitButton.classList.remove("bg-gray-400", "cursor-not-allowed");
-        submitButton.classList.add("bg-blue-600", "hover:bg-blue-700");
-      } else {
-        submitButton.disabled = true;
-        submitButton.classList.remove("bg-blue-600", "hover:bg-blue-700");
-        submitButton.classList.add("bg-gray-400", "cursor-not-allowed");
-      }
-    }
-
-    if (englishCheckbox && termsCheckbox && submitButton) {
-      // Initial update
-      updateSubmitButtonState();
-      
-      // Add event listeners
-      englishCheckbox.addEventListener("change", updateSubmitButtonState);
-      termsCheckbox.addEventListener("change", updateSubmitButtonState);
-    }
+<style>
+  .bg-gradient-to-br {
+    background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
   }
-  document.addEventListener('DOMContentLoaded', initPositionNewForm);
-  document.addEventListener('turbolinks:load', initPositionNewForm);
-  document.addEventListener('turbo:load', initPositionNewForm);
-</script>
+  
+  .bg-gradient-to-r {
+    background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  }
+  
+  .transform {
+    transform: var(--tw-transform);
+  }
+  
+  .transition-all {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .duration-200 {
+    transition-duration: 200ms;
+  }
+  
+  .hover\:scale-105:hover {
+    --tw-scale-x: 1.05;
+    --tw-scale-y: 1.05;
+    transform: scale(var(--tw-scale-x), var(--tw-scale-y));
+  }
+</style>

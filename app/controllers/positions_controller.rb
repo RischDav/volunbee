@@ -26,6 +26,23 @@ class PositionsController < ApplicationController
 
   def new
     @position = Position.new
+    
+    # Handle type-specific redirects
+    if params[:type].present?
+      case params[:type]
+      when 'volunteering'
+        @position.type = 'volunteering'
+        render 'positions/volunteering/new' and return
+      when 'freetime'
+        @position.type = 'freetime'
+        render 'positions/freetime/new' and return
+      when 'university_position'
+        @position.type = 'university_position'
+        render 'positions/university_position/new' and return
+      end
+    end
+    
+    # Default: show type selector
   end
 
   def create
@@ -254,7 +271,14 @@ class PositionsController < ApplicationController
     false
   end
 
-  def position_params
-  params.require(:position).permit(:title, :position_temporary, :weekly_time_commitment, :description, :benefits, :main_picture, :picture1, :picture2, :picture3, :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility, :released, :online, :visibility, :visible_university_id, frequently_asked_questions_attributes: [:id, :question, :answer, :_destroy])
-  end
+def position_params
+  params.require(:position).permit(
+    :title, :position_temporary, :weekly_time_commitment, :description, :benefits,
+    :main_picture, :picture1, :picture2, :picture3,
+    :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility,
+    :released, :online, :visibility, :visible_university_id,
+    :type, :appointment,                                 
+    frequently_asked_questions_attributes: [:id, :question, :answer, :_destroy]
+  )
+end
 end

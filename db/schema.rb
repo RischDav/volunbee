@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_05_003929) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_09_152352) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -107,9 +107,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_003929) do
     t.bigint "user_id"
     t.string "visibility", default: "all", null: false
     t.integer "visible_university_id"
+    t.integer "type", default: 1, null: false
+    t.string "appointment"
+    t.string "payment"
     t.index ["organization_id"], name: "index_positions_on_organization_id"
+    t.index ["type"], name: "index_positions_on_type"
     t.index ["user_id"], name: "index_positions_on_user_id"
     t.index ["visible_university_id"], name: "index_positions_on_visible_university_id"
+    t.check_constraint "type IN (1, 2, 3)", name: "positions_type_in_range"
   end
 
   create_table "positions_visible_fors", force: :cascade do |t|

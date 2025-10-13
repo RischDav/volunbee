@@ -136,8 +136,8 @@ de:
     imprint:
       title: "Impressum"
       tmg_section: "Angaben gemäß § 5 TMG"
-      company_name: "TUM Campus Heilbronn gGmbH"
-      department: "Student Services"
+      company_name: "Förderverein der Studierenden am TUM Campus Heilbronn e.V."
+      department: "Studentischer Verein"
       address_line_1: "Bildungscampus 2"
       address_line_2: "74076 Heilbronn"
       country: "Deutschland"
@@ -232,6 +232,15 @@ de:
       closing: "Vielen Dank,\nDas VolunteerHeilbronn-Team"
 
   positions:
+    type_selector:
+      label: "Stellentyp auswählen"
+      help: "Bitte wähle aus, welche Art von Stelle du anlegen möchtest."
+      prompt: "Bitte auswählen"
+      options:
+        volunteering: "Volunteering"
+        freetime: "Freizeit"
+        university_position: "Universitäts-Position"
+      confirm: "Bestätigen"
     admin_unreleased_positions:
       header: "Es gibt einige noch nicht freigegebene Positionen!"
       view: "Ansehen"

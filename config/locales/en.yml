@@ -70,6 +70,15 @@ en:
       blank: "must be filled in"
       invalid: "is not valid"
   positions:
+    type_selector:
+      label: "Select position type"
+      help: "Please choose which type of position you want to create."
+      prompt: "Please select"
+      options:
+        volunteering: "Volunteering"
+        freetime: "Free time"
+        university_position: "University position"
+      confirm: "Confirm"
     errors:
       limit_reached: "You have reached the maximum of 3 positions per organization."
     images:
@@ -323,15 +332,15 @@ en:
     imprint:
       title: "Imprint"
       tmg_section: "Details according to § 5 TMG"
-      company_name: "TUM Campus Heilbronn gGmbH"
-      department: "Student Services"
+      company_name: "Project by Förderverein der Studierenden am TUM Campus Heilbronn e.V."
+      department: "Student Council"
       address_line_1: "Bildungscampus 2"
       address_line_2: "74076 Heilbronn"
       country: "Germany"
       phone_label: "Phone"
       email_label: "Email"
       web_label: "Website"
-      executives_title: "Authorized Managing Directors"
+      executives_title: "Authorized by Managing Directors of Die TUM Campus Heilbronn gGmbH"
       executives: "Prof. Dr. Helmut Krcmar • Daniel A. Gottschald"
       headquarters_title: "Registered Office"
       headquarters: "Heilbronn, Germany"

@@ -1,0 +1,66 @@
+<div class="min-h-screen bg-gradient-to-br from-purple-50 via-white to-violet-50 py-8 flex flex-col justify-center sm:py-14">
+  <div class="relative py-4 sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto">
+    <div class="relative mx-4 rounded-3xl bg-white px-6 py-12 shadow-xl sm:mx-0 sm:px-12 sm:py-14 lg:px-16 border border-gray-100">
+      
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-purple-800 mb-4">🎓 Universitätsposition erstellen</h1>
+        <p class="text-lg text-purple-600">Biete studentische Stellen und Universitätspositionen an</p>
+      </div>
+
+      <%= form_with(model: @position, url: positions_path, local: true, class: "space-y-12", multipart: true) do |f| %>
+        
+        <!-- Flash Alerts -->
+        <% if flash[:alert] %>
+          <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+            <div class="flex items-start">
+              <svg class="w-5 h-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+              </svg>
+              <div>
+                <h3 class="font-bold mb-2">Fehler beim Erstellen der Position:</h3>
+                <div class="text-sm"><%= flash[:alert].html_safe %></div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <% if @position.errors.any? %>
+          <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+            <div class="flex items-start">
+              <svg class="w-5 h-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+              </svg>
+              <div>
+                <h3 class="font-bold mb-2">Fehler beim Speichern (<%= pluralize(@position.errors.count, "Fehler") %>):</h3>
+                <ul class="list-disc pl-5 text-sm space-y-1">
+                  <% @position.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Set the type to university_position -->
+        <%= f.hidden_field :type, value: 'university_position' %>
+
+        <!-- University Position Fields -->
+        <%= render 'positions/fields/university_position_fields', f: f %>
+
+        <!-- Submit Button -->
+        <div class="mt-12 flex items-center justify-center gap-6">
+          <%= f.submit "Universitätsposition erstellen", 
+              id: "submit-button", 
+              class: "px-8 py-4 bg-gray-400 text-white font-semibold text-lg rounded-xl shadow-lg cursor-not-allowed transform transition-all duration-200", 
+              disabled: true %>
+          
+          <%= link_to "Abbrechen", 
+              positions_path, 
+              class: "px-8 py-4 bg-gray-200 text-gray-800 font-semibold text-lg rounded-xl shadow-lg hover:bg-gray-300 transform transition-all duration-200 hover:scale-105" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

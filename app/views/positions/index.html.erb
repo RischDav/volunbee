@@ -2,10 +2,10 @@
   <h1 class="text-3xl font-semibold text-gray-800 mb-6"><%= t('positions.index.title') %></h1>
 
   <!-- Button für neue Position -->
-  <%= render partial: 'new_position_button' if (!current_user.admin? && !current_user.student?) %>
+  <%= render partial: 'positions/volunteering/new_position_button' if (!current_user.admin? && !current_user.student?) %>
 
   <!-- Admin-Bereich für nicht freigegebene Positionen -->
-  <%= render partial: 'admin_unreleased_positions', locals: { positions: @positions.where(released: false) } if current_user.admin? && @positions.where(released: false).exists? %>
+  <%= render partial: 'positions/volunteering/admin_unreleased_positions', locals: { positions: @positions.where(released: false) } if current_user.admin? && @positions.where(released: false).exists? %>
 
   <!-- Positionen meiner Uni (nur für Studierende & Personal Uni) -->
   <% if current_user.university.present? %>
@@ -20,7 +20,7 @@
         </h2>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <% university_positions.each do |position| %>
-            <%= render partial: 'position_card', locals: { position: position } %>
+            <%= render partial: 'positions/volunteering/position_card', locals: { position: position } %>
           <% end %>
         </div>
       </div>
@@ -28,29 +28,49 @@
   <% end %>
 </div>
   <% if @positions.present? && !current_user.university_staff? %>
-<div class="mx-auto my-6 p-8 bg-blue-50 rounded-lg shadow-md">
-  <!-- Alle Positionen -->
+    <% 
+      # Filtere Positionen nach Typ für bessere Kategorisierung
+      volunteering_positions = current_user.admin? ? @positions.where(type: 'volunteering', released: true) : @positions.where(type: 'volunteering')
+      freetime_positions = current_user.admin? ? @positions.where(type: 'freetime', released: true) : @positions.where(type: 'freetime')
+      university_positions_general = current_user.admin? ? @positions.where(type: 'university_position', released: true) : @positions.where(type: 'university_position')
+    %>
 
-    <div class="mb-8">
-      <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-        </svg>
-        Alle Positionen
-      </h2>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <% if current_user.admin? %>
-          <% @positions.where(released: true).each do |position| %>
-            <%= render partial: 'position_card', locals: { position: position } %>
-          <% end %>
-        <% else %>
-          <% @positions.each do |position| %>
-            <%= render partial: 'position_card', locals: { position: position } %>
-          <% end %>
-        <% end %>
+    <!-- Ehrenamtliche Aktivitäten -->
+    <% if volunteering_positions.any? %>
+      <div class="mx-auto my-6 p-8 bg-green-50 rounded-lg shadow-md">
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+            🤝 Ehrenamtliche Aktivitäten
+          </h2>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <% volunteering_positions.each do |position| %>
+              <%= render partial: 'positions/volunteering/position_card', locals: { position: position } %>
+            <% end %>
+          </div>
+        </div>
       </div>
-    </div>
+    <% end %>
 
-</div>
+    <!-- Freizeitaktivitäten -->
+    <% if freetime_positions.any? %>
+      <div class="mx-auto my-6 p-8 bg-blue-50 rounded-lg shadow-md">
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M12 5v.01M8 21l4-7 4 7M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+            </svg>
+            🎉 Freizeitaktivitäten
+          </h2>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <% freetime_positions.each do |position| %>
+              <%= render partial: 'positions/volunteering/position_card', locals: { position: position } %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 </div>

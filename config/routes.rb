@@ -37,9 +37,6 @@ Rails.application.routes.draw do
         patch 'offline'
         delete 'delete_picture/:picture_type', to: 'positions#delete_picture', as: 'delete_picture'
       end
-      collection do
-        get 'json_output', to: 'positions#json_output'
-      end
     end
 
     resources :organizations do

@@ -50,12 +50,19 @@
   <div class="mt-8 pt-6 border-t border-gray-200">
     <h3 class="text-lg font-medium text-gray-900 mb-4"><%= t('devise.registrations.edit.delete_account') %></h3>
 
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <span class="text-sm text-gray-600"><%= t('devise.registrations.edit.delete_account_warning') %></span>
-      <%= button_to t('devise.registrations.edit.delete_account'), registration_path(resource_name), 
-                    data: { confirm: t('devise.registrations.edit.delete_account_confirm') }, 
-                    method: :delete, 
-                    class: "text-red-600 hover:text-red-700" %>
+      <div class="shrink-0">
+        <%= link_to registration_path(resource_name),
+          data: { turbo_method: :delete, turbo_confirm: t('devise.registrations.edit.delete_account_confirm') },
+          class: "inline-flex items-center gap-2 rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+        do %>
+          <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M9 2a1 1 0 00-1 1v1H5.5a.5.5 0 000 1H6v10a2 2 0 002 2h4a2 2 0 002-2V5h.5a.5.5 0 000-1H12V3a1 1 0 00-1-1H9zm1 3h2v10a1 1 0 01-1 1H8a1 1 0 01-1-1V5h2V4h2v1z" clip-rule="evenodd" />
+          </svg>
+          <span><%= t('devise.registrations.edit.delete_account') %></span>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

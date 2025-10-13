@@ -12,3 +12,6 @@ application.register("flash-message", FlashMessageController)
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import PositionTypeController from "./position_type_controller"
+application.register("position-type", PositionTypeController)

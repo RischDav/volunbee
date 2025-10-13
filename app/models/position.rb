@@ -1,4 +1,6 @@
 class Position < ApplicationRecord
+  # Use a business field named `type` without triggering STI
+  self.inheritance_column = :_type_disabled
   belongs_to :organization, optional: true
   belongs_to :university, optional: true
   belongs_to :user
@@ -33,6 +35,16 @@ validate :main_picture_size
   validate :organization_position_limit
 
   after_commit :process_pictures, on: [:create, :update]
+
+  # Categorical type of position (use 2-arg form to avoid Ruby keyword args ambiguity)
+  enum :type, {
+    volunteering: 1,
+    freetime: 2,
+    university_position: 3
+  }
+
+  # Validate against enum keys ("volunteering", "freetime", ...)
+  validates :type, presence: true, inclusion: { in: types.keys }
 
   scope :active, -> { where(is_active: true) }
   scope :released, -> { where(released: true) }
