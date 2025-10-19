@@ -50,9 +50,9 @@
         <div class="space-y-10">
           <h2 class="text-2xl font-bold text-red-600"><%= t('positions.new.subtitle') %></h2>
 
-          <%= render 'positions/volunteering/form_general_information', f: f %>
-          <%= render 'positions/volunteering/form_images', f: f %>
-          <%= render 'positions/volunteering/form_score', f: f %>
+          <%= render 'positions/shared/form_general_information', f: f %>
+          <%= render 'positions/shared/form_images', f: f %>
+          <%= render 'positions/shared/form_score', f: f %>
           
           <!-- FAQ Section -->
           <div class="mt-12 space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm lg:p-8">
@@ -143,49 +143,41 @@
       toggleTemporaryInfo();
     }
 
-    // Word count logic
-    function updateWordCount(field, counter, minLength, goodLength, perfectLength) {
-      const charCount = field.value.length;
-
-      if (charCount < minLength) {
-        // Richtiger Weg, um eine Rails-Übersetzung mit variablen Werten in JavaScript zu verwenden
-        counter.textContent = '<%= t("positions.new.word_count.too_short") %>'.replace('%{min_length}', minLength - charCount);
-        counter.style.color = 'red';
-      } else if (charCount > perfectLength) {
-        counter.textContent = '<%= t("positions.new.word_count.too_long") %>';
-        counter.style.color = 'red';
-      } else if (charCount > minLength && charCount <= goodLength) {
-        counter.textContent = '<%= t("positions.new.word_count.good") %>';
-        counter.style.color = 'green';
-      } else if (charCount > goodLength && charCount <= perfectLength) {
-        counter.textContent = '<%= t("positions.new.word_count.perfect") %>';
-        counter.style.color = 'green';
-      } else {
-        counter.textContent = '';
-        counter.style.color = 'black';
+    // Character count validation
+    function updateCharCount(fieldId, countId, minLength, maxLength, fieldName) {
+      const field = document.querySelector(`[name="position[${fieldId}]"]`);
+      const counter = document.getElementById(countId);
+      
+      if (!field || !counter) return;
+      
+      function update() {
+        const length = field.value.length;
+        const remaining = minLength - length;
+        
+        if (length === 0) {
+          counter.innerHTML = `<span class="text-gray-500">Mindestens ${minLength} Zeichen erforderlich</span>`;
+          counter.className = 'text-sm text-gray-500';
+        } else if (length < minLength) {
+          counter.innerHTML = `<span class="text-red-600">⚠️ Noch ${remaining} Zeichen benötigt (${length}/${minLength})</span>`;
+          counter.className = 'text-sm text-red-600 font-medium';
+        } else if (length > maxLength) {
+          const excess = length - maxLength;
+          counter.innerHTML = `<span class="text-red-600">⚠️ ${excess} Zeichen zu viel (${length}/${maxLength})</span>`;
+          counter.className = 'text-sm text-red-600 font-medium';
+        } else {
+          counter.innerHTML = `<span class="text-green-600">✓ ${length} Zeichen (${minLength}-${maxLength})</span>`;
+          counter.className = 'text-sm text-green-600 font-medium';
+        }
       }
+      
+      field.addEventListener('input', update);
+      update();
     }
-
-    const titleField = document.querySelector('input[name="position[title]"]');
-    const descriptionField = document.querySelector('textarea[name="position[description]"]');
-    const benefitsField = document.querySelector('textarea[name="position[benefits]"]');
-    const wordCountTitle = document.getElementById('word-count-title');
-    const wordCountDescription = document.getElementById('word-count-description');
-    const wordCountBenefits = document.getElementById('word-count-benefits');
-
-    if (titleField && descriptionField && benefitsField) {
-      titleField.addEventListener('input', function () {
-        updateWordCount(titleField, wordCountTitle, 15, 20, 75);
-      });
-
-      descriptionField.addEventListener('input', function () {
-        updateWordCount(descriptionField, wordCountDescription, 100, 700, 900);
-      });
-
-      benefitsField.addEventListener('input', function () {
-        updateWordCount(benefitsField, wordCountBenefits, 100, 700, 900);
-      });
-    }
+    
+    // Initialize character counters
+    updateCharCount('title', 'word-count-title', 15, 75, 'Titel');
+    updateCharCount('description', 'word-count-description', 100, 1000, 'Beschreibung');
+    updateCharCount('benefits', 'word-count-benefits', 100, 1000, 'Vorteile');
 
     // Rating points logic
     const maxPoints = 15;

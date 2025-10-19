@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_09_152352) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_16_190406) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -83,6 +83,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_09_152352) do
     t.string "contact_person", default: ""
     t.string "tiktok_url", default: ""
     t.string "linktree_url", default: ""
+    t.integer "positions_count", default: 0, null: false
   end
 
   create_table "positions", force: :cascade do |t|
@@ -110,9 +111,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_09_152352) do
     t.integer "type", default: 1, null: false
     t.string "appointment"
     t.string "payment"
+    t.index ["organization_id", "released"], name: "index_positions_on_org_and_released"
     t.index ["organization_id"], name: "index_positions_on_organization_id"
+    t.index ["released", "online"], name: "index_positions_on_released_and_online"
+    t.index ["type", "online", "released"], name: "index_positions_on_type_online_released"
     t.index ["type"], name: "index_positions_on_type"
+    t.index ["university_id", "visibility"], name: "index_positions_on_uni_and_visibility"
     t.index ["user_id"], name: "index_positions_on_user_id"
+    t.index ["visibility"], name: "index_positions_on_visibility"
     t.index ["visible_university_id"], name: "index_positions_on_visible_university_id"
     t.check_constraint "type IN (1, 2, 3)", name: "positions_type_in_range"
   end
@@ -151,6 +157,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_09_152352) do
     t.string "linktree_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "positions_count", default: 0, null: false
   end
 
   create_table "user_affiliations", force: :cascade do |t|

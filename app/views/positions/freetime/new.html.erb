@@ -64,3 +64,57 @@
     </div>
   </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Character count validation
+  function updateCharCount(fieldId, countId, minLength, fieldName) {
+    const field = document.querySelector(`[name="position[${fieldId}]"]`);
+    const counter = document.getElementById(countId);
+    
+    if (!field || !counter) return;
+    
+    function update() {
+      const length = field.value.length;
+      const remaining = minLength - length;
+      
+      if (length === 0) {
+        counter.innerHTML = `<span class="text-gray-500">Mindestens ${minLength} Zeichen erforderlich</span>`;
+        counter.className = 'text-sm text-gray-500';
+      } else if (length < minLength) {
+        counter.innerHTML = `<span class="text-red-600">⚠️ Noch ${remaining} Zeichen benötigt (${length}/${minLength})</span>`;
+        counter.className = 'text-sm text-red-600 font-medium';
+      } else {
+        counter.innerHTML = `<span class="text-green-600">✓ ${length} Zeichen (${minLength} minimum)</span>`;
+        counter.className = 'text-sm text-green-600 font-medium';
+      }
+    }
+    
+    field.addEventListener('input', update);
+    update();
+  }
+  
+  // Initialize character counters
+  updateCharCount('title', 'word-count-title', 15, 'Titel');
+  updateCharCount('description', 'word-count-description', 100, 'Beschreibung');
+  updateCharCount('benefits', 'word-count-benefits', 100, 'Vorteile');
+  
+  // Submit button validation
+  const termsCheckbox = document.getElementById('terms-checkbox-freetime');
+  const submitButton = document.getElementById('submit-button');
+  
+  if (termsCheckbox && submitButton) {
+    termsCheckbox.addEventListener('change', function() {
+      if (this.checked) {
+        submitButton.disabled = false;
+        submitButton.classList.remove('bg-gray-400', 'cursor-not-allowed');
+        submitButton.classList.add('bg-blue-600', 'hover:bg-blue-700', 'hover:scale-105');
+      } else {
+        submitButton.disabled = true;
+        submitButton.classList.remove('bg-blue-600', 'hover:bg-blue-700', 'hover:scale-105');
+        submitButton.classList.add('bg-gray-400', 'cursor-not-allowed');
+      }
+    });
+  }
+});
+</script>

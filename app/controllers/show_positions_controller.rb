@@ -5,23 +5,23 @@ class ShowPositionsController < ApplicationController
     if user_signed_in?
       if current_user.organization?
         # Organization users: only their own org positions
-        @positions = Position.where(online: true, released: true, organization_id: current_user.organization_id)
+        @positions = Position.published.for_organization(current_user.organization_id)
       elsif current_user.student?
         # Students: org positions + university positions (visibility logic)
-        @positions = Position.where(online: true, released: true)
+        @positions = Position.published
       else
         # Other users (admins, university staff, etc): show all
-        @positions = Position.where(online: true, released: true)
+        @positions = Position.published
       end
     else
       # Not logged in: show only organization positions
-      @positions = Position.where(online: true, released: true).where.not(organization_id: nil)
+      @positions = Position.published.where.not(organization_id: nil)
     end
     @custom_navbar = true
   end
 
   def show
-    @position = Position.includes(:frequently_asked_questions).find(params[:id])
+    @position = Position.with_associations.find(params[:id])
     @custom_navbar = true
     if current_user.student?
       UserEvent.create!(

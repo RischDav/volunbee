@@ -1,7 +1,7 @@
 <!-- University Position-specific fields -->
 <div class="space-y-10">
   <!-- Basic Information -->
-  <%= render 'positions/volunteering/form_general_information', f: f %>
+  <%= render 'positions/shared/form_general_information', f: f %>
   
   <!-- University-specific section -->
   <div class="space-y-10 rounded-2xl border border-gray-200 bg-white p-8 shadow-sm lg:p-10">
@@ -54,7 +54,16 @@
   </div>
 
   <!-- Images -->
-  <%= render 'positions/volunteering/form_images', f: f %>
+  <%= render 'positions/shared/form_images', f: f %>
+
+  <!-- Skills (Required but simplified for university positions) -->
+  <div class="hidden">
+    <%= f.hidden_field :creative_skills, value: 3 %>
+    <%= f.hidden_field :technical_skills, value: 3 %>
+    <%= f.hidden_field :social_skills, value: 3 %>
+    <%= f.hidden_field :language_skills, value: 3 %>
+    <%= f.hidden_field :flexibility, value: 3 %>
+  </div>
 
   <!-- University confirmation -->
   <div class="bg-purple-50 rounded-xl p-8 space-y-6">
