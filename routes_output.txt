@@ -1,0 +1,96 @@
+                                  Prefix Verb   URI Pattern                                                                                       Controller#Action
+                                    root GET    /(:locale)(.:format)                                                                              main#index {:locale=>/en|de/}
+                    static_pages_privacy GET    (/:locale)/static_pages/privacy(.:format)                                                         static_pages#privacy {:locale=>/en|de/}
+                    static_pages_imprint GET    (/:locale)/static_pages/imprint(.:format)                                                         static_pages#imprint {:locale=>/en|de/}
+                            users_locked GET    (/:locale)/users/locked(.:format)                                                                 users#locked {:locale=>/en|de/}
+                               positions GET    (/:locale)/positions(.:format)                                                                    positions#index {:locale=>/en|de/}
+                               analytics GET    (/:locale)/analytics(.:format)                                                                    analytics#index {:locale=>/en|de/}
+                          show_positions GET    (/:locale)/show_positions(.:format)                                                               show_positions#index {:locale=>/en|de/}
+                                matching GET    (/:locale)/matching(.:format)                                                                     matching#index {:locale=>/en|de/}
+                        matching_results POST   (/:locale)/matching/results(.:format)                                                             matching#results {:locale=>/en|de/}
+                                         GET    (/:locale)/matching/results(.:format)                                                             matching#results {:locale=>/en|de/}
+                               impressum GET    (/:locale)/impressum(.:format)                                                                    impressum#index {:locale=>/en|de/}
+                        release_position PATCH  (/:locale)/positions/:id/release(.:format)                                                        positions#release {:locale=>/en|de/}
+                           lock_position PATCH  (/:locale)/positions/:id/lock(.:format)                                                           positions#lock {:locale=>/en|de/}
+                         online_position PATCH  (/:locale)/positions/:id/online(.:format)                                                         positions#online {:locale=>/en|de/}
+                        offline_position PATCH  (/:locale)/positions/:id/offline(.:format)                                                        positions#offline {:locale=>/en|de/}
+                 delete_picture_position DELETE (/:locale)/positions/:id/delete_picture/:picture_type(.:format)                                   positions#delete_picture {:locale=>/en|de/}
+                                         GET    (/:locale)/positions(.:format)                                                                    positions#index {:locale=>/en|de/}
+                                         POST   (/:locale)/positions(.:format)                                                                    positions#create {:locale=>/en|de/}
+                            new_position GET    (/:locale)/positions/new(.:format)                                                                positions#new {:locale=>/en|de/}
+                           edit_position GET    (/:locale)/positions/:id/edit(.:format)                                                           positions#edit {:locale=>/en|de/}
+                                position GET    (/:locale)/positions/:id(.:format)                                                                positions#show {:locale=>/en|de/}
+                                         PATCH  (/:locale)/positions/:id(.:format)                                                                positions#update {:locale=>/en|de/}
+                                         PUT    (/:locale)/positions/:id(.:format)                                                                positions#update {:locale=>/en|de/}
+                                         DELETE (/:locale)/positions/:id(.:format)                                                                positions#destroy {:locale=>/en|de/}
+                    release_organization PATCH  (/:locale)/organizations/:id/release(.:format)                                                    organizations#release {:locale=>/en|de/}
+                       lock_organization PATCH  (/:locale)/organizations/:id/lock(.:format)                                                       organizations#lock {:locale=>/en|de/}
+                           organizations GET    (/:locale)/organizations(.:format)                                                                organizations#index {:locale=>/en|de/}
+                                         POST   (/:locale)/organizations(.:format)                                                                organizations#create {:locale=>/en|de/}
+                        new_organization GET    (/:locale)/organizations/new(.:format)                                                            organizations#new {:locale=>/en|de/}
+                       edit_organization GET    (/:locale)/organizations/:id/edit(.:format)                                                       organizations#edit {:locale=>/en|de/}
+                            organization GET    (/:locale)/organizations/:id(.:format)                                                            organizations#show {:locale=>/en|de/}
+                                         PATCH  (/:locale)/organizations/:id(.:format)                                                            organizations#update {:locale=>/en|de/}
+                                         PUT    (/:locale)/organizations/:id(.:format)                                                            organizations#update {:locale=>/en|de/}
+                                         DELETE (/:locale)/organizations/:id(.:format)                                                            organizations#destroy {:locale=>/en|de/}
+                      release_university PATCH  (/:locale)/universities/:id/release(.:format)                                                     universities#release {:locale=>/en|de/}
+                         lock_university PATCH  (/:locale)/universities/:id/lock(.:format)                                                        universities#lock {:locale=>/en|de/}
+                            universities GET    (/:locale)/universities(.:format)                                                                 universities#index {:locale=>/en|de/}
+                                         POST   (/:locale)/universities(.:format)                                                                 universities#create {:locale=>/en|de/}
+                          new_university GET    (/:locale)/universities/new(.:format)                                                             universities#new {:locale=>/en|de/}
+                         edit_university GET    (/:locale)/universities/:id/edit(.:format)                                                        universities#edit {:locale=>/en|de/}
+                              university GET    (/:locale)/universities/:id(.:format)                                                             universities#show {:locale=>/en|de/}
+                                         PATCH  (/:locale)/universities/:id(.:format)                                                             universities#update {:locale=>/en|de/}
+                                         PUT    (/:locale)/universities/:id(.:format)                                                             universities#update {:locale=>/en|de/}
+                                         DELETE (/:locale)/universities/:id(.:format)                                                             universities#destroy {:locale=>/en|de/}
+                      release_user_admin PATCH  (/:locale)/admin/:id/release_user(.:format)                                                       admin#release_user {:locale=>/en|de/}
+                         lock_user_admin PATCH  (/:locale)/admin/:id/lock_user(.:format)                                                          admin#lock_user {:locale=>/en|de/}
+                             admin_index GET    (/:locale)/admin(.:format)                                                                        admin#index {:locale=>/en|de/}
+                                json_api GET    (/:locale)/json_api(.:format)                                                                     json_api#output {:locale=>/en|de/}
+                        new_user_session GET    (/:locale)/users/sign_in(.:format)                                                                users/sessions#new {:locale=>/en|de/}
+                            user_session POST   (/:locale)/users/sign_in(.:format)                                                                users/sessions#create {:locale=>/en|de/}
+                    destroy_user_session DELETE (/:locale)/users/sign_out(.:format)                                                               users/sessions#destroy {:locale=>/en|de/}
+                       new_user_password GET    (/:locale)/users/password/new(.:format)                                                           devise/passwords#new {:locale=>/en|de/}
+                      edit_user_password GET    (/:locale)/users/password/edit(.:format)                                                          devise/passwords#edit {:locale=>/en|de/}
+                           user_password PATCH  (/:locale)/users/password(.:format)                                                               devise/passwords#update {:locale=>/en|de/}
+                                         PUT    (/:locale)/users/password(.:format)                                                               devise/passwords#update {:locale=>/en|de/}
+                                         POST   (/:locale)/users/password(.:format)                                                               devise/passwords#create {:locale=>/en|de/}
+                cancel_user_registration GET    (/:locale)/users/cancel(.:format)                                                                 users/registrations#cancel {:locale=>/en|de/}
+                   new_user_registration GET    (/:locale)/users/sign_up(.:format)                                                                users/registrations#new {:locale=>/en|de/}
+                  edit_user_registration GET    (/:locale)/users/edit(.:format)                                                                   users/registrations#edit {:locale=>/en|de/}
+                       user_registration PATCH  (/:locale)/users(.:format)                                                                        users/registrations#update {:locale=>/en|de/}
+                                         PUT    (/:locale)/users(.:format)                                                                        users/registrations#update {:locale=>/en|de/}
+                                         DELETE (/:locale)/users(.:format)                                                                        users/registrations#destroy {:locale=>/en|de/}
+                                         POST   (/:locale)/users(.:format)                                                                        users/registrations#create {:locale=>/en|de/}
+                   new_user_confirmation GET    (/:locale)/users/confirmation/new(.:format)                                                       users/confirmations#new {:locale=>/en|de/}
+                       user_confirmation GET    (/:locale)/users/confirmation(.:format)                                                           users/confirmations#show {:locale=>/en|de/}
+                                         POST   (/:locale)/users/confirmation(.:format)                                                           users/confirmations#create {:locale=>/en|de/}
+                           users_sign_up GET    (/:locale)/users/sign_up(.:format)                                                                redirect(301, /%{locale}/users/sign_up/organization) {:locale=>/en|de/}
+           new_organization_registration GET    (/:locale)/users/sign_up/organization(.:format)                                                   users/registrations#new_organization {:locale=>/en|de/}
+                new_student_registration GET    (/:locale)/users/sign_up/student(.:format)                                                        users/registrations#new_student {:locale=>/en|de/}
+                                         GET    (/:locale)/show_positions(.:format)                                                               show_positions#index {:locale=>/en|de/}
+                           show_position GET    (/:locale)/show_positions/:id(.:format)                                                           show_positions#show {:locale=>/en|de/}
+                            debug_schema GET    (/:locale)/debug/schema(.:format)                                                                 debug#schema {:locale=>/en|de/}
+           rails_postmark_inbound_emails POST   /rails/action_mailbox/postmark/inbound_emails(.:format)                                           action_mailbox/ingresses/postmark/inbound_emails#create
+              rails_relay_inbound_emails POST   /rails/action_mailbox/relay/inbound_emails(.:format)                                              action_mailbox/ingresses/relay/inbound_emails#create
+           rails_sendgrid_inbound_emails POST   /rails/action_mailbox/sendgrid/inbound_emails(.:format)                                           action_mailbox/ingresses/sendgrid/inbound_emails#create
+     rails_mandrill_inbound_health_check GET    /rails/action_mailbox/mandrill/inbound_emails(.:format)                                           action_mailbox/ingresses/mandrill/inbound_emails#health_check
+           rails_mandrill_inbound_emails POST   /rails/action_mailbox/mandrill/inbound_emails(.:format)                                           action_mailbox/ingresses/mandrill/inbound_emails#create
+            rails_mailgun_inbound_emails POST   /rails/action_mailbox/mailgun/inbound_emails/mime(.:format)                                       action_mailbox/ingresses/mailgun/inbound_emails#create
+          rails_conductor_inbound_emails GET    /rails/conductor/action_mailbox/inbound_emails(.:format)                                          rails/conductor/action_mailbox/inbound_emails#index
+                                         POST   /rails/conductor/action_mailbox/inbound_emails(.:format)                                          rails/conductor/action_mailbox/inbound_emails#create
+       new_rails_conductor_inbound_email GET    /rails/conductor/action_mailbox/inbound_emails/new(.:format)                                      rails/conductor/action_mailbox/inbound_emails#new
+           rails_conductor_inbound_email GET    /rails/conductor/action_mailbox/inbound_emails/:id(.:format)                                      rails/conductor/action_mailbox/inbound_emails#show
+new_rails_conductor_inbound_email_source GET    /rails/conductor/action_mailbox/inbound_emails/sources/new(.:format)                              rails/conductor/action_mailbox/inbound_emails/sources#new
+   rails_conductor_inbound_email_sources POST   /rails/conductor/action_mailbox/inbound_emails/sources(.:format)                                  rails/conductor/action_mailbox/inbound_emails/sources#create
+   rails_conductor_inbound_email_reroute POST   /rails/conductor/action_mailbox/:inbound_email_id/reroute(.:format)                               rails/conductor/action_mailbox/reroutes#create
+rails_conductor_inbound_email_incinerate POST   /rails/conductor/action_mailbox/:inbound_email_id/incinerate(.:format)                            rails/conductor/action_mailbox/incinerates#create
+                      rails_service_blob GET    /rails/active_storage/blobs/redirect/:signed_id/*filename(.:format)                               active_storage/blobs/redirect#show
+                rails_service_blob_proxy GET    /rails/active_storage/blobs/proxy/:signed_id/*filename(.:format)                                  active_storage/blobs/proxy#show
+                                         GET    /rails/active_storage/blobs/:signed_id/*filename(.:format)                                        active_storage/blobs/redirect#show
+               rails_blob_representation GET    /rails/active_storage/representations/redirect/:signed_blob_id/:variation_key/*filename(.:format) active_storage/representations/redirect#show
+         rails_blob_representation_proxy GET    /rails/active_storage/representations/proxy/:signed_blob_id/:variation_key/*filename(.:format)    active_storage/representations/proxy#show
+                                         GET    /rails/active_storage/representations/:signed_blob_id/:variation_key/*filename(.:format)          active_storage/representations/redirect#show
+                      rails_disk_service GET    /rails/active_storage/disk/:encoded_key/*filename(.:format)                                       active_storage/disk#show
+               update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:format)                                               active_storage/disk#update
+                    rails_direct_uploads POST   /rails/active_storage/direct_uploads(.:format)                                                    active_storage/direct_uploads#create

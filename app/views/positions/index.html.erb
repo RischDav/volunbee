@@ -2,10 +2,11 @@
   <h1 class="text-3xl font-semibold text-gray-800 mb-6"><%= t('positions.index.title') %></h1>
 
   <!-- Button für neue Position -->
-  <%= render partial: 'positions/volunteering/new_position_button' if (!current_user.admin? && !current_user.student?) %>
+    <!-- Create Position Button -->
+  <%= render partial: 'positions/shared/new_position_button' if (!current_user.admin? && !current_user.student?) %>
 
-  <!-- Admin-Bereich für nicht freigegebene Positionen -->
-  <%= render partial: 'positions/volunteering/admin_unreleased_positions', locals: { positions: @positions.where(released: false) } if current_user.admin? && @positions.where(released: false).exists? %>
+  <!-- Admin Alert for Unreleased Positions -->
+  <%= render partial: 'positions/shared/admin_unreleased_positions', locals: { positions: @positions.where(released: false) } if current_user.admin? && @positions.where(released: false).exists? %>
 
   <!-- Positionen meiner Uni (nur für Studierende & Personal Uni) -->
   <% if current_user.university.present? %>
@@ -20,7 +21,7 @@
         </h2>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <% university_positions.each do |position| %>
-            <%= render partial: 'positions/volunteering/position_card', locals: { position: position } %>
+            <%= render partial: 'positions/shared/position_card', locals: { position: position } %>
           <% end %>
         </div>
       </div>
@@ -30,9 +31,9 @@
   <% if @positions.present? && !current_user.university_staff? %>
     <% 
       # Filtere Positionen nach Typ für bessere Kategorisierung
-      volunteering_positions = current_user.admin? ? @positions.where(type: 'volunteering', released: true) : @positions.where(type: 'volunteering')
-      freetime_positions = current_user.admin? ? @positions.where(type: 'freetime', released: true) : @positions.where(type: 'freetime')
-      university_positions_general = current_user.admin? ? @positions.where(type: 'university_position', released: true) : @positions.where(type: 'university_position')
+      volunteering_positions = current_user.admin? ? @positions.by_type('volunteering').released : @positions.by_type('volunteering')
+      freetime_positions = current_user.admin? ? @positions.by_type('freetime').released : @positions.by_type('freetime')
+      university_positions_general = current_user.admin? ? @positions.by_type('university_position').released : @positions.by_type('university_position')
     %>
 
     <!-- Ehrenamtliche Aktivitäten -->
@@ -47,7 +48,7 @@
           </h2>
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <% volunteering_positions.each do |position| %>
-              <%= render partial: 'positions/volunteering/position_card', locals: { position: position } %>
+              <%= render partial: 'positions/shared/position_card', locals: { position: position } %>
             <% end %>
           </div>
         </div>
@@ -66,7 +67,7 @@
           </h2>
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <% freetime_positions.each do |position| %>
-              <%= render partial: 'positions/volunteering/position_card', locals: { position: position } %>
+              <%= render partial: 'positions/shared/position_card', locals: { position: position } %>
             <% end %>
           </div>
         </div>

@@ -1,0 +1,148 @@
+<div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-sky-50 py-6 flex flex-col justify-center sm:py-12">
+  <div class="relative py-4 sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto">
+    <div class="relative mx-4 rounded-3xl bg-white px-6 py-12 shadow sm:mx-0 sm:px-12 sm:py-14 lg:px-16">
+      
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-blue-800 mb-4">🎯 Freizeitaktivität bearbeiten</h1>
+        <p class="text-lg text-blue-600">Aktualisiere die Details deiner Freizeitaktivität</p>
+      </div>
+
+      <%= form_with model: @position, local: true, class: "space-y-12", multipart: true do |f| %>
+        <!-- Flash Alerts for custom error messages -->
+        <% if flash[:alert] %>
+          <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+            <div class="flex items-start">
+              <svg class="w-5 h-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+              </svg>
+              <div>
+                <h3 class="font-bold mb-2">Fehler beim Speichern:</h3>
+                <div class="text-sm">
+                  <%= flash[:alert].html_safe %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Standard Rails Errors for fallback -->
+        <% if @position.errors.any? %>
+          <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+            <h2 class="font-bold mb-2">Fehler beim Speichern:</h2>
+            <ul class="list-disc pl-5">
+              <% @position.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <!-- Hidden field to maintain type -->
+        <%= f.hidden_field :type, value: 'freetime' %>
+
+        <div class="space-y-10">
+          <%= render 'positions/shared/form_general_information', f: f %>
+          <%= render 'positions/shared/form_images', f: f %>
+          
+          <!-- Hidden skill fields (not shown for freetime but required) -->
+          <%= f.hidden_field :creative_skills, value: 3 %>
+          <%= f.hidden_field :technical_skills, value: 3 %>
+          <%= f.hidden_field :social_skills, value: 3 %>
+          <%= f.hidden_field :language_skills, value: 3 %>
+          <%= f.hidden_field :flexibility, value: 3 %>
+
+          <!-- Submit Button -->
+          <div class="pt-10">
+            <div class="flex justify-end gap-4">
+              <%= link_to "Abbrechen", positions_path, class: "inline-flex justify-center py-3 px-6 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+              <%= f.submit "Freizeitaktivität aktualisieren", class: "inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initFreetimeEditForm() {
+    // Character count validation
+    function updateCharCount(field, counterId, minLength, maxLength) {
+      const counter = document.getElementById(counterId);
+      if (!counter || !field) return;
+
+      const charCount = field.value.length;
+      counter.textContent = `${charCount} Zeichen`;
+
+      if (charCount < minLength) {
+        counter.style.color = 'red';
+        counter.textContent = `${charCount}/${minLength} Zeichen (mindestens ${minLength - charCount} weitere erforderlich)`;
+      } else if (charCount > maxLength) {
+        counter.style.color = 'red';
+        counter.textContent = `${charCount}/${maxLength} Zeichen (${charCount - maxLength} zu viel)`;
+      } else {
+        counter.style.color = 'green';
+        counter.textContent = `${charCount} Zeichen ✓`;
+      }
+    }
+
+    // Initialize character counters
+    const titleField = document.querySelector('input[name="position[title]"]');
+    const descriptionField = document.querySelector('textarea[name="position[description]"]');
+    const benefitsField = document.querySelector('textarea[name="position[benefits]"]');
+
+    if (titleField) {
+      titleField.addEventListener('input', function() {
+        updateCharCount(titleField, 'word-count-title', 15, 75);
+      });
+      // Initial count
+      updateCharCount(titleField, 'word-count-title', 15, 75);
+    }
+
+    if (descriptionField) {
+      descriptionField.addEventListener('input', function() {
+        updateCharCount(descriptionField, 'word-count-description', 100, 1000);
+      });
+      // Initial count
+      updateCharCount(descriptionField, 'word-count-description', 100, 1000);
+    }
+
+    if (benefitsField) {
+      benefitsField.addEventListener('input', function() {
+        updateCharCount(benefitsField, 'word-count-benefits', 100, 1000);
+      });
+      // Initial count
+      updateCharCount(benefitsField, 'word-count-benefits', 100, 1000);
+    }
+
+    // File upload feedback
+    function handleFileUpload(inputId, feedbackId) {
+      const input = document.getElementById(inputId);
+      const feedback = document.getElementById(feedbackId);
+
+      if (input && feedback) {
+        input.addEventListener("change", function() {
+          if (input.files && input.files.length > 0) {
+            feedback.textContent = `✓ ${input.files[0].name} ausgewählt`;
+            feedback.classList.remove("text-gray-500");
+            feedback.classList.add("text-green-600");
+          } else {
+            feedback.textContent = "Keine Datei ausgewählt";
+            feedback.classList.remove("text-green-600");
+            feedback.classList.add("text-gray-500");
+          }
+        });
+      }
+    }
+
+    handleFileUpload("position_main_picture", "main_picture-feedback");
+    handleFileUpload("position_picture1", "picture1-feedback");
+    handleFileUpload("position_picture2", "picture2-feedback");
+    handleFileUpload("position_picture3", "picture3-feedback");
+  }
+
+  document.addEventListener('DOMContentLoaded', initFreetimeEditForm);
+  document.addEventListener('turbolinks:load', initFreetimeEditForm);
+  document.addEventListener('turbo:load', initFreetimeEditForm);
+</script>

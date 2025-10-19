@@ -1,8 +1,8 @@
 class Position < ApplicationRecord
   # Use a business field named `type` without triggering STI
   self.inheritance_column = :_type_disabled
-  belongs_to :organization, optional: true
-  belongs_to :university, optional: true
+  belongs_to :organization, optional: true, counter_cache: true
+  belongs_to :university, optional: true, counter_cache: true
   belongs_to :user
   has_many :frequently_asked_questions, dependent: :destroy
   has_many :messages, dependent: :destroy
@@ -46,9 +46,30 @@ validate :main_picture_size
   # Validate against enum keys ("volunteering", "freetime", ...)
   validates :type, presence: true, inclusion: { in: types.keys }
 
+  # Scopes for common queries
   scope :active, -> { where(is_active: true) }
   scope :released, -> { where(released: true) }
   scope :online, -> { where(online: true) }
+  scope :published, -> { where(released: true, online: true) }
+  scope :draft, -> { where(released: false, online: false) }
+  scope :approved_but_offline, -> { where(released: true, online: false) }
+  
+  # Scopes for filtering by relationship
+  scope :for_organization, ->(org_id) { where(organization_id: org_id) }
+  scope :for_university, ->(uni_id) { where(university_id: uni_id) }
+  scope :by_type, ->(position_type) { where(type: position_type) }
+  
+  # Scope for student visibility
+  scope :visible_to_student, ->(student) {
+    where(
+      "(visibility = ? OR ((visibility IS NULL OR visibility = ?) AND university_id = ?)) AND released = ? AND online = ?",
+      'all', 'university', student.university_id, true, true
+    )
+  }
+  
+  # Scope with eager loading for performance
+  scope :with_associations, -> { includes(:organization, :university, :user, :frequently_asked_questions) }
+  scope :with_images, -> { with_attached_main_picture.with_attached_picture1.with_attached_picture2.with_attached_picture3 }
 
   # Direkte S3-URL Helper-Methoden
   def direct_image_url(variant_options = nil)
@@ -157,14 +178,14 @@ validate :main_picture_size
 
   def organization_or_university_present
     if organization.nil? && university.nil?
-      errors.add(:base, "Position must belong to either an organization or university")
+      errors.add(:base, "❌ Die Position muss entweder einer Organisation oder einer Universität zugeordnet sein.")
     end
   end
 
   def student_cannot_create_position
     # Only block if user has university affiliation AND role 0 (normal user)
     if user&.affiliation&.university_id.present? && user&.affiliation&.role == UserAffiliation::NORMAL_USER
-      errors.add(:base, 'Studenten können keine neuen Positionen erstellen.')
+      errors.add(:base, '❌ Studenten können keine neuen Positionen erstellen. Nur Organisationen und Universitätsmitarbeiter haben diese Berechtigung.')
     end
   end
 
