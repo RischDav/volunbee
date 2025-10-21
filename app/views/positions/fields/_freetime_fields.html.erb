@@ -1,11 +1,14 @@
 <!-- Freetime-specific fields -->
 <div class="space-y-10">
-  <!-- Basic Information -->
-  <%= render 'positions/shared/form_general_information', f: f %>
+  <!-- Basic Information (Freetime-specific) -->
+  <%= render 'positions/freetime/form_general_information', f: f %>
   
   <!-- Freetime-specific section -->
-  <div class="space-y-10 rounded-2xl border border-gray-200 bg-white p-8 shadow-sm lg:p-10">
-    <h2 class="text-2xl font-bold text-blue-600">Freizeitaktivität Details</h2>
+  <div class="space-y-10 rounded-2xl border border-blue-200 bg-blue-50 p-8 shadow-sm lg:p-10">
+    <div class="flex items-center gap-3">
+      <span class="text-3xl">📍</span>
+      <h2 class="text-2xl font-bold text-blue-800">Ort und Zeitplan</h2>
+    </div>
     
     <!-- Activity Type -->
     <div class="field space-y-3">

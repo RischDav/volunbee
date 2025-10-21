@@ -32,11 +32,11 @@ class PositionsController < ApplicationController
       @position.type = params[:type]
       case params[:type]
       when 'volunteering'
-        render 'volunteering/new'
+        render 'positions/volunteering/new'
       when 'freetime'
-        render 'freetime/new'
+        render 'positions/freetime/new'
       when 'university_position'
-        render 'university_position/new'
+        render 'positions/university_position/new'
       end
     end
     # Otherwise, render the default type selector (new.html.erb)
