@@ -1,35 +1,35 @@
-<div class="flex space-x-4 mt-5">
-  <%= link_to t('positions.position_actions.view'), position_path(position), class: 'inline-block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700' %>
+<div class="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-5">
+  <%= link_to t('positions.position_actions.view'), position_path(position), class: 'w-full sm:w-32 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 text-center text-sm sm:text-base' %>
   
   <% if current_user.admin? %>
     <!-- Admin kann alles -->
-    <%= link_to t('positions.position_actions.edit'), edit_position_path(position), class: 'inline-block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700' %>
-    <%= button_to t('positions.position_actions.delete'), position_path(position), method: :delete, class: "inline-block bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700" %>
+    <%= link_to t('positions.position_actions.edit'), edit_position_path(position), class: 'w-full sm:w-32 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 text-center text-sm sm:text-base' %>
+    <%= button_to t('positions.position_actions.delete'), position_path(position), method: :delete, class: "w-full sm:w-32 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 text-center text-sm sm:text-base", form_class: "w-full sm:w-32" %>
     <% if position.online %>
-      <%= button_to t('positions.position_actions.take_offline'), offline_position_path(position), method: :patch, class: 'inline-block bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700' %>
+      <%= button_to t('positions.position_actions.take_offline'), offline_position_path(position), method: :patch, class: 'w-full sm:w-32 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 text-center text-sm sm:text-base', form_class: "w-full sm:w-32" %>
     <% else %>
-      <%= button_to t('positions.position_actions.take_online'), online_position_path(position), method: :patch, class: 'inline-block bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700' %>
+      <%= button_to t('positions.position_actions.take_online'), online_position_path(position), method: :patch, class: 'w-full sm:w-32 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 text-center text-sm sm:text-base', form_class: "w-full sm:w-32" %>
     <% end %>
-    <%= button_to t('positions.position_actions.lock'), lock_position_path(position), method: :patch, class: 'inline-block bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700' %>
+    <%= button_to t('positions.position_actions.lock'), lock_position_path(position), method: :patch, class: 'w-full sm:w-32 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 text-center text-sm sm:text-base', form_class: "w-full sm:w-32" %>
     
   <% elsif current_user.organization? %>
     <!-- Organization User kann eigene Positionen bearbeiten und löschen -->
-    <%= link_to t('positions.position_actions.edit'), edit_position_path(position), class: 'inline-block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700' %>
-    <%= button_to t('positions.position_actions.delete'), position_path(position), method: :delete, class: "inline-block bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700" %>
+    <%= link_to t('positions.position_actions.edit'), edit_position_path(position), class: 'w-full sm:w-32 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 text-center text-sm sm:text-base' %>
+    <%= button_to t('positions.position_actions.delete'), position_path(position), method: :delete, class: "w-full sm:w-32 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 text-center text-sm sm:text-base", form_class: "w-full sm:w-32" %>
     <% if position.online %>
-      <%= button_to t('positions.position_actions.take_offline'), offline_position_path(position), method: :patch, class: 'inline-block bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700' %>
+      <%= button_to t('positions.position_actions.take_offline'), offline_position_path(position), method: :patch, class: 'w-full sm:w-32 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 text-center text-sm sm:text-base', form_class: "w-full sm:w-32" %>
     <% else %>
-      <%= button_to t('positions.position_actions.take_online'), online_position_path(position), method: :patch, class: 'inline-block bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700' %>
+      <%= button_to t('positions.position_actions.take_online'), online_position_path(position), method: :patch, class: 'w-full sm:w-32 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 text-center text-sm sm:text-base', form_class: "w-full sm:w-32" %>
     <% end %>
     
   <% elsif current_user.university_staff? %>
     <!-- University Staff kann eigene Positionen bearbeiten und löschen -->
-    <%= link_to t('positions.position_actions.edit'), edit_position_path(position), class: 'inline-block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700' %>
-    <%= button_to t('positions.position_actions.delete'), position_path(position), method: :delete, class: "inline-block bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700" %>
+    <%= link_to t('positions.position_actions.edit'), edit_position_path(position), class: 'w-full sm:w-32 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 text-center text-sm sm:text-base' %>
+    <%= button_to t('positions.position_actions.delete'), position_path(position), method: :delete, class: "w-full sm:w-32 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 text-center text-sm sm:text-base", form_class: "w-full sm:w-32" %>
     <% if position.online %>
-      <%= button_to t('positions.position_actions.take_offline'), offline_position_path(position), method: :patch, class: 'inline-block bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700' %>
+      <%= button_to t('positions.position_actions.take_offline'), offline_position_path(position), method: :patch, class: 'w-full sm:w-32 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 text-center text-sm sm:text-base', form_class: "w-full sm:w-32" %>
     <% else %>
-      <%= button_to t('positions.position_actions.take_online'), online_position_path(position), method: :patch, class: 'inline-block bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700' %>
+      <%= button_to t('positions.position_actions.take_online'), online_position_path(position), method: :patch, class: 'w-full sm:w-32 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 text-center text-sm sm:text-base', form_class: "w-full sm:w-32" %>
     <% end %>
     
   <% else %>

@@ -1,0 +1,118 @@
+<!-- Freetime Position General Information Section -->
+<div class="space-y-10 rounded-2xl border border-blue-200 bg-blue-50 p-8 shadow-sm lg:p-10">
+  <div class="flex items-center gap-3">
+    <span class="text-3xl">🎯</span>
+    <h2 class="text-2xl font-bold text-blue-800">Aktivitätsdetails</h2>
+  </div>
+  
+  <!-- Position Title -->
+  <div class="field space-y-3">
+    <%= f.label :title, "Titel der Aktivität", class: "block text-sm font-medium text-blue-700" %>
+    <%= f.text_field :title, class: "mt-2 block w-full rounded-md border border-blue-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "z.B. Campus Yoga & Meditation Gruppe" %>
+    <div id="word-count-title" class="text-sm text-gray-500"></div>
+    <p class="text-sm text-blue-600 leading-relaxed">Gib der Aktivität einen ansprechenden Namen (15-75 Zeichen)</p>
+  </div>
+
+  <!-- Position Description (Activity Description) -->
+  <div class="field space-y-3 border-t border-blue-200 pt-6">
+    <%= f.label :description, "Beschreibung der Aktivität", class: "block text-sm font-medium text-blue-700" %>
+    <%= f.text_area :description, rows: 5, class: "mt-2 block w-full rounded-md border border-blue-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "Beschreibe die Aktivität im Detail: Was wird gemacht? Wo findet es statt? Wann?" %>
+    <div id="word-count-description" class="text-sm text-gray-500"></div>
+    <p class="text-sm text-blue-600 leading-relaxed">Erkläre, was bei der Aktivität passiert (100-1000 Zeichen)</p>
+  </div>
+
+  <!-- Who is it recommended for? (Using Benefits field) -->
+  <div class="field space-y-3 border-t border-blue-200 pt-6">
+    <%= f.label :benefits, "Für wen ist die Aktivität geeignet?", class: "block text-sm font-medium text-blue-700" %>
+    <%= f.text_area :benefits, rows: 3, class: "mt-2 block w-full rounded-md border border-blue-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "z.B. Für Anfänger und Fortgeschrittene, alle Altersgruppen, Sportbegeisterte..." %>
+    <div id="word-count-benefits" class="text-sm text-gray-500"></div>
+    <p class="text-sm text-blue-600 leading-relaxed">Beschreibe die Zielgruppe für diese Aktivität (100-1000 Zeichen)</p>
+  </div>
+
+  <!-- Weekly Time Commitment -->
+  <div class="field space-y-3 border-t border-blue-200 pt-6">
+    <%= f.label :weekly_time_commitment, "Zeitaufwand pro Woche (in Stunden)", class: "block text-sm font-medium text-blue-700" %>
+    <%= f.number_field :weekly_time_commitment, class: "mt-2 block w-full rounded-md border border-blue-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", min: 1, max: 40, placeholder: "z.B. 2" %>
+    <p class="text-sm text-blue-600 leading-relaxed">Wie viele Stunden pro Woche nimmt die Aktivität in Anspruch?</p>
+  </div>
+
+  <!-- Does the activity cost anything? -->
+  <div class="field space-y-3 border-t border-blue-200 pt-6">
+    <label class="block text-sm font-medium text-blue-700">Kostet die Aktivität etwas?</label>
+    <div class="mt-2 space-y-4">
+      <div class="flex items-center gap-4">
+        <%= f.radio_button :payment, "", id: "payment_free", class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" %>
+        <%= f.label :payment_free, "Nein, kostenlos", class: "text-sm text-gray-700" %>
+      </div>
+      <div class="flex items-center gap-4">
+        <%= f.radio_button :payment, "paid", id: "payment_paid", class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" %>
+        <%= f.label :payment_paid, "Ja, es fallen Kosten an", class: "text-sm text-gray-700" %>
+      </div>
+    </div>
+    
+    <!-- Cost details (shown when "Ja" is selected) -->
+    <div id="payment-details" class="<%= 'hidden' if f.object.payment.blank? || f.object.payment.empty? %> mt-4 space-y-3 p-4 bg-white rounded-md border border-blue-200">
+      <%= f.label :payment, "Kosten-Details", class: "block text-sm font-medium text-blue-700" %>
+      <%= f.text_field :payment, class: "mt-2 block w-full rounded-md border border-blue-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "z.B. 5 EUR pro Teilnahme, 20 EUR Monatsgebühr" %>
+      <p class="text-sm text-blue-600">Gib an, wie viel die Aktivität kostet</p>
+    </div>
+  </div>
+
+  <!-- Is the activity time limited? -->
+  <div class="field space-y-3 border-t border-blue-200 pt-6">
+    <%= f.label :position_temporary, "Ist die Aktivität zeitlich begrenzt?", class: "block text-sm font-medium text-blue-700" %>
+    <%= f.select :position_temporary, 
+        [["Nein, regelmäßig/dauerhaft", false], ["Ja, zeitlich begrenzt", true]], 
+        {}, 
+        { class: "mt-2 block w-full rounded-md border border-blue-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", id: "position_temporary_select" } %>
+    <% temporary_visible = ActiveModel::Type::Boolean.new.cast(f.object&.position_temporary) %>
+    <p id="temporary-info-text" class="text-sm text-orange-600 leading-relaxed <%= 'hidden' unless temporary_visible %>">
+      ⚠️ Diese Aktivität ist zeitlich begrenzt und endet zu einem bestimmten Datum
+    </p>
+    <p class="text-sm text-blue-600 leading-relaxed">Findet die Aktivität dauerhaft oder nur für einen bestimmten Zeitraum statt?</p>
+  </div>
+</div>
+
+<script>
+  // Toggle payment details visibility
+  document.addEventListener('DOMContentLoaded', function() {
+    const paymentFreeRadio = document.getElementById('payment_free');
+    const paymentPaidRadio = document.getElementById('payment_paid');
+    const paymentDetails = document.getElementById('payment-details');
+    const paymentInput = document.querySelector('input[name="position[payment]"][type="text"]');
+
+    function togglePaymentDetails() {
+      if (paymentPaidRadio && paymentPaidRadio.checked) {
+        paymentDetails.classList.remove('hidden');
+      } else {
+        paymentDetails.classList.add('hidden');
+        if (paymentInput) {
+          paymentInput.value = '';
+        }
+      }
+    }
+
+    if (paymentFreeRadio && paymentPaidRadio) {
+      paymentFreeRadio.addEventListener('change', togglePaymentDetails);
+      paymentPaidRadio.addEventListener('change', togglePaymentDetails);
+      togglePaymentDetails(); // Initial state
+    }
+
+    // Temporary position toggle (same as before)
+    const temporarySelect = document.getElementById("position_temporary_select");
+    const infoText = document.getElementById("temporary-info-text");
+
+    if (temporarySelect && infoText) {
+      const toggleTemporaryInfo = () => {
+        if (temporarySelect.value === "true") {
+          infoText.classList.remove("hidden");
+        } else {
+          infoText.classList.add("hidden");
+        }
+      };
+
+      temporarySelect.addEventListener("change", toggleTemporaryInfo);
+      toggleTemporaryInfo();
+    }
+  });
+</script>

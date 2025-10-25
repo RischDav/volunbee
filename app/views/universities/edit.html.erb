@@ -1,14 +1,14 @@
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="max-w-4xl mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 py-4 sm:py-6 lg:py-8">
   <div class="bg-white shadow-lg rounded-lg overflow-hidden">
     <!-- Header -->
-    <div class="bg-gradient-to-r from-blue-600 to-blue-800 px-8 py-6">
-      <div class="flex items-center justify-between">
+    <div class="bg-gradient-to-r from-blue-600 to-blue-800 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
         <div>
-          <h1 class="text-2xl font-bold text-white">Universität bearbeiten</h1>
-          <p class="text-blue-100 mt-1"><%= @university.name %></p>
+          <h1 class="text-xl sm:text-2xl font-bold text-white">Universität bearbeiten</h1>
+          <p class="text-blue-100 mt-1 text-sm sm:text-base"><%= @university.name %></p>
         </div>
-        <%= link_to university_path(@university), class: "inline-flex items-center px-4 py-2 bg-white text-blue-700 font-medium rounded-lg hover:bg-blue-50 transition-colors duration-200" do %>
-          <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <%= link_to university_path(@university), class: "inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white text-blue-700 font-medium text-sm sm:text-base rounded-lg hover:bg-blue-50 transition-colors duration-200" do %>
+          <svg class="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
           Zurück
@@ -17,19 +17,19 @@
     </div>
 
     <!-- Form -->
-    <div class="p-8">
-      <%= form_with(model: @university, local: true, html: { multipart: true, class: "space-y-6" }) do |form| %>
+    <div class="p-4 sm:p-6 lg:p-8">
+      <%= form_with(model: @university, local: true, html: { multipart: true, class: "space-y-4 sm:space-y-6" }) do |form| %>
         <% if @university.errors.any? %>
-          <div class="bg-red-50 border-l-4 border-red-400 p-4 rounded-md">
+          <div class="bg-red-50 border-l-4 border-red-400 p-3 sm:p-4 rounded-md">
             <div class="flex">
               <div class="flex-shrink-0">
-                <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="h-4 w-4 sm:h-5 sm:w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
                 </svg>
               </div>
               <div class="ml-3">
-                <h3 class="text-sm font-medium text-red-800">Fehler beim Speichern:</h3>
-                <div class="mt-2 text-sm text-red-700">
+                <h3 class="text-xs sm:text-sm font-medium text-red-800">Fehler beim Speichern:</h3>
+                <div class="mt-2 text-xs sm:text-sm text-red-700">
                   <ul class="list-disc pl-5 space-y-1">
                     <% @university.errors.full_messages.each do |message| %>
                       <li><%= message %></li>
@@ -43,77 +43,77 @@
 
         <!-- Logo Upload -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Logo</label>
-          <div class="flex items-center space-x-6">
+          <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Logo</label>
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6">
             <% if @university.logo.attached? %>
-              <div class="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
+              <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <%= image_tag @university.logo, alt: @university.name, class: "w-full h-full object-cover" %>
               </div>
             <% else %>
-              <div class="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center">
-                <svg class="w-8 h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 sm:w-8 sm:h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
                 </svg>
               </div>
             <% end %>
-            <div class="flex-1">
-              <%= form.file_field :logo, class: "block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" %>
-              <p class="mt-1 text-sm text-gray-500">PNG, JPG bis zu 10MB</p>
+            <div class="flex-1 w-full">
+              <%= form.file_field :logo, class: "block w-full text-xs sm:text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs sm:file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" %>
+              <p class="mt-1 text-xs sm:text-sm text-gray-500">PNG, JPG bis zu 10MB</p>
             </div>
           </div>
         </div>
 
         <!-- Basic Information -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           <div>
-            <%= form.label :name, class: "block text-sm font-medium text-gray-700 mb-2" %>
-            <%= form.text_field :name, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+            <%= form.label :name, class: "block text-xs sm:text-sm font-medium text-gray-700 mb-2" %>
+            <%= form.text_field :name, class: "w-full px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
           </div>
 
           <div>
-            <%= form.label :email, class: "block text-sm font-medium text-gray-700 mb-2" %>
-            <%= form.email_field :email, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+            <%= form.label :email, class: "block text-xs sm:text-sm font-medium text-gray-700 mb-2" %>
+            <%= form.email_field :email, class: "w-full px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
           </div>
 
           <div>
-            <%= form.label :contact_number, "Telefonnummer", class: "block text-sm font-medium text-gray-700 mb-2" %>
-            <%= form.telephone_field :contact_number, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+            <%= form.label :contact_number, "Telefonnummer", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-2" %>
+            <%= form.telephone_field :contact_number, class: "w-full px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
           </div>
 
           <div>
-            <%= form.label :website, class: "block text-sm font-medium text-gray-700 mb-2" %>
-            <%= form.url_field :website, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+            <%= form.label :website, class: "block text-xs sm:text-sm font-medium text-gray-700 mb-2" %>
+            <%= form.url_field :website, class: "w-full px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
           </div>
         </div>
 
         <!-- Description -->
         <div>
-          <%= form.label :description, "Beschreibung", class: "block text-sm font-medium text-gray-700 mb-2" %>
-          <%= form.text_area :description, rows: 5, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
-          <p class="mt-1 text-sm text-gray-500">Beschreiben Sie Ihre Universität und was Sie besonders macht.</p>
+          <%= form.label :description, "Beschreibung", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-2" %>
+          <%= form.text_area :description, rows: 5, class: "w-full px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+          <p class="mt-1 text-xs sm:text-sm text-gray-500">Beschreiben Sie Ihre Universität und was Sie besonders macht.</p>
         </div>
 
         <!-- Submit Buttons -->
-        <div class="flex items-center justify-between pt-6 border-t border-gray-200">
-          <div class="flex space-x-3">
-            <%= form.submit "Änderungen speichern", class: "inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200" %>
-            <%= link_to university_path(@university), class: "inline-flex items-center px-6 py-3 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 transition-colors duration-200" do %>
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-0 pt-4 sm:pt-6 border-t border-gray-200">
+          <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
+            <%= form.submit "Änderungen speichern", class: "w-full sm:w-auto inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 text-white font-medium text-sm sm:text-base rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200" %>
+            <%= link_to university_path(@university), class: "w-full sm:w-auto inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 bg-gray-200 text-gray-700 font-medium text-sm sm:text-base rounded-lg hover:bg-gray-300 transition-colors duration-200" do %>
               Abbrechen
             <% end %>
           </div>
           
           <% if current_user.admin? %>
-            <div class="flex space-x-2">
+            <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
               <% if @university.released? %>
-                <%= link_to lock_university_path(@university), method: :patch, class: "inline-flex items-center px-4 py-2 bg-yellow-600 text-white font-medium rounded-lg hover:bg-yellow-700 transition-colors duration-200", data: { confirm: "Universität sperren?" } do %>
-                  <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <%= link_to lock_university_path(@university), method: :patch, class: "w-full sm:w-auto inline-flex items-center justify-center px-3 sm:px-4 py-2 bg-yellow-600 text-white font-medium text-sm sm:text-base rounded-lg hover:bg-yellow-700 transition-colors duration-200", data: { confirm: "Universität sperren?" } do %>
+                  <svg class="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
                   Sperren
                 <% end %>
               <% else %>
-                <%= link_to release_university_path(@university), method: :patch, class: "inline-flex items-center px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200", data: { confirm: "Universität freigeben?" } do %>
-                  <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <%= link_to release_university_path(@university), method: :patch, class: "w-full sm:w-auto inline-flex items-center justify-center px-3 sm:px-4 py-2 bg-green-600 text-white font-medium text-sm sm:text-base rounded-lg hover:bg-green-700 transition-colors duration-200", data: { confirm: "Universität freigeben?" } do %>
+                  <svg class="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
                   </svg>
                   Freigeben

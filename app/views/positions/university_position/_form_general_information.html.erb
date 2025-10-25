@@ -1,0 +1,120 @@
+<!-- General Information Section for University Positions -->
+<div class="space-y-10 rounded-2xl border border-purple-200 bg-purple-50 p-8 shadow-sm lg:p-10">
+  <div class="flex items-center gap-3">
+    <span class="text-3xl">📋</span>
+    <h2 class="text-2xl font-bold text-purple-800">Allgemeine Informationen</h2>
+  </div>
+  
+  <!-- Position Title -->
+  <div class="field space-y-3">
+    <%= f.label :title, "Titel der Position", class: "block text-sm font-medium text-purple-700" %>
+    <%= f.text_field :title, class: "mt-2 block w-full rounded-md border border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500", placeholder: "z.B. Tutor für Programmierung, Forschungsassistent..." %>
+    <div id="word-count-title" class="text-sm text-purple-600"></div>
+    <p class="text-sm text-purple-600 leading-relaxed">Gib einen prägnanten Titel für die Position ein (15-75 Zeichen)</p>
+  </div>
+
+  <!-- Position Description -->
+  <div class="field space-y-3 border-t border-purple-100 pt-6">
+    <%= f.label :description, "Beschreibung der Position", class: "block text-sm font-medium text-purple-700" %>
+    <%= f.text_area :description, rows: 5, class: "mt-2 block w-full rounded-md border border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500", placeholder: "Beschreibe die Aufgaben und Tätigkeiten der Position..." %>
+    <div id="word-count-description" class="text-sm text-purple-600"></div>
+    <p class="text-sm text-purple-600 leading-relaxed">Beschreibe die Position detailliert (100-1000 Zeichen)</p>
+  </div>
+
+  <!-- Weekly Time Commitment -->
+  <div class="field space-y-3 border-t border-purple-100 pt-6">
+    <%= f.label :weekly_time_commitment, "Wöchentlicher Zeitaufwand (Stunden)", class: "block text-sm font-medium text-purple-700" %>
+    <%= f.number_field :weekly_time_commitment, class: "mt-2 block w-full rounded-md border border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500", min: 1, placeholder: "z.B. 10" %>
+    <p class="text-sm text-purple-600 leading-relaxed">Wie viele Stunden pro Woche sind für diese Position vorgesehen?</p>
+  </div>
+
+  <!-- Temporary Position -->
+  <div class="field space-y-3 border-t border-purple-100 pt-6">
+    <%= f.label :position_temporary, "Ist die Position zeitlich begrenzt?", class: "block text-sm font-medium text-purple-700" %>
+    <%= f.select :position_temporary, 
+        [["Nein", false], ["Ja", true]], 
+        {}, 
+        { class: "mt-2 block w-full rounded-md border border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500", id: "position_temporary_select" } %>
+    <% temporary_visible = ActiveModel::Type::Boolean.new.cast(f.object&.position_temporary) %>
+    <p id="temporary-info-text" class="text-sm text-red-500 leading-relaxed <%= 'hidden' unless temporary_visible %>">
+      ⚠️ Diese Position ist zeitlich begrenzt. Bitte gib weitere Details zur Dauer im Feld "Dauer" unten an.
+    </p>
+  </div>
+
+  <% if current_user&.university_staff? %>
+  <div class="field space-y-3 border-t border-purple-100 pt-6">
+    <%= f.label :visibility, "Sichtbarkeit der Position", class: "block text-sm font-medium text-purple-700" %>
+    <%= f.select :visibility, 
+        [['Alle Studierenden', 'all'], ['Nur Studierende meiner Universität', 'university']], 
+        {}, 
+        { class: "mt-2 block w-full rounded-md border border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500", id: "position_visibility_select" } %>
+    <p class="text-sm text-purple-600 leading-relaxed">Wähle aus, wer diese Position sehen kann.</p>
+  </div>
+  <% end %>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Character count validation for university positions
+    function updateCharCount(field, counterId, minLength, maxLength) {
+      const counter = document.getElementById(counterId);
+      if (!counter || !field) return;
+
+      const charCount = field.value.length;
+      
+      if (charCount < minLength) {
+        counter.style.color = '#dc2626'; // red
+        counter.textContent = `${charCount}/${minLength} Zeichen (mindestens ${minLength - charCount} weitere erforderlich)`;
+      } else if (charCount > maxLength) {
+        counter.style.color = '#dc2626'; // red
+        counter.textContent = `${charCount}/${maxLength} Zeichen (${charCount - maxLength} zu viel)`;
+      } else {
+        counter.style.color = '#16a34a'; // green
+        counter.textContent = `${charCount} Zeichen ✓`;
+      }
+    }
+
+    // Initialize character counters
+    const titleField = document.querySelector('input[name="position[title]"]');
+    const descriptionField = document.querySelector('textarea[name="position[description]"]');
+
+    if (titleField) {
+      titleField.addEventListener('input', function() {
+        updateCharCount(titleField, 'word-count-title', 15, 75);
+      });
+      // Initial count
+      updateCharCount(titleField, 'word-count-title', 15, 75);
+    }
+
+    if (descriptionField) {
+      descriptionField.addEventListener('input', function() {
+        updateCharCount(descriptionField, 'word-count-description', 100, 1000);
+      });
+      // Initial count
+      updateCharCount(descriptionField, 'word-count-description', 100, 1000);
+    }
+
+    // Toggle temporary position warning
+    const temporarySelect = document.getElementById('position_temporary_select');
+    const temporaryInfoText = document.getElementById('temporary-info-text');
+    
+    if (temporarySelect && temporaryInfoText) {
+      temporarySelect.addEventListener('change', function() {
+        if (this.value === 'true') {
+          temporaryInfoText.classList.remove('hidden');
+        } else {
+          temporaryInfoText.classList.add('hidden');
+        }
+      });
+    }
+  });
+
+  // Support for Turbo/Turbolinks
+  document.addEventListener('turbolinks:load', function() {
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+  });
+  
+  document.addEventListener('turbo:load', function() {
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+  });
+</script>

@@ -1,11 +1,11 @@
-<div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-sky-50 py-6 flex flex-col justify-center sm:py-12">
-  <div class="relative py-4 sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto">
-    <div class="relative mx-4 rounded-3xl bg-white px-6 py-12 shadow sm:mx-0 sm:px-12 sm:py-14 lg:px-16">
+<div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-sky-50 py-4 sm:py-6 flex flex-col justify-center lg:py-12">
+  <div class="relative py-2 sm:py-4 sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto w-full">
+    <div class="relative mx-2 sm:mx-4 rounded-2xl sm:rounded-3xl bg-white px-4 py-8 sm:px-6 sm:py-12 lg:px-12 lg:py-14 xl:px-16 shadow">
       
       <!-- Header -->
-      <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-blue-800 mb-4">🎯 Freizeitaktivität bearbeiten</h1>
-        <p class="text-lg text-blue-600">Aktualisiere die Details deiner Freizeitaktivität</p>
+      <div class="text-center mb-6 sm:mb-8 lg:mb-12">
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-800 mb-2 sm:mb-4">🎯 Freizeitaktivität bearbeiten</h1>
+        <p class="text-sm sm:text-base lg:text-lg text-blue-600 px-2">Aktualisiere die Details deiner Freizeitaktivität</p>
       </div>
 
       <%= form_with model: @position, local: true, class: "space-y-12", multipart: true do |f| %>
@@ -41,23 +41,14 @@
         <!-- Hidden field to maintain type -->
         <%= f.hidden_field :type, value: 'freetime' %>
 
-        <div class="space-y-10">
-          <%= render 'positions/shared/form_general_information', f: f %>
-          <%= render 'positions/shared/form_images', f: f %>
-          
-          <!-- Hidden skill fields (not shown for freetime but required) -->
-          <%= f.hidden_field :creative_skills, value: 3 %>
-          <%= f.hidden_field :technical_skills, value: 3 %>
-          <%= f.hidden_field :social_skills, value: 3 %>
-          <%= f.hidden_field :language_skills, value: 3 %>
-          <%= f.hidden_field :flexibility, value: 3 %>
+        <!-- Freetime-specific fields with new custom general information -->
+        <%= render 'positions/fields/freetime_fields', f: f %>
 
-          <!-- Submit Button -->
-          <div class="pt-10">
-            <div class="flex justify-end gap-4">
-              <%= link_to "Abbrechen", positions_path, class: "inline-flex justify-center py-3 px-6 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
-              <%= f.submit "Freizeitaktivität aktualisieren", class: "inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
-            </div>
+        <!-- Submit Button -->
+        <div class="pt-6 sm:pt-10">
+          <div class="flex flex-col sm:flex-row justify-end gap-3 sm:gap-4">
+            <%= link_to "Abbrechen", positions_path, class: "w-full sm:w-auto text-center inline-flex justify-center py-3 px-6 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+            <%= f.submit "Freizeitaktivität aktualisieren", class: "w-full sm:w-auto inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
           </div>
         </div>
       <% end %>
@@ -65,84 +56,3 @@
   </div>
 </div>
 
-<script>
-  function initFreetimeEditForm() {
-    // Character count validation
-    function updateCharCount(field, counterId, minLength, maxLength) {
-      const counter = document.getElementById(counterId);
-      if (!counter || !field) return;
-
-      const charCount = field.value.length;
-      counter.textContent = `${charCount} Zeichen`;
-
-      if (charCount < minLength) {
-        counter.style.color = 'red';
-        counter.textContent = `${charCount}/${minLength} Zeichen (mindestens ${minLength - charCount} weitere erforderlich)`;
-      } else if (charCount > maxLength) {
-        counter.style.color = 'red';
-        counter.textContent = `${charCount}/${maxLength} Zeichen (${charCount - maxLength} zu viel)`;
-      } else {
-        counter.style.color = 'green';
-        counter.textContent = `${charCount} Zeichen ✓`;
-      }
-    }
-
-    // Initialize character counters
-    const titleField = document.querySelector('input[name="position[title]"]');
-    const descriptionField = document.querySelector('textarea[name="position[description]"]');
-    const benefitsField = document.querySelector('textarea[name="position[benefits]"]');
-
-    if (titleField) {
-      titleField.addEventListener('input', function() {
-        updateCharCount(titleField, 'word-count-title', 15, 75);
-      });
-      // Initial count
-      updateCharCount(titleField, 'word-count-title', 15, 75);
-    }
-
-    if (descriptionField) {
-      descriptionField.addEventListener('input', function() {
-        updateCharCount(descriptionField, 'word-count-description', 100, 1000);
-      });
-      // Initial count
-      updateCharCount(descriptionField, 'word-count-description', 100, 1000);
-    }
-
-    if (benefitsField) {
-      benefitsField.addEventListener('input', function() {
-        updateCharCount(benefitsField, 'word-count-benefits', 100, 1000);
-      });
-      // Initial count
-      updateCharCount(benefitsField, 'word-count-benefits', 100, 1000);
-    }
-
-    // File upload feedback
-    function handleFileUpload(inputId, feedbackId) {
-      const input = document.getElementById(inputId);
-      const feedback = document.getElementById(feedbackId);
-
-      if (input && feedback) {
-        input.addEventListener("change", function() {
-          if (input.files && input.files.length > 0) {
-            feedback.textContent = `✓ ${input.files[0].name} ausgewählt`;
-            feedback.classList.remove("text-gray-500");
-            feedback.classList.add("text-green-600");
-          } else {
-            feedback.textContent = "Keine Datei ausgewählt";
-            feedback.classList.remove("text-green-600");
-            feedback.classList.add("text-gray-500");
-          }
-        });
-      }
-    }
-
-    handleFileUpload("position_main_picture", "main_picture-feedback");
-    handleFileUpload("position_picture1", "picture1-feedback");
-    handleFileUpload("position_picture2", "picture2-feedback");
-    handleFileUpload("position_picture3", "picture3-feedback");
-  }
-
-  document.addEventListener('DOMContentLoaded', initFreetimeEditForm);
-  document.addEventListener('turbolinks:load', initFreetimeEditForm);
-  document.addEventListener('turbo:load', initFreetimeEditForm);
-</script>
