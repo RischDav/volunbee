@@ -255,7 +255,7 @@ input:checked + .cookie-slider:before {
   <div class="cookie-settings-content">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
       <h2 style="font-size: 24px; font-weight: 700; color: #111827;">Cookie-Einstellungen</h2>
-      <button id="close-cookie-settings" style="background: none; border: none; font-size: 24px; cursor: pointer;">✕</button>
+      <button id="close-cookie-settings" onclick="hideCookieSettings(); return false;" style="background: none; border: none; font-size: 24px; cursor: pointer;">✕</button>
     </div>
     
     <p style="color: #6B7280; margin-bottom: 24px;">
@@ -339,7 +339,7 @@ input:checked + .cookie-slider:before {
     <div class="modal-button-container">
       <button id="accept-selected-cookies" class="cookie-save-btn">Auswahl speichern</button>
       <button id="accept-all-cookies" class="cc-btn cc-dismiss">Alle akzeptieren</button>
-      <button id="reject-all-cookies" class="cc-btn cc-deny">Alle ablehnen</button>
+      <button id="reject-all-cookies" onclick="rejectAllCookies(); return false;" class="cc-btn cc-deny">Alle ablehnen</button>
     </div>
   </div>
 </div>
@@ -357,7 +357,14 @@ function showCookieSettings() {
 }
 
 function hideCookieSettings() {
-  document.getElementById('cookie-settings-modal').style.display = 'none';
+  console.log('hideCookieSettings called');
+  const modal = document.getElementById('cookie-settings-modal');
+  if (modal) {
+    modal.style.display = 'none';
+    console.log('Modal hidden successfully');
+  } else {
+    console.error('Modal not found when trying to hide');
+  }
 }
 
 function loadCurrentCookieSettings() {
@@ -408,54 +415,99 @@ function disableMarketing() {
   console.log('Marketing deaktiviert');
 }
 
+// Inline functions for backup
+function rejectAllCookies() {
+  console.log('Reject all (inline) clicked');
+  const settings = { necessary: true, analytics: false, marketing: false };
+  saveCookieSettings(settings);
+  hideCookieSettings();
+  
+  const banner = document.querySelector('.cc-window');
+  if (banner) {
+    banner.style.display = 'none';
+  }
+}
+
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
-  // Modal Close
-  document.getElementById('close-cookie-settings').addEventListener('click', hideCookieSettings);
+  console.log('Cookie consent DOM loaded');
+  
+  // Modal Close Button
+  const closeButton = document.getElementById('close-cookie-settings');
+  if (closeButton) {
+    closeButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Close button clicked');
+      hideCookieSettings();
+    });
+  } else {
+    console.error('Close button not found');
+  }
   
   // Modal Background Click
-  document.getElementById('cookie-settings-modal').addEventListener('click', function(e) {
-    if (e.target === this) {
-      hideCookieSettings();
-    }
-  });
+  const modal = document.getElementById('cookie-settings-modal');
+  if (modal) {
+    modal.addEventListener('click', function(e) {
+      if (e.target === this) {
+        console.log('Modal background clicked');
+        hideCookieSettings();
+      }
+    });
+  }
   
   // Cookie Settings Buttons
-  document.getElementById('accept-selected-cookies').addEventListener('click', function() {
-    const settings = {
-      necessary: true,
-      analytics: document.getElementById('analytics-cookies').checked,
-      marketing: document.getElementById('marketing-cookies').checked
-    };
-    saveCookieSettings(settings);
-    hideCookieSettings();
-    
-    const banner = document.querySelector('.cc-window');
-    if (banner) {
-      banner.style.display = 'none';
-    }
-  });
+  const acceptSelectedButton = document.getElementById('accept-selected-cookies');
+  if (acceptSelectedButton) {
+    acceptSelectedButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Accept selected clicked');
+      const settings = {
+        necessary: true,
+        analytics: document.getElementById('analytics-cookies').checked,
+        marketing: document.getElementById('marketing-cookies').checked
+      };
+      saveCookieSettings(settings);
+      hideCookieSettings();
+      
+      const banner = document.querySelector('.cc-window');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    });
+  }
   
-  document.getElementById('accept-all-cookies').addEventListener('click', function() {
-    const settings = { necessary: true, analytics: true, marketing: true };
-    saveCookieSettings(settings);
-    hideCookieSettings();
-    
-    const banner = document.querySelector('.cc-window');
-    if (banner) {
-      banner.style.display = 'none';
-    }
-  });
+  const acceptAllButton = document.getElementById('accept-all-cookies');
+  if (acceptAllButton) {
+    acceptAllButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Accept all clicked');
+      const settings = { necessary: true, analytics: true, marketing: true };
+      saveCookieSettings(settings);
+      hideCookieSettings();
+      
+      const banner = document.querySelector('.cc-window');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    });
+  }
   
-  document.getElementById('reject-all-cookies').addEventListener('click', function() {
-    const settings = { necessary: true, analytics: false, marketing: false };
-    saveCookieSettings(settings);
-    hideCookieSettings();
-    
-    const banner = document.querySelector('.cc-window');
-    if (banner) {
-      banner.style.display = 'none';
-    }
-  });
+  const rejectAllButton = document.getElementById('reject-all-cookies');
+  if (rejectAllButton) {
+    rejectAllButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Reject all clicked');
+      const settings = { necessary: true, analytics: false, marketing: false };
+      saveCookieSettings(settings);
+      hideCookieSettings();
+      
+      const banner = document.querySelector('.cc-window');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    });
+  } else {
+    console.error('Reject all button not found');
+  }
 });
 </script>
