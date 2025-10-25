@@ -6,6 +6,7 @@
     <h2 class="text-2xl font-bold mt-8"><%= t('universities.index.unreleased_universities') %></h2>
     <%= render partial: 'unreleased_universities', locals: { universities: @universities.where(released: false) } %>
   <% end %>
+  <!-- comment -->
 
   <h2 class="text-2xl font-bold mt-8"><%= t('universities.index.released_universities') %></h2>
   <% @universities.where(released: true).each do |university| %>
