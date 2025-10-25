@@ -19,7 +19,7 @@
           </svg>
           Positionen von <%= current_user.university.name %>
         </h2>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 gap-6">
           <% university_positions.each do |position| %>
             <%= render partial: 'positions/shared/position_card', locals: { position: position } %>
           <% end %>

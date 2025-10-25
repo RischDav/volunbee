@@ -10,11 +10,11 @@ class PositionsController < ApplicationController
       if current_user.admin?
         @positions = Position.all
       elsif current_user.organization?
-        @positions = Position.for_organization(current_user.organization&.id)
-      elsif current_user.university?
-        @positions = Position.for_university(current_user.university&.id)
+        @positions = Position.where(organization_id: current_user.organization&.id)
       elsif current_user.student?
-        @positions = Position.visible_to_student(current_user)
+        @positions = Position.where(released: true, online: true)
+      elsif current_user.university?
+        @positions = Position.where(university_id: current_user.university&.id)
       else
         @positions = Position.none
       end
@@ -27,25 +27,32 @@ class PositionsController < ApplicationController
   def new
     @position = Position.new
     
-    # If type parameter is present, set it and render the appropriate form
+    # Handle type-specific redirects
     if params[:type].present?
-      @position.type = params[:type]
       case params[:type]
       when 'volunteering'
-        render 'volunteering/new'
+        @position.type = 'volunteering'
+        render 'positions/volunteering/new' and return
       when 'freetime'
-        render 'freetime/new'
+        @position.type = 'freetime'
+        render 'positions/freetime/new' and return
       when 'university_position'
-        render 'university_position/new'
+        @position.type = 'university_position'
+        render 'positions/university_position/new' and return
       end
     end
-    # Otherwise, render the default type selector (new.html.erb)
+    
+    # Default: show type selector
   end
 
   def create
     @position = Position.new(position_params)
 
-
+    # Debug: Log FAQ parameters
+    Rails.logger.debug "FAQ parameters: #{params[:position][:frequently_asked_questions_attributes]}"
+    Rails.logger.debug "Position FAQ count after build: #{@position.frequently_asked_questions.size}"
+    Rails.logger.debug "Position valid? #{@position.valid?}"
+    Rails.logger.debug "Position errors: #{@position.errors.full_messages}"
 
     # Set the appropriate ID based on user role
     if current_user.organization?
@@ -105,13 +112,8 @@ class PositionsController < ApplicationController
         if @position.description.blank?
           error_messages << t('positions.errors.description.blank')
         else
-          error_messages << "📝 Die Beschreibung ist zu kurz. Sie muss mindestens 100 Zeichen lang sein (aktuell: #{@position.description.length} Zeichen)."
+          error_messages << t('positions.errors.description.length', length: @position.description.length)
         end
-      end
-      
-      # Account configuration errors
-      if @position.errors[:base].any? { |e| e.include?("Account") || e.include?("konfiguriert") }
-        error_messages << "⚠️ Dein Benutzer-Account ist nicht korrekt eingerichtet. Bitte kontaktiere einen Administrator, um deine Organisation oder Universität zuzuweisen."
       end
   
       # Fähigkeiten-Validierung
@@ -150,56 +152,35 @@ class PositionsController < ApplicationController
       # Fehler anzeigen
       flash.now[:alert] = error_messages.join("<br>").html_safe
       
-      # Render the correct form based on position type
-      case @position.type
-      when 'volunteering'
-        render 'volunteering/new', status: :unprocessable_entity
-      when 'freetime'
-        render 'freetime/new', status: :unprocessable_entity
-      when 'university_position'
-        render 'university_position/new', status: :unprocessable_entity
-      else
-        render :new, status: :unprocessable_entity
+      # FAQ-Objekte wieder aufbauen, falls sie verloren gegangen sind
+      if @position.frequently_asked_questions.empty?
+        3.times { @position.frequently_asked_questions.build }
       end
+      
+      render :new, status: :unprocessable_entity
     end
   end
 
   def show
-    # Position details view
+    if current_user.student?
+      UserEvent.create!(
+        user_type: :student,
+        action_type: :view_position,
+        position: @position,
+        university: current_user.university,
+      )
+    end
   end
 
   def edit
-    # Render type-specific edit form
-    case @position.type
-    when 'volunteering'
-      render 'positions/volunteering/edit'
-    when 'freetime'
-      render 'positions/freetime/edit'
-    when 'university_position'
-      render 'positions/university_position/edit'
-    else
-      # Fallback to volunteering edit if type is not set or unknown
-      Rails.logger.warn "Unknown position type: #{@position.type.inspect} for position ##{@position.id}"
-      render 'positions/volunteering/edit'
-    end
+    AdminMailer.position_change_email.deliver_later
   end
 
   def update
     if @position.update(position_params)
       redirect_to positions_path, notice: "Position wurde erfolgreich aktualisiert."
     else
-      # Render the correct type-specific edit form on error
-      case @position.type
-      when 'volunteering'
-        render 'positions/volunteering/edit', status: :unprocessable_entity
-      when 'freetime'
-        render 'positions/freetime/edit', status: :unprocessable_entity
-      when 'university_position'
-        render 'positions/university_position/edit', status: :unprocessable_entity
-      else
-        # Fallback
-        render 'positions/volunteering/edit', status: :unprocessable_entity
-      end
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -244,14 +225,14 @@ class PositionsController < ApplicationController
   end
 
   def json_output
-    @positions = Position.published
+    @positions = Position.where(released: true, online: true)
     render json: @positions
   end
 
   private
 
   def set_position
-    @position = Position.find(params[:id])
+    @position = Position.includes(:frequently_asked_questions).find(params[:id])
   end
 
   def check_edit_permissions
@@ -290,7 +271,14 @@ class PositionsController < ApplicationController
     false
   end
 
-  def position_params
-  params.require(:position).permit(:type, :title, :position_temporary, :weekly_time_commitment, :description, :benefits, :main_picture, :picture1, :picture2, :picture3, :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility, :released, :online, :visibility, :visible_university_id, frequently_asked_questions_attributes: [:id, :question, :answer, :_destroy])
-  end
+def position_params
+  params.require(:position).permit(
+    :title, :position_temporary, :weekly_time_commitment, :description, :benefits,
+    :main_picture, :picture1, :picture2, :picture3,
+    :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility,
+    :released, :online, :visibility, :visible_university_id,
+    :type, :appointment,                                 
+    frequently_asked_questions_attributes: [:id, :question, :answer, :_destroy]
+  )
+end
 end
