@@ -25,7 +25,7 @@
                 options_for_select([
                   [t('positions.type_selector.options.volunteering'), 'volunteering'],
                   [t('positions.type_selector.options.freetime'), 'freetime'],
-                  [t('positions.type_selector.options.university_position'), 'university_position']
+                  * (current_user&.university_staff? ? [[t('positions.type_selector.options.university_position'), 'university_position']] : [])
                 ], params[:type]),
                 { prompt: t('positions.type_selector.prompt') },
                 { 

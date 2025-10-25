@@ -174,6 +174,17 @@ class PositionsController < ApplicationController
 
   def edit
     AdminMailer.position_change_email.deliver_later
+
+    case @position.type
+    when 'volunteering'
+      render 'positions/volunteering/edit'
+    when 'freetime'
+      render 'positions/freetime/edit'
+    when 'university_position'
+      render 'positions/university_position/edit'
+    else
+      render :edit
+    end
   end
 
   def update
