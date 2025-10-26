@@ -1,0 +1,32 @@
+<div class="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center py-12">
+  <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white rounded-xl shadow-lg p-8 text-center">
+      <div class="text-6xl mb-6">🎉</div>
+      
+      <h1 class="text-3xl font-bold text-gray-900 mb-4">
+        Vielen Dank für Ihre Einreichung!
+      </h1>
+      
+      <p class="text-lg text-gray-600 mb-6">
+        Ihre Daten wurden erfolgreich eingereicht und wird in Kürze von unserem Team geprüft.
+      </p>
+      
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+        <h2 class="font-semibold text-blue-800 mb-2">Was passiert als nächstes?</h2>
+        <ul class="text-sm text-blue-700 space-y-1 text-left">
+          <li>✅ Sie erhalten eine Bestätigungs-E-Mail</li>
+          <li>🔍 Unser Team prüft Ihre Aktivität (ca. 1-2 Werktage)</li>
+          <li>📧 Sie werden per E-Mail über die Freischaltung informiert</li>
+          <li>🚀 Nach der Freischaltung ist Ihre Aktivität für alle sichtbar</li>
+        </ul>
+      </div>
+      
+      <div class="space-y-3">
+        <%= link_to "← Zur Startseite", root_path, 
+            class: "inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors" %>
+        <%= link_to "Weitere Aktivität einreichen", new_freetime_position_path, 
+            class: "inline-block bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors ml-3" %>
+      </div>
+    </div>
+  </div>
+</div>

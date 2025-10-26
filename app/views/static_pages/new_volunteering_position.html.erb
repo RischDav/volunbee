@@ -1,0 +1,486 @@
+<div class="min-h-screen bg-gray-50">
+  <div class="max-w-4xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8">
+    <!-- Header -->
+    <header class="mb-6 sm:mb-8 text-center">
+      <div class="mb-3 sm:mb-4">
+        <span class="text-xs sm:text-sm font-semibold text-gray-600 bg-gray-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full">Volunteer-Position</span>
+      </div>
+      
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+        Neue Volunteer-Position einreichen
+      </h1>
+      
+      <p class="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto mb-4 sm:mb-6 px-2">
+        Teilen Sie Ihre Volunteer-Möglichkeit mit der Community! Füllen Sie das Formular aus und wir prüfen Ihren Eintrag.
+      </p>
+    </header>
+
+    <!-- Hauptformular -->
+    <%= form_with model: [@organization, @position], url: create_volunteering_position_path, local: true, multipart: true, class: "space-y-6 sm:space-y-8" do |f| %>
+      
+      <!-- Fehler anzeigen -->
+      <% if @organization.errors.any? || @position.errors.any? %>
+        <section class="bg-red-50 border border-red-200 rounded-lg p-4 sm:p-6">
+          <h3 class="text-red-800 font-medium mb-2">Bitte korrigieren Sie folgende Fehler:</h3>
+          <ul class="text-red-700 text-sm space-y-1">
+            <% @organization.errors.full_messages.each do |error| %>
+              <li>• <%= error %></li>
+            <% end %>
+            <% @position.errors.full_messages.each do |error| %>
+              <li>• <%= error %></li>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
+
+      <!-- SEKTION 1: ORGANISATIONSDATEN -->
+      <section class="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
+        <header class="mb-4 sm:mb-6">
+          <h2 class="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
+            Organisationsdaten
+          </h2>
+          <p class="text-sm text-gray-600">
+            Grundlegende Informationen über Ihre Organisation
+          </p>
+        </header>
+        
+        <div class="space-y-4 sm:space-y-6">
+          <!-- Grundlegende Infos -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <div>
+              <%= f.fields_for :organization, @organization do |org_f| %>
+                <%= org_f.label :name, "Name der Organisation*", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+                <%= org_f.text_field :name, required: true, class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder: "z.B. Hilfsverein Musterstadt", maxlength: 100 %>
+                <div id="org-name-count" class="text-xs sm:text-sm text-gray-500 mt-1"></div>
+              <% end %>
+            </div>
+            
+            <div>
+              <%= f.fields_for :organization, @organization do |org_f| %>
+                <%= org_f.label :contact_person, "Ansprechpartner*", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+                <%= org_f.text_field :contact_person, required: true, class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder: "Vor- und Nachname", maxlength: 100 %>
+                <div id="contact-person-count" class="text-xs sm:text-sm text-gray-500 mt-1"></div>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <div>
+              <%= f.fields_for :organization, @organization do |org_f| %>
+                <%= org_f.label :email, "E-Mail*", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+                <%= org_f.email_field :email, required: true, class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder: "kontakt@organisation.de" %>
+                <p class="text-xs text-gray-500 mt-1">An diese E-Mail senden wir die Bestätigung</p>
+              <% end %>
+            </div>
+            
+            <div>
+              <%= f.fields_for :organization, @organization do |org_f| %>
+                <%= org_f.label :contact_number, "Telefonnummer", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+                <%= org_f.text_field :contact_number, class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder: "Optional" %>
+              <% end %>
+            </div>
+          </div>
+
+          <!-- Beschreibung -->
+          <div>
+            <%= f.fields_for :organization, @organization do |org_f| %>
+              <%= org_f.label :description, "Beschreibung der Organisation*", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+              <%= org_f.text_area :description, required: true, rows: 4, class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder: "Beschreiben Sie Ihre Organisation und Ihre Mission in wenigen Sätzen...", maxlength: 1000 %>
+              <div id="org-description-count" class="text-xs sm:text-sm text-gray-500 mt-1"></div>
+            <% end %>
+          </div>
+
+          <!-- Adresse -->
+          <div class="border-t pt-4 sm:pt-6">
+            <h3 class="text-base sm:text-lg font-medium text-gray-900 mb-3 sm:mb-4">Adresse</h3>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 sm:gap-4">
+              <div class="md:col-span-2">
+                <%= f.fields_for :organization, @organization do |org_f| %>
+                  <%= org_f.label :street, "Straße*", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1" %>
+                  <%= org_f.text_field :street, required: true, class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+                <% end %>
+              </div>
+              <div>
+                <%= f.fields_for :organization, @organization do |org_f| %>
+                  <%= org_f.label :housenumber, "Nr.*", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1" %>
+                  <%= org_f.text_field :housenumber, required: true, class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+                <% end %>
+              </div>
+              <div>
+                <%= f.fields_for :organization, @organization do |org_f| %>
+                  <%= org_f.label :zip, "PLZ*", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1" %>
+                  <%= org_f.text_field :zip, required: true, class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+                <% end %>
+              </div>
+              <div class="md:col-span-3">
+                <%= f.fields_for :organization, @organization do |org_f| %>
+                  <%= org_f.label :city, "Stadt*", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1" %>
+                  <%= org_f.text_field :city, required: true, class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Media (Optional) -->
+          <div class="border-t pt-4 sm:pt-6">
+            <h3 class="text-base sm:text-lg font-medium text-gray-900 mb-3 sm:mb-4">Online-Präsenz (Optional)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+              <div>
+                <%= f.fields_for :organization, @organization do |org_f| %>
+                  <%= org_f.label :website, "Website", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1" %>
+                  <%= org_f.url_field :website, class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder: "https://..." %>
+                <% end %>
+              </div>
+              <div>
+                <%= f.fields_for :organization, @organization do |org_f| %>
+                  <%= org_f.label :instagram_url, "Instagram", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1" %>
+                  <%= org_f.url_field :instagram_url, class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder: "@username oder Link" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEKTION 2: VOLUNTEER-POSITION -->
+      <section class="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
+        <header class="mb-4 sm:mb-6">
+          <h2 class="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
+            Volunteer-Position
+          </h2>
+          <p class="text-sm text-gray-600">
+            Beschreiben Sie Ihre Volunteer-Position im Detail
+          </p>
+        </header>
+        
+        <div class="space-y-4 sm:space-y-6">
+          <!-- Titel und Beschreibung -->
+          <div>
+            <%= f.label :title, "Titel der Volunteer-Position*", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+            <%= f.text_field :title, required: true, class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder: "z.B. Unterstützung bei der Tafelausgabe", minlength: 15, maxlength: 75 %>
+            <div id="title-count" class="text-xs sm:text-sm text-gray-500 mt-1"></div>
+          </div>
+
+          <div>
+            <%= f.label :description, "Beschreibung der Tätigkeit*", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+            <%= f.text_area :description, required: true, rows: 5, class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder: "Beschreiben Sie die Volunteer-Tätigkeit im Detail: Was sind die Aufgaben? Wo findet es statt? Wann wird Hilfe benötigt?", minlength: 100, maxlength: 1000 %>
+            <div id="description-count" class="text-xs sm:text-sm text-gray-500 mt-1"></div>
+          </div>
+
+          <div>
+            <%= f.label :benefits, "Welche Fähigkeiten sollten Volunteers mitbringen?*", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+            <%= f.text_area :benefits, required: true, rows: 3, class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder: "z.B. Empathie, Teamfähigkeit, körperliche Belastbarkeit oder spezielle Fähigkeiten...", minlength: 100, maxlength: 1000 %>
+            <div id="benefits-count" class="text-xs sm:text-sm text-gray-500 mt-1"></div>
+          </div>
+
+          <!-- Details -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <div>
+              <%= f.label :weekly_time_commitment, "Zeitaufwand (Stunden/Woche)*", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+              <%= f.number_field :weekly_time_commitment, required: true, min: 1, max: 40, class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+            </div>
+            
+            <div>
+              <%= f.label :position_temporary, "Art der Position", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+              <%= f.select :position_temporary, [["Dauerhaft/Regelmäßig", false], ["Projektbezogen/Zeitlich begrenzt", true]], {}, { class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" } %>
+            </div>
+          </div>
+
+          <!-- Entschädigung -->
+          <div class="border-t pt-4 sm:pt-6">
+            <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-3">Gibt es eine Aufwandsentschädigung?</label>
+            <div class="space-y-3">
+              <label class="flex items-center">
+                <%= f.radio_button :payment, "", class: "mr-2" %>
+                <span class="text-sm">Nein, ehrenamtlich</span>
+              </label>
+              <label class="flex items-center">
+                <%= f.radio_button :payment, "paid", class: "mr-2" %>
+                <span class="text-sm">Ja, es gibt eine Aufwandsentschädigung</span>
+              </label>
+              <div id="payment-details" class="hidden ml-6 mt-2">
+                <%= f.text_field :payment, class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder: "z.B. 450 EUR/Monat Aufwandsentschädigung" %>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skills -->
+          <div class="border-t pt-4 sm:pt-6">
+            <h3 class="text-base sm:text-lg font-medium text-gray-900 mb-3 sm:mb-4">Welche Fähigkeiten werden entwickelt?</h3>
+            <p class="text-xs sm:text-sm text-gray-600 mb-4">Sie haben insgesamt 15 Punkte zu verteilen. (Bewertung: 1 = gering, 5 = sehr hoch)</p>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-3 sm:gap-4">
+              <div>
+                <%= f.label :creative_skills, "Kreativität (1-5)", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1" %>
+                <%= f.select :creative_skills, (1..5).map { |i| [i, i] }, { selected: 1 }, { class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 skill-input" } %>
+              </div>
+              <div>
+                <%= f.label :social_skills, "Soziales (1-5)", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1" %>
+                <%= f.select :social_skills, (1..5).map { |i| [i, i] }, { selected: 3 }, { class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 skill-input" } %>
+              </div>
+              <div>
+                <%= f.label :technical_skills, "Technik (1-5)", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1" %>
+                <%= f.select :technical_skills, (1..5).map { |i| [i, i] }, { selected: 1 }, { class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 skill-input" } %>
+              </div>
+              <div>
+                <%= f.label :language_skills, "Sprachen (1-5)", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1" %>
+                <%= f.select :language_skills, (1..5).map { |i| [i, i] }, { selected: 1 }, { class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 skill-input" } %>
+              </div>
+              <div>
+                <%= f.label :flexibility, "Flexibilität (1-5)", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1" %>
+                <%= f.select :flexibility, (1..5).map { |i| [i, i] }, { selected: 2 }, { class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 skill-input" } %>
+              </div>
+            </div>
+            <div class="mt-4">
+              <p id="remaining-points" class="text-xs sm:text-sm font-medium">Verbleibende Punkte: 7</p>
+              <p class="text-xs text-gray-500 mt-1">Sie können maximal 15 Punkte verteilen.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEKTION 3: BILDER -->
+      <section class="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
+        <header class="mb-4 sm:mb-6">
+          <h2 class="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
+            Bilder hochladen
+          </h2>
+          <p class="text-sm text-gray-600">
+            Laden Sie Bilder hoch, um Ihre Volunteer-Position ansprechend zu präsentieren
+          </p>
+        </header>
+        
+        <div class="space-y-4 sm:space-y-6">
+          <!-- Organisation Logo -->
+          <div>
+            <%= f.fields_for :organization, @organization do |org_f| %>
+              <h3 class="text-base sm:text-lg font-medium text-gray-900 mb-3">Logo Ihrer Organisation</h3>
+              <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 sm:p-6 text-center hover:border-gray-400 transition-colors">
+                <%= org_f.file_field :logo, accept: "image/*", class: "hidden", id: "org_logo" %>
+                <label for="org_logo" class="cursor-pointer">
+                  <div class="space-y-2">
+                    <svg class="mx-auto h-8 sm:h-12 w-8 sm:w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                      <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <div class="text-xs sm:text-sm text-gray-600">
+                      <span class="font-medium text-blue-600 hover:text-blue-500">Logo hochladen</span> oder drag & drop
+                    </div>
+                    <p class="text-xs text-gray-500">PNG, JPG bis zu 10MB</p>
+                  </div>
+                </label>
+                <div id="org-logo-feedback" class="text-xs sm:text-sm text-gray-500 mt-2"></div>
+              </div>
+            <% end %>
+          </div>
+
+          <!-- Hauptbild der Position -->
+          <div>
+            <h3 class="text-base sm:text-lg font-medium text-gray-900 mb-3">Hauptbild der Volunteer-Position*</h3>
+            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 sm:p-6 text-center hover:border-gray-400 transition-colors">
+              <%= f.file_field :main_picture, accept: "image/*", required: true, class: "hidden", id: "main_picture" %>
+              <label for="main_picture" class="cursor-pointer">
+                <div class="space-y-2">
+                  <svg class="mx-auto h-8 sm:h-12 w-8 sm:w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  <div class="text-xs sm:text-sm text-gray-600">
+                    <span class="font-medium text-blue-600 hover:text-blue-500">Hauptbild hochladen</span> oder drag & drop
+                  </div>
+                  <p class="text-xs text-gray-500">PNG, JPG bis zu 10MB</p>
+                </div>
+              </label>
+              <div id="main-picture-feedback" class="text-xs sm:text-sm text-gray-500 mt-2"></div>
+            </div>
+          </div>
+
+          <!-- Zusätzliche Bilder -->
+          <div>
+            <h3 class="text-base sm:text-lg font-medium text-gray-900 mb-3">Weitere Bilder (Optional)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+              <% [1, 2, 3].each do |i| %>
+                <div class="border-2 border-dashed border-gray-300 rounded-lg p-3 sm:p-4 text-center hover:border-gray-400 transition-colors">
+                  <%= f.file_field :"picture#{i}", accept: "image/*", class: "hidden", id: "picture#{i}" %>
+                  <label for="picture<%= i %>" class="cursor-pointer block">
+                    <div class="space-y-1">
+                      <svg class="mx-auto h-6 sm:h-8 w-6 sm:w-8 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                      <div class="text-xs text-gray-600">Bild <%= i %></div>
+                    </div>
+                  </label>
+                  <div id="picture<%= i %>-feedback" class="text-xs text-gray-500 mt-1"></div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bestätigungen -->
+      <section class="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
+        <div class="space-y-3 sm:space-y-4">
+          <label class="flex items-start">
+            <input type="checkbox" id="terms_checkbox" required class="mr-3 mt-1">
+            <span class="text-xs sm:text-sm text-gray-700">
+              Ich bestätige, dass alle Angaben korrekt sind und stimme den 
+              <a href="#" class="text-blue-600 hover:underline">Nutzungsbedingungen</a> und der 
+              <a href="#" class="text-blue-600 hover:underline">Datenschutzerklärung</a> zu.*
+            </span>
+          </label>
+          
+          <label class="flex items-start">
+            <input type="checkbox" id="review_checkbox" required class="mr-3 mt-1">
+            <span class="text-xs sm:text-sm text-gray-700">
+              Ich verstehe, dass meine Volunteer-Position vor der Veröffentlichung geprüft wird.*
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <!-- Submit Button -->
+      <div class="text-center">
+        <%= f.submit "Volunteer-Position einreichen", 
+            class: "bg-blue-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-sm sm:text-lg font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed",
+            id: "submit_button",
+            disabled: true %>
+        <p class="text-xs sm:text-sm text-gray-500 mt-2">
+          Nach dem Absenden erhalten Sie eine Bestätigungs-E-Mail mit weiteren Informationen.
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Zeichenzähler-Funktion
+  function setupCharacterCounter(inputId, counterId, minLength, maxLength) {
+    const input = document.getElementById(inputId) || document.querySelector(`input[id*="${inputId}"], textarea[id*="${inputId}"]`);
+    const counter = document.getElementById(counterId);
+    
+    if (input && counter) {
+      function updateCounter() {
+        const length = input.value.length;
+        let message = `${length}/${maxLength} Zeichen`;
+        
+        if (minLength && length < minLength) {
+          message += ` (noch ${minLength - length} benötigt)`;
+          counter.className = 'text-sm text-red-500 mt-1';
+        } else if (length >= minLength && length <= maxLength) {
+          message += ' ✓';
+          counter.className = 'text-sm text-green-600 mt-1';
+        } else {
+          counter.className = 'text-sm text-red-500 mt-1';
+        }
+        
+        counter.textContent = message;
+      }
+      
+      input.addEventListener('input', updateCounter);
+      updateCounter(); // Initial
+    }
+  }
+
+  // Setup character counters
+  setupCharacterCounter('organization_name', 'org-name-count', 3, 100);
+  setupCharacterCounter('organization_contact_person', 'contact-person-count', 3, 100);
+  setupCharacterCounter('organization_description', 'org-description-count', 100, 1000);
+  setupCharacterCounter('position_title', 'title-count', 15, 75);
+  setupCharacterCounter('position_description', 'description-count', 100, 1000);
+  setupCharacterCounter('position_benefits', 'benefits-count', 100, 1000);
+
+  // Skills point management (15 points total)
+  function setupSkillsPointManagement() {
+    const skillInputs = document.querySelectorAll('.skill-input');
+    const remainingPointsDisplay = document.getElementById('remaining-points');
+    const maxPoints = 15;
+
+    function updateRemainingPoints() {
+      let totalPoints = 0;
+      skillInputs.forEach(input => {
+        totalPoints += parseInt(input.value);
+      });
+
+      const remainingPoints = maxPoints - totalPoints;
+      remainingPointsDisplay.textContent = `Verbleibende Punkte: ${remainingPoints}`;
+      
+      if (remainingPoints < 0) {
+        remainingPointsDisplay.className = 'text-sm font-medium text-red-600';
+        remainingPointsDisplay.textContent += ` (${Math.abs(remainingPoints)} Punkte zu viel!)`;
+      } else if (remainingPoints === 0) {
+        remainingPointsDisplay.className = 'text-sm font-medium text-green-600';
+        remainingPointsDisplay.textContent += ' ✓ Perfekt!';
+      } else {
+        remainingPointsDisplay.className = 'text-sm font-medium text-blue-600';
+      }
+    }
+
+    if (skillInputs.length > 0 && remainingPointsDisplay) {
+      skillInputs.forEach(input => {
+        input.addEventListener('change', updateRemainingPoints);
+      });
+
+      updateRemainingPoints(); // Initial calculation
+    }
+  }
+
+  // Initialize skills point management
+  setupSkillsPointManagement();
+
+  // File upload feedback
+  function setupFileUpload(inputId, feedbackId) {
+    const input = document.getElementById(inputId);
+    const feedback = document.getElementById(feedbackId);
+    
+    if (input && feedback) {
+      input.addEventListener('change', function() {
+        if (input.files && input.files.length > 0) {
+          feedback.textContent = `✓ ${input.files[0].name} hochgeladen`;
+          feedback.className = 'text-sm text-green-600 mt-2';
+        } else {
+          feedback.textContent = '';
+        }
+      });
+    }
+  }
+
+  // Setup file uploads
+  setupFileUpload('org_logo', 'org-logo-feedback');
+  setupFileUpload('main_picture', 'main-picture-feedback');
+  setupFileUpload('picture1', 'picture1-feedback');
+  setupFileUpload('picture2', 'picture2-feedback');
+  setupFileUpload('picture3', 'picture3-feedback');
+
+  // Payment details toggle
+  const paymentRadios = document.querySelectorAll('input[name="position[payment]"]');
+  const paymentDetails = document.getElementById('payment-details');
+  
+  paymentRadios.forEach(radio => {
+    radio.addEventListener('change', function() {
+      if (this.value === 'paid') {
+        paymentDetails.classList.remove('hidden');
+      } else {
+        paymentDetails.classList.add('hidden');
+      }
+    });
+  });
+
+  // Submit button enable/disable
+  const termsCheckbox = document.getElementById('terms_checkbox');
+  const reviewCheckbox = document.getElementById('review_checkbox');
+  const submitButton = document.getElementById('submit_button');
+
+  function updateSubmitButton() {
+    if (termsCheckbox.checked && reviewCheckbox.checked) {
+      submitButton.disabled = false;
+      submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+    } else {
+      submitButton.disabled = true;
+      submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+    }
+  }
+
+  termsCheckbox.addEventListener('change', updateSubmitButton);
+  reviewCheckbox.addEventListener('change', updateSubmitButton);
+  updateSubmitButton(); // Initial state
+});
+</script>

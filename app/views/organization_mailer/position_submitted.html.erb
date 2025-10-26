@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Position eingereicht - LetsGoVolunteer</title>
+    <style>
+      body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; }
+      .container { max-width: 600px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+      .header { background: #3b82f6; color: white; padding: 20px; border-radius: 8px 8px 0 0; text-align: center; }
+      .content { padding: 30px; }
+      .button { background: #3b82f6; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; margin: 20px 0; }
+      .footer { background: #f8f9fa; padding: 20px; border-radius: 0 0 8px 8px; text-align: center; color: #666; font-size: 14px; }
+      .highlight { background: #f0f9ff; padding: 15px; border-left: 4px solid #3b82f6; margin: 20px 0; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Position erfolgreich eingereicht!</h1>
+      </div>
+      
+      <div class="content">
+        <p>Liebe/r <%= @organization.contact_person %>,</p>
+        
+        <p>vielen Dank für Ihre Einreichung! Ihre <%= @position.type == 'freetime' ? 'Freizeitaktivität' : 'Volunteer-Position' %> wurde erfolgreich bei uns eingereicht und wird nun geprüft.</p>
+        
+        <div class="highlight">
+          <h3>Details Ihrer Einreichung:</h3>
+          <p><strong>Organisation:</strong> <%= @organization.name %></p>
+          <p><strong>Position:</strong> <%= @position.title %></p>
+          <p><strong>Typ:</strong> <%= @position.type == 'freetime' ? 'Freizeitaktivität' : 'Volunteer-Position' %></p>
+          <p><strong>Eingereicht am:</strong> <%= Date.current.strftime("%d.%m.%Y") %></p>
+        </div>
+        
+        <h3>Wie geht es weiter?</h3>
+        <ol>
+          <li><strong>Prüfung (1-3 Werktage):</strong> Unser Team prüft Ihre Einreichung auf Vollständigkeit und Richtlinien.</li>
+          <li><strong>Freischaltung:</strong> Nach der Prüfung wird Ihre Position auf unserer Plattform veröffentlicht.</li>
+          <li><strong>Benachrichtigung:</strong> Sie erhalten eine E-Mail, sobald Ihre Position live ist.</li>
+        </ol>
+        
+        <p>Falls Sie Fragen haben oder Änderungen vornehmen möchten, können Sie uns jederzeit kontaktieren.</p>
+        
+        <p>Vielen Dank für Ihr Engagement!</p>
+        
+        <p>Ihr LetsGoVolunteer Team</p>
+      </div>
+      
+      <div class="footer">
+        <p>LetsGoVolunteer Heilbronn<br>
+        E-Mail: info@letsgovolunteer.de<br>
+        Diese E-Mail wurde automatisch generiert.</p>
+      </div>
+    </div>
+  </body>
+</html>
