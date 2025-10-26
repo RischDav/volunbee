@@ -7,49 +7,18 @@ class PositionsController < ApplicationController
 
   def index
   if user_signed_in?
-    # DEBUG: Detaillierte Ausgabe für Organization User
-    Rails.logger.debug "=== DEBUG POSITIONS INDEX ==="
-    Rails.logger.debug "User ID: #{current_user.id}"
-    Rails.logger.debug "User signed in: #{user_signed_in?}"
-    Rails.logger.debug "User admin?: #{current_user.admin?}"
-    Rails.logger.debug "User organization?: #{current_user.organization?}"
-    Rails.logger.debug "User student?: #{current_user.student?}"
-    Rails.logger.debug "User university?: #{current_user.university?}"
-    Rails.logger.debug "User affiliation: #{current_user.affiliation.inspect}"
-    
-    if current_user.affiliation
-      Rails.logger.debug "Affiliation organization_id: #{current_user.affiliation.organization_id}"
-      Rails.logger.debug "Affiliation university_id: #{current_user.affiliation.university_id}"
-      Rails.logger.debug "Affiliation role: #{current_user.affiliation.role}"
-    end
-    
-    Rails.logger.debug "User organization: #{current_user.organization.inspect}"
-    Rails.logger.debug "User organization&.id: #{current_user.organization&.id}"
-    
     if current_user.admin?
-      Rails.logger.debug "Branch: ADMIN"
       @positions = Position.all
     elsif current_user.organization?
-      Rails.logger.debug "Branch: ORGANIZATION"
-      org_id = current_user.organization&.id
-      Rails.logger.debug "Searching for positions with organization_id: #{org_id}"
-      @positions = Position.where(organization_id: org_id)
-      Rails.logger.debug "Found positions count: #{@positions.count}"
-      Rails.logger.debug "Found positions IDs: #{@positions.pluck(:id)}"
+      @positions = Position.where(organization_id: current_user.organization&.id)
     elsif current_user.student?
-      Rails.logger.debug "Branch: STUDENT"
       @positions = Position.where(released: true, online: true)
     elsif current_user.university?
-      Rails.logger.debug "Branch: UNIVERSITY"
       @positions = Position.where(university_id: current_user.university&.id)
     else
-      Rails.logger.debug "Branch: NONE (no matching condition)"
       @positions = Position.none
     end
-    
     @positions_count = @positions.size
-    Rails.logger.debug "Final positions count: #{@positions_count}"
-    Rails.logger.debug "=== END DEBUG ==="
   else
     @positions = nil
   end
