@@ -28,7 +28,7 @@
     <% end %>
   <% end %>
 </div>
-  <% if @positions.present? && !current_user.university_staff? %>
+  <% if @positions.present? && (current_user.student? || current_user.university_staff?) %>
     <% 
       # Filtere Positionen nach Typ für bessere Kategorisierung
       volunteering_positions = current_user.admin? ? @positions.by_type('volunteering').released : @positions.by_type('volunteering')
