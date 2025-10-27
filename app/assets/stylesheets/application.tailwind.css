@@ -5,3 +5,8 @@
 @import "tailwind/components/volunteer_form.css";
 @import "tailwind/components/volunteer_list.css";
 @import '~cookieconsent/build/cookieconsent.min.css';
+
+/* Verstecke den automatischen Cookie Policy Revoke Button */
+.cc-revoke {
+  display: none !important;
+}
