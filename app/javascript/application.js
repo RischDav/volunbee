@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
       "link": "Einstellungen",
       "href": "#",
       "close": "✕",
-      "policy": "Cookie-Richtlinie",
+
       "target": "_self"
     },
     "elements": {
@@ -78,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
           <a aria-label="Cookie-Einstellungen anpassen" role="button" tabindex="0" class="cookie-settings-btn" onclick="showCookieSettings(); return false;">{{link}}</a>
         </div>
       `,
+      "link": "" // Verstecke den automatischen Policy-Link
     },
     "cookie": {
       "name": "volunbee_cookieconsent",
