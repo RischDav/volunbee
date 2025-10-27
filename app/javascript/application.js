@@ -66,10 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
       "dismiss": "Alle akzeptieren",
       "deny": "Alle ablehnen", 
       "link": "Einstellungen",
-      "href": "#",
-      "close": "✕",
-
-      "target": "_self"
+      "close": "✕"
     },
     "elements": {
       "messagelink": `
