@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
     "type": "opt-in",
     "layout": "block",
     "animateRevokable": false,
+    "revokable": false,
     "content": {
       "message": "🍪 Wir verwenden Cookies, um Ihnen die bestmögliche Erfahrung auf unserer Website zu bieten.",
       "dismiss": "Alle akzeptieren",
