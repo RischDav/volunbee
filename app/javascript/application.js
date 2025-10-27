@@ -77,8 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <div style="margin-top: 16px;">
           <a aria-label="Cookie-Einstellungen anpassen" role="button" tabindex="0" class="cookie-settings-btn" onclick="showCookieSettings(); return false;">{{link}}</a>
         </div>
-      `,
-      "link": "" // Verstecke den automatischen Policy-Link
+      `
     },
     "cookie": {
       "name": "volunbee_cookieconsent",
