@@ -1,0 +1,199 @@
+<div class="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
+  <header class="mb-6 sm:mb-8 text-center">
+    <div class="mb-3 sm:mb-4">
+      <span class="text-xs sm:text-sm font-semibold text-gray-600 bg-gray-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full">Application</span>
+    </div>
+    
+    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+      Application as Assistant
+    </h2>
+    
+    <p class="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto mb-4 sm:mb-6 px-2">
+      Please fill out the following form to apply as an assistant. All information will be treated confidentially.
+    </p>
+  </header>
+
+  <%= form_with model: [@organization, @position, :assistant_application], local: true, multipart: true, class: "space-y-6 sm:space-y-8" do |form| %>
+    
+    <!-- Personal Information -->
+    <section class="bg-gray-50 rounded-lg p-4 sm:p-6">
+      <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">Personal Information</h3>
+      
+      <div class="grid gap-4 sm:gap-6 md:grid-cols-2">
+        <div>
+          <%= form.label :first_name, "First Name", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+          <%= form.text_field :first_name, required: true, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: "Your first name" %>
+        </div>
+
+        <div>
+          <%= form.label :last_name, "Last Name", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+          <%= form.text_field :last_name, required: true, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: "Your last name" %>
+        </div>
+      </div>
+
+      <div class="mt-4 sm:mt-6">
+        <%= form.label :birth_date, "Date of Birth", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <%= form.date_field :birth_date, required: true, class: "w-full md:w-1/2 rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500" %>
+        <p class="text-xs sm:text-sm text-gray-500 mt-2">
+          Age is required to verify legal adulthood.
+        </p>
+      </div>
+    </section>
+
+    <!-- Motivation Letter -->
+    <section class="bg-gray-50 rounded-lg p-4 sm:p-6">
+      <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">Motivation</h3>
+      
+      <div>
+        <%= form.label :motivation, "Motivation Letter", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <p class="text-xs sm:text-sm text-gray-500 mb-3">Optional - Tell us why you are interested in this position.</p>
+        <%= form.text_area :motivation, rows: 6, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500 resize-none", placeholder: "Describe your motivation for this position..." %>
+        <div class="flex justify-between items-center mt-2">
+          <p class="text-xs text-gray-500">Maximum 1000 characters</p>
+          <span id="motivation-counter" class="text-xs text-gray-500">0 / 1000</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="bg-gray-50 rounded-lg p-4 sm:p-6">
+      <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">Work Experience</h3>
+      
+      <div class="mb-4 sm:mb-6">
+        <%= form.label :has_experience, "Do you already have experience in a similar position?", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <%= form.select :has_experience, 
+            options_for_select([
+              ['Please select...', ''],
+              ['Yes, I have experience', 'yes'],
+              ['No, I have no experience', 'no']
+            ]), 
+            { prompt: false }, 
+            { 
+              class: "w-full md:w-1/2 rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500",
+              onchange: "toggleExperienceDetails(this.value)"
+            } %>
+      </div>
+
+      <div id="experience-details" class="hidden">
+        <%= form.label :experience_description, "Description of Experience", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <p class="text-xs sm:text-sm text-gray-500 mb-3">Please describe your previous experience in detail.</p>
+        <%= form.text_area :experience_description, rows: 4, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500 resize-none", placeholder: "Describe your previous experience in similar positions..." %>
+        <div class="flex justify-between items-center mt-2">
+          <p class="text-xs text-gray-500">Maximum 800 characters</p>
+          <span id="experience-counter" class="text-xs text-gray-500">0 / 800</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CV Upload -->
+    <section class="bg-gray-50 rounded-lg p-4 sm:p-6">
+      <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">Documents</h3>
+      
+      <div>
+        <%= form.label :cv_file, "Resume/CV", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <p class="text-xs sm:text-sm text-gray-500 mb-3">Upload your current resume/CV (PDF, max. 5MB).</p>
+        
+        <div class="relative">
+          <%= form.file_field :cv_file, 
+              accept: ".pdf,.doc,.docx", 
+              required: true,
+              class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500 file:mr-4 file:py-1 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100",
+              onchange: "showFilePreview(this)" %>
+        </div>
+        
+        <div id="file-preview" class="hidden mt-3 p-3 bg-blue-50 rounded-md border border-blue-200">
+          <div class="flex items-center">
+            <svg class="w-4 h-4 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            <span id="file-name" class="text-sm text-blue-800 font-medium"></span>
+          </div>
+        </div>
+        
+        <p class="text-xs text-gray-500 mt-2">
+          Supported formats: PDF, DOC, DOCX. Maximum file size: 5MB.
+        </p>
+      </div>
+    </section>
+
+    <!-- Submit Button -->
+    <div class="pt-4 sm:pt-6 border-t border-gray-200">
+      <div class="flex justify-end">
+        <%= form.submit "Submit Application", 
+            class: "bg-blue-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200" %>
+      </div>
+    </div>
+
+  <% end %>
+</div>
+
+<script>
+  // Zeichenzähler für Motivationsschreiben
+  document.addEventListener('DOMContentLoaded', function() {
+    const motivationField = document.querySelector('[name*="motivation"]');
+    const motivationCounter = document.getElementById('motivation-counter');
+    
+    if (motivationField && motivationCounter) {
+      motivationField.addEventListener('input', function() {
+        const length = this.value.length;
+        motivationCounter.textContent = length + ' / 1000';
+        
+        if (length > 1000) {
+          motivationCounter.classList.add('text-red-500');
+          motivationCounter.classList.remove('text-gray-500');
+        } else {
+          motivationCounter.classList.add('text-gray-500');
+          motivationCounter.classList.remove('text-red-500');
+        }
+      });
+    }
+
+    // Zeichenzähler für Erfahrungsbeschreibung
+    const experienceField = document.querySelector('[name*="experience_description"]');
+    const experienceCounter = document.getElementById('experience-counter');
+    
+    if (experienceField && experienceCounter) {
+      experienceField.addEventListener('input', function() {
+        const length = this.value.length;
+        experienceCounter.textContent = length + ' / 800';
+        
+        if (length > 800) {
+          experienceCounter.classList.add('text-red-500');
+          experienceCounter.classList.remove('text-gray-500');
+        } else {
+          experienceCounter.classList.add('text-gray-500');
+          experienceCounter.classList.remove('text-red-500');
+        }
+      });
+    }
+  });
+
+  // Erfahrungsdetails ein-/ausblenden
+  function toggleExperienceDetails(value) {
+    const detailsDiv = document.getElementById('experience-details');
+    const experienceField = document.querySelector('[name*="experience_description"]');
+    
+    if (value === 'yes') {
+      detailsDiv.classList.remove('hidden');
+      experienceField.required = true;
+    } else {
+      detailsDiv.classList.add('hidden');
+      experienceField.required = false;
+      experienceField.value = '';
+    }
+  }
+
+  // Datei-Vorschau
+  function showFilePreview(input) {
+    const preview = document.getElementById('file-preview');
+    const fileName = document.getElementById('file-name');
+    
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      fileName.textContent = file.name;
+      preview.classList.remove('hidden');
+    } else {
+      preview.classList.add('hidden');
+    }
+  }
+</script>

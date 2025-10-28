@@ -1,0 +1,174 @@
+<div class="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
+  <header class="mb-6 sm:mb-8 text-center">
+    <div class="mb-3 sm:mb-4">
+      <span class="text-xs sm:text-sm font-semibold text-gray-600 bg-gray-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full">Application</span>
+    </div>
+    
+    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+      Volunteer Application
+    </h2>
+    
+    <p class="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto mb-4 sm:mb-6 px-2">
+      Please fill out the following form to apply as a volunteer. All information will be treated confidentially.
+    </p>
+  </header>
+
+  <%= form_with model: [@organization, @position, :volunteer_application], local: true, class: "space-y-6 sm:space-y-8" do |form| %>
+    
+    <!-- Personal Information -->
+    <section class="bg-gray-50 rounded-lg p-4 sm:p-6">
+      <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">Personal Information</h3>
+      
+      <div class="grid gap-4 sm:gap-6 md:grid-cols-2">
+        <div>
+          <%= form.label :first_name, "First Name", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+          <%= form.text_field :first_name, required: true, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: "Your first name" %>
+        </div>
+
+        <div>
+          <%= form.label :last_name, "Last Name", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+          <%= form.text_field :last_name, required: true, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: "Your last name" %>
+        </div>
+      </div>
+
+      <div class="grid gap-4 sm:gap-6 md:grid-cols-2 mt-4 sm:mt-6">
+        <div>
+          <%= form.label :gender, "Gender", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+          <%= form.select :gender, 
+              options_for_select([
+                ['Please select...', ''],
+                ['Female', 'female'],
+                ['Male', 'male'],
+                ['Diverse', 'diverse'],
+                ['Prefer not to say', 'not_specified']
+              ]), 
+              { prompt: false }, 
+              { 
+                class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500",
+                required: true
+              } %>
+        </div>
+
+        <div>
+          <%= form.label :phone_number, "Phone Number", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+          <%= form.telephone_field :phone_number, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: "+49 123 456 789" %>
+          <p class="text-xs sm:text-sm text-gray-500 mt-2">
+            Optional - Will be used for contact via WhatsApp.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Volunteer Experience -->
+    <section class="bg-gray-50 rounded-lg p-4 sm:p-6">
+      <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">Volunteer Experience</h3>
+      
+      <div class="mb-4 sm:mb-6">
+        <%= form.label :has_volunteer_experience, "Have you done the same or similar volunteer work before?", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <%= form.select :has_volunteer_experience, 
+            options_for_select([
+              ['Please select...', ''],
+              ['Yes, I have experience', 'yes'],
+              ['No, this would be my first time', 'no']
+            ]), 
+            { prompt: false }, 
+            { 
+              class: "w-full md:w-1/2 rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500",
+              onchange: "toggleVolunteerExperienceDetails(this.value)",
+              required: true
+            } %>
+      </div>
+
+      <div id="volunteer-experience-details" class="hidden">
+        <%= form.label :volunteer_experience_description, "Description of Your Volunteer Experience", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <p class="text-xs sm:text-sm text-gray-500 mb-3">Please describe your previous volunteer experience in detail.</p>
+        <%= form.text_area :volunteer_experience_description, rows: 4, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500 resize-none", placeholder: "Describe your previous volunteer work, what you did, how long you volunteered, what you learned..." %>
+        <div class="flex justify-between items-center mt-2">
+          <p class="text-xs text-gray-500">Maximum 800 characters</p>
+          <span id="volunteer-experience-counter" class="text-xs text-gray-500">0 / 800</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Yourself -->
+    <section class="bg-gray-50 rounded-lg p-4 sm:p-6">
+      <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">About You</h3>
+      
+      <div>
+        <%= form.label :about_yourself, "Tell us about yourself", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <p class="text-xs sm:text-sm text-gray-500 mb-3">Optional - Share something about yourself, your interests, or what motivates you to volunteer.</p>
+        <%= form.text_area :about_yourself, rows: 6, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500 resize-none", placeholder: "Tell us about yourself, your interests, what motivates you to volunteer, or what you hope to gain from this experience..." %>
+        <div class="flex justify-between items-center mt-2">
+          <p class="text-xs text-gray-500">Maximum 1000 characters</p>
+          <span id="about-counter" class="text-xs text-gray-500">0 / 1000</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Submit Button -->
+    <div class="pt-4 sm:pt-6 border-t border-gray-200">
+      <div class="flex justify-end">
+        <%= form.submit "Submit Application", 
+            class: "bg-blue-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200" %>
+      </div>
+    </div>
+
+  <% end %>
+</div>
+
+<script>
+  // Character counter for "About yourself" field
+  document.addEventListener('DOMContentLoaded', function() {
+    const aboutField = document.querySelector('[name*="about_yourself"]');
+    const aboutCounter = document.getElementById('about-counter');
+    
+    if (aboutField && aboutCounter) {
+      aboutField.addEventListener('input', function() {
+        const length = this.value.length;
+        aboutCounter.textContent = length + ' / 1000';
+        
+        if (length > 1000) {
+          aboutCounter.classList.add('text-red-500');
+          aboutCounter.classList.remove('text-gray-500');
+        } else {
+          aboutCounter.classList.add('text-gray-500');
+          aboutCounter.classList.remove('text-red-500');
+        }
+      });
+    }
+
+    // Character counter for volunteer experience description
+    const volunteerExperienceField = document.querySelector('[name*="volunteer_experience_description"]');
+    const volunteerExperienceCounter = document.getElementById('volunteer-experience-counter');
+    
+    if (volunteerExperienceField && volunteerExperienceCounter) {
+      volunteerExperienceField.addEventListener('input', function() {
+        const length = this.value.length;
+        volunteerExperienceCounter.textContent = length + ' / 800';
+        
+        if (length > 800) {
+          volunteerExperienceCounter.classList.add('text-red-500');
+          volunteerExperienceCounter.classList.remove('text-gray-500');
+        } else {
+          volunteerExperienceCounter.classList.add('text-gray-500');
+          volunteerExperienceCounter.classList.remove('text-red-500');
+        }
+      });
+    }
+  });
+
+  // Toggle volunteer experience details
+  function toggleVolunteerExperienceDetails(value) {
+    const detailsDiv = document.getElementById('volunteer-experience-details');
+    const experienceField = document.querySelector('[name*="volunteer_experience_description"]');
+    
+    if (value === 'yes') {
+      detailsDiv.classList.remove('hidden');
+      experienceField.required = true;
+    } else {
+      detailsDiv.classList.add('hidden');
+      experienceField.required = false;
+      experienceField.value = '';
+    }
+  }
+</script>
