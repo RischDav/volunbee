@@ -588,6 +588,47 @@
             </div>
           </div>
         <% end %>
+        
+    <!-- Application/Registration Button Section -->
+    <div class="mt-8 mb-8">
+      <% case @position.type %>
+      <% when 'volunteering' %>
+        <!-- Volunteer Application Button -->
+        <div class="bg-green-50 border border-green-200 rounded-xl p-4 sm:p-6 lg:p-8 mb-8 text-center">
+          <div class="mb-4 sm:mb-6">
+            <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-green-800 mb-2">🤝 Ready to Volunteer?</h3>
+            <p class="text-sm sm:text-base text-green-600 mb-4 sm:mb-6">Join us and make a difference in your community</p>
+          </div>
+          <%= link_to "Apply as Volunteer", 
+              new_position_volunteer_application_path(@position), 
+              class: "inline-flex items-center gap-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" %>
+        </div>
+      
+      <% when 'freetime' %>
+        <!-- Freetime Activity Registration Button -->
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 sm:p-6 lg:p-8 mb-8 text-center">
+          <div class="mb-4 sm:mb-6">
+            <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-800 mb-2">🎯 Join the Activity</h3>
+            <p class="text-sm sm:text-base text-blue-600 mb-4 sm:mb-6">Register and have fun with others</p>
+          </div>
+          <%= link_to "Register for Activity", 
+              new_position_freetime_registration_path(@position), 
+              class: "inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" %>
+        </div>
+      
+      <% when 'university_position' %>
+        <!-- University Assistant Application Button -->
+        <div class="bg-purple-50 border border-purple-200 rounded-xl p-4 sm:p-6 lg:p-8 mb-8 text-center">
+          <div class="mb-4 sm:mb-6">
+            <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-purple-800 mb-2">🎓 Apply for Position</h3>
+            <p class="text-sm sm:text-base text-purple-600 mb-4 sm:mb-6">Start your career as a university assistant</p>
+          </div>
+          <%= link_to "Apply as Assistant", 
+              new_position_assistant_application_path(@position), 
+              class: "inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" %>
+        </div>
+      <% end %>
+    </div>
 
     <!-- Back Button -->
     <div class="mt-8 flex justify-center">
