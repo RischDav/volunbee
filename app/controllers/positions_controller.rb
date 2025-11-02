@@ -244,6 +244,8 @@ class PositionsController < ApplicationController
 
   def set_position
     @position = Position.includes(:frequently_asked_questions).find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to positions_path, alert: "Position not found."
   end
 
   def check_edit_permissions
