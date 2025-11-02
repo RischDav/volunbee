@@ -588,6 +588,41 @@
             </div>
           </div>
         <% end %>
+        
+    <!-- Application Form Section -->
+    <div class="mt-8 mb-8">
+      <% case @position.type %>
+      <% when 'volunteering' %>
+        <!-- Volunteer Application Form -->
+        <div class="bg-green-50 border border-green-200 rounded-xl p-6 mb-8">
+          <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-green-800 mb-2">🤝 Volunteer Application</h3>
+            <p class="text-green-600">Apply to volunteer for this position</p>
+          </div>
+          <%= render 'positions/shared/volunteer_form' %>
+        </div>
+      
+      <% when 'freetime' %>
+        <!-- Freetime Activity Registration Form -->
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-8">
+          <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-blue-800 mb-2">🎯 Activity Registration</h3>
+            <p class="text-blue-600">Register for this freetime activity</p>
+          </div>
+          <%= render 'positions/shared/freetime_form' %>
+        </div>
+      
+      <% when 'university_position' %>
+        <!-- University Assistant Application Form -->
+        <div class="bg-purple-50 border border-purple-200 rounded-xl p-6 mb-8">
+          <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-purple-800 mb-2">🎓 Assistant Application</h3>
+            <p class="text-purple-600">Apply for this university assistant position</p>
+          </div>
+          <%= render 'positions/shared/assistant_form' %>
+        </div>
+      <% end %>
+    </div>
 
     <!-- Back Button -->
     <div class="mt-8 flex justify-center">
