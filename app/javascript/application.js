@@ -61,15 +61,14 @@ document.addEventListener("DOMContentLoaded", function() {
     "type": "opt-in",
     "layout": "block",
     "animateRevokable": false,
+    "revokable": false,
     "content": {
       "message": "🍪 Wir verwenden Cookies, um Ihnen die bestmögliche Erfahrung auf unserer Website zu bieten.",
       "dismiss": "Alle akzeptieren",
       "deny": "Alle ablehnen", 
       "link": "Einstellungen",
-      "href": "#",
       "close": "✕",
-      "policy": "Cookie-Richtlinie",
-      "target": "_self"
+      "policy": ""
     },
     "elements": {
       "messagelink": `
@@ -77,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <div style="margin-top: 16px;">
           <a aria-label="Cookie-Einstellungen anpassen" role="button" tabindex="0" class="cookie-settings-btn" onclick="showCookieSettings(); return false;">{{link}}</a>
         </div>
-      `,
+      `
     },
     "cookie": {
       "name": "volunbee_cookieconsent",

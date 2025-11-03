@@ -11,6 +11,13 @@ class AdminMailer < ApplicationMailer
     mail(to: admin_email, subject: "Neue Position auf Volunteer-Heilbronn.de")
   end
 
+  def new_organization_and_position(organization, position)
+    @organization = organization
+    @position = position
+    admin_email = ENV["ADMIN_EMAIL"]
+    mail(to: admin_email, subject: "Neue Organisation und Position eingereicht")
+  end
+
   def organization_change_email
     admin_email = ENV["ADMIN_EMAIL"]
     mail(to: admin_email, subject: "Änderung bei einer Organisation auf Volunteer-Heilbronn.de")

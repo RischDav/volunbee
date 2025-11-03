@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neue Einreichung - Admin Benachrichtigung</title>
+    <style>
+      body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; }
+      .container { max-width: 600px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+      .header { background: #dc2626; color: white; padding: 20px; border-radius: 8px 8px 0 0; text-align: center; }
+      .content { padding: 30px; }
+      .info-box { background: #f3f4f6; padding: 15px; border-radius: 6px; margin: 15px 0; }
+      .status { background: #fef3c7; color: #92400e; padding: 10px; border-radius: 6px; margin: 15px 0; text-align: center; font-weight: bold; }
+      .footer { background: #f8f9fa; padding: 20px; border-radius: 0 0 8px 8px; text-align: center; color: #666; font-size: 14px; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🚨 Neue Einreichung zur Prüfung</h1>
+      </div>
+      
+      <div class="content">
+        <p>Eine neue <%= @position.type == 'freetime' ? 'Freizeitaktivität' : 'Volunteer-Position' %> wurde eingereicht und wartet auf Prüfung.</p>
+        
+        <div class="status">
+          ⏳ STATUS: WARTEND AUF ADMIN-PRÜFUNG
+        </div>
+        
+        <div class="info-box">
+          <h3>📋 Organisations-Details:</h3>
+          <p><strong>Name:</strong> <%= @organization.name %></p>
+          <p><strong>Kontaktperson:</strong> <%= @organization.contact_person %></p>
+          <p><strong>E-Mail:</strong> <%= @organization.email %></p>
+          <p><strong>Telefon:</strong> <%= @organization.contact_number %></p>
+          <p><strong>Adresse:</strong> <%= @organization.street %> <%= @organization.housenumber %>, <%= @organization.zip %> <%= @organization.city %></p>
+          <% if @organization.website.present? %>
+          <p><strong>Website:</strong> <%= @organization.website %></p>
+          <% end %>
+        </div>
+        
+        <div class="info-box">
+          <h3>🎯 Position-Details:</h3>
+          <p><strong>Titel:</strong> <%= @position.title %></p>
+          <p><strong>Typ:</strong> <%= @position.type == 'freetime' ? 'Freizeitaktivität' : 'Volunteer-Position' %></p>
+          <p><strong>Wöchentlicher Zeitaufwand:</strong> <%= @position.weekly_time_commitment %> Stunden</p>
+          <p><strong>Zeitlich begrenzt:</strong> <%= @position.position_temporary? ? 'Ja' : 'Nein' %></p>
+          <% if @position.payment.present? %>
+          <p><strong>Entschädigung:</strong> <%= @position.payment %></p>
+          <% end %>
+          
+          <h4>Beschreibung:</h4>
+          <p><%= simple_format(@position.description) %></p>
+          
+          <h4>Anforderungen/Zielgruppe:</h4>
+          <p><%= simple_format(@position.benefits) %></p>
+        </div>
+        
+        <div class="info-box">
+          <h3>💪 Fähigkeiten-Bewertung:</h3>
+          <p><strong>Kreativität:</strong> <%= @position.creative_skills %>/5</p>
+          <p><strong>Soziales:</strong> <%= @position.social_skills %>/5</p>
+          <p><strong>Technik:</strong> <%= @position.technical_skills %>/5</p>
+          <p><strong>Sprachen:</strong> <%= @position.language_skills %>/5</p>
+          <p><strong>Flexibilität:</strong> <%= @position.flexibility %>/5</p>
+          <p><strong>Gesamt:</strong> <%= @position.creative_skills + @position.social_skills + @position.technical_skills + @position.language_skills + @position.flexibility %>/25</p>
+        </div>
+        
+        <h3>📝 Erforderliche Aktionen:</h3>
+        <ol>
+          <li>Organisation und Position prüfen</li>
+          <li>Bei Bedarf Rückfragen stellen</li>
+          <li>Organisation freischalten</li>
+          <li>Position freischalten</li>
+        </ol>
+        
+        <p><strong>Eingereicht am:</strong> <%= Date.current.strftime("%d.%m.%Y um %H:%M") %> Uhr</p>
+      </div>
+      
+      <div class="footer">
+        <p>LetsGoVolunteer Admin System<br>
+        Diese E-Mail wurde automatisch generiert.</p>
+      </div>
+    </div>
+  </body>
+</html>
