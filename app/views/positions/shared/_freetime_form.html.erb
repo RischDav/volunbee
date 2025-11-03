@@ -13,7 +13,9 @@
     </p>
   </header>
 
-  <%= form_with model: [@organization, @position, :freetime_interest], local: true, class: "space-y-6 sm:space-y-8" do |form| %>
+  <% # If form is passed from parent view, use it. Otherwise don't create one (will fail) %>
+  <% if defined?(form) && form %>
+    <!-- Form is handled by parent view -->
     
     <!-- Personal Information -->
     <section class="bg-gray-50 rounded-lg p-4 sm:p-6">
@@ -31,12 +33,17 @@
         </div>
       </div>
 
+      <div class="mt-4 sm:mt-6">
+        <%= form.label :email, "Email Address", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <%= form.email_field :email, required: true, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: "your.email@example.com" %>
+      </div>
+
       <div class="grid gap-4 sm:gap-6 md:grid-cols-2 mt-4 sm:mt-6">
         <div>
           <%= form.label :phone_number, "Phone Number", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
-          <%= form.telephone_field :phone_number, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: "+49 123 456 789" %>
+          <%= form.telephone_field :phone_number, required: true, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: "+49 123 456 789" %>
           <p class="text-xs sm:text-sm text-gray-500 mt-2">
-            Optional - Will be used by organizations to contact you via WhatsApp.
+            We may need to contact you by phone for important updates.
           </p>
         </div>
 
@@ -48,16 +55,48 @@
           </p>
         </div>
       </div>
+
+      <div class="mt-4 sm:mt-6">
+        <%= form.label :gender, "Gender", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <%= form.select :gender, 
+            options_for_select([
+              ['Please select...', ''],
+              ['Male', 'male'],
+              ['Female', 'female'],
+              ['Non-binary', 'non-binary'],
+              ['Prefer not to say', 'prefer_not_to_say']
+            ]), 
+            { prompt: false }, 
+            { class: "w-full md:w-1/2 rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500" } %>
+        <p class="text-xs sm:text-sm text-gray-500 mt-2">
+          Optional - This information helps us ensure inclusive practices.
+        </p>
+      </div>
     </section>
 
-    <!-- Tell us about yourself -->
+    <!-- Motivation -->
+    <section class="bg-gray-50 rounded-lg p-4 sm:p-6">
+      <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">Motivation</h3>
+      
+      <div>
+        <%= form.label :motivation, "Why are you interested in this activity?", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <p class="text-xs sm:text-sm text-gray-500 mb-3">Optional - Tell us what draws you to this freetime activity.</p>
+        <%= form.text_area :motivation, rows: 4, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500 resize-none", placeholder: "Describe what interests you about this activity..." %>
+        <div class="flex justify-between items-center mt-2">
+          <p class="text-xs text-gray-500">Maximum 500 characters</p>
+          <span id="motivation-counter" class="text-xs text-gray-500">0 / 500</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Yourself -->
     <section class="bg-gray-50 rounded-lg p-4 sm:p-6">
       <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">About You</h3>
       
       <div>
         <%= form.label :about_yourself, "Tell us about yourself", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
-        <p class="text-xs sm:text-sm text-gray-500 mb-3">Optional - Share something about yourself, your interests, or what draws you to this activity.</p>
-        <%= form.text_area :about_yourself, rows: 6, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500 resize-none", placeholder: "Tell us about yourself, your interests, hobbies, or what you're looking forward to in this activity..." %>
+        <p class="text-xs sm:text-sm text-gray-500 mb-3">Optional - Share something about yourself, your interests, or what you hope to gain from this activity.</p>
+        <%= form.text_area :about_yourself, rows: 5, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500 resize-none", placeholder: "Tell us about yourself, your interests, hobbies, or what you're looking forward to in this activity..." %>
         <div class="flex justify-between items-center mt-2">
           <p class="text-xs text-gray-500">Maximum 800 characters</p>
           <span id="about-counter" class="text-xs text-gray-500">0 / 800</span>
@@ -65,22 +104,37 @@
       </div>
     </section>
 
-    <!-- Submit Button -->
-    <div class="pt-4 sm:pt-6 border-t border-gray-200">
-      <div class="flex justify-end">
-        <%= form.submit "Submit Interest", 
-            class: "bg-blue-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200" %>
-      </div>
+  <% else %>
+    <!-- This partial should only be called with a form object passed from parent -->
+    <div class="p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+      <p>Error: This form requires a form object to be passed from the parent view.</p>
     </div>
-
   <% end %>
 </div>
 
 <script>
-  // Character counter for "About yourself" field
+  // Character counters
   document.addEventListener('DOMContentLoaded', function() {
+    const motivationField = document.querySelector('[name*="motivation"]');
+    const motivationCounter = document.getElementById('motivation-counter');
+    
     const aboutField = document.querySelector('[name*="about_yourself"]');
     const aboutCounter = document.getElementById('about-counter');
+    
+    if (motivationField && motivationCounter) {
+      motivationField.addEventListener('input', function() {
+        const length = this.value.length;
+        motivationCounter.textContent = length + ' / 500';
+        
+        if (length > 500) {
+          motivationCounter.classList.add('text-red-500');
+          motivationCounter.classList.remove('text-gray-500');
+        } else {
+          motivationCounter.classList.add('text-gray-500');
+          motivationCounter.classList.remove('text-red-500');
+        }
+      });
+    }
     
     if (aboutField && aboutCounter) {
       aboutField.addEventListener('input', function() {

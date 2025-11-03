@@ -44,6 +44,9 @@ get 'volunteering-position/success', to: 'static_pages#success_volunteering_posi
         patch 'offline'
         delete 'delete_picture/:picture_type', to: 'positions#delete_picture', as: 'delete_picture'
       end
+      
+      # Unified application routes
+      resources :applications, only: [:new, :create, :show]
     end
 
     resources :organizations do

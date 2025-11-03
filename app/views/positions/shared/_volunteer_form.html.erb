@@ -13,7 +13,9 @@
     </p>
   </header>
 
-  <%= form_with model: [@organization, @position, :volunteer_application], local: true, class: "space-y-6 sm:space-y-8" do |form| %>
+    <% # If form is passed from parent view, use it. Otherwise don't create one (will fail) %>
+  <% if defined?(form) && form %>
+    <!-- Form is handled by parent view -->
     
     <!-- Personal Information -->
     <section class="bg-gray-50 rounded-lg p-4 sm:p-6">
@@ -29,6 +31,11 @@
           <%= form.label :last_name, "Last Name", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
           <%= form.text_field :last_name, required: true, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: "Your last name" %>
         </div>
+      </div>
+
+      <div class="mt-4 sm:mt-6">
+        <%= form.label :email, "Email Address", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <%= form.email_field :email, required: true, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: "your.email@example.com" %>
       </div>
 
       <div class="grid gap-4 sm:gap-6 md:grid-cols-2 mt-4 sm:mt-6">
@@ -51,11 +58,19 @@
 
         <div>
           <%= form.label :phone_number, "Phone Number", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
-          <%= form.telephone_field :phone_number, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: "+49 123 456 789" %>
+          <%= form.telephone_field :phone_number, required: true, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-green-500 focus:ring-green-500", placeholder: "+49 123 456 789" %>
           <p class="text-xs sm:text-sm text-gray-500 mt-2">
-            Optional - Will be used for contact via WhatsApp.
+            We may need to contact you by phone for important updates.
           </p>
         </div>
+      </div>
+
+      <div class="mt-4 sm:mt-6">
+        <%= form.label :birth_date, "Date of Birth", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <%= form.date_field :birth_date, required: true, class: "w-full md:w-1/2 rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-green-500 focus:ring-green-500" %>
+        <p class="text-xs sm:text-sm text-gray-500 mt-2">
+          Age is required to verify legal adulthood.
+        </p>
       </div>
     </section>
 
@@ -90,6 +105,21 @@
       </div>
     </section>
 
+    <!-- Motivation -->
+    <section class="bg-gray-50 rounded-lg p-4 sm:p-6">
+      <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">Motivation</h3>
+      
+      <div>
+        <%= form.label :motivation, "Why do you want to volunteer for this position?", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <p class="text-xs sm:text-sm text-gray-500 mb-3">Optional - Tell us what motivates you to volunteer for this specific position.</p>
+        <%= form.text_area :motivation, rows: 5, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-green-500 focus:ring-green-500 resize-none", placeholder: "Describe your motivation for volunteering in this position..." %>
+        <div class="flex justify-between items-center mt-2">
+          <p class="text-xs text-gray-500">Maximum 1000 characters</p>
+          <span id="motivation-counter" class="text-xs text-gray-500">0 / 1000</span>
+        </div>
+      </div>
+    </section>
+
     <!-- About Yourself -->
     <section class="bg-gray-50 rounded-lg p-4 sm:p-6">
       <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">About You</h3>
@@ -105,14 +135,11 @@
       </div>
     </section>
 
-    <!-- Submit Button -->
-    <div class="pt-4 sm:pt-6 border-t border-gray-200">
-      <div class="flex justify-end">
-        <%= form.submit "Submit Application", 
-            class: "bg-blue-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200" %>
-      </div>
+  <% else %>
+    <!-- This partial should only be called with a form object passed from parent -->
+    <div class="p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+      <p>Error: This form requires a form object to be passed from the parent view.</p>
     </div>
-
   <% end %>
 </div>
 
