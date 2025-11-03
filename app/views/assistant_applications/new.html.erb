@@ -1,0 +1,44 @@
+<div class="min-h-screen bg-gradient-to-br from-purple-50 via-white to-violet-50 py-4 sm:py-8">
+  <div class="max-w-4xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+    
+    <!-- Header -->
+    <div class="mb-6 sm:mb-8">
+      <div class="flex items-center gap-3 mb-4">
+        <%= link_to @position, class: "text-purple-600 hover:text-purple-700 transition-colors" do %>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+        <% end %>
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-purple-800">
+          🎓 Assistant Application
+        </h1>
+      </div>
+      <p class="text-sm sm:text-base text-purple-600">
+        Apply for: <strong><%= @position.title %></strong>
+      </p>
+      <div class="w-20 h-1 bg-gradient-to-r from-purple-500 to-violet-600 rounded-full mt-2"></div>
+    </div>
+
+    <!-- Application Form -->
+    <div class="bg-white rounded-xl shadow-xl border border-purple-100 overflow-hidden">
+      <%= form_with model: [@position, @assistant_application], local: true, multipart: true, class: "p-6 sm:p-8" do |form| %>
+        
+        <!-- Error Messages -->
+        <% if @assistant_application.errors.any? %>
+          <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+            <h3 class="font-bold mb-2">Please fix the following errors:</h3>
+            <ul class="list-disc pl-5 text-sm space-y-1">
+              <% @assistant_application.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <!-- Form Content -->
+        <%= render 'positions/shared/assistant_form', form: form %>
+        
+      <% end %>
+    </div>
+  </div>
+</div>

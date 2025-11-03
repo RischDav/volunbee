@@ -37,6 +37,11 @@ Rails.application.routes.draw do
         patch 'offline'
         delete 'delete_picture/:picture_type', to: 'positions#delete_picture', as: 'delete_picture'
       end
+      
+      # Application routes for different position types
+      resources :volunteer_applications, only: [:new, :create]
+      resources :freetime_registrations, only: [:new, :create]
+      resources :assistant_applications, only: [:new, :create]
     end
 
     resources :organizations do
