@@ -22,6 +22,8 @@ get 'volunteering-position/success', to: 'static_pages#success_volunteering_posi
     #main_page
     get "positions", to: "positions#index"
 
+    get "impressum", to: "static_pages#imprint"
+
     #analytics_page
     get "analytics", to: "analytics#index"
     
