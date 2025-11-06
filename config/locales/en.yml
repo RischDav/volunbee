@@ -907,7 +907,43 @@ en:
       email: "Email"
       created_at: "Created At"
       actions: "Actions"   
+  devise:
+    mailer:
+      confirmation_instructions:
+        subject: "Instructions to confirm your account"
+        header: "Welcome to VolunBee!"
+        greeting: "Hello %{email}!"
+        confirmation_link: "You can confirm your account by clicking the link below:"
+        confirm_link_text: "Confirm my account"
+        welcome_message: "Thank you for registering with VolunBee. We're excited to have you join our community of volunteers!"
+        thank_you: "Thank you for your registration!"
+        team_name: "The VolunBee Team"
 
+      email_changed:
+        subject: "Email address changed"
+        greeting: "Hello %{email}"
+        notification: "We're contacting you to notify you that your email has been changed to %{email}."
+        notification_confirmed: "We're contacting you to notify you that your email has been changed."
+
+      password_change:
+        subject: "Password changed"
+        greeting: "Hello %{email}"
+        notification: "We're contacting you to notify you that your password has been changed."
+
+      reset_password_instructions:
+        subject: "Instructions to reset your password"
+        greeting: "Hello %{email}"
+        request_message: "Someone has requested a link to change your password. You can do this through the link below."
+        change_password: "Change my password"
+        ignore_message: "If you did not request this, please ignore this email."
+        reminder: "Your password will not change until you access the link above and create a new one."
+
+      unlock_instructions:
+        subject: "Instructions to unlock your account"
+        greeting: "Hello %{email}"
+        locked_message: "Your account has been locked due to an excessive number of unsuccessful sign in attempts."
+        unlock_message: "Click the link below to unlock your account:"
+        unlock_account: "Unlock my account"
 
 
 

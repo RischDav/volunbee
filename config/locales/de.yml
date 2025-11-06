@@ -789,3 +789,40 @@ de:
       email: "Email"
       created_at: "Erstellt am"
       actions: "Aktionen"
+  devise:
+    mailer:
+      confirmation_instructions:
+        subject: "Anleitung zur Bestätigung deines Kontos"
+        header: "Willkommen bei VolunBee!"
+        greeting: "Hallo %{email}!"
+        confirmation_link: "Du kannst dein Konto über den folgenden Link bestätigen:"
+        confirm_link_text: "Mein Konto bestätigen"
+        welcome_message: "Vielen Dank für deine Registrierung bei VolunBee. Schön, dass du Teil unserer Community wirst!"
+        thank_you: "Vielen Dank für deine Registrierung!"
+        team_name: "Das VolunBee-Team"
+
+      email_changed:
+        subject: "E-Mail-Adresse geändert"
+        greeting: "Hallo %{email}"
+        notification: "Wir informieren dich hiermit, dass deine E-Mail-Adresse auf %{email} geändert wurde."
+        notification_confirmed: "Wir informieren dich hiermit, dass deine E-Mail-Adresse geändert wurde."
+
+      password_change:
+        subject: "Passwort geändert"
+        greeting: "Hallo %{email}"
+        notification: "Wir informieren dich hiermit, dass dein Passwort geändert wurde."
+
+      reset_password_instructions:
+        subject: "Anleitung zum Zurücksetzen deines Passworts"
+        greeting: "Hallo %{email}"
+        request_message: "Jemand hat einen Link zum Ändern deines Passworts angefordert. Du kannst dies über den folgenden Link tun."
+        change_password: "Passwort ändern"
+        ignore_message: "Wenn du dies nicht angefordert hast, ignoriere bitte diese E-Mail."
+        reminder: "Dein Passwort wird erst geändert, wenn du den obigen Link aufrufst und ein neues erstellst."
+
+      unlock_instructions:
+        subject: "Anleitung zum Entsperren deines Kontos"
+        greeting: "Hallo %{email}"
+        locked_message: "Dein Konto wurde aufgrund zu vieler fehlgeschlagener Anmeldeversuche gesperrt."
+        unlock_message: "Klicke auf den folgenden Link, um dein Konto zu entsperren:"
+        unlock_account: "Mein Konto entsperren"

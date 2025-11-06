@@ -54,22 +54,41 @@
     <%= f.hidden_field :flexibility, value: 3 %>
   </div>
 
-  <!-- Simple confirmation -->
-  <div class="bg-blue-50 rounded-xl p-8 space-y-6">
-    <h2 class="text-2xl font-bold">Bestätigung</h2>
-    <div class="field space-y-3">
-      <div class="flex items-start">
-        <%= f.check_box :terms_accepted, id: "terms-checkbox-freetime", class: "mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" %>
-        <%= f.label :terms_accepted, "Ich bestätige die Richtigkeit der Angaben", class: "ml-3 text-sm font-medium text-gray-700" %>
-      </div>
-    </div>
-  </div>
-</div>
+ <!-- Checkbox-Bereich -->
+          <h2 class="text-2xl font-bold"><%= t('positions.new.confirmation.title') %></h2>
+          <div class="bg-slate-100 rounded-xl p-8 space-y-6">
+            <div class="space-y-6">
+              <!-- Checkbox: Textbeschreibungen in englischer Sprache -->
+              <div class="field space-y-3">
+                <div class="border-2 border-gray-300 p-4 rounded-md">
+                  <label class="inline-flex items-center">
+                    <input type="checkbox" id="english-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+                    <span class="ml-2 text-sm text-gray-700">
+                      <%= t('positions.new.confirmation.text') %>
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Checkbox: Zustimmung zu AGB und Datenschutz -->
+              <div class="field space-y-3">
+                <div class="border-2 border-gray-300 p-4 rounded-md">
+                  <label class="inline-flex items-center">
+                    <input type="checkbox" id="terms-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+                    <span class="ml-2 text-sm text-gray-700">
+                      <%= raw t('positions.new.confirmation.terms') %>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
 
 <script>
   function initFreetimeFields() {
     // Basic validation for freetime fields
-    const termsCheckbox = document.getElementById("terms-checkbox-freetime");
+    const termsCheckbox = document.getElementById("terms-checkbox");
+    const englishCheckbox = document.getElementById("english-checkbox");
     const submitButton = document.getElementById("submit-button");
 
     function updateSubmitButtonState() {
@@ -86,9 +105,10 @@
       }
     }
 
-    if (termsCheckbox && submitButton) {
+    if (englishCheckbox && termsCheckbox && submitButton) {
       updateSubmitButtonState();
       termsCheckbox.addEventListener("change", updateSubmitButtonState);
+      englishCheckbox.addEventListener("change", updateSubmitButtonState);
     }
   }
 
