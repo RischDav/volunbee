@@ -3,15 +3,15 @@
     <!-- Header -->
     <header class="mb-6 sm:mb-8 text-center">
       <div class="mb-3 sm:mb-4">
-        <span class="text-xs sm:text-sm font-semibold text-gray-600 bg-gray-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full">Volunteer-Position</span>
+        <span class="text-xs sm:text-sm font-semibold text-gray-600 bg-gray-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full">Ehrenamt-Position</span>
       </div>
       
       <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
-        Neue Volunteer-Position einreichen
+        Neue Ehrenamt-Position einreichen
       </h1>
       
       <p class="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto mb-4 sm:mb-6 px-2">
-        Teilen Sie Ihre Volunteer-Möglichkeit mit der Community! Füllen Sie das Formular aus und wir prüfen Ihren Eintrag.
+        Teilen Sie Ihre Ehrenamt-Möglichkeit mit der Community! Füllen Sie das Formular aus und wir prüfen Ihren Eintrag.
       </p>
       <h2 class="text-2xl font-bold text-red-600"><%= t('positions.new.subtitle') %></h2>
     </header>
@@ -143,28 +143,28 @@
         </div>
       </section>
 
-      <!-- SEKTION 2: VOLUNTEER-POSITION -->
+      <!-- SEKTION 2: Ehrenamt-POSITION -->
       <section class="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
         <header class="mb-4 sm:mb-6">
           <h2 class="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
-            Volunteer-Position
+            Ehrenamt-Position
           </h2>
           <p class="text-sm text-gray-600">
-            Beschreiben Sie Ihre Volunteer-Position im Detail
+            Beschreiben Sie Ihre Ehrenamt-Position im Detail
           </p>
         </header>
         
         <div class="space-y-4 sm:space-y-6">
           <!-- Titel und Beschreibung -->
           <div>
-            <%= f.label :title, "Titel der Volunteer-Position*", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+            <%= f.label :title, "Titel der Ehrenamt-Position*", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
             <%= f.text_field :title, required: true, class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder: "z.B. Unterstützung bei der Tafelausgabe", minlength: 15, maxlength: 75 %>
             <div id="title-count" class="text-xs sm:text-sm text-gray-500 mt-1"></div>
           </div>
 
           <div>
             <%= f.label :description, "Beschreibung der Tätigkeit*", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
-            <%= f.text_area :description, required: true, rows: 5, class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder: "Beschreiben Sie die Volunteer-Tätigkeit im Detail: Was sind die Aufgaben? Wo findet es statt? Wann wird Hilfe benötigt?", minlength: 100, maxlength: 1000 %>
+            <%= f.text_area :description, required: true, rows: 5, class: "w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gray-300 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder: "Beschreiben Sie die Ehrenamt-Tätigkeit im Detail: Was sind die Aufgaben? Wo findet es statt? Wann wird Hilfe benötigt?", minlength: 100, maxlength: 1000 %>
             <div id="description-count" class="text-xs sm:text-sm text-gray-500 mt-1"></div>
           </div>
 
@@ -246,7 +246,7 @@
             Bilder hochladen
           </h2>
           <p class="text-sm text-gray-600">
-            Laden Sie Bilder hoch, um Ihre Volunteer-Position ansprechend zu präsentieren
+            Laden Sie Bilder hoch, um Ihre Ehrenamt-Position ansprechend zu präsentieren
           </p>
         </header>
         
@@ -275,7 +275,7 @@
 
           <!-- Hauptbild der Position -->
           <div>
-            <h3 class="text-base sm:text-lg font-medium text-gray-900 mb-3">Hauptbild der Volunteer-Position*</h3>
+            <h3 class="text-base sm:text-lg font-medium text-gray-900 mb-3">Hauptbild der Ehrenamt-Position*</h3>
             <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 sm:p-6 text-center hover:border-gray-400 transition-colors">
               <%= f.file_field :main_picture, accept: "image/*", required: true, class: "hidden", id: "main_picture" %>
               <label for="main_picture" class="cursor-pointer">
@@ -331,7 +331,7 @@
           <label class="flex items-start">
             <input type="checkbox" id="review_checkbox" required class="mr-3 mt-1">
             <span class="text-xs sm:text-sm text-gray-700">
-              Ich verstehe, dass meine Volunteer-Position vor der Veröffentlichung geprüft wird.*
+              Ich verstehe, dass meine Ehrenamt-Position vor der Veröffentlichung geprüft wird.*
             </span>
           </label>
         </div>
@@ -339,7 +339,7 @@
 
       <!-- Submit Button -->
       <div class="text-center">
-        <%= f.submit "Volunteer-Position einreichen", 
+        <%= f.submit "Ehrenamt-Position einreichen", 
             class: "bg-blue-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-sm sm:text-lg font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed",
             id: "submit_button",
             disabled: true %>
