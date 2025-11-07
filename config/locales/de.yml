@@ -826,3 +826,12 @@ de:
         locked_message: "Dein Konto wurde aufgrund zu vieler fehlgeschlagener Anmeldeversuche gesperrt."
         unlock_message: "Klicke auf den folgenden Link, um dein Konto zu entsperren:"
         unlock_account: "Mein Konto entsperren"
+
+      sessions:
+        login_button: "Einloggen"
+
+      registrations:
+        new_student:
+          sign_up_button: "Registrieren"
+        new:
+          sign_up_button: "Registrieren"
