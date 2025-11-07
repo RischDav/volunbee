@@ -945,14 +945,14 @@ en:
         unlock_message: "Click the link below to unlock your account:"
         unlock_account: "Unlock my account"
 
-      sessions:
-        login_button: "Login"
+    sessions:
+      login_button: "Login"
 
-      registrations:
-        new_student:
-          sign_up_button: "Sign Up as Student"
-        new:
-          sign_up_button: "Sign Up as Organization"
+    registrations:
+      new_student:
+        sign_up_button: "Sign Up as Student"
+      new:
+        sign_up_button: "Sign Up as Organization"
 
 
 

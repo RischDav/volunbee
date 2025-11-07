@@ -820,18 +820,18 @@ de:
         ignore_message: "Wenn du dies nicht angefordert hast, ignoriere bitte diese E-Mail."
         reminder: "Dein Passwort wird erst geändert, wenn du den obigen Link aufrufst und ein neues erstellst."
 
-      unlock_instructions:
-        subject: "Anleitung zum Entsperren deines Kontos"
-        greeting: "Hallo %{email}"
-        locked_message: "Dein Konto wurde aufgrund zu vieler fehlgeschlagener Anmeldeversuche gesperrt."
-        unlock_message: "Klicke auf den folgenden Link, um dein Konto zu entsperren:"
-        unlock_account: "Mein Konto entsperren"
+    unlock_instructions:
+      subject: "Anleitung zum Entsperren deines Kontos"
+      greeting: "Hallo %{email}"
+      locked_message: "Dein Konto wurde aufgrund zu vieler fehlgeschlagener Anmeldeversuche gesperrt."
+      unlock_message: "Klicke auf den folgenden Link, um dein Konto zu entsperren:"
+      unlock_account: "Mein Konto entsperren"
 
-      sessions:
-        login_button: "Einloggen"
+    sessions:
+      login_button: "Einloggen"
 
-      registrations:
-        new_student:
-          sign_up_button: "Registrieren"
-        new:
-          sign_up_button: "Registrieren"
+    registrations:
+      new_student:
+        sign_up_button: "Registrieren"
+      new:
+        sign_up_button: "Registrieren"
