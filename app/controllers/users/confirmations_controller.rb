@@ -25,6 +25,6 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
   # Nach dem erneuten senden der Mail wird der User zur Seite weitergeleitet, auf der er den Status seiner Bestätigung sehen kann
   def after_resending_confirmation_instructions_path_for(resource_name)
-    user_locked_path(email: resource.email)
+    users_locked_path(email: resource.email)
   end
 end

@@ -7,6 +7,13 @@ Rails.application.routes.draw do
     # Statische Seiten
     get "static_pages/privacy"
     get "static_pages/imprint"
+    get 'position-submitted', to: 'static_pages#position_submitted', as: 'position_submitted'
+get 'freetime-position/new', to: 'static_pages#new_freetime_position', as: 'new_freetime_position'
+post 'freetime-position', to: 'static_pages#create_freetime_position', as: 'create_freetime_position'
+get 'freetime-position/success', to: 'static_pages#success_freetime_position', as: 'success_freetime_position'
+get 'volunteering-position/new', to: 'static_pages#new_volunteering_position', as: 'new_volunteering_position'
+post 'volunteering-position', to: 'static_pages#create_volunteering_position', as: 'create_volunteering_position'
+get 'volunteering-position/success', to: 'static_pages#success_volunteering_position', as: 'success_volunteering_position'
     
     
     # Benutzerbezogene Routen

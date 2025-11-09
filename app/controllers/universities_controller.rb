@@ -79,6 +79,6 @@ class UniversitiesController < ApplicationController
   end
 
   def university_params
-    params.require(:university).permit(:name, :email, :contact_number, :website, :description, :logo)
+    params.require(:university).permit(:name, :email, :contact_number, :contact_person, :website, :description, :logo, :cover_image, :instagram_url, :linkedin_url)
   end
 end

@@ -6,23 +6,23 @@ class PositionsController < ApplicationController
   before_action :check_online_offline_permissions, only: [:online, :offline]
 
   def index
-    if user_signed_in?
-      if current_user.admin?
-        @positions = Position.all
-      elsif current_user.organization?
-        @positions = Position.where(organization_id: current_user.organization&.id)
-      elsif current_user.student?
-        @positions = Position.where(released: true, online: true)
-      elsif current_user.university?
-        @positions = Position.where(university_id: current_user.university&.id)
-      else
-        @positions = Position.none
-      end
-      @positions_count = @positions.size
+  if user_signed_in?
+    if current_user.admin?
+      @positions = Position.all
+    elsif current_user.organization?
+      @positions = Position.where(organization_id: current_user.organization&.id)
+    elsif current_user.student?
+      @positions = Position.where(released: true, online: true)
+    elsif current_user.university?
+      @positions = Position.where(university_id: current_user.university&.id)
     else
-      @positions = nil
+      @positions = Position.none
     end
+    @positions_count = @positions.size
+  else
+    @positions = nil
   end
+end
 
   def new
     @position = Position.new

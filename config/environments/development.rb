@@ -7,6 +7,12 @@ Rails.application.configure do
   config.cache_classes = true
   config.active_storage.service = :local
   Rails.application.routes.default_url_options[:host] = 'localhost:3000'
+  
+  # Configure ActiveStorage URL options
+  config.after_initialize do
+    ActiveStorage::Current.url_options = { host: 'localhost:3000' }
+  end
+  
   config.assets.debug = true
   
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.

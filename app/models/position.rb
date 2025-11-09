@@ -3,7 +3,7 @@ class Position < ApplicationRecord
   self.inheritance_column = :_type_disabled
   belongs_to :organization, optional: true, counter_cache: true
   belongs_to :university, optional: true, counter_cache: true
-  belongs_to :user
+  belongs_to :user, optional: true
   has_many :frequently_asked_questions, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :user_events, dependent: :destroy
