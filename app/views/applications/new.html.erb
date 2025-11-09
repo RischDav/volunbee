@@ -50,7 +50,7 @@
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
         </svg>
-        <%= t('common.back_to_position', default: 'Back to Position') %>
+        <%= t('common.back_to_position') %>
       <% end %>
     </div>
 
@@ -119,7 +119,7 @@
         <div class="pt-6 border-t border-gray-200">
           <div class="flex justify-between items-center">
             <!-- Back Button -->
-            <%= link_to "← Back to Position", position_path(@position), 
+            <%= link_to t('applications.forms.buttons.back_to_position'), position_path(@position), 
                 class: "inline-flex items-center gap-2 #{text_color.gsub('600', '600')} hover:#{text_color.gsub('600', '700')} font-medium px-4 py-2 rounded-lg border border-current hover:bg-current hover:bg-opacity-10 transition-all duration-200" %>
             
             <!-- Submit Button -->
