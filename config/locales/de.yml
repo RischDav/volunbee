@@ -866,3 +866,34 @@ de:
         experience_max: "Maximal 800 Zeichen"
       errors:
         form_error: "Dieses Formular benötigt ein Formularobjekt, das von der übergeordneten Ansicht übergeben wird."
+      buttons:
+        submit_application: "Bewerbung einreichen"
+        submit_registration: "Anmeldung einreichen"
+        back_to_position: "← Zurück zur Position"
+        cancel: "Abbrechen"
+
+  common:
+    back_to_position: "Zurück zur Position"
+    cancel: "Abbrechen"
+    buttons:
+      create_freetime_activity: "Freizeitaktivität erstellen"
+      create_university_position: "Universitätsposition erstellen"
+      apply_as_volunteer: "Als Freiwillige/r bewerben"
+      apply_as_assistant: "Als Assistent/in bewerben"
+      register_for_activity: "Für Aktivität anmelden"
+      join_activity: "An der Aktivität teilnehmen"
+      apply_for_position: "Für Position bewerben"
+
+  application_actions:
+    volunteer:
+      title: "🤝 Freiwilligenmöglichkeit"
+      subtitle: "Mach mit und mache einen Unterschied in deiner Gemeinde"
+      button: "Als Freiwillige/r bewerben"
+    freetime:
+      title: "🎯 An der Aktivität teilnehmen"
+      subtitle: "Melde dich an und hab Spaß mit anderen"
+      button: "Für Aktivität anmelden"
+    assistant:
+      title: "🎓 Für Position bewerben"
+      subtitle: "Starte deine Karriere als Universitätsassistent/in"
+      button: "Als Assistent/in bewerben"

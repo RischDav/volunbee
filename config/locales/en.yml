@@ -985,7 +985,38 @@ en:
         about_max: "Maximum 800 characters"
         experience_max: "Maximum 800 characters"
       errors:
-        form_error: "This form requires a form object to be passed from the parent view."   
+        form_error: "This form requires a form object to be passed from the parent view."
+      buttons:
+        submit_application: "Submit Application"
+        submit_registration: "Submit Registration"
+        back_to_position: "← Back to Position"
+        cancel: "Cancel"
+
+  common:
+    back_to_position: "Back to Position"
+    cancel: "Cancel"
+    buttons:
+      create_freetime_activity: "Create Freetime Activity"
+      create_university_position: "Create University Position"
+      apply_as_volunteer: "Apply as Volunteer"
+      apply_as_assistant: "Apply as Assistant"
+      register_for_activity: "Register for Activity"
+      join_activity: "Join the Activity"
+      apply_for_position: "Apply for Position"
+
+  application_actions:
+    volunteer:
+      title: "🤝 Volunteer Opportunity"
+      subtitle: "Join us and make a difference in your community"
+      button: "Apply as Volunteer"
+    freetime:
+      title: "🎯 Join the Activity"
+      subtitle: "Register and have fun with others"
+      button: "Register for Activity"
+    assistant:
+      title: "🎓 Apply for Position"
+      subtitle: "Start your career as a university assistant"  
+      button: "Apply as Assistant"
 
 
 

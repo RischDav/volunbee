@@ -5,7 +5,7 @@ class MainController < ApplicationController
     # Umleitung für eingeloggte User
     if user_signed_in?
       if current_user.admin?
-        redirect_to admin_index_path and return
+        redirect_to positions_path and return  
       elsif current_user.organization?
         redirect_to organizations_path and return
       elsif current_user.university?
