@@ -1,46 +1,53 @@
 <div class="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
   <header class="mb-6 sm:mb-8 text-center">
     <div class="mb-3 sm:mb-4">
-      <span class="text-xs sm:text-sm font-semibold text-gray-600 bg-gray-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full">Application</span>
+      <span class="text-xs sm:text-sm font-semibold text-gray-600 bg-gray-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full"><%= t('applications.forms.badges.application') %></span>
     </div>
     
     <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
-      Volunteer Application
+      <%= t('applications.forms.titles.volunteer') %>
     </h2>
     
     <p class="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto mb-4 sm:mb-6 px-2">
-      Please fill out the following form to apply as a volunteer. All information will be treated confidentially.
+      <%= t('applications.forms.descriptions.volunteer') %>
     </p>
   </header>
 
-  <% form ||= form_with(model: [@position, @volunteer_application], local: true, class: "space-y-6 sm:space-y-8") do |f| %>
+    <% # If form is passed from parent view, use it. Otherwise don't create one (will fail) %>
+  <% if defined?(form) && form %>
+    <!-- Form is handled by parent view -->
     
     <!-- Personal Information -->
     <section class="bg-gray-50 rounded-lg p-4 sm:p-6">
-      <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">Personal Information</h3>
+      <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6"><%= t('applications.forms.sections.personal_information') %></h3>
       
       <div class="grid gap-4 sm:gap-6 md:grid-cols-2">
         <div>
-          <%= form.label :first_name, "First Name", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
-          <%= form.text_field :first_name, required: true, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: "Your first name" %>
+          <%= form.label :first_name, t('applications.forms.fields.first_name'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+          <%= form.text_field :first_name, required: true, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: t('applications.forms.placeholders.first_name') %>
         </div>
 
         <div>
-          <%= form.label :last_name, "Last Name", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
-          <%= form.text_field :last_name, required: true, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: "Your last name" %>
+          <%= form.label :last_name, t('applications.forms.fields.last_name'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+          <%= form.text_field :last_name, required: true, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: t('applications.forms.placeholders.last_name') %>
         </div>
+      </div>
+
+      <div class="mt-4 sm:mt-6">
+        <%= form.label :email, t('applications.forms.fields.email_address'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <%= form.email_field :email, required: true, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: t('applications.forms.placeholders.email') %>
       </div>
 
       <div class="grid gap-4 sm:gap-6 md:grid-cols-2 mt-4 sm:mt-6">
         <div>
-          <%= form.label :gender, "Gender", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+          <%= form.label :gender, t('applications.forms.fields.gender'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
           <%= form.select :gender, 
               options_for_select([
-                ['Please select...', ''],
-                ['Female', 'female'],
-                ['Male', 'male'],
-                ['Diverse', 'diverse'],
-                ['Prefer not to say', 'not_specified']
+                [t('applications.forms.options.please_select'), ''],
+                [t('applications.forms.options.gender.female'), 'female'],
+                [t('applications.forms.options.gender.male'), 'male'],
+                [t('applications.forms.options.gender.non_binary'), 'diverse'],
+                [t('applications.forms.options.gender.prefer_not_to_say'), 'not_specified']
               ]), 
               { prompt: false }, 
               { 
@@ -50,26 +57,34 @@
         </div>
 
         <div>
-          <%= form.label :phone_number, "Phone Number", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
-          <%= form.telephone_field :phone_number, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: "+49 123 456 789" %>
+          <%= form.label :phone_number, t('applications.forms.fields.phone_number'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+          <%= form.telephone_field :phone_number, required: true, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-green-500 focus:ring-green-500", placeholder: t('applications.forms.placeholders.phone_number') %>
           <p class="text-xs sm:text-sm text-gray-500 mt-2">
-            Optional - Will be used for contact via WhatsApp.
+            <%= t('applications.forms.help_texts.phone_contact') %>
           </p>
         </div>
+      </div>
+
+      <div class="mt-4 sm:mt-6">
+        <%= form.label :birth_date, t('applications.forms.fields.birth_date'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <%= form.date_field :birth_date, required: true, class: "w-full md:w-1/2 rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-green-500 focus:ring-green-500" %>
+        <p class="text-xs sm:text-sm text-gray-500 mt-2">
+          <%= t('applications.forms.help_texts.birth_date_help') %>
+        </p>
       </div>
     </section>
 
     <!-- Volunteer Experience -->
     <section class="bg-gray-50 rounded-lg p-4 sm:p-6">
-      <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">Volunteer Experience</h3>
+      <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6"><%= t('applications.forms.sections.volunteer_experience') %></h3>
       
       <div class="mb-4 sm:mb-6">
-        <%= form.label :has_volunteer_experience, "Have you done the same or similar volunteer work before?", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <%= form.label :has_volunteer_experience, t('applications.forms.fields.has_volunteer_experience'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
         <%= form.select :has_volunteer_experience, 
             options_for_select([
-              ['Please select...', ''],
-              ['Yes, I have experience', 'yes'],
-              ['No, this would be my first time', 'no']
+              [t('applications.forms.options.please_select'), ''],
+              [t('applications.forms.options.experience.yes'), 'yes'],
+              [t('applications.forms.options.experience.no'), 'no']
             ]), 
             { prompt: false }, 
             { 
@@ -80,39 +95,51 @@
       </div>
 
       <div id="volunteer-experience-details" class="hidden">
-        <%= form.label :volunteer_experience_description, "Description of Your Volunteer Experience", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
-        <p class="text-xs sm:text-sm text-gray-500 mb-3">Please describe your previous volunteer experience in detail.</p>
-        <%= form.text_area :volunteer_experience_description, rows: 4, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500 resize-none", placeholder: "Describe your previous volunteer work, what you did, how long you volunteered, what you learned..." %>
+        <%= form.label :volunteer_experience_description, t('applications.forms.fields.volunteer_experience_description'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <p class="text-xs sm:text-sm text-gray-500 mb-3"><%= t('applications.forms.help_texts.experience_details') %></p>
+        <%= form.text_area :volunteer_experience_description, rows: 4, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500 resize-none", placeholder: t('applications.forms.placeholders.volunteer_experience_description') %>
         <div class="flex justify-between items-center mt-2">
-          <p class="text-xs text-gray-500">Maximum 800 characters</p>
+          <p class="text-xs text-gray-500"><%= t('applications.forms.character_limits.experience_max') %></p>
           <span id="volunteer-experience-counter" class="text-xs text-gray-500">0 / 800</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Motivation -->
+    <section class="bg-gray-50 rounded-lg p-4 sm:p-6">
+      <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6"><%= t('applications.forms.sections.motivation') %></h3>
+      
+      <div>
+        <%= form.label :motivation, t('applications.forms.fields.motivation'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <p class="text-xs sm:text-sm text-gray-500 mb-3"><%= t('applications.forms.help_texts.motivation_volunteer_optional') %></p>
+        <%= form.text_area :motivation, rows: 5, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-green-500 focus:ring-green-500 resize-none", placeholder: t('applications.forms.placeholders.motivation_volunteer') %>
+        <div class="flex justify-between items-center mt-2">
+          <p class="text-xs text-gray-500"><%= t('applications.forms.character_limits.motivation_max') %></p>
+          <span id="motivation-counter" class="text-xs text-gray-500">0 / 1000</span>
         </div>
       </div>
     </section>
 
     <!-- About Yourself -->
     <section class="bg-gray-50 rounded-lg p-4 sm:p-6">
-      <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">About You</h3>
+      <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6"><%= t('applications.forms.sections.about_you') %></h3>
       
       <div>
-        <%= form.label :about_yourself, "Tell us about yourself", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
-        <p class="text-xs sm:text-sm text-gray-500 mb-3">Optional - Share something about yourself, your interests, or what motivates you to volunteer.</p>
-        <%= form.text_area :about_yourself, rows: 6, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500 resize-none", placeholder: "Tell us about yourself, your interests, what motivates you to volunteer, or what you hope to gain from this experience..." %>
+        <%= form.label :about_yourself, t('applications.forms.fields.about_yourself'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+        <p class="text-xs sm:text-sm text-gray-500 mb-3"><%= t('applications.forms.help_texts.about_yourself_optional') %></p>
+        <%= form.text_area :about_yourself, rows: 6, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500 resize-none", placeholder: t('applications.forms.placeholders.about_yourself_volunteer') %>
         <div class="flex justify-between items-center mt-2">
-          <p class="text-xs text-gray-500">Maximum 1000 characters</p>
+          <p class="text-xs text-gray-500"><%= t('applications.forms.character_limits.motivation_max') %></p>
           <span id="about-counter" class="text-xs text-gray-500">0 / 1000</span>
         </div>
       </div>
     </section>
 
-    <!-- Submit Button -->
-    <div class="pt-4 sm:pt-6 border-t border-gray-200">
-      <div class="flex justify-end">
-        <%= form.submit "Submit Application", 
-            class: "bg-blue-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200" %>
-      </div>
+  <% else %>
+    <!-- This partial should only be called with a form object passed from parent -->
+    <div class="p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+      <p><%= t('applications.forms.errors.form_error') %></p>
     </div>
-
   <% end %>
 </div>
 
