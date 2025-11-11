@@ -51,12 +51,12 @@
 
         <!-- Submit Button -->
         <div class="mt-12 flex items-center justify-center gap-6">
-          <%= f.submit "Universitätsposition erstellen", 
+          <%= f.submit t('common.buttons.create_university_position'), 
               id: "submit-button", 
               class: "px-8 py-4 bg-gray-400 text-white font-semibold text-lg rounded-xl shadow-lg cursor-not-allowed transform transition-all duration-200", 
               disabled: true %>
           
-          <%= link_to "Abbrechen", 
+          <%= link_to t('common.cancel'), 
               positions_path, 
               class: "px-8 py-4 bg-gray-200 text-gray-800 font-semibold text-lg rounded-xl shadow-lg hover:bg-gray-300 transform transition-all duration-200 hover:scale-105" %>
         </div>

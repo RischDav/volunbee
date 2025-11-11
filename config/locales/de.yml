@@ -835,3 +835,113 @@ de:
         sign_up_button: "Registrieren"
       new:
         sign_up_button: "Registrieren"
+
+  applications:
+    forms:
+      badges:
+        interest: "Interesse"
+        application: "Bewerbung"
+        volunteering: "Freiwilligenarbeit"
+      titles:
+        freetime: "Interesse an Freizeitaktivität"
+        volunteer: "Bewerbung als Freiwillige/r"
+        assistant: "Bewerbung als Assistent/in"
+      descriptions:
+        freetime: "Bitte füllen Sie das folgende Formular aus, um Ihr Interesse an dieser Freizeitaktivität zu bekunden. Alle Angaben werden vertraulich behandelt."
+        volunteer: "Bitte füllen Sie das folgende Formular aus, um sich als Freiwillige/r zu bewerben. Alle Angaben werden vertraulich behandelt."
+        assistant: "Bitte füllen Sie das folgende Formular aus, um sich als Assistent/in zu bewerben. Alle Angaben werden vertraulich behandelt."
+      sections:
+        personal_information: "Persönliche Informationen"
+        motivation: "Motivation"
+        about_you: "Über Sie"
+        work_experience: "Berufserfahrung"
+        volunteer_experience: "Freiwilligenerfahrung"
+        documents: "Dokumente"
+      fields:
+        first_name: "Vorname"
+        last_name: "Nachname"
+        email_address: "E-Mail-Adresse"
+        phone_number: "Telefonnummer"
+        birth_date: "Geburtsdatum"
+        gender: "Geschlecht"
+        motivation: "Warum möchten Sie sich für diese Position als Freiwillige/r engagieren?"
+        motivation_assistant: "Motivationsschreiben"
+        motivation_freetime: "Warum interessieren Sie sich für diese Aktivität?"
+        about_yourself: "Erzählen Sie uns von sich"
+        has_experience: "Haben Sie bereits Erfahrung in einer ähnlichen Position?"
+        experience_description: "Beschreibung der Erfahrung"
+        has_volunteer_experience: "Haben Sie schon einmal ähnliche Freiwilligenarbeit geleistet?"
+        volunteer_experience_description: "Beschreibung Ihrer Freiwilligenerfahrung"
+        cv_file: "Lebenslauf"
+      placeholders:
+        first_name: "Ihr Vorname"
+        last_name: "Ihr Nachname"
+        email: "ihre.email@beispiel.de"
+        phone_number: "+49 123 456 789"
+        motivation: "Beschreiben Sie Ihre Motivation für diese Position..."
+        motivation_volunteer: "Beschreiben Sie Ihre Motivation für die Freiwilligenarbeit in dieser Position..."
+        motivation_freetime: "Beschreiben Sie, was Sie an dieser Aktivität interessiert..."
+        about_yourself_volunteer: "Erzählen Sie uns von sich, Ihren Interessen, was Sie motiviert freiwillig zu helfen, oder was Sie sich von dieser Erfahrung erhoffen..."
+        about_yourself_freetime: "Erzählen Sie uns von sich, Ihren Interessen, Hobbys oder worauf Sie sich bei dieser Aktivität freuen..."
+        about_yourself_assistant: "Teilen Sie etwas über sich mit..."
+        experience_description: "Beschreiben Sie Ihre bisherige Erfahrung in ähnlichen Positionen..."
+        volunteer_experience_description: "Beschreiben Sie Ihre bisherige Freiwilligenarbeit, was Sie getan haben, wie lange Sie freiwillig tätig waren, was Sie gelernt haben..."
+      options:
+        please_select: "Bitte wählen..."
+        gender:
+          male: "Männlich"
+          female: "Weiblich"
+          non_binary: "Nicht-binär"
+          prefer_not_to_say: "Keine Angabe"
+        experience:
+          yes: "Ja, ich habe Erfahrung"
+          no: "Nein, ich habe keine Erfahrung"
+      help_texts:
+        motivation_optional: "Optional - Erzählen Sie uns, warum Sie sich für diese Position interessieren."
+        motivation_freetime_optional: "Optional - Erzählen Sie uns, was Sie zu dieser Freizeitaktivität zieht."
+        motivation_volunteer_optional: "Optional - Erzählen Sie uns, was Sie motiviert, sich für diese spezielle Position zu engagieren."
+        about_yourself_optional: "Optional - Teilen Sie etwas über sich, Ihre Interessen oder was Sie sich von dieser Aktivität erhoffen."
+        about_yourself_assistant_optional: "Optional - Erzählen Sie uns mehr über sich, Ihre Interessen und was Sie einzigartig macht."
+        birth_date_help: "Das Alter ist erforderlich, um die Volljährigkeit zu bestätigen."
+        phone_contact: "Wir müssen Sie möglicherweise telefonisch für wichtige Updates kontaktieren."
+        experience_details: "Bitte beschreiben Sie Ihre bisherige Erfahrung im Detail."
+        cv_upload: "Laden Sie Ihren aktuellen Lebenslauf hoch (PDF, max. 5MB)."
+        file_format: "PNG, JPG bis zu 10MB"
+      character_limits:
+        motivation_max: "Maximal 1000 Zeichen"
+        motivation_freetime_max: "Maximal 500 Zeichen"
+        about_max: "Maximal 800 Zeichen"
+        experience_max: "Maximal 800 Zeichen"
+      errors:
+        form_error: "Dieses Formular benötigt ein Formularobjekt, das von der übergeordneten Ansicht übergeben wird."
+      buttons:
+        submit_application: "Bewerbung einreichen"
+        submit_registration: "Anmeldung einreichen"
+        back_to_position: "← Zurück zur Position"
+        cancel: "Abbrechen"
+
+  common:
+    back_to_position: "Zurück zur Position"
+    cancel: "Abbrechen"
+    buttons:
+      create_freetime_activity: "Freizeitaktivität erstellen"
+      create_university_position: "Universitätsposition erstellen"
+      apply_as_volunteer: "Als Freiwillige/r bewerben"
+      apply_as_assistant: "Als Assistent/in bewerben"
+      register_for_activity: "Für Aktivität anmelden"
+      join_activity: "An der Aktivität teilnehmen"
+      apply_for_position: "Für Position bewerben"
+
+  application_actions:
+    volunteer:
+      title: "🤝 Freiwilligenmöglichkeit"
+      subtitle: "Mach mit und mache einen Unterschied in deiner Gemeinde"
+      button: "Als Freiwillige/r bewerben"
+    freetime:
+      title: "🎯 An der Aktivität teilnehmen"
+      subtitle: "Melde dich an und hab Spaß mit anderen"
+      button: "Für Aktivität anmelden"
+    assistant:
+      title: "🎓 Für Position bewerben"
+      subtitle: "Starte deine Karriere als Universitätsassistent/in"
+      button: "Als Assistent/in bewerben"

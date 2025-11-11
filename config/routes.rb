@@ -47,10 +47,8 @@ Rails.application.routes.draw do
         delete 'delete_picture/:picture_type', to: 'positions#delete_picture', as: 'delete_picture'
       end
       
-      # Application routes for different position types
-      resources :volunteer_applications, only: [:new, :create]
-      resources :freetime_registrations, only: [:new, :create]
-      resources :assistant_applications, only: [:new, :create]
+      # Unified application routes
+      resources :applications, only: [:new, :create, :show]
     end
 
     resources :organizations do
