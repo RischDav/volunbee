@@ -13,7 +13,7 @@
     </p>
   </header>
 
-  <% form ||= form_with(model: [@position, @assistant_application], local: true, multipart: true, class: "space-y-6 sm:space-y-8") do |f| %>
+  <%= form_with model: [@organization, @position, :assistant_application], local: true, multipart: true, class: "space-y-6 sm:space-y-8" do |form| %>
     
     <!-- Personal Information -->
     <section class="bg-gray-50 rounded-lg p-4 sm:p-6">

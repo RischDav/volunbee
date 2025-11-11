@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_16_190406) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_28_135541) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -49,14 +49,28 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_16_190406) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.string "content"
-    t.string "sender_email"
     t.string "sender_phone"
     t.bigint "position_id", null: false
     t.datetime "sent_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.string "type", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.date "birth_date"
+    t.string "phone_number"
+    t.string "gender"
+    t.string "has_experience"
+    t.text "experience_description"
+    t.string "has_volunteer_experience"
+    t.text "volunteer_experience_description"
+    t.text "motivation"
+    t.text "about_yourself"
     t.index ["position_id"], name: "index_messages_on_position_id"
+    t.index ["type", "position_id"], name: "index_messages_on_type_and_position_id"
+    t.index ["type"], name: "index_messages_on_type"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -207,6 +221,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_16_190406) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "frequently_asked_questions", "positions"
   add_foreign_key "messages", "positions"
+  add_foreign_key "messages", "users"
   add_foreign_key "positions", "organizations"
   add_foreign_key "positions", "universities", column: "visible_university_id"
   add_foreign_key "positions", "users"
