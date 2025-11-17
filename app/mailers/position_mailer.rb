@@ -1,0 +1,28 @@
+class PositionMailer < ApplicationMailer
+  default from: "notifications@letsgovolunteer.com"
+
+  def position_modified(user, position, changes)
+    @user = user
+    @position = position
+    @changes = changes
+    @position_url = position_url(@position, locale: :de)
+    
+    mail(
+      to: @user.email,
+      subject: "Position \"#{@position.title}\" wurde aktualisiert"
+    )
+  end
+
+  def position_modified_creator(creator, position, changes)
+    @creator = creator
+    @position = position
+    @changes = changes
+    @position_url = position_url(@position, locale: :de)
+    @applicant_count = @position.messages.applications.count
+    
+    mail(
+      to: @creator.email,
+      subject: "Bestätigung: Ihre Position \"#{@position.title}\" wurde erfolgreich aktualisiert"
+    )
+  end
+end
