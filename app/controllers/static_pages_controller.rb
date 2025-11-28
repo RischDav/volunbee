@@ -9,6 +9,9 @@ class StaticPagesController < ApplicationController
   def privacy
   end
 
+  def about_tum_student_council
+  end
+
   # Freetime Methoden (bereits vorhanden)
   def new_freetime_position
     @organization = Organization.new
