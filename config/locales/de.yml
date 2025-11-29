@@ -871,6 +871,23 @@ de:
         submit_registration: "Anmeldung einreichen"
         back_to_position: "← Zurück zur Position"
         cancel: "Abbrechen"
+    
+    # Success page translations
+    volunteer:
+      success_title: "Freiwilligenbewerbung eingereicht"
+      success_heading: "Freiwilligenbewerbung erfolgreich eingereicht!"
+      success_subheading: "Vielen Dank für Ihr Interesse an der Freiwilligenarbeit"
+      type: "Freiwilligenbewerbung"
+    freetime:
+      success_title: "Aktivitätsanmeldung eingereicht"
+      success_heading: "Aktivitätsanmeldung erfolgreich eingereicht!"
+      success_subheading: "Vielen Dank für Ihre Anmeldung zu dieser Aktivität"
+      type: "Aktivitätsanmeldung"
+    assistant:
+      success_title: "Assistentenbewerbung eingereicht"
+      success_heading: "Assistentenbewerbung erfolgreich eingereicht!"
+      success_subheading: "Vielen Dank für Ihr Interesse an dieser Position"
+      type: "Assistentenbewerbung"
 
   common:
     back_to_position: "Zurück zur Position"

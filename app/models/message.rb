@@ -23,6 +23,7 @@ class Message < ApplicationRecord
   scope :regular_messages, -> { where(type: 'message') }
   
   before_create :set_sent_at
+  after_create :send_application_confirmation_email, if: :application?
   
   def application?
     %w[volunteer_application freetime_registration assistant_application].include?(type)
@@ -54,5 +55,13 @@ class Message < ApplicationRecord
   
   def set_sent_at
     self.sent_at = Time.current
+  end
+
+  def send_application_confirmation_email
+    begin
+      PositionMailer.application_submitted(self).deliver_later
+    rescue => e
+      Rails.logger.error "Failed to send application confirmation email for message #{id}: #{e.message}"
+    end
   end
 end

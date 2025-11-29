@@ -991,6 +991,23 @@ en:
         submit_registration: "Submit Registration"
         back_to_position: "← Back to Position"
         cancel: "Cancel"
+    
+    # Success page translations
+    volunteer:
+      success_title: "Volunteer Application Submitted"
+      success_heading: "Volunteer Application Submitted Successfully!"
+      success_subheading: "Thank you for your interest in volunteering"
+      type: "Volunteer Application"
+    freetime:
+      success_title: "Activity Registration Submitted"
+      success_heading: "Activity Registration Submitted Successfully!"
+      success_subheading: "Thank you for registering for this activity"
+      type: "Activity Registration"
+    assistant:
+      success_title: "Assistant Application Submitted"
+      success_heading: "Assistant Application Submitted Successfully!"
+      success_subheading: "Thank you for your interest in this position"
+      type: "Assistant Application"
 
   common:
     back_to_position: "Back to Position"
