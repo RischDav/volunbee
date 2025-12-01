@@ -12,7 +12,7 @@
           <% raise "no_image" %>
         <% end %>
       <% rescue ActiveStorage::FileNotFoundError, StandardError %>
-        <div class="w-full h-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center">
+        <div class="w-full h-full bg-gray-200 flex items-center justify-center">
           <div class="text-white text-center">
             <svg class="w-16 h-16 mx-auto mb-4 opacity-80" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd"></path>
@@ -81,16 +81,16 @@
       <!-- Skills Tags -->
       <div class="flex flex-wrap gap-2 mb-6">
         <% if position.creative_skills > 3 %>
-          <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded-full">🎨 <%= t('positions.position_card.skills.creative') %></span>
+          <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">🎨 <%= t('positions.position_card.skills.creative') %></span>
         <% end %>
         <% if position.technical_skills > 3 %>
-          <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">⚡ <%= t('positions.position_card.skills.technical') %></span>
+          <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">⚡ <%= t('positions.position_card.skills.technical') %></span>
         <% end %>
         <% if position.social_skills > 3 %>
-          <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">👥 <%= t('positions.position_card.skills.social') %></span>
+          <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">👥 <%= t('positions.position_card.skills.social') %></span>
         <% end %>
         <% if position.language_skills > 3 %>
-          <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">🌍 <%= t('positions.position_card.skills.language') %></span>
+          <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">🌍 <%= t('positions.position_card.skills.language') %></span>
         <% end %>
         <% if position.position_temporary %>
           <span class="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded-full">📅 <%= t('positions.position_card.temporary') %></span>

@@ -908,6 +908,133 @@ en:
       created_at: "Created At"
       actions: "Actions"   
 
+  applications:
+    forms:
+      badges:
+        interest: "Interest"
+        application: "Application"
+        volunteering: "Volunteering"
+      titles:
+        freetime: "Interest in Freetime Activity"
+        volunteer: "Application as Volunteer"
+        assistant: "Application as Assistant"
+      descriptions:
+        freetime: "Please fill out the following form to express your interest in this freetime activity. All information will be treated confidentially."
+        volunteer: "Please fill out the following form to apply as a volunteer. All information will be treated confidentially."
+        assistant: "Please fill out the following form to apply as an assistant. All information will be treated confidentially."
+      sections:
+        personal_information: "Personal Information"
+        motivation: "Motivation"
+        about_you: "About You"
+        work_experience: "Work Experience"
+        volunteer_experience: "Volunteer Experience"
+        documents: "Documents"
+      fields:
+        first_name: "First Name"
+        last_name: "Last Name"
+        email_address: "Email Address"
+        phone_number: "Phone Number"
+        birth_date: "Date of Birth"
+        gender: "Gender"
+        motivation: "Why do you want to volunteer for this position?"
+        motivation_assistant: "Motivation Letter"
+        motivation_freetime: "Why are you interested in this activity?"
+        about_yourself: "Tell us about yourself"
+        has_experience: "Do you already have experience in a similar position?"
+        experience_description: "Description of Experience"
+        has_volunteer_experience: "Have you done the same or similar volunteer work before?"
+        volunteer_experience_description: "Description of Your Volunteer Experience"
+        cv_file: "Resume/CV"
+      placeholders:
+        first_name: "Your first name"
+        last_name: "Your last name"
+        email: "your.email@example.com"
+        phone_number: "+49 123 456 789"
+        motivation: "Describe your motivation for this position..."
+        motivation_volunteer: "Describe your motivation for volunteering in this position..."
+        motivation_freetime: "Describe what interests you about this activity..."
+        about_yourself_volunteer: "Tell us about yourself, your interests, what motivates you to volunteer, or what you hope to gain from this experience..."
+        about_yourself_freetime: "Tell us about yourself, your interests, hobbies, or what you're looking forward to in this activity..."
+        about_yourself_assistant: "Share something about yourself..."
+        experience_description: "Describe your previous experience in similar positions..."
+        volunteer_experience_description: "Describe your previous volunteer work, what you did, how long you volunteered, what you learned..."
+      options:
+        please_select: "Please select..."
+        gender:
+          male: "Male"
+          female: "Female"
+          non_binary: "Non-binary"
+          prefer_not_to_say: "Prefer not to say"
+        experience:
+          yes: "Yes, I have experience"
+          no: "No, I have no experience"
+      help_texts:
+        motivation_optional: "Optional - Tell us why you are interested in this position."
+        motivation_freetime_optional: "Optional - Tell us what draws you to this freetime activity."
+        motivation_volunteer_optional: "Optional - Tell us what motivates you to volunteer for this specific position."
+        about_yourself_optional: "Optional - Share something about yourself, your interests, or what you hope to gain from this activity."
+        about_yourself_assistant_optional: "Optional - Tell us more about yourself, your interests, and what makes you unique."
+        birth_date_help: "Age is required to verify legal adulthood."
+        phone_contact: "We may need to contact you by phone for important updates."
+        experience_details: "Please describe your previous experience in detail."
+        cv_upload: "Upload your current resume/CV (PDF, max. 5MB)."
+        file_format: "PNG, JPG up to 10MB"
+      character_limits:
+        motivation_max: "Maximum 1000 characters"
+        motivation_freetime_max: "Maximum 500 characters"
+        about_max: "Maximum 800 characters"
+        experience_max: "Maximum 800 characters"
+      errors:
+        form_error: "This form requires a form object to be passed from the parent view."
+      buttons:
+        submit_application: "Submit Application"
+        submit_registration: "Submit Registration"
+        back_to_position: "← Back to Position"
+        cancel: "Cancel"
+    
+    # Success page translations
+    volunteer:
+      success_title: "Volunteer Application Submitted"
+      success_heading: "Volunteer Application Submitted Successfully!"
+      success_subheading: "Thank you for your interest in volunteering"
+      type: "Volunteer Application"
+    freetime:
+      success_title: "Activity Registration Submitted"
+      success_heading: "Activity Registration Submitted Successfully!"
+      success_subheading: "Thank you for registering for this activity"
+      type: "Activity Registration"
+    assistant:
+      success_title: "Assistant Application Submitted"
+      success_heading: "Assistant Application Submitted Successfully!"
+      success_subheading: "Thank you for your interest in this position"
+      type: "Assistant Application"
+
+  common:
+    back_to_position: "Back to Position"
+    cancel: "Cancel"
+    buttons:
+      create_freetime_activity: "Create Freetime Activity"
+      create_university_position: "Create University Position"
+      apply_as_volunteer: "Apply as Volunteer"
+      apply_as_assistant: "Apply as Assistant"
+      register_for_activity: "Register for Activity"
+      join_activity: "Join the Activity"
+      apply_for_position: "Apply for Position"
+
+  application_actions:
+    volunteer:
+      title: "🤝 Volunteer Opportunity"
+      subtitle: "Join us and make a difference in your community"
+      button: "Apply as Volunteer"
+    freetime:
+      title: "🎯 Join the Activity"
+      subtitle: "Register and have fun with others"
+      button: "Register for Activity"
+    assistant:
+      title: "🎓 Apply for Position"
+      subtitle: "Start your career as a university assistant"  
+      button: "Apply as Assistant"
+
 
 
 

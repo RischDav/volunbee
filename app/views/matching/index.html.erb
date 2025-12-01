@@ -1,20 +1,21 @@
-<div class="container mx-auto px-4 pt-32 pb-12 text-center max-w-5xl">
+<div class="min-h-screen bg-gray-50 px-4 pt-32 pb-12">
+  <div class="container mx-auto text-center max-w-5xl">
   <%# Intro Section %>
   <div id="matching-intro" class="matching-section">
-    <h1 class="text-3xl md:text-5xl font-bold mb-6 text-[#264653]">Volunteer Match</h1>
-    <p class="text-lg md:text-xl mb-10 max-w-3xl mx-auto text-[#264653]">
+    <h1 class="text-3xl md:text-5xl font-semibold mb-6 text-gray-900">Volunteer Match</h1>
+    <p class="text-lg md:text-xl mb-10 max-w-3xl mx-auto text-gray-600">
       You'll be asked 5 simple questions. Just pick the answers that fit you best, and we'll help narrow down the volunteer opportunities that might interest you the most.
     </p>
 
     <%# Start Button %>
     <div class="mt-12">
-      <%= link_to "Start", "#", id: "start-matching-button", class: "py-5 px-12 rounded-full text-2xl font-semibold inline-block transition-colors cursor-pointer bg-[#F2C94C] text-[#264653] hover:bg-[#E76F51] hover:text-white" %>
+      <%= link_to "Start", "#", id: "start-matching-button", class: "py-5 px-12 rounded-full text-2xl font-semibold inline-block transition-colors cursor-pointer bg-gray-900 text-white hover:bg-gray-800 border border-gray-900 shadow-sm" %>
     </div>
 
     <%# Image %>
     <div class="mt-8 max-w-xs mx-auto">
        <%# Assuming the "Okay, let's go!" image is in your assets. If not, replace with correct path %>
-       <%= image_tag "okay_lets_go.gif", class: "rounded-lg shadow-md w-full", alt: "Okay, let's go!" %>
+       <%= image_tag "okay_lets_go.gif", class: "rounded-lg border border-gray-200 shadow-sm w-full", alt: "Okay, let's go!" %>
     </div>
   </div>
 
@@ -23,26 +24,27 @@
     <!-- Step Indicator -->
     <div id="step-indicator" class="flex justify-center items-center space-x-2 mb-8">
       <% (1..5).each do |step| %>
-        <div class="step-circle w-8 h-8 rounded-full flex items-center justify-center border-2 border-[#F2C94C] text-sm font-semibold <%= step == 1 ? 'bg-[#F2C94C]' : 'text-[#264653]' %>" data-step="<%= step %>"><%= step %></div>
+        <div class="step-circle w-8 h-8 rounded-full flex items-center justify-center border-2 border-gray-900 text-sm font-semibold <%= step == 1 ? 'bg-gray-900 text-white' : 'text-gray-900' %>" data-step="<%= step %>"><%= step %></div>
         <% if step < 5 %>
-          <div class="step-line flex-grow h-0.5 bg-[#F2C94C] max-w-6"></div> <%# Added line %>
+          <div class="step-line flex-grow h-0.5 bg-gray-300 max-w-6"></div> <%# Added line %>
         <% end %>
       <% end %>
     </div>
 
     <!-- Question Area -->
     <div class="mb-8" id="question-area">
-      <h2 class="text-xl md:text-3xl font-semibold mb-4 text-[#264653]" id="quiz-question"></h2>
+      <h2 class="text-xl md:text-3xl font-semibold mb-4 text-gray-900" id="quiz-question"></h2>
     </div>
 
     <!-- Answer Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
       <% (1..4).each do |answer_idx| %>
-        <div class="answer-card bg-[#F2C94C] text-[#264653] rounded-lg shadow-md p-6 text-left cursor-pointer hover:shadow-lg transition-shadow" data-answer-index="<%= answer_idx - 1 %>">
+        <div class="answer-card bg-white text-gray-900 rounded-lg border border-gray-200 shadow-sm p-6 text-left cursor-pointer hover:shadow-md hover:border-gray-900 transition-all" data-answer-index="<%= answer_idx - 1 %>">
           <p class="font-medium" id="answer-<%= answer_idx %>"></p>
         </div>
       <% end %>
     </div>
+  </div>
   </div>
 </div>
 
@@ -177,22 +179,22 @@
       stepCircles.forEach(circle => {
         const step = parseInt(circle.dataset.step);
         if (step === currentStep) {
-          circle.classList.add('bg-[#F2C94C]', 'text-[#264653]');
-          circle.classList.remove('text-[#264653]', 'bg-transparent');
+          circle.classList.add('bg-gray-900', 'text-gray-900');
+          circle.classList.remove('text-gray-900', 'bg-transparent');
         } else if (step < currentStep) { // Completed steps
-           circle.classList.remove('bg-[#F2C94C]');
-           circle.classList.add('text-[#264653]'); // Maybe a different color for completed?
+           circle.classList.remove('bg-gray-900');
+           circle.classList.add('text-gray-900'); // Maybe a different color for completed?
            // Add a class to color the line before it
            const lineAfter = circle.nextElementSibling; // The line after the circle
            if(lineAfter && lineAfter.classList.contains('step-line')) {
-              lineAfter.classList.add('bg-[#F2C94C]'); // Color the line gold
+              lineAfter.classList.add('bg-gray-900'); // Color the line gold
            }
         } else { // Future steps
-           circle.classList.remove('bg-[#F2C94C]', 'text-[#264653]');
-           circle.classList.add('text-[#264653]');
+           circle.classList.remove('bg-gray-900', 'text-gray-900');
+           circle.classList.add('text-gray-900');
              const lineAfter = circle.nextElementSibling; // The line after the circle
            if(lineAfter && lineAfter.classList.contains('step-line')) {
-              lineAfter.classList.remove('bg-[#F2C94C]'); // Ensure line is not gold
+              lineAfter.classList.remove('bg-gray-900'); // Ensure line is not gold
            }
         }
       });
@@ -238,11 +240,11 @@
     stepCircles.forEach(circle => {
       const step = parseInt(circle.dataset.step);
       if (step === 1) {
-        circle.classList.add('bg-[#F2C94C]', 'text-[#264653]');
-        circle.classList.remove('text-[#264653]');
+        circle.classList.add('bg-gray-900', 'text-gray-900');
+        circle.classList.remove('text-gray-900');
       } else {
-        circle.classList.remove('bg-[#F2C94C]', 'text-[#264653]');
-        circle.classList.add('text-[#264653]');
+        circle.classList.remove('bg-gray-900', 'text-gray-900');
+        circle.classList.add('text-gray-900');
       }
     });
   });
@@ -259,7 +261,7 @@
 /* already added inline styles, but keep for clarity */
 .step-line {
   /* height: 0.5rem; */
-  /* background-color: #F2C94C; */
+  /* background-color: #111827; */
    min-width: 0.5rem; /* Ensure lines are visible */
 }
 </style>

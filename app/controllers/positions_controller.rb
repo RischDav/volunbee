@@ -175,23 +175,14 @@ end
   def edit
     AdminMailer.position_change_email.deliver_later
 
-    case @position.type
-    when 'volunteering'
-      render 'positions/volunteering/edit'
-    when 'freetime'
-      render 'positions/freetime/edit'
-    when 'university_position'
-      render 'positions/university_position/edit'
-    else
-      render :edit
-    end
+    render_edit_template
   end
 
   def update
     if @position.update(position_params)
       redirect_to positions_path, notice: "Position wurde erfolgreich aktualisiert."
     else
-      render :edit, status: :unprocessable_entity
+      render_edit_template(status: :unprocessable_entity)
     end
   end
 
@@ -293,5 +284,23 @@ def position_params
     :type, :appointment,                                 
     frequently_asked_questions_attributes: [:id, :question, :answer, :_destroy]
   )
+end
+
+private
+
+def render_edit_template(status: nil)
+  template_options = {}
+  template_options[:status] = status if status
+
+  case @position.type
+  when 'volunteering'
+    render 'positions/volunteering/edit', **template_options
+  when 'freetime'
+    render 'positions/freetime/edit', **template_options
+  when 'university_position'
+    render 'positions/university_position/edit', **template_options
+  else
+    render :edit, **template_options
+  end
 end
 end
