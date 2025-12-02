@@ -162,7 +162,7 @@ end
   end
 
   def show
-    if current_user.student?
+    if user_signed_in? && current_user.student?
       UserEvent.create!(
         user_type: :student,
         action_type: :view_position,
