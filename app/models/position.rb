@@ -35,6 +35,7 @@ validate :main_picture_size
   validate :organization_position_limit
 
   after_commit :process_pictures, on: [:create, :update]
+  after_update :send_modification_emails_if_needed
 
   # Categorical type of position (use 2-arg form to avoid Ruby keyword args ambiguity)
   enum :type, {
@@ -66,6 +67,11 @@ validate :main_picture_size
       'all', 'university', student.university_id, true, true
     )
   }
+
+  # Instance method to check if position is published
+  def published?
+    released? && online?
+  end
   
   # Scope with eager loading for performance
   scope :with_associations, -> { includes(:organization, :university, :user, :frequently_asked_questions) }
@@ -172,6 +178,76 @@ validate :main_picture_size
     end
 
     nil # Kein Bild verfügbar
+  end
+
+  # Email notification methods (public)
+  def should_send_modification_emails?
+    # Send emails for published positions when there are meaningful changes
+    # Always notify creator, and notify applicants only if there are any
+    published? && has_meaningful_changes?
+  end
+
+  def send_modification_emails
+    # Get the changes that occurred
+    meaningful_changes = extract_meaningful_changes
+    
+    # Send email to applicants if there are any
+    if has_applicants?
+      applicant_users = messages.applications.includes(:user).map(&:user).compact.uniq
+      
+      applicant_users.each do |applicant|
+        begin
+          PositionMailer.position_modified(applicant, self, meaningful_changes).deliver_later
+        rescue => e
+          Rails.logger.error "Failed to send position modification email to user #{applicant.id}: #{e.message}"
+        end
+      end
+    end
+
+    # Always send confirmation email to the position creator (university staff)
+    if user.present?
+      begin
+        PositionMailer.position_modified_creator(user, self, meaningful_changes).deliver_later
+      rescue => e
+        Rails.logger.error "Failed to send position modification confirmation email to creator #{user.id}: #{e.message}"
+      end
+    end
+  end
+
+  def send_modification_emails_if_needed
+    if should_send_modification_emails?
+      send_modification_emails
+    end
+  end
+
+  def has_applicants?
+    messages.applications.exists?
+  end
+
+  def has_meaningful_changes?
+    # Define which fields are meaningful for applicants (using actual Position model fields)
+    meaningful_fields = %w[title description benefits weekly_time_commitment appointment type]
+    meaningful_fields.any? { |field| saved_changes.key?(field) }
+  end
+
+  def extract_meaningful_changes
+    meaningful_fields = {
+      'title' => 'Titel',
+      'description' => 'Beschreibung', 
+      'benefits' => 'Vorteile',
+      'weekly_time_commitment' => 'Wöchentliche Arbeitszeit',
+      'appointment' => 'Termin',
+      'type' => 'Typ'
+    }
+    
+    changes = {}
+    meaningful_fields.each do |field, german_name|
+      if saved_changes.key?(field)
+        changes[german_name] = saved_changes[field]
+      end
+    end
+    
+    changes
   end
 
   private

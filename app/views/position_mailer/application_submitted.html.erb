@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      background-color: #28a745;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      border-radius: 8px 8px 0 0;
+    }
+    .content {
+      background-color: #f8f9fa;
+      padding: 30px;
+      border-radius: 0 0 8px 8px;
+      border: 1px solid #e9ecef;
+      border-top: none;
+    }
+    .position-info {
+      background-color: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 6px;
+      border: 1px solid #dee2e6;
+    }
+    .application-details {
+      background-color: #e7f3ff;
+      border: 1px solid #b6d7ff;
+      border-radius: 6px;
+      padding: 15px;
+      margin: 20px 0;
+    }
+    .next-steps {
+      background-color: #d1ecf1;
+      border: 1px solid #bee5eb;
+      border-radius: 6px;
+      padding: 15px;
+      margin: 20px 0;
+    }
+    .button {
+      background-color: #28a745;
+      color: white;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      display: inline-block;
+      margin: 20px 0;
+    }
+    .footer {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #dee2e6;
+      font-size: 12px;
+      color: #6c757d;
+      text-align: center;
+    }
+    .success-icon {
+      font-size: 48px;
+      text-align: center;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Bewerbung erfolgreich eingereicht!</h1>
+  </div>
+  
+  <div class="content">
+    <div class="success-icon">✅</div>
+    
+    <p><strong>Hallo <%= @applicant_name %>,</strong></p>
+    
+    <p>vielen Dank für Ihre Bewerbung! Wir haben Ihre Bewerbung erfolgreich erhalten und werden sie schnellstmöglich bearbeiten.</p>
+    
+    <div class="position-info">
+      <h3>📍 Position: <%= @position.title %></h3>
+      <p><strong>Typ:</strong> 
+        <%= case @application.type
+            when 'volunteer_application' then 'Freiwilligenarbeit'
+            when 'freetime_registration' then 'Freizeitaktivität' 
+            when 'assistant_application' then 'Studentische Hilfskraft'
+            end %>
+      </p>
+      <% if @position.weekly_time_commitment.present? %>
+        <p><strong>Arbeitszeit:</strong> <%= @position.weekly_time_commitment %> Stunden/Woche</p>
+      <% end %>
+      <% if @position.appointment.present? %>
+        <p><strong>Termin:</strong> <%= @position.appointment %></p>
+      <% end %>
+    </div>
+
+    <div class="application-details">
+      <h4>📋 Ihre Bewerbungsdaten</h4>
+      <p><strong>Name:</strong> <%= @applicant_name %></p>
+      <p><strong>E-Mail:</strong> <%= @application.email %></p>
+      <p><strong>Telefon:</strong> <%= @application.phone_number %></p>
+      <p><strong>Geburtsdatum:</strong> <%= @application.birth_date&.strftime('%d.%m.%Y') %></p>
+      <p><strong>Eingereicht am:</strong> <%= @application.created_at.strftime('%d.%m.%Y um %H:%M Uhr') %></p>
+    </div>
+    
+    <div class="next-steps">
+      <h4>🚀 Wie geht es weiter?</h4>
+      <ul>
+        <li><strong>Bestätigung:</strong> Sie erhalten diese E-Mail als Bestätigung Ihrer Bewerbung</li>
+        <li><strong>Bearbeitung:</strong> Unser Team wird Ihre Bewerbung innerhalb der nächsten 3-5 Werktage bearbeiten</li>
+        <li><strong>Rückmeldung:</strong> Sie erhalten eine E-Mail, sobald eine Entscheidung getroffen wurde</li>
+        <li><strong>Fragen:</strong> Bei Rückfragen können Sie sich jederzeit an uns wenden</li>
+      </ul>
+    </div>
+    
+    <div style="text-align: center;">
+      <a href="<%= @position_url %>" class="button">Position nochmals ansehen</a>
+    </div>
+    
+    <div style="margin-top: 25px; padding: 15px; background-color: #fff3cd; border: 1px solid #ffeaa7; border-radius: 6px;">
+      <h4 style="color: #856404; margin: 0 0 10px 0;">💡 Wichtige Hinweise</h4>
+      <ul style="color: #856404; margin: 0; padding-left: 20px;">
+        <li>Bitte bewahren Sie diese E-Mail als Bestätigung auf</li>
+        <li>Überprüfen Sie regelmäßig Ihren E-Mail-Posteingang (auch Spam-Ordner)</li>
+        <li>Bei Änderungen Ihrer Kontaktdaten informieren Sie uns bitte umgehend</li>
+      </ul>
+    </div>
+    
+    <p style="margin-top: 25px;">
+      Wir freuen uns auf die Zusammenarbeit mit Ihnen und danken Ihnen für Ihr Interesse!
+    </p>
+    
+    <p>
+      Mit freundlichen Grüßen,<br>
+      Das LetsGoVolunteer Team
+    </p>
+  </div>
+  
+  <div class="footer">
+    <p>Diese E-Mail wurde automatisch generiert. Bei Fragen antworten Sie bitte auf diese E-Mail.</p>
+    <p>LetsGoVolunteer - Verbindung von Studenten mit Freiwilligenarbeit</p>
+  </div>
+</body>
+</html>
