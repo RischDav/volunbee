@@ -31,6 +31,7 @@ class ShowPositionsController < ApplicationController
         university: current_user.university,
       )
     end
+    render 'positions/show'
   end
 
   # Bereinigungsmethoden für fehlerhafte Varianten
