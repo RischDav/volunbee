@@ -393,6 +393,7 @@
         </div>
 
     <!-- Contact Information Section - Only show for organization positions -->
+<% if user_signed_in? %>
 <% if @position.organization.present? || @position.university.present? %>
   <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 mt-6 sm:mt-8">
     <div class="p-4 sm:p-6 lg:p-8">
@@ -587,7 +588,7 @@
             </div>
           </div>
         <% end %>
-        
+        <% end %>
     <!-- Application/Registration Button Section -->
     <div class="mt-8 mb-8">
       <% case @position.type %>
