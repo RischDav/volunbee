@@ -3,7 +3,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 
 module.exports = {
-  darkMode: 'class',
+  darkMode: false,
   content: [
       './app/views/**/*.{erb,html, html.erb}',
       './app/helpers/**/*.rb',
