@@ -1,69 +1,52 @@
-<div class="bg-[#F8F9FA]/80 min-h-screen py-12">
-  <div class="max-w-lg mx-auto p-8 bg-white shadow-xl rounded-2xl border border-gray-100">
-    <div class="text-center mb-8">
-      <h1 class="text-4xl font-bold mb-2">
-        <span class="text-[#264653]"><%= t('devise.registrations.new_student.join_as') %></span>
-        <span class="text-[#F2C94C]"><%= t('devise.registrations.new_student.student') %></span>
-      </h1>
-      <p class="text-[#264653]/70 text-lg"><%= t('devise.registrations.new_student.student_register') %></p>
-    </div>
+<%# Variables for Tailwind CSS classes %>
+<% box_style = "bg-transparent border border-[#6B7280] rounded-lg p-8" %>
+<% input_style = "w-full bg-transparent border border-[#6B7280] rounded-md py-2 px-3 focus:outline-none focus:border-[#2A9D8F] transition-colors duration-300" %>
+<% label_style = "block text-sm font-medium text-gray-400 mb-2" %>
+<% button_style = "w-full bg-[#2A9D8F] text-white font-bold py-3 px-4 rounded-md hover:bg-[#258a7e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1a1919] focus:ring-[#2A9D8F] transition-all duration-300" %>
+<% link_style = "font-medium text-[#2A9D8F] hover:text-[#38b8a5] transition-colors duration-300" %>
 
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-6" }) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
+<div class="bg-[#1a1919] text-gray-300 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-lg w-full space-y-8">
+    <article class="<%= box_style %>">
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-100">
+          <%= t('devise.registrations.new_student.join_as') %> <span class="text-[#F2C94C]"><%= t('devise.registrations.new_student.student') %></span>
+        </h1>
+        <p class="text-gray-400 mt-2"><%= t('devise.registrations.new_student.student_register') %></p>
+      </div>
 
-  <%= f.hidden_field :role, value: "student" %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-6" }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <%= f.hidden_field :role, value: "student" %>
 
-      <div class="space-y-6">
-        <div class="field group">
-          <%= f.label :email, t('devise.registrations.new_student.email_label'), class: "block text-sm font-semibold text-[#264653] mb-2" %>
-          <div class="relative">
-            <div class="absolute inset-y-0 left-2 pl-3 flex items-center pointer-events-none">
-              <svg class="h-5 w-5 text-[#2A9D8F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-              </svg>
-            </div>
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full mx-2 pl-12 pr-5 py-3 border-2 border-gray-200 rounded-xl shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#2A9D8F]/30 focus:border-[#2A9D8F] hover:border-[#2A9D8F]/50 group-hover:shadow-md group-hover:border-[#2A9D8F]/50 transform focus:-translate-y-0.5" %>
-          </div>
+        <div>
+          <%= f.label :email, t('devise.registrations.new_student.email_label'), class: label_style %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: input_style, placeholder: "name@example.com" %>
         </div>
 
-        <div class="field group">
-          <%= f.label :password, t('devise.registrations.new_student.password_label'), class: "block text-sm font-semibold text-[#264653] mb-2" %>
+        <div>
+          <%= f.label :password, t('devise.registrations.new_student.password_label'), class: label_style %>
           <% if @minimum_password_length %>
-            <p class="text-xs text-[#264653]/60 mb-2">(<%= t('devise.registrations.new_student.password_minimum_length', count: @minimum_password_length) %>)</p>
+            <p class="text-xs text-gray-500 mb-2">(<%= t('devise.registrations.new_student.password_minimum_length', count: @minimum_password_length) %>)</p>
           <% end %>
-          <div class="relative">
-            <div class="absolute inset-y-0 left-2 pl-3 flex items-center pointer-events-none">
-              <svg class="h-5 w-5 text-[#2A9D8F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
-            </div>
-            <%= f.password_field :password, autocomplete: "new-password", class: "w-full mx-2 pl-12 pr-5 py-3 border-2 border-gray-200 rounded-xl shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#2A9D8F]/30 focus:border-[#2A9D8F] hover:border-[#2A9D8F]/50 group-hover:shadow-md group-hover:border-[#2A9D8F]/50 transform focus:-translate-y-0.5" %>
-          </div>
+          <%= f.password_field :password, autocomplete: "new-password", class: input_style, placeholder: "••••••••" %>
         </div>
 
-        <div class="field group" id="password-confirmation-field">
-          <%= f.label :password_confirmation, t('devise.registrations.new_student.password_confirmation_label'), class: "block text-sm font-semibold text-[#264653] mb-2" %>
-          <div class="relative">
-            <div class="absolute inset-y-0 left-2 pl-3 flex items-center pointer-events-none">
-              <svg class="h-5 w-5 text-[#2A9D8F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full mx-2 pl-12 pr-5 py-3 border-2 border-gray-200 rounded-xl shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#2A9D8F]/30 focus:border-[#2A9D8F] hover:border-[#2A9D8F]/50 group-hover:shadow-md group-hover:border-[#2A9D8F]/50 transform focus:-translate-y-0.5" %>
-          </div>
+        <div>
+          <%= f.label :password_confirmation, t('devise.registrations.new_student.password_confirmation_label'), class: label_style %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: input_style, placeholder: "••••••••" %>
         </div>
 
-      </div>
+        <div class="actions pt-4">
+          <%= f.submit t('devise.registrations.new_student.sign_up_button'), class: button_style %>
+        </div>
+      <% end %>
+    </article>
 
-      <div class="actions mt-8">
-        <%= f.submit t('devise.registrations.new_student.sign_up_button'), class: "w-full py-4 px-6 bg-gradient-to-r from-[#2A9D8F] to-[#1D8A7A] text-white font-semibold text-lg rounded-xl shadow-lg hover:from-[#1D8A7A] hover:to-[#157B6D] focus:outline-none focus:ring-4 focus:ring-[#2A9D8F]/40 transform transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95 border border-transparent" %>
-      </div>
-    <% end %>
-
-    <div class="text-center mt-8 pt-6 border-t border-gray-100">
+    <div class="text-center text-sm">
       <%= render "devise/shared/links" %>
       <div class="mt-4">
-        <%= link_to t('devise.registrations.new_student.switch_to_organization_registration'), new_organization_registration_path, class: "text-[#2A9D8F] hover:underline" %>
+        <%= link_to t('devise.registrations.new_student.switch_to_organization_registration'), new_organization_registration_path, class: link_style %>
       </div>
     </div>
   </div>

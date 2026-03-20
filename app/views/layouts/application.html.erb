@@ -13,14 +13,13 @@
     <!-- The VolunteerHeilbronn Icon -->
     <link rel="icon" href="<%= asset_path('favicon.png') %>" type="image/png">
     <!-- Integration of Tailwind css -->
-  <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload', defer: true, 'data-turbolinks-suppress-warning': true %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload', defer: true, 'data-turbolinks-suppress-warning': true %>
   </head>
 
   <body>
     <% if @custom_navbar %>
-      <!-- Public Layout mit Standard Navbar/Footer -->
-      <%= render partial: "shared/public_navbar" %>
+      <!-- Public Layout ohne Header -->
       
       <!-- Organization alerts are only showed when there is missing required information for organization -->
       <% unless controller_name == 'organizations' && action_name == 'edit' %>
