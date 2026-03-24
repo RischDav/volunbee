@@ -5,7 +5,6 @@
     </div>
 
   <!-- Button für neue Position -->
-    <!-- Create Position Button -->
   <%= render partial: 'positions/shared/new_position_button' if (!current_user.admin? && !current_user.student?) %>
 
   <!-- Admin Alert for Unreleased Positions -->
@@ -51,13 +50,10 @@
     <% end %>
   <% end %>
 
-</div>
   <% if @positions.present? && (current_user.student? || current_user.university_staff? || current_user.organization?) %>
     <% 
-      # Filtere Positionen nach Typ für bessere Kategorisierung
       volunteering_positions = current_user.admin? ? @positions.by_type('volunteering').released : @positions.by_type('volunteering')
       freetime_positions = current_user.admin? ? @positions.by_type('freetime').released : @positions.by_type('freetime')
-      university_positions_general = current_user.admin? ? @positions.by_type('university_position').released : @positions.by_type('university_position')
     %>
 
     <!-- Ehrenamtliche Aktivitäten -->
@@ -94,3 +90,4 @@
       </div>
     <% end %>
   <% end %>
+</div>
