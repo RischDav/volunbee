@@ -187,116 +187,56 @@
           </div>
         </div>
 
-        <!-- Images Section - Only show if there are images -->
-        <% has_images = @position.main_picture.attached? || @position.picture1.attached? || @position.picture2.attached? || @position.picture3.attached? %>
-        <% if has_images %>
-          <div>
-            <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8 flex items-center gap-2 sm:gap-3">
-              <div class="w-7 h-7 sm:w-8 sm:h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
-                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+<!-- Images Section - Only show if there are images -->
+<% images = [@position.main_picture, @position.picture1, @position.picture2, @position.picture3].select(&:attached?) %>
+<% if images.any? %>
+  <div>
+    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8 flex items-center gap-2 sm:gap-3">
+      <div class="w-7 h-7 sm:w-8 sm:h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
+        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <%= t('positions.show.images') %>
+    </h3>
+    
+    <div data-controller="carousel" class="relative w-full max-w-2xl mx-auto">
+      <!-- Carousel wrapper -->
+      <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+        <% images.each_with_index do |image, index| %>
+          <div data-carousel-target="slide" class="hidden duration-700 ease-in-out">
+            <% begin %>
+              <%= image_tag image.variant(resize_to_limit: [800, 800]).processed, class: "absolute block w-full h-full object-contain -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" %>
+            <% rescue ActiveStorage::IntegrityError, ActiveStorage::FileNotFoundError => e %>
+              <div class="w-full h-full bg-slate-200 rounded-lg flex items-center justify-center">
+                <svg class="w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
                 </svg>
               </div>
-              <%= t('positions.show.images') %>
-            </h3>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-              <% if @position.main_picture.attached? %>
-                <div class="group">
-                  <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-2.5 sm:p-3 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-300">
-                    <p class="text-gray-700 font-semibold text-xs sm:text-sm mb-2 flex items-center gap-1.5 sm:gap-2">
-                      <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 4a1 1 0 011-1h12a1 1 0 011 1v8a1 1 0 01-1 1H4a1 1 0 01-1-1V8z" clip-rule="evenodd" />
-                      </svg>
-                      <%= t('positions.show.main_picture') %>
-                    </p>
-                    <% begin %>
-                      <%= image_tag @position.main_picture.variant(resize_to_limit: [300, 200]).processed, 
-                            class: "rounded-lg shadow-md w-full max-h-32 object-contain group-hover:scale-105 transition-transform duration-300" %>
-                    <% rescue ActiveStorage::IntegrityError, ActiveStorage::FileNotFoundError => e %>
-                      <div class="w-full h-24 bg-slate-200 rounded-lg flex items-center justify-center">
-                        <svg class="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
-                        </svg>
-                      </div>
-                    <% end %>
-                  </div>
-                </div>
-              <% end %>
-              
-              <% if @position.picture1.attached? %>
-                <div class="group">
-                  <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-2.5 sm:p-3 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-300">
-                    <p class="text-gray-700 font-semibold text-xs sm:text-sm mb-2 flex items-center gap-1.5 sm:gap-2">
-                      <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
-                      </svg>
-                      <%= t('positions.show.picture_1') %>
-                    </p>
-                    <% begin %>
-                      <%= image_tag @position.picture1.variant(resize_to_limit: [300, 200]).processed, 
-                            class: "rounded-lg shadow-md w-full max-h-32 object-contain group-hover:scale-105 transition-transform duration-300" %>
-                    <% rescue ActiveStorage::IntegrityError, ActiveStorage::FileNotFoundError => e %>
-                      <div class="w-full h-24 bg-slate-200 rounded-lg flex items-center justify-center">
-                        <svg class="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
-                        </svg>
-                      </div>
-                    <% end %>
-                  </div>
-                </div>
-              <% end %>
-              
-              <% if @position.picture2.attached? %>
-                <div class="group">
-                  <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-2.5 sm:p-3 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-300">
-                    <p class="text-gray-700 font-semibold text-xs sm:text-sm mb-2 flex items-center gap-1.5 sm:gap-2">
-                      <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
-                      </svg>
-                      <%= t('positions.show.picture_2') %>
-                    </p>
-                    <% begin %>
-                      <%= image_tag @position.picture2.variant(resize_to_limit: [300, 200]).processed, 
-                            class: "rounded-lg shadow-md w-full max-h-32 object-contain group-hover:scale-105 transition-transform duration-300" %>
-                    <% rescue ActiveStorage::IntegrityError, ActiveStorage::FileNotFoundError => e %>
-                      <div class="w-full h-24 bg-slate-200 rounded-lg flex items-center justify-center">
-                        <svg class="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
-                        </svg>
-                      </div>
-                    <% end %>
-                  </div>
-                </div>
-              <% end %>
-              
-              <% if @position.picture3.attached? %>
-                <div class="group">
-                  <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-2.5 sm:p-3 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-300">
-                    <p class="text-gray-700 font-semibold text-xs sm:text-sm mb-2 flex items-center gap-1.5 sm:gap-2">
-                      <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
-                      </svg>
-                      <%= t('positions.show.picture_3') %>
-                    </p>
-                    <% begin %>
-                      <%= image_tag @position.picture3.variant(resize_to_limit: [300, 200]).processed, 
-                            class: "rounded-lg shadow-md w-full max-h-32 object-contain group-hover:scale-105 transition-transform duration-300" %>
-                    <% rescue ActiveStorage::IntegrityError, ActiveStorage::FileNotFoundError => e %>
-                      <div class="w-full h-24 bg-slate-200 rounded-lg flex items-center justify-center">
-                        <svg class="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
-                        </svg>
-                      </div>
-                    <% end %>
-                  </div>
-                </div>
-              <% end %>
-            </div>
+            <% end %>
           </div>
         <% end %>
       </div>
+      <!-- Slider controls -->
+      <button type="button" data-action="click->carousel#previous" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
+        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+          <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+          </svg>
+          <span class="sr-only">Previous</span>
+        </span>
+      </button>
+      <button type="button" data-action="click->carousel#next" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
+        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+          <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+          </svg>
+          <span class="sr-only">Next</span>
+        </span>
+      </button>
     </div>
+  </div>
+<% end %>
 
         <!-- Skills Section -->
         <div>

@@ -43,12 +43,12 @@
           <%= form.label :gender, t('applications.forms.fields.gender'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
           <%= form.select :gender, 
               options_for_select([
-                [t('applications.forms.options.please_select'), ''],
-                [t('applications.forms.options.gender.female'), 'female'],
-                [t('applications.forms.options.gender.male'), 'male'],
-                [t('applications.forms.options.gender.non_binary'), 'diverse'],
-                [t('applications.forms.options.gender.prefer_not_to_say'), 'not_specified']
-              ]), 
+      [t('applications.forms.options.please_select'), ''],
+      [t('applications.forms.options.gender.male'), 'male'],
+      [t('applications.forms.options.gender.female'), 'female'],
+      [t('applications.forms.options.gender.non_binary'), 'non-binary'],
+      [t('applications.forms.options.gender.prefer_not_to_say'), 'prefer_not_to_say']
+    ], ''),
               { prompt: false }, 
               { 
                 class: "w-full rounded-md border border-gray-400 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500",
@@ -58,7 +58,7 @@
 
       <div>
           <%= form.label :age, t('applications.forms.fields.age'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
-          <%= form.number_field :age, required: true, class: "w-full rounded-md border border-gray-400 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: t('applications.forms.placeholders.age') %>
+          <%= form.number_field :age, required: true, class: "w-full rounded-md border border-gray-400 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500" %>
         </div>
     </section>
 
@@ -73,7 +73,7 @@
               [t('applications.forms.options.please_select'), ''],
               [t('applications.forms.options.experience.yes'), 'yes'],
               [t('applications.forms.options.experience.no'), 'no']
-            ]), 
+            ], ''), 
             { prompt: false }, 
             { 
               class: "w-full md:w-1/2 rounded-md border border-gray-400 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500",
