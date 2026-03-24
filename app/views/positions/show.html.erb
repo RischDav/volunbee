@@ -204,7 +204,7 @@
       <!-- Carousel wrapper -->
       <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
         <% images.each_with_index do |image, index| %>
-          <div class="carousel-slide hidden duration-700 ease-in-out">
+          <div class="carousel-slide <%= 'hidden' if index > 0 %> duration-700 ease-in-out">
             <% begin %>
               <%= image_tag image.variant(resize_to_limit: [800, 800]).processed, class: "absolute block w-full h-full object-contain -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" %>
             <% rescue ActiveStorage::IntegrityError, ActiveStorage::FileNotFoundError => e %>
@@ -218,69 +218,65 @@
         <% end %>
       </div>
       <!-- Slider controls -->
-      <button type="button" id="carousel-prev-btn" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
-        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-          <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-          </svg>
-          <span class="sr-only">Previous</span>
-        </span>
-      </button>
-      <button type="button" id="carousel-next-btn" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
-        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-          <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-          </svg>
-          <span class="sr-only">Next</span>
-        </span>
-      </button>
+      <% if images.length > 1 %>
+        <button type="button" id="carousel-prev-btn" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+            <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+            </svg>
+            <span class="sr-only">Previous</span>
+          </span>
+        </button>
+        <button type="button" id="carousel-next-btn" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+            <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+            </svg>
+            <span class="sr-only">Next</span>
+          </span>
+        </button>
+      <% end %>
     </div>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const carousel = document.getElementById('image-carousel');
-      if (!carousel) return;
+  <% if images.length > 1 %>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const carousel = document.getElementById('image-carousel');
+        if (!carousel) return;
 
-      const slides = carousel.querySelectorAll('.carousel-slide');
-      const prevButton = document.getElementById('carousel-prev-btn');
-      const nextButton = document.getElementById('carousel-next-btn');
-      
-      let currentIndex = 0;
-      const totalSlides = slides.length;
+        const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+        const prevButton = document.getElementById('carousel-prev-btn');
+        const nextButton = document.getElementById('carousel-next-btn');
+        
+        let currentIndex = 0;
+        const totalSlides = slides.length;
 
-      if (totalSlides <= 1) {
-        if(prevButton) prevButton.style.display = 'none';
-        if(nextButton) nextButton.style.display = 'none';
-      }
+        function showSlide(index) {
+          slides.forEach((slide, i) => {
+            slide.classList.toggle('hidden', i !== index);
+          });
+        }
 
-      function showSlide(index) {
-        slides.forEach((slide, i) => {
-          slide.classList.toggle('hidden', i !== index);
-        });
-      }
+        function showNext() {
+          currentIndex = (currentIndex + 1) % totalSlides;
+          showSlide(currentIndex);
+        }
 
-      function showNext() {
-        currentIndex = (currentIndex + 1) % totalSlides;
-        showSlide(currentIndex);
-      }
+        function showPrev() {
+          currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+          showSlide(currentIndex);
+        }
 
-      function showPrev() {
-        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-        showSlide(currentIndex);
-      }
-
-      if (prevButton && nextButton) {
-        prevButton.addEventListener('click', showPrev);
-        nextButton.addEventListener('click', showNext);
-      }
-
-      // Show the first slide initially
-      if (totalSlides > 0) {
-        showSlide(currentIndex);
-      }
-    });
-  </script>
+        if (prevButton && nextButton) {
+          prevButton.addEventListener('click', showPrev);
+          nextButton.addEventListener('click', showNext);
+        }
+        
+        // Initial state is already set by ERB, so no need to call showSlide(0) here.
+      });
+    </script>
+  <% end %>
 <% end %>
         <!-- Skills Section -->
         <div>
