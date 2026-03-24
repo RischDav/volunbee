@@ -24,18 +24,18 @@
       <div class="grid gap-4 sm:gap-6 md:grid-cols-2">
         <div>
           <%= form.label :first_name, t('applications.forms.fields.first_name'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
-          <%= form.text_field :first_name, required: true, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: t('applications.forms.placeholders.first_name') %>
+          <%= form.text_field :first_name, required: true, class: "w-full rounded-md border border-gray-400 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: t('applications.forms.placeholders.first_name') %>
         </div>
 
         <div>
           <%= form.label :last_name, t('applications.forms.fields.last_name'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
-          <%= form.text_field :last_name, required: true, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: t('applications.forms.placeholders.last_name') %>
+          <%= form.text_field :last_name, required: true, class: "w-full rounded-md border border-gray-400 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: t('applications.forms.placeholders.last_name') %>
         </div>
       </div>
 
       <div class="mt-4 sm:mt-6">
         <%= form.label :email, t('applications.forms.fields.email_address'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
-        <%= form.email_field :email, required: true, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: t('applications.forms.placeholders.email') %>
+        <%= form.email_field :email, required: true, class: "w-full rounded-md border border-gray-400 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: t('applications.forms.placeholders.email') %>
       </div>
 
       <div class="grid gap-4 sm:gap-6 md:grid-cols-2 mt-4 sm:mt-6">
@@ -51,27 +51,15 @@
               ]), 
               { prompt: false }, 
               { 
-                class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500",
+                class: "w-full rounded-md border border-gray-400 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500",
                 required: true
               } %>
         </div>
 
-        <div>
-          <%= form.label :phone_number, t('applications.forms.fields.phone_number'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
-          <%= form.telephone_field :phone_number, required: true, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-green-500 focus:ring-green-500", placeholder: t('applications.forms.placeholders.phone_number') %>
-          <p class="text-xs sm:text-sm text-gray-500 mt-2">
-            <%= t('applications.forms.help_texts.phone_contact') %>
-          </p>
+      <div>
+          <%= form.label :age, t('applications.forms.fields.age'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
+          <%= form.number_field :age, required: true, class: "w-full rounded-md border border-gray-400 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500", placeholder: t('applications.forms.placeholders.age') %>
         </div>
-      </div>
-
-      <div class="mt-4 sm:mt-6">
-        <%= form.label :birth_date, t('applications.forms.fields.birth_date'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
-        <%= form.date_field :birth_date, required: true, class: "w-full md:w-1/2 rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-green-500 focus:ring-green-500" %>
-        <p class="text-xs sm:text-sm text-gray-500 mt-2">
-          <%= t('applications.forms.help_texts.birth_date_help') %>
-        </p>
-      </div>
     </section>
 
     <!-- Volunteer Experience -->
@@ -88,7 +76,7 @@
             ]), 
             { prompt: false }, 
             { 
-              class: "w-full md:w-1/2 rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500",
+              class: "w-full md:w-1/2 rounded-md border border-gray-400 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500",
               onchange: "toggleVolunteerExperienceDetails(this.value)",
               required: true
             } %>
@@ -97,7 +85,7 @@
       <div id="volunteer-experience-details" class="hidden">
         <%= form.label :volunteer_experience_description, t('applications.forms.fields.volunteer_experience_description'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
         <p class="text-xs sm:text-sm text-gray-500 mb-3"><%= t('applications.forms.help_texts.experience_details') %></p>
-        <%= form.text_area :volunteer_experience_description, rows: 4, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500 resize-none", placeholder: t('applications.forms.placeholders.volunteer_experience_description') %>
+        <%= form.text_area :volunteer_experience_description, rows: 4, class: "w-full rounded-md border border-gray-400 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500 resize-none", placeholder: t('applications.forms.placeholders.volunteer_experience_description') %>
         <div class="flex justify-between items-center mt-2">
           <p class="text-xs text-gray-500"><%= t('applications.forms.character_limits.experience_max') %></p>
           <span id="volunteer-experience-counter" class="text-xs text-gray-500">0 / 800</span>
@@ -105,35 +93,6 @@
       </div>
     </section>
 
-    <!-- Motivation -->
-    <section class="bg-gray-50 rounded-lg p-4 sm:p-6">
-      <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6"><%= t('applications.forms.sections.motivation') %></h3>
-      
-      <div>
-        <%= form.label :motivation, t('applications.forms.fields.motivation'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
-        <p class="text-xs sm:text-sm text-gray-500 mb-3"><%= t('applications.forms.help_texts.motivation_volunteer_optional') %></p>
-        <%= form.text_area :motivation, rows: 5, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-green-500 focus:ring-green-500 resize-none", placeholder: t('applications.forms.placeholders.motivation_volunteer') %>
-        <div class="flex justify-between items-center mt-2">
-          <p class="text-xs text-gray-500"><%= t('applications.forms.character_limits.motivation_max') %></p>
-          <span id="motivation-counter" class="text-xs text-gray-500">0 / 1000</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- About Yourself -->
-    <section class="bg-gray-50 rounded-lg p-4 sm:p-6">
-      <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6"><%= t('applications.forms.sections.about_you') %></h3>
-      
-      <div>
-        <%= form.label :about_yourself, t('applications.forms.fields.about_yourself'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2" %>
-        <p class="text-xs sm:text-sm text-gray-500 mb-3"><%= t('applications.forms.help_texts.about_yourself_optional') %></p>
-        <%= form.text_area :about_yourself, rows: 6, class: "w-full rounded-md border-gray-300 px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base focus:border-blue-500 focus:ring-blue-500 resize-none", placeholder: t('applications.forms.placeholders.about_yourself_volunteer') %>
-        <div class="flex justify-between items-center mt-2">
-          <p class="text-xs text-gray-500"><%= t('applications.forms.character_limits.motivation_max') %></p>
-          <span id="about-counter" class="text-xs text-gray-500">0 / 1000</span>
-        </div>
-      </div>
-    </section>
 
   <% else %>
     <!-- This partial should only be called with a form object passed from parent -->
@@ -148,21 +107,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     const aboutField = document.querySelector('[name*="about_yourself"]');
     const aboutCounter = document.getElementById('about-counter');
-    
-    if (aboutField && aboutCounter) {
-      aboutField.addEventListener('input', function() {
-        const length = this.value.length;
-        aboutCounter.textContent = length + ' / 1000';
-        
-        if (length > 1000) {
-          aboutCounter.classList.add('text-red-500');
-          aboutCounter.classList.remove('text-gray-500');
-        } else {
-          aboutCounter.classList.add('text-gray-500');
-          aboutCounter.classList.remove('text-red-500');
-        }
-      });
-    }
+  
 
     // Character counter for volunteer experience description
     const volunteerExperienceField = document.querySelector('[name*="volunteer_experience_description"]');
@@ -171,9 +116,9 @@
     if (volunteerExperienceField && volunteerExperienceCounter) {
       volunteerExperienceField.addEventListener('input', function() {
         const length = this.value.length;
-        volunteerExperienceCounter.textContent = length + ' / 800';
+        volunteerExperienceCounter.textContent = length + ' / 100';
         
-        if (length > 800) {
+        if (length > 100) {
           volunteerExperienceCounter.classList.add('text-red-500');
           volunteerExperienceCounter.classList.remove('text-gray-500');
         } else {
