@@ -11,13 +11,11 @@ class PositionApplicationMailer < ApplicationMailer
   end
 
   def new_application_notification_to_organization(application)
-    @application = application
-    @position = application.position
-    @contact_person = @position.contact_person
+  @application = application
+  @position = application.position
+  @organization = @position.organization
+  @contact_name = @organization.name
 
-    mail(
-      to: @contact_person.email,
-      subject: "Neuer Interessent für '#{@position.title}'"
-    )
+  mail(to: @organization.email, subject: "Neue Bewerbung: #{@position.title}")
   end
 end

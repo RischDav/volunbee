@@ -8,12 +8,18 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    @application_object = Message.new(application_params)
-    @application_object.position = @position
-    @application_object.user = current_user if user_signed_in?
-    @application_object.type = application_type_for_position
+  @application_object = Message.new(application_params)
+  @application_object.position = @position
+  
+  if user_signed_in?
+    @application_object.user = current_user
+    # Wir überschreiben die E-Mail mit der echten User-Mail, egal was im Formular stand
+    @application_object.email = current_user.email 
+  end
+  
+  @application_object.type = application_type_for_position
 
-    if @application_object.save
+  if @application_object.save
       # Mailer-Logik (Optional: Falls Mailer vorhanden sind)
       begin
         PositionApplicationMailer.submit_confirmation_to_user(@application_object).deliver_later
