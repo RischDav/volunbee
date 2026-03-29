@@ -49,6 +49,8 @@ Rails.application.routes.draw do
       
       # Unified application routes
       resources :applications, only: [:new, :create, :show]
+      resources :freetime_registrations, only: [:new, :create]
+      resources :volunteer_applications, only: [:new, :create]
     end
 
     resources :organizations do
@@ -65,8 +67,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :freetime_registrations, only: [:new, :create]
-    resources :volunteer_applications, only: [:new, :create]
 
     resources :admin, only: [:index] do
       member do
