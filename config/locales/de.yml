@@ -841,7 +841,7 @@ de:
       badges:
         interest: "Interesse"
         application: "Bewerbung"
-        volunteering: "Freiwilligenarbeit"
+        volunteering: "Ehrenamt"
       titles:
         freetime: "Interesse an Freizeitaktivität"
         volunteer: "Bewerbung als Freiwillige/r"
@@ -870,7 +870,7 @@ de:
         about_yourself: "Erzählen Sie uns von sich"
         has_experience: "Haben Sie bereits Erfahrung in einer ähnlichen Position?"
         experience_description: "Beschreibung der Erfahrung"
-        has_volunteer_experience: "Haben Sie schon einmal ähnliche Freiwilligenarbeit geleistet?"
+        has_volunteer_experience: "Haben Sie schon einmal ähnliche Ehrenamt geleistet?"
         volunteer_experience_description: "Beschreibung Ihrer Freiwilligenerfahrung"
         cv_file: "Lebenslauf"
       placeholders:
@@ -879,13 +879,13 @@ de:
         email: "ihre.email@beispiel.de"
         phone_number: "+49 123 456 789"
         motivation: "Beschreiben Sie Ihre Motivation für diese Position..."
-        motivation_volunteer: "Beschreiben Sie Ihre Motivation für die Freiwilligenarbeit in dieser Position..."
+        motivation_volunteer: "Beschreiben Sie Ihre Motivation für die Ehrenamt in dieser Position..."
         motivation_freetime: "Beschreiben Sie, was Sie an dieser Aktivität interessiert..."
         about_yourself_volunteer: "Erzählen Sie uns von sich, Ihren Interessen, was Sie motiviert freiwillig zu helfen, oder was Sie sich von dieser Erfahrung erhoffen..."
         about_yourself_freetime: "Erzählen Sie uns von sich, Ihren Interessen, Hobbys oder worauf Sie sich bei dieser Aktivität freuen..."
         about_yourself_assistant: "Teilen Sie etwas über sich mit..."
         experience_description: "Beschreiben Sie Ihre bisherige Erfahrung in ähnlichen Positionen..."
-        volunteer_experience_description: "Beschreiben Sie Ihre bisherige Freiwilligenarbeit, was Sie getan haben, wie lange Sie freiwillig tätig waren, was Sie gelernt haben..."
+        volunteer_experience_description: "Beschreiben Sie Ihre bisherige Ehrenamt, was Sie getan haben, wie lange Sie freiwillig tätig waren, was Sie gelernt haben..."
       options:
         please_select: "Bitte wählen..."
         gender:
@@ -924,7 +924,7 @@ de:
     volunteer:
       success_title: "Freiwilligenbewerbung eingereicht"
       success_heading: "Freiwilligenbewerbung erfolgreich eingereicht!"
-      success_subheading: "Vielen Dank für Ihr Interesse an der Freiwilligenarbeit"
+      success_subheading: "Vielen Dank für Ihr Interesse an der Ehrenamt"
       type: "Freiwilligenbewerbung"
     freetime:
       success_title: "Aktivitätsanmeldung eingereicht"

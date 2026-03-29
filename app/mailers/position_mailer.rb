@@ -35,7 +35,7 @@ class PositionMailer < ApplicationMailer
     # Determine application type for subject
     application_type = case @application.type
     when 'volunteer_application'
-      'Freiwilligenarbeit'
+      'Ehrenamt'
     when 'freetime_registration'
       'Freizeitaktivität'
     when 'assistant_application'

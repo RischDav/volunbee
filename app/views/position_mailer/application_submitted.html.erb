@@ -86,7 +86,7 @@
       <h3>📍 Position: <%= @position.title %></h3>
       <p><strong>Typ:</strong> 
         <%= case @application.type
-            when 'volunteer_application' then 'Freiwilligenarbeit'
+            when 'volunteer_application' then 'Ehrenamt'
             when 'freetime_registration' then 'Freizeitaktivität' 
             when 'assistant_application' then 'Studentische Hilfskraft'
             end %>
@@ -143,7 +143,7 @@
   
   <div class="footer">
     <p>Diese E-Mail wurde automatisch generiert. Bei Fragen antworten Sie bitte auf diese E-Mail.</p>
-    <p>LetsGoVolunteer - Verbindung von Studenten mit Freiwilligenarbeit</p>
+    <p>LetsGoVolunteer - Verbindung von Studenten mit Ehrenamt</p>
   </div>
 </body>
 </html>
