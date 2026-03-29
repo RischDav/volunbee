@@ -14,7 +14,7 @@ class Message < ApplicationRecord
   validates :type, presence: true
   validates :first_name, presence: true, if: :application?
   validates :last_name, presence: true, if: :application?
-  validates :birth_date, presence: true, if: :application?
+  validates :age, presence: true, if: :application?
   validates :phone_number, presence: true, if: :application?
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, if: :application?
   
@@ -39,7 +39,7 @@ class Message < ApplicationRecord
     {
       first_name: first_name,
       last_name: last_name,
-      birth_date: birth_date,
+      age: age,
       phone_number: phone_number,
       gender: gender,
       has_experience: has_experience,
