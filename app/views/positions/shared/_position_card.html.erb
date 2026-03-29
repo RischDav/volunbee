@@ -6,7 +6,7 @@
 
 <%# Design System Variables %>
 <%
-  card_base_class = "rounded-2xl border border-[#6B7280] overflow-hidden flex flex-col h-full"
+  card_base_class = "rounded-2xl border border-[#2a2b2e] overflow-hidden flex flex-col h-full"
   content_padding = "p-5 sm:p-6"
   text_color = "text-[#292b2e]"
   title_color = "text-gray-600"
@@ -20,7 +20,7 @@
   <%# --- IMAGE SECTION --- %>
   <%# Students/Staff see a large image, Organizations see a smaller one or none. %>
   <% if current_user.student? || current_user.university_staff? %>
-    <div class="relative h-56 w-full border-b border-[#6B7280]">
+    <div class="relative h-56 w-full border-b border-[#2a2b2e]">
       <% begin %>
         <% if position.main_picture.attached? %>
           <%= image_tag position.main_picture.variant(resize_to_fill: [600, 400]).processed, class: "w-full h-full object-cover", alt: position.title %>
@@ -65,7 +65,7 @@
       <div class="flex items-center mb-4 space-x-3">
         <% scope = position.organization || position.university %>
         <% if scope&.logo&.attached? %>
-          <div class="bg-[#2a3039] rounded-lg p-1.5 border border-[#6B7280] w-12 h-12 flex items-center justify-center flex-shrink-0">
+          <div class="bg-[#2a3039] rounded-lg p-1.5 border border-[#2a2b2e] w-12 h-12 flex items-center justify-center flex-shrink-0">
             <%= image_tag scope.logo.variant(resize_to_limit: [48, 48]).processed, class: "object-contain w-full h-full", alt: scope.name %>
           </div>
         <% end %>

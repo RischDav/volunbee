@@ -6,14 +6,14 @@
 
 <%# Design System Variables %>
 <%
-  box_class = "rounded-3xl border border-[#6B7280] overflow-hidden"
+  box_class = "rounded-3xl border border-[#2a2b2e] overflow-hidden"
   content_padding = "p-6 sm:p-8"
-  inner_box_class = "rounded-2xl border border-[#6B7280] p-5"
-  text_color = "text-[#6B7280]"
+  inner_box_class = "rounded-2xl border border-[#2a2b2e] p-5"
+  text_color = "text-[#2a2b2e]"
   title_color = "text-gray-200"
   accent_color = "text-[#F2C94C]"
   title_main_class = "text-2xl font-bold leading-tight sm:text-3xl #{title_color}"
-  btn_outline_class = "inline-flex items-center justify-center rounded-full border border-[#6B7280] px-5 py-2.5 text-sm font-medium transition duration-300 hover:border-[#2A9D8F] hover:text-[#2A9D8F]"
+  btn_outline_class = "inline-flex items-center justify-center rounded-full border border-[#2a2b2e] px-5 py-2.5 text-sm font-medium transition duration-300 hover:border-[#2A9D8F] hover:text-[#2A9D8F]"
   btn_approve_class = "inline-flex items-center justify-center rounded-full border border-transparent bg-green-600 px-5 py-2.5 text-sm font-medium text-white transition duration-300 hover:bg-green-700"
   btn_lock_class = "inline-flex items-center justify-center rounded-full border border-transparent bg-red-600 px-5 py-2.5 text-sm font-medium text-white transition duration-300 hover:bg-red-700"
 %>
@@ -21,7 +21,7 @@
 <div class="<%= box_class %>">
   <%# Status Banner for unreleased universities %>
   <% if unreleased.present? %>
-    <div class="border-b border-[#6B7280] bg-amber-500/10 px-6 py-3">
+    <div class="border-b border-[#2a2b2e] bg-amber-500/10 px-6 py-3">
       <div class="flex items-center">
         <svg class="w-5 h-5 text-amber-400 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
           <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
@@ -37,7 +37,7 @@
     <%# Header Section with Logo and Name %>
     <div class="flex flex-col sm:flex-row items-start sm:items-center mb-8">
       <div class="flex-shrink-0 mb-4 sm:mb-0 sm:mr-6">
-        <div class="w-24 h-24 bg-[#2a3039] rounded-2xl p-3 flex items-center justify-center border border-[#6B7280]">
+        <div class="w-24 h-24 bg-[#2a3039] rounded-2xl p-3 flex items-center justify-center border border-[#2a2b2e]">
           <% if university.logo.attached? %>
             <%= image_tag university.logo, class: "w-full h-full object-contain", alt: "#{university.name} Logo" %>
           <% else %>
