@@ -27,11 +27,9 @@ class AssistantApplicationsController < ApplicationController
   end
 
   def assistant_application_params
-    params.require(:assistant_application).permit(
-      :first_name, :last_name, :gender, :phone_number, :email,
-      :field_of_study, :semester, :gpa, :languages,
-      :technical_skills, :previous_experience, :motivation,
-      :cv, :cover_letter, :transcript, :certificates
-    )
+  params.require(:assistant_application).permit(
+    :first_name, :last_name, :email, :phone_number, :birth_date, :gender, :age,
+    :has_experience, :experience_description, :motivation, :about_yourself, :cv_file
+  )
   end
 end

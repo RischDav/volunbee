@@ -28,7 +28,7 @@ class FreetimeRegistrationsController < ApplicationController
 
   def freetime_registration_params
     params.require(:freetime_registration).permit(
-      :first_name, :last_name, :gender, :phone_number,
+      :first_name, :last_name, :email, :gender, :age, :phone_number,
       :dietary_restrictions, :emergency_contact_name, :emergency_contact_phone,
       :additional_info
     )

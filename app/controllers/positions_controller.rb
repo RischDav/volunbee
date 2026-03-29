@@ -156,6 +156,9 @@ end
       if @position.frequently_asked_questions.empty?
         3.times { @position.frequently_asked_questions.build }
       end
+
+      @position.online = true
+      @position.is_active = true
       
       render :new, status: :unprocessable_entity
     end

@@ -28,7 +28,7 @@ class VolunteerApplicationsController < ApplicationController
 
   def volunteer_application_params
     params.require(:volunteer_application).permit(
-      :first_name, :last_name, :gender, :phone_number,
+      :first_name, :last_name, :email, :gender, :age, :phone_number,
       :has_volunteer_experience, :volunteer_experience_description,
       :about_yourself
     )
