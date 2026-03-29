@@ -66,19 +66,19 @@ class ApplicationsController < ApplicationController
     case @position.type
     when 'volunteering'
       params.require(:message).permit(
-        :first_name, :last_name, :email, :phone_number, :age, :gender,
+        :first_name, :last_name, :email, :age, :gender,
         :has_experience, :experience_description, :has_volunteer_experience, 
         :volunteer_experience_description, :motivation, :about_yourself
       )
     when 'freetime'
       params.require(:message).permit(
-        :first_name, :last_name, :email, :phone_number, :age, :gender,
-        :motivation, :about_yourself
+        :first_name, :last_name, :email, :age, :gender
       )
+      
     when 'university_position'
       params.require(:message).permit(
-        :first_name, :last_name, :email, :phone_number, :age, :gender,
-        :has_experience, :experience_description, :motivation, :about_yourself
+        :first_name, :last_name, :email, :age, :gender,
+        :has_experience, :experience_description
       )
     end
   end
