@@ -58,24 +58,23 @@ class ApplicationsController < ApplicationController
   end
 
   def application_params
-    # Hier werden alle Felder aus allen Formularen kombiniert, 
-    # aber nur die für den jeweiligen Typ relevanten werden durchgelassen.
-    case @position.type
-    when 'volunteering'
-      params.require(:message).permit(
-        :first_name, :last_name, :email, :age, :gender,
-        :has_volunteer_experience, :volunteer_experience_description, :about_yourself
-      )
-    when 'freetime'
-      params.require(:message).permit(
-        :first_name, :last_name, :email, :age, :gender,
-        :dietary_restrictions, :emergency_contact_name, :emergency_contact_phone, :additional_info
-      )
-    when 'university_position'
-      params.require(:message).permit(
-        :first_name, :last_name, :email, :age, :gender, :birth_date,
-        :has_experience, :experience_description, :motivation, :about_yourself, :cv_file
-      )
-    end
+  case @position.type
+  when 'volunteering'
+    params.require(:message).permit(
+      :first_name, :last_name, :email, :age, :gender,
+      :preferred_language, # <-- NEU HINZUGEFÜGT
+      :has_volunteer_experience, :volunteer_experience_description, :about_yourself
+    )
+  when 'freetime'
+    params.require(:message).permit(
+      :first_name, :last_name, :email, :age, :gender, :preferred_language, # <-- AUCH HIER
+      :dietary_restrictions, :emergency_contact_name, :emergency_contact_phone, :additional_info
+    )
+  when 'university_position'
+    params.require(:message).permit(
+      :first_name, :last_name, :email, :age, :gender, :preferred_language, # <-- UND HIER
+      :birth_date, :has_experience, :experience_description, :motivation, :about_yourself, :cv_file
+    )
+  end
   end
 end
