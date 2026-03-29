@@ -65,6 +65,9 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :freetime_registrations, only: [:new, :create]
+    resources :volunteer_applications, only: [:new, :create]
+
     resources :admin, only: [:index] do
       member do
         patch 'release_user'
