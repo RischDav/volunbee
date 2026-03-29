@@ -21,8 +21,7 @@
 
     <!-- Application Form -->
     <div class="bg-white rounded-xl shadow-xl border border-purple-100 overflow-hidden">
-      <%= form_with model: [@position, @assistant_application], local: true, multipart: true, class: "p-6 sm:p-8" do |form| %>
-        
+      <%= form_with model: @application_object, url: position_applications_path(@position), local: true, class: "p-6 sm:p-8" do |form| %>
         <!-- Error Messages -->
         <% if @assistant_application.errors.any? %>
           <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
