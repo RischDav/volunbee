@@ -241,7 +241,7 @@
 
   <% if images.length > 1 %>
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('turbolinks:load', function() {
         const carousel = document.getElementById('image-carousel');
         if (!carousel) return;
 
