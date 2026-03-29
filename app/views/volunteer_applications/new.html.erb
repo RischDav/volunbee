@@ -21,7 +21,7 @@
 
     <!-- Application Form -->
     <div class="bg-white rounded-xl shadow-xl border border-green-100 overflow-hidden">
-      <%= form_with model: [@position, @volunteer_application], local: true, class: "p-6 sm:p-8" do |form| %>
+      <%= form_with model: [@position, @volunteer_application], url: position_volunteer_applications_path(@position), local: true, class: "p-6 sm:p-8" do |form| %>
         
         <!-- Error Messages -->
         <% if @volunteer_application.errors.any? %>
