@@ -50,7 +50,7 @@
     <% end %>
   <% end %>
 
-  <% if @positions.present? && (current_user.student? || current_user.university_staff? || current_user.organization?) %>
+  <% if @positions.present? && (current_user.admin? || current_user.student? || current_user.university_staff? || current_user.organization?) %>
     <% 
       volunteering_positions = current_user.admin? ? @positions.by_type('volunteering').released : @positions.by_type('volunteering')
       freetime_positions = current_user.admin? ? @positions.by_type('freetime').released : @positions.by_type('freetime')
