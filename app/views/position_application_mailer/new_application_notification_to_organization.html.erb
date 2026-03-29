@@ -20,7 +20,7 @@
     </div>
     
     <div class="content">
-      <p>Hello <%= @position.contact_person.name %>,</p>
+      <p>Hello <%= @organization.contact_person.presence || @organization.name %>,</p>
       <p>You have received a new application for the position <strong>"<%= @position.title %>"</strong>.</p>
       
       <div class="info-box">
