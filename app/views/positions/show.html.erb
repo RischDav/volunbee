@@ -269,9 +269,18 @@
         }
 
         if (prevButton && nextButton) {
-          prevButton.addEventListener('click', showPrev);
-          nextButton.addEventListener('click', showNext);
-        }
+  console.log('Binding events');
+  prevButton.addEventListener('click', () => {
+    console.log('Prev clicked');
+    showPrev();
+  });
+  nextButton.addEventListener('click', () => {
+    console.log('Next clicked');
+    showNext();
+  });
+} else {
+  console.log('Buttons not found');
+}
         
         // Initial state is already set by ERB, so no need to call showSlide(0) here.
       });

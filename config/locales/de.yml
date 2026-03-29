@@ -844,11 +844,11 @@ de:
         volunteering: "Ehrenamt"
       titles:
         freetime: "Interesse an Freizeitaktivität"
-        volunteer: "Bewerbung als Freiwillige/r"
+        volunteer: "Bewerbung als Ehrenamler/in"
         assistant: "Bewerbung als Assistent/in"
       descriptions:
         freetime: "Bitte füllen Sie das folgende Formular aus, um Ihr Interesse an dieser Freizeitaktivität zu bekunden. Alle Angaben werden vertraulich behandelt."
-        volunteer: "Bitte füllen Sie das folgende Formular aus, um sich als Freiwillige/r zu bewerben. Alle Angaben werden vertraulich behandelt."
+        volunteer: "Bitte füllen Sie das folgende Formular aus, um sich als Ehrenamler/in zu bewerben. Alle Angaben werden vertraulich behandelt."
         assistant: "Bitte füllen Sie das folgende Formular aus, um sich als Assistent/in zu bewerben. Alle Angaben werden vertraulich behandelt."
       sections:
         personal_information: "Persönliche Informationen"
@@ -864,7 +864,7 @@ de:
         phone_number: "Telefonnummer"
         birth_date: "Geburtsdatum"
         gender: "Geschlecht"
-        motivation: "Warum möchten Sie sich für diese Position als Freiwillige/r engagieren?"
+        motivation: "Warum möchten Sie sich für diese Position als Ehrenamler/in engagieren?"
         motivation_assistant: "Motivationsschreiben"
         motivation_freetime: "Warum interessieren Sie sich für diese Aktivität?"
         about_yourself: "Erzählen Sie uns von sich"
@@ -943,7 +943,7 @@ de:
     buttons:
       create_freetime_activity: "Freizeitaktivität erstellen"
       create_university_position: "Universitätsposition erstellen"
-      apply_as_volunteer: "Als Freiwillige/r bewerben"
+      apply_as_volunteer: "Als Ehrenamler/in bewerben"
       apply_as_assistant: "Als Assistent/in bewerben"
       register_for_activity: "Für Aktivität anmelden"
       join_activity: "An der Aktivität teilnehmen"
@@ -953,7 +953,7 @@ de:
     volunteer:
       title: "🤝 Freiwilligenmöglichkeit"
       subtitle: "Mach mit und mache einen Unterschied in deiner Gemeinde"
-      button: "Als Freiwillige/r bewerben"
+      button: "Als Ehrenamler/in bewerben"
     freetime:
       title: "🎯 An der Aktivität teilnehmen"
       subtitle: "Melde dich an und hab Spaß mit anderen"
