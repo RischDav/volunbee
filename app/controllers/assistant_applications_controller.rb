@@ -12,6 +12,8 @@ class AssistantApplicationsController < ApplicationController
     @assistant_application.user = current_user
 
     if @assistant_application.save
+      PositionApplicationMailer.submit_confirmation_to_user(@assistant_application).deliver_later
+      PositionApplicationMailer.new_application_notification_to_organization(@assistant_application).deliver_later
       redirect_to @position, notice: 'Your assistant application has been submitted successfully!'
     else
       render :new, status: :unprocessable_entity

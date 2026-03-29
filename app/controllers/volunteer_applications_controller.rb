@@ -12,6 +12,8 @@ class VolunteerApplicationsController < ApplicationController
     @volunteer_application.user = current_user
 
     if @volunteer_application.save
+      PositionApplicationMailer.submit_confirmation_to_user(@volunteer_application).deliver_later
+      PositionApplicationMailer.new_application_notification_to_organization(@volunteer_application).deliver_later
       redirect_to @position, notice: 'Your volunteer application has been submitted successfully!'
     else
       render :new, status: :unprocessable_entity

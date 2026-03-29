@@ -12,6 +12,8 @@ class FreetimeRegistrationsController < ApplicationController
     @freetime_registration.user = current_user
 
     if @freetime_registration.save
+      PositionApplicationMailer.submit_confirmation_to_user(@freetime_registration).deliver_later
+      PositionApplicationMailer.new_application_notification_to_organization(@freetime_registration).deliver_later
       redirect_to @position, notice: 'Your registration for this freetime activity has been submitted successfully!'
     else
       render :new, status: :unprocessable_entity
