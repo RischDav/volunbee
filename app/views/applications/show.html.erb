@@ -95,7 +95,7 @@
                   <% if @application_object.position.weekly_time_commitment.present? %>
                     <div>
                       <span class="font-semibold text-gray-700">Time Commitment:</span>
-                      <p class="text-gray-900 mt-1"><%= @application_object.position.weekly_time_commitment %> hours/week</p>
+                      <p class="text-gray-900 mt-1"><%= @application_object.position.weekly_time_commitment t('positions.hours_per_week') %></p>
                     </div>
                   <% end %>
                   <% if @application_object.position.appointment.present? %>

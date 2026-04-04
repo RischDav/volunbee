@@ -1,9 +1,11 @@
 en:
+  language: "Language"
   date:
     formats:
       default: "%b %-d, %Y"
       short: "%b %-d"
       long: "%B %-d, %Y"
+  
   confirmations:
     confirmed: "Your email address has been successfully confirmed."
     send_instructions: "You will receive an email with instructions on how to confirm your email address in a few minutes."
@@ -12,6 +14,7 @@ en:
       title: "Resend confirmation email"
       email_label: "Email"
       submit_button: "Resend confirmation email"
+  
   failure:
     already_authenticated: "You are already signed in."
     inactive: "Your account is not yet activated."
@@ -23,6 +26,7 @@ en:
     unauthenticated: "You need to sign in or sign up before continuing."
     unconfirmed: "You need to confirm your email address before continuing."
     not_approved: "Your account has not been approved yet."
+  
   mailer:
     confirmation_instructions:
       subject: "Instructions to confirm your account"
@@ -42,15 +46,18 @@ en:
       welcome_message: "Thank you for registering with VolunBee. We're excited to have you join our community of volunteers!"
       thank_you: "Thank you for your registration!"
       team_name: "The VolunBee Team"
+  
   omniauth_callbacks:
     failure: "Could not authenticate you from your %{kind} account because \"%{reason}\"."
     success: "Successfully authenticated from your %{kind} account."
+  
   passwords:
     no_token: "You can only access this page from the password reset email link. If you came here from such a link, please make sure you used the full URL."
     send_instructions: "You will receive an email with instructions on how to reset your password in a few minutes."
     send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions on how to reset your password in a few minutes."
     updated: "Your password has been changed successfully. You are now signed in."
     updated_not_active: "Your password has been changed successfully."
+  
   activerecord:
     errors:
       messages:
@@ -72,12 +79,15 @@ en:
               too_short: "Password is too short (minimum %{count} characters)"
             password_confirmation:
               confirmation: "Password confirmation does not match"
+  
   errors:
     messages:
       taken: "is already taken"
       blank: "must be filled in"
       invalid: "is not valid"
+  
   positions:
+    hours_per_week: "hours/week"
     type_selector:
       label: "Select position type"
       help: "Please choose which type of position you want to create."
@@ -215,6 +225,7 @@ en:
         sum_exceeded: "The sum of all skills must not exceed 15. Current sum: %{sum}."
       pictures:
         too_large: "Each image file must be smaller than 10 megabytes."
+  
   universities:
     admin_card:
       contact_number: "Phone number"
@@ -330,6 +341,7 @@ en:
       login_hint: "Once this step is completed, you can log in and complete your information."
       back_to_login: "Back to Login"
       no_user_info: "No user information available."
+  
   shared:
     word_count:
       navbar:
@@ -366,11 +378,11 @@ en:
         my_university: "My University"
       admin:
         organizations: "Organizations"
-        positions: "Positions"
+        positions: "Activities"
         user_management: "User Management"
       organization:
         my_organization: "My Organization"
-        my_positions: "Positions"
+        my_positions: "Activities"
       profile:
         edit_profile: "Edit Profile"
         logout: "Logout"
@@ -379,6 +391,7 @@ en:
       description: "Your organization is missing required fields."
       missing_info: "Missing information:"
       cta: "Add missing information"
+  
   static_pages:
     imprint:
       title: "Imprint"
@@ -463,6 +476,7 @@ en:
       section9:
         title: "9. Data Retention"
       data_storage: "We only retain your personal data as long as necessary for the purposes for which it was collected, or as required by law."
+  
   user_mailer:
     unlocked_welcome_email:
       subject: "Your account has been unlocked!"
@@ -474,6 +488,7 @@ en:
       greeting: "Hello"
       body: "You have just registered with your email. We will review your registration and unlock your account shortly. You will receive an email once the review is complete!"
       closing: "Thank you,\nThe VolunteerHeilbronn-Team"
+  
   positions:
     admin_unreleased_positions:
       header: "There are some unreleased positions!"
@@ -646,6 +661,7 @@ en:
         sum_exceeded: "The sum of all skills must not exceed 15. Current sum: %{sum}."
       pictures:
         too_large: "Images must be smaller than 5MB."
+  
   organizations:
     edit:
       back_without_saving: "Back without saving"
@@ -777,11 +793,14 @@ en:
       not_available: "Not available"
       edit: "Edit again"
       back: "Back"
+  
   layouts:
     application:
       title: "Volunteer Heilbronn Dashboard"
+  
   devise:
     sessions:
+      welcome: "Welcome back on "
       login: "Login"
       email: "Email"
       password: "Password"
@@ -833,6 +852,7 @@ en:
         delete_account_warning: "This action cannot be undone."
         delete_account_confirm: "Are you sure?"
         back_link: "Back"
+  
   admin_mailer:
       new_position_email:
         header: "New Position Added"
@@ -859,6 +879,7 @@ en:
         message: "An organization has changed information for one or more positions. Please review the changes and approve the positions so that the updated information becomes visible on the platform."
         thank_you: "Thank you,"
         team: "The VolunteerHeilbronn Team"
+  
   analytics:
     index:
       badge: "Analytics Dashboard"
@@ -896,6 +917,7 @@ en:
           registrations: "Registrations"
           contact_requests: "Contact requests"
           activity: "Activities"
+  
   admin:
     index:
       title: "All Users"
@@ -945,6 +967,7 @@ en:
         has_volunteer_experience: "Have you done the same or similar volunteer work before?"
         volunteer_experience_description: "Description of Your Volunteer Experience"
         cv_file: "Resume/CV"
+        preffered_language: "Preferred Language for Communication"
       placeholders:
         first_name: "Your first name"
         last_name: "Your last name"

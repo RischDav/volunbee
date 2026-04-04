@@ -43,6 +43,11 @@ class StaticPagesController < ApplicationController
     # Allgemeine Erfolgsseite für alle Position-Typen
   end
 
+  def student_council
+    # Lade die neuesten Positionen vom Student Council (university_id = 0)
+    @positions = Position.where(university_id: 0).order(created_at: :desc).limit(3)
+  end
+
   private
 
   def set_public_layout

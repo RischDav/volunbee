@@ -1,4 +1,5 @@
 de:
+  language: "Sprache"
   date:
     formats:
       default: "%d.%m.%Y"
@@ -113,11 +114,11 @@ de:
         my_university: "Meine Universität"
       admin:
         organizations: "Organisationen"
-        positions: "Stellen"
+        positions: "Aktivitäten"
         user_management: "User-Verwaltung"
       organization:
         my_organization: "Meine Organisation"
-        my_positions: "Stellen"
+        my_positions: "Aktivitäten"
       profile:
         edit_profile: "Profil bearbeiten"
         logout: "Ausloggen"
@@ -232,6 +233,7 @@ de:
       closing: "Vielen Dank,\nDas VolunteerHeilbronn-Team"
 
   positions:
+    hours_per_week: "Stunden/Woche"
     type_selector:
       label: "Stellentyp auswählen"
       help: "Bitte wähle aus, welche Art von Stelle du anlegen möchtest."
@@ -628,129 +630,113 @@ de:
       title: "Volunteer Heilbronn Dashboard"
 
   devise:
-    sessions:
-      login: "Einloggen"
-      email: "E-Mail"
-      password: "Passwort"
-      remember_me: "Merke meinen Login"
-      login_button: "Einloggen"
-      signed_in: "Erfolgreich angemeldet."
-      signed_out: "Erfolgreich abgemeldet."
-      already_signed_out: "Erfolgreich abgemeldet."
-    
-    shared:
-      login: "Einloggen"
-      register: "Registrieren"
-      forgot_password: "Passwort vergessen?"
-      no_confirmation: "Keine Bestätigungsmail erhalten?"
-      no_unlock_instructions: "Keine Anweisungen zum Freischalten erhalten?"
-      login_with: "Einloggen mit %{provider}"
-    
-    unlocks:
-      send_instructions: "Sie erhalten in wenigen Minuten eine E-Mail mit Anweisungen zur Entsperrung Ihres Kontos."
-      send_paranoid_instructions: "Falls Ihr Konto existiert, erhalten Sie in wenigen Minuten eine E-Mail mit Anweisungen zur Entsperrung."
-      unlocked: "Ihr Konto wurde erfolgreich entsperrt. Bitte melden Sie sich an, um fortzufahren."
-      resend_instructions: "Anweisungen zum Entsperren erneut senden"
-      resend_button: "Anweisungen zum Entsperren erneut senden"
-    
-    registrations:
-      new:
-        title: "Anmelden"
-        join_as: "Registrieren als"
-        organization: "Organisation"
-        organization_register: "Organisation registrieren"
-        switch_to_student_registration: "Zur Registrierung für Studierende wechseln"
-        email_label: "E-Mail"
-        password_label: "Passwort"
-        password_confirmation_label: "Passwort bestätigen"
-        organization_name_label: "Name Ihrer Organisation"
-        organization_name_hint: "Bitte geben Sie den vollen Namen mit Rechtsform an (zum Beispiel gGmbH oder e.V.)"
-        sign_up_button: "Registrieren"
-        password_minimum_length: "Zeichen Minimum"
-      edit:
-        title: "Profil bearbeiten"
-        email_label: "Email"
-        password_label: "Neues Passwort"
-        password_confirmation_label: "Neues Passwort bestätigen"
-        current_password_label: "Aktuelles Passwort"
-        current_password_hint: "(wir benötigen Ihr aktuelles Passwort zur Bestätigung der Änderungen)"
-        update_button: "Aktualisieren"
-        delete_account: "Account löschen"
-        delete_account_warning: "Diese Aktion kann nicht rückgängig gemacht werden."
-        delete_account_confirm: "Sind Sie sicher?"
-        back_link: "Zurück"
-      new_student:
-        title: "Als Studierender registrieren"
-        join_as: "Registrieren als"
-        student: "Studierender"
-        student_register: "Als Studierender registrieren"
-        switch_to_organization_registration: "Zur Registrierung für Organisationen wechseln"
-        email_label: "E-Mail"
-        password_label: "Passwort"
-        password_confirmation_label: "Passwort bestätigen"
-        university_label: "Universität"
-        university_hint: "Bitte wählen Sie Ihre Universität aus der Liste."
-        sign_up_button: "Registrieren"
-        password_minimum_length: "Zeichen Minimum"
-      destroyed: "Auf Wiedersehen! Ihr Konto wurde erfolgreich gekündigt. Wir hoffen, Sie bald wiederzusehen."
-      signed_up: "Willkommen! Sie haben sich erfolgreich registriert."
-      signed_up_but_inactive: "Sie haben sich erfolgreich registriert. Wir konnten Sie jedoch nicht anmelden, da Ihr Konto noch nicht aktiviert ist."
-      signed_up_but_locked: "Sie haben sich erfolgreich registriert. Wir konnten Sie jedoch nicht anmelden, da Ihr Konto gesperrt ist."
-      signed_up_but_unconfirmed: "Eine Nachricht mit einem Bestätigungslink wurde an Ihre E-Mail-Adresse gesendet. Bitte folgen Sie dem Link, um Ihr Konto zu aktivieren."
-      update_needs_confirmation: "Sie haben Ihre Kontodaten erfolgreich aktualisiert, wir müssen jedoch Ihre neue E-Mail-Adresse überprüfen. Bitte prüfen Sie Ihre E-Mails und folgen Sie dem Bestätigungslink, um Ihre neue E-Mail-Adresse zu bestätigen."
-      updated: "Ihre Kontodaten wurden erfolgreich aktualisiert."
-      updated_but_not_signed_in: "Ihre Kontodaten wurden erfolgreich aktualisiert, da jedoch Ihr Passwort geändert wurde, müssen Sie sich erneut anmelden."
-    
-    passwords:
-      new:
-        title: "Passwort vergessen?"
-        email_label: "Email"
-        submit_button: "Anweisungen zum Zurücksetzen senden"
-      edit:
-        title: "Passwort ändern"
-        password_label: "Neues Passwort"
-        password_confirmation_label: "Neues Passwort bestätigen"
-        password_min_length: "Zeichen mindestens"
-        submit_button: "Passwort ändern"
-      no_token: "Sie können auf diese Seite nur über den Link aus einer E-Mail zum Zurücksetzen des Passworts zugreifen. Wenn Sie über einen solchen Link hierher gekommen sind, stellen Sie sicher, dass Sie die vollständige URL verwendet haben."
-      send_instructions: "Sie erhalten in wenigen Minuten eine E-Mail mit Anweisungen zum Zurücksetzen Ihres Passworts."
-      send_paranoid_instructions: "Falls Ihre E-Mail-Adresse in unserer Datenbank existiert, erhalten Sie in wenigen Minuten eine E-Mail mit Anweisungen zum Zurücksetzen Ihres Passworts."
-      updated: "Ihr Passwort wurde erfolgreich geändert. Sie sind jetzt angemeldet."
-      updated_not_active: "Ihr Passwort wurde erfolgreich geändert."
-      confirmation_instructions:
-        subject: "Anleitung zur Bestätigung Ihres Kontos"
-        header: "Willkommen bei VolunBee!"
-        greeting: "Hallo, %{email}!"
-        confirmation_link: "Du kannst deine E-Mail-Adresse über den folgenden Link bestätigen:"
-        confirm_link_text: "Bestätige meinen Account"
-        welcome_message: "Du hast dich gerade mit deiner E-Mail registriert. Wir werden deine Registrierung prüfen und dich dann demnächst freischalten. Du bekommst eine E-Mail, sobald die Prüfung durch ist!"
-        thank_you: "Vielen Dank,"
-        team_name: "Das VolunBee-Team"
-      reset_password_instructions:
-        subject: "Anleitung zum Zurücksetzen Ihres Passworts"
-        greeting: "Hallo, %{email}!"
-        request_message: "Jemand hat einen Link angefordert, um dein Passwort zu ändern. Du kannst dies über den folgenden Link tun."
-        change_password: "Passwort ändern"
-        ignore_message: "Wenn du diese Anfrage nicht gestellt hast, ignoriere bitte diese E-Mail."
-        reminder: "Dein Passwort wird nicht geändert, bis du den oben stehenden Link aufrufst und ein neues erstellst."
-      unlock_instructions:
-        subject: "Anleitung zur Entsperrung Ihres Kontos"
-        greeting: "Hallo, %{email}!"
-        locked_message: "Dein Konto wurde aufgrund einer zu hohen Anzahl an erfolglosen Anmeldeversuchen gesperrt."
-        unlock_message: "Klicke auf den folgenden Link, um dein Konto zu entsperren:"
-        unlock_account: "Konto entsperren"
-      email_changed:
-        subject: "E-Mail-Adresse geändert"
-        greeting: "Hallo, %{email}!"
-        notification: "Wir kontaktieren dich, um dich darüber zu informieren, dass deine E-Mail-Adresse auf %{email} geändert wird."
-        notification_confirmed: "Wir kontaktieren dich, um dich darüber zu informieren, dass deine E-Mail-Adresse auf %{email} geändert wurde."
-      password_change:
-        subject: "Passwort geändert"
-        greeting: "Hallo, %{email}!"
-        notification: "Wir kontaktieren dich, um dich darüber zu informieren, dass dein Passwort geändert wurde."  
-    omniauth_callbacks:
-      failure: "Sie konnten nicht mit Ihrem %{kind}-Konto authentifiziert werden, weil \"%{reason}\"."
-      success: "Erfolgreich mit Ihrem %{kind}-Konto authentifiziert."
+      sessions:
+        welcome: "Willkommen zurück auf "
+        login: "Einloggen"
+        email: "E-Mail"
+        password: "Passwort"
+        remember_me: "Merke meinen Login"
+        login_button: "Einloggen"
+        signed_in: "Erfolgreich angemeldet."
+        signed_out: "Erfolgreich abgemeldet."
+        already_signed_out: "Erfolgreich abgemeldet."
+      
+      shared:
+        login: "Einloggen"
+        register: "Registrieren"
+        forgot_password: "Passwort vergessen?"
+        no_confirmation: "Keine Bestätigungsmail erhalten?"
+        no_unlock_instructions: "Keine Anweisungen zum Freischalten erhalten?"
+        login_with: "Einloggen mit %{provider}"
+      
+      registrations:
+        new:
+          title: "Anmelden"
+          join_as: "Registrieren als"
+          organization: "Organisation"
+          organization_register: "Organisation registrieren"
+          switch_to_student_registration: "Zur Registrierung für Studierende wechseln"
+          email_label: "E-Mail"
+          password_label: "Passwort"
+          password_confirmation_label: "Passwort bestätigen"
+          organization_name_label: "Name Ihrer Organisation (inkl. Rechtsform)"
+          organization_name_hint: "Bitte geben Sie den vollen Namen mit Rechtsform an"
+          sign_up_button: "Registrieren"
+          password_minimum_length: "mindestens %{count} Zeichen"
+        new_student:
+          title: "Als Studierender registrieren"
+          join_as: "Registrieren als"
+          student: "Studierender"
+          student_register: "Als Studierender registrieren"
+          switch_to_organization_registration: "Zur Registrierung für Organisationen wechseln"
+          email_label: "E-Mail"
+          password_label: "Passwort"
+          password_confirmation_label: "Passwort bestätigen"
+          university_label: "Universität"
+          university_hint: "Bitte wählen Sie Ihre Universität aus der Liste."
+          sign_up_button: "Registrieren"
+          password_minimum_length: "mindestens %{count} Zeichen"
+        edit:
+          title: "Profil bearbeiten"
+          email_label: "Email"
+          password_label: "Neues Passwort"
+          password_confirmation_label: "Neues Passwort bestätigen"
+          current_password_label: "Aktuelles Passwort"
+          current_password_hint: "(wir benötigen Ihr aktuelles Passwort zur Bestätigung der Änderungen)"
+          update_button: "Aktualisieren"
+          delete_account: "Account löschen"
+          delete_account_warning: "Diese Aktion kann nicht rückgängig gemacht werden."
+          delete_account_confirm: "Sind Sie sicher?"
+          back_link: "Zurück"
+        destroyed: "Auf Wiedersehen! Ihr Konto wurde erfolgreich gelöscht."
+        signed_up: "Willkommen! Sie haben sich erfolgreich registriert."
+        signed_up_but_inactive: "Konto noch nicht aktiviert."
+        signed_up_but_locked: "Konto ist gesperrt."
+        signed_up_but_unconfirmed: "Bestätigungslink wurde versendet."
+        update_needs_confirmation: "E-Mail-Adresse muss bestätigt werden."
+        updated: "Kontodaten aktualisiert."
+        updated_but_not_signed_in: "Passwort geändert, bitte neu anmelden."
+
+      passwords:
+        new:
+          title: "Passwort vergessen?"
+          email_label: "Email"
+          submit_button: "Anweisungen zum Zurücksetzen senden"
+        edit:
+          title: "Passwort ändern"
+          password_label: "Neues Passwort"
+          password_confirmation_label: "Neues Passwort bestätigen"
+          password_min_length: "Zeichen mindestens"
+          submit_button: "Passwort ändern"
+        send_instructions: "E-Mail zum Zurücksetzen wurde gesendet."
+        updated: "Passwort erfolgreich geändert."
+        updated_not_active: "Passwort erfolgreich geändert."
+
+      unlocks:
+        send_instructions: "Anweisungen zur Entsperrung wurden gesendet."
+        unlocked: "Konto erfolgreich entsperrt."
+        resend_instructions: "Anweisungen erneut senden"
+
+      mailer:
+        confirmation_instructions:
+          subject: "Anleitung zur Bestätigung deines Kontos"
+          header: "Willkommen bei VolunBee!"
+          greeting: "Hallo %{email}!"
+          confirmation_link: "Bestätige dein Konto hier:"
+          confirm_link_text: "Mein Konto bestätigen"
+        reset_password_instructions:
+          subject: "Passwort zurücksetzen"
+          greeting: "Hallo %{email}"
+          change_password: "Passwort ändern"
+        unlock_instructions:
+          subject: "Konto entsperren"
+          greeting: "Hallo %{email}"
+          unlock_account: "Mein Konto entsperren"
+
+      omniauth_callbacks:
+        failure: "Authentifizierung fehlgeschlagen: %{reason}"
+        success: "Erfolgreich mit %{kind} angemeldet."
+  
   admin_mailer:
     new_position_email:
       header: "Neue Position hinzugefügt"
@@ -789,52 +775,6 @@ de:
       email: "Email"
       created_at: "Erstellt am"
       actions: "Aktionen"
-  devise:
-    mailer:
-      confirmation_instructions:
-        subject: "Anleitung zur Bestätigung deines Kontos"
-        header: "Willkommen bei VolunBee!"
-        greeting: "Hallo %{email}!"
-        confirmation_link: "Du kannst dein Konto über den folgenden Link bestätigen:"
-        confirm_link_text: "Mein Konto bestätigen"
-        welcome_message: "Vielen Dank für deine Registrierung bei VolunBee. Schön, dass du Teil unserer Community wirst!"
-        thank_you: "Vielen Dank für deine Registrierung!"
-        team_name: "Das VolunBee-Team"
-
-      email_changed:
-        subject: "E-Mail-Adresse geändert"
-        greeting: "Hallo %{email}"
-        notification: "Wir informieren dich hiermit, dass deine E-Mail-Adresse auf %{email} geändert wurde."
-        notification_confirmed: "Wir informieren dich hiermit, dass deine E-Mail-Adresse geändert wurde."
-
-      password_change:
-        subject: "Passwort geändert"
-        greeting: "Hallo %{email}"
-        notification: "Wir informieren dich hiermit, dass dein Passwort geändert wurde."
-
-      reset_password_instructions:
-        subject: "Anleitung zum Zurücksetzen deines Passworts"
-        greeting: "Hallo %{email}"
-        request_message: "Jemand hat einen Link zum Ändern deines Passworts angefordert. Du kannst dies über den folgenden Link tun."
-        change_password: "Passwort ändern"
-        ignore_message: "Wenn du dies nicht angefordert hast, ignoriere bitte diese E-Mail."
-        reminder: "Dein Passwort wird erst geändert, wenn du den obigen Link aufrufst und ein neues erstellst."
-
-    unlock_instructions:
-      subject: "Anleitung zum Entsperren deines Kontos"
-      greeting: "Hallo %{email}"
-      locked_message: "Dein Konto wurde aufgrund zu vieler fehlgeschlagener Anmeldeversuche gesperrt."
-      unlock_message: "Klicke auf den folgenden Link, um dein Konto zu entsperren:"
-      unlock_account: "Mein Konto entsperren"
-
-    sessions:
-      login_button: "Einloggen"
-
-    registrations:
-      new_student:
-        sign_up_button: "Registrieren"
-      new:
-        sign_up_button: "Registrieren"
 
   applications:
     forms:
@@ -855,7 +795,7 @@ de:
         motivation: "Motivation"
         about_you: "Über Sie"
         work_experience: "Berufserfahrung"
-        volunteer_experience: "Freiwilligenerfahrung"
+        volunteer_experience: "Ehrenamtserfahrung"
         documents: "Dokumente"
       fields:
         first_name: "Vorname"
@@ -871,8 +811,10 @@ de:
         has_experience: "Haben Sie bereits Erfahrung in einer ähnlichen Position?"
         experience_description: "Beschreibung der Erfahrung"
         has_volunteer_experience: "Haben Sie schon einmal ähnliche Ehrenamt geleistet?"
-        volunteer_experience_description: "Beschreibung Ihrer Freiwilligenerfahrung"
+        volunteer_experience_description: "Beschreibung Ihrer Ehrenamtserfahrung"
         cv_file: "Lebenslauf"
+        age: "Alter"
+        preffered_language: "Bevorzugte Sprache"
       placeholders:
         first_name: "Ihr Vorname"
         last_name: "Ihr Nachname"

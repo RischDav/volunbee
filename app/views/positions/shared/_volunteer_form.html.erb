@@ -54,7 +54,7 @@
 </div>
 
 <div class="mt-4 sm:mt-6">
-  <%= form.label :preferred_language, "Preferred Language / Bevorzugte Sprache", class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5" %>
+  <%= form.label :preferred_language, t('applications.forms.fields.preferred_language'), class: "block text-xs sm:text-sm font-medium text-gray-700 mb-1.5" %>
   <%= form.select :preferred_language, 
       options_for_select([
         ['Deutsch', 'german'],

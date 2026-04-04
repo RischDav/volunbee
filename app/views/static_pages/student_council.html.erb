@@ -1,0 +1,135 @@
+<!-- Vollständiger aktualisierter Code für student_council.html.erb -->
+<% page_container = "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" %>
+<% box = "rounded-3xl border border-[#2a2b2e] p-5 sm:p-6 md:p-7" %>
+<% inner_box = "rounded-2xl border border-[#2a2b2e] p-4 sm:p-5" %>
+<% btn = "inline-flex w-full items-center justify-center rounded-full border border-[#2a2b2e] px-4 py-2.5 text-sm font-medium transition duration-300 hover:border-[#2A9D8F] hover:text-[#2A9D8F] sm:w-auto sm:px-5 sm:text-base" %>
+<% text_main = "text-sm leading-relaxed sm:text-base" %>
+<% title_main = "text-2xl font-semibold leading-tight sm:text-3xl" %>
+<% title_sub = "text-lg font-semibold leading-tight sm:text-xl" %>
+
+<div class="min-h-screen text-[#2a2b2e]">
+  <!-- Consistent spacing between all sections -->
+  <div class="space-y-4 sm:space-y-5 md:space-y-6 py-4 sm:py-5 md:py-6">
+
+    <!-- SECTION 1: HERO HEADER -->
+    <section>
+      <div class="<%= page_container %>">
+        <div class="<%= box %> text-center">
+          <h1 class="<%= title_main %> mb-4">
+            Meet the TUM Student Council <span class="text-[#F2C94C]">Heilbronn</span>
+          </h1>
+          <p class="<%= text_main %>">
+            We are the student council of TUM campus Heilbronn. We represent more than 1,000 students from all around the world, enrolled in various programs at both the TUM School of Computation, Information, and Technology and the TUM School of Management. We are motivated to voice our students' interests and make the campus more vibrant. This is why we created Volunbee – to connect students with volunteering opportunities and foster community engagement.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: WHY VOLUNBEE -->
+    <section>
+      <div class="<%= page_container %>">
+        <div class="<%= box %>">
+          <h2 class="<%= title_main %> mb-5">
+            Why we created <span class="text-[#F2C94C]">Volunbee</span>
+          </h2>
+          <p class="<%= text_main %> mb-5">
+            At TUM Campus Heilbronn, we bring students from all over the world to Heilbronn. We created Volunbee to connect volunteer organizations with students, so they can share skills, support local initiatives, and become part of the community beyond the Bildungscampus. Volunteering is not just about time — it is about creating positive change, and we believe Volunbee helps achieve that.
+          </p>
+          <p class="<%= text_main %>">
+            Our goal is to provide students with a diverse range of services and opportunities that will help them successfully complete their studies while making a meaningful impact. We believe that by offering resources and support, we can help students make the most of their time at the university.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: LATEST POSITIONS FROM STUDENT COUNCIL -->
+    <section>
+      <div class="<%= page_container %>">
+        <div class="<%= box %>">
+          <header class="mb-5 flex flex-col gap-3 sm:mb-6 md:flex-row md:items-end md:justify-between">
+            <h2 class="<%= title_main %>">
+              Latest positions from <span class="text-[#F2C94C]">Student Council</span>
+            </h2>
+            <%= link_to "View all positions", positions_path, class: btn %>
+          </header>
+          <div class="grid auto-rows-fr grid-cols-1 gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
+            <% @positions.each do |position| %>
+              <article class="<%= inner_box %> flex h-full flex-col justify-between">
+                <div>
+                  <h3 class="<%= title_sub %> mb-2"><%= position.title %></h3>
+                  <p class="<%= text_main %> mb-4"><%= truncate(position.description, length: 120) %></p>
+                </div>
+                <div class="mt-auto">
+                  <%= link_to "View details", position_path(position), class: btn %>
+                </div>
+              </article>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: WHO CREATES VOLUNBEE -->
+    <section>
+      <div class="<%= page_container %>">
+        <div class="<%= box %>">
+          <h2 class="<%= title_main %> mb-5">
+            Who creates <span class="text-[#F2C94C]">Volunbee</span>?
+          </h2>
+          <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-5">
+            <!-- Row 1 -->
+            <article class="<%= inner_box %> text-center">
+              <%= image_tag "https://placehold.co/128x128/cccccc/000000?text=Creator+1", class: "mx-auto mb-3 h-24 w-24 rounded-full object-cover sm:h-32 sm:w-32", alt: "Volunbee Creator 1" %>
+              <h3 class="<%= title_sub %> mb-2">Name 1</h3>
+              <p class="<%= text_main %>">Role 1</p>
+            </article>
+            <article class="<%= inner_box %> text-center">
+              <%= image_tag "https://placehold.co/128x128/dddddd/000000?text=Creator+2", class: "mx-auto mb-3 h-24 w-24 rounded-full object-cover sm:h-32 sm:w-32", alt: "Volunbee Creator 2" %>
+              <h3 class="<%= title_sub %> mb-2">Name 2</h3>
+              <p class="<%= text_main %>">Role 2</p>
+            </article>
+            <article class="<%= inner_box %> text-center">
+              <%= image_tag "https://placehold.co/128x128/eeeeee/000000?text=Creator+3", class: "mx-auto mb-3 h-24 w-24 rounded-full object-cover sm:h-32 sm:w-32", alt: "Volunbee Creator 3" %>
+              <h3 class="<%= title_sub %> mb-2">Name 3</h3>
+              <p class="<%= text_main %>">Role 3</p>
+            </article>
+            <!-- Row 2 -->
+            <article class="<%= inner_box %> text-center">
+              <%= image_tag "https://placehold.co/128x128/ffffff/000000?text=Creator+4", class: "mx-auto mb-3 h-24 w-24 rounded-full object-cover sm:h-32 sm:w-32", alt: "Volunbee Creator 4" %>
+              <h3 class="<%= title_sub %> mb-2">Name 4</h3>
+              <p class="<%= text_main %>">Role 4</p>
+            </article>
+            <article class="<%= inner_box %> text-center">
+              <%= image_tag "https://placehold.co/128x128/f0f0f0/000000?text=Creator+5", class: "mx-auto mb-3 h-24 w-24 rounded-full object-cover sm:h-32 sm:w-32", alt: "Volunbee Creator 5" %>
+              <h3 class="<%= title_sub %> mb-2">Name 5</h3>
+              <p class="<%= text_main %>">Role 5</p>
+            </article>
+            <article class="<%= inner_box %> text-center">
+              <%= image_tag "https://placehold.co/128x128/e0e0e0/000000?text=Creator+6", class: "mx-auto mb-3 h-24 w-24 rounded-full object-cover sm:h-32 sm:w-32", alt: "Volunbee Creator 6" %>
+              <h3 class="<%= title_sub %> mb-2">Name 6</h3>
+              <p class="<%= text_main %>">Role 6</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: BOTTOM BUTTON -->
+    <section>
+      <div class="<%= page_container %>">
+        <div class="<%= box %> text-center">
+          <div class="flex flex-col gap-4 sm:flex-row sm:justify-center">
+            <%= link_to "Visit TUM Heilbronn Website", "https://hn.fs.tum.de/",
+                class: "inline-flex items-center justify-center rounded-full border border-[#2a2b2e] px-6 py-3 text-base font-medium transition duration-300 hover:border-[#2A9D8F] hover:text-[#2A9D8F]",
+                target: "_blank",
+                rel: "noopener" %>
+            <%= link_to "Back to Homepage", root_path,
+                class: "inline-flex items-center justify-center rounded-full border border-[#2a2b2e] px-6 py-3 text-base font-medium transition duration-300 hover:border-[#2A9D8F] hover:text-[#2A9D8F]" %>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+

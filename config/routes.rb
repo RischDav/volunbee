@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
     # Statische Seiten
     get "static_pages/privacy"
+    get "static_pages/student_council"
     get "static_pages/imprint"
     get 'position-submitted', to: 'static_pages#position_submitted', as: 'position_submitted'
     get 'neue-freizeitposition', to: 'static_pages#new_freetime_position', as: 'new_freetime_position'

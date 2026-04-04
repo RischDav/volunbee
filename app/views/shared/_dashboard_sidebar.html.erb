@@ -1,3 +1,4 @@
+<!-- Vollständiger aktualisierter Code für _dashboard_sidebar.html.erb -->
 <!-- Dashboard Sidebar -->
 <aside class="dashboard-sidebar">
   <div class="sidebar-header">
@@ -73,15 +74,18 @@
           
           <%= link_to positions_path, class: "nav-item #{'active' if controller_name == 'positions'}" do %>
             <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6z" />
-            </svg>
+<circle cx="12" cy="7" r="2.5" stroke-width="2" />
+
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9.5v5.5M10 19l2-4 2 4" />
+
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12l2.5-2.5h3L16 12" />
+</svg>
             <%= t('shared.navbar.admin.positions') %>
           <% end %>
           
         <% elsif current_user.confirmed? %>
           <% if current_user.university? %>
             <!-- University Navigation -->
-            <div class="nav-label">Meine Universität</div>
             <% if current_user.university_staff? %>
               <!-- University Staff can edit -->
               <%= link_to universities_path, class: "nav-item #{'active' if controller_name == 'universities'}" do %>
@@ -119,8 +123,12 @@
           
           <%= link_to positions_path, class: "nav-item #{'active' if controller_name == 'positions'}" do %>
             <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6z" />
-            </svg>
+<circle cx="12" cy="7" r="2.5" stroke-width="2" />
+
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9.5v5.5M10 19l2-4 2 4" />
+
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12l2.5-2.5h3L16 12" />
+</svg>
             <%= t('shared.navbar.organization.my_positions') %>
           <% end %>
         <% end %>
@@ -189,13 +197,23 @@
       Cookie-Einstellungen
     </button>
     
+    <!-- Neues Dropdown für Sprachauswahl -->
+    <div class="language-selector">
+      <label for="language-select" class="nav-label"><%= t('language') %></label>
+      <select id="language-select" class="footer-link language-dropdown">
+        <option value="de" <%= I18n.locale == :de ? 'selected' : '' %>>Deutsch</option>
+        <option value="en" <%= I18n.locale == :en ? 'selected' : '' %>>English</option>
+      </select>
+    </div>
+    
     <!-- Copyright -->
     <div class="copyright">
-      <p>&copy; 2025 Volunbee</p>
+      <p>&copy; 2026 Volunbee</p>
     </div>
   </div>
 </aside>
 
+<!-- CSS-Styles -->
 <style>
 .dashboard-sidebar {
   position: fixed;
@@ -427,6 +445,32 @@
   flex-shrink: 0;
 }
 
+.language-selector {
+  margin-top: 0.5rem;
+}
+
+.language-dropdown {
+  width: 100%;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.language-dropdown:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.language-dropdown:focus {
+  outline: none;
+  border-color: #F2C94C;
+}
+
 .copyright {
   text-align: center;
   margin-top: 1rem;
@@ -467,6 +511,7 @@
 }
 </style>
 
+<!-- JavaScript -->
 <script>
 function toggleSidebar() {
   const sidebar = document.querySelector('.dashboard-sidebar');
@@ -483,5 +528,21 @@ document.addEventListener('click', function(event) {
       !mobileToggle?.contains(event.target)) {
     sidebar.classList.remove('mobile-open');
   }
+});
+
+// Neuer Code für Sprachwechsel
+document.getElementById('language-select').addEventListener('change', function() {
+  var selectedLocale = this.value;
+  var currentPath = window.location.pathname;
+  var searchParams = window.location.search; // Query-Parameter beibehalten
+  
+  // Entferne vorhandene Lokalisierung (/de oder /en) aus dem Pfad
+  var pathWithoutLocale = currentPath.replace(/^\/(de|en)/, '');
+  
+  // Neue URL mit der gewählten Lokalisierung erstellen
+  var newUrl = '/' + selectedLocale + pathWithoutLocale + searchParams;
+  
+  // Seite neu laden mit der neuen URL
+  window.location.href = newUrl;
 });
 </script>

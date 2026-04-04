@@ -102,45 +102,43 @@
       </div>
     </section>
 
-    <!-- SECTION 3: ABOUT -->
-    <section>
-      <div class="<%= page_container %>">
-        <div class="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 md:auto-rows-fr md:gap-6">
-          <!-- About Text Group -->
-          <article class="<%= box %> flex h-full flex-col justify-between">
-            <div>
-              <h2 class="<%= title_main %> mb-4">
-                About <span class="text-[#F2C94C]">Volunbee</span>.
-              </h2>
+<!-- SECTION 3: ABOUT -->
+<section>
+  <div class="<%= page_container %>">
+    <div class="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 md:auto-rows-fr md:gap-6">
+      <!-- About Text Group -->
+      <article class="<%= box %> flex h-full flex-col justify-between">
+        <div>
+          <h2 class="<%= title_main %> mb-4">
+            About <span class="text-[#F2C94C]">Volunbee</span>.
+          </h2>
 
-              <p class="<%= text_main %> mb-5">
-                We at TUM Campus Heilbronn are an international institution that brings students
-                from all over the world to Heilbronn. We created this service to connect volunteer
-                organizations with students, so they can share skills, support local initiatives,
-                and become part of the community beyond the Bildungscampus.
-              </p>
-            </div>
-
-            <%= link_to "https://chn.tum.de/campus/campus-heilbronn",
-                class: "inline-flex w-fit items-center gap-1 rounded-full border border-[#2a2b2e] px-4 py-2 text-sm font-medium transition duration-300 hover:border-[#2A9D8F] hover:text-[#2A9D8F] sm:text-base",
-                target: "_blank",
-                rel: "noopener" do %>
-              Learn more about TUM Campus Heilbronn
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#F2C94C] sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-              </svg>
-            <% end %>
-          </article>
-
-          <!-- About Image Group -->
-          <article class="overflow-hidden rounded-3xl border border-[#2a2b2e] h-72 sm:h-80 md:h-[30rem]">
-            <%= image_tag "campus_heilbronn.png",
-              alt: "TUM Campus Heilbronn",
-              class: "block h-full w-full object-cover" %>
-          </article>
+          <p class="<%= text_main %> mb-5">
+            We at TUM Campus Heilbronn are an international institution that brings students
+            from all over the world to Heilbronn. We created this service to connect volunteer
+            organizations with students, so they can share skills, support local initiatives,
+            and become part of the community beyond the Bildungscampus.
+          </p>
         </div>
-      </div>
-    </section>
+
+        <%= link_to static_pages_student_council_path,
+            class: "inline-flex w-fit items-center gap-1 rounded-full border border-[#2a2b2e] px-4 py-2 text-sm font-medium transition duration-300 hover:border-[#2A9D8F] hover:text-[#2A9D8F] sm:text-base" do %>
+          Meet the Student Council
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#F2C94C] sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        <% end %>
+      </article>
+
+      <!-- About Image Group -->
+      <article class="overflow-hidden rounded-3xl border border-[#2a2b2e] h-72 sm:h-80 md:h-[30rem]">
+        <%= image_tag "campus_heilbronn.png",
+          alt: "TUM Campus Heilbronn",
+          class: "block h-full w-full object-cover" %>
+      </article>
+    </div>
+  </div>
+</section>
 
   </div>
 </div>
