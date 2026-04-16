@@ -1,0 +1,63 @@
+<div class="min-h-screen bg-gray-50">
+  <div class="max-w-6xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8">
+    <div class="mb-6 sm:mb-8">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2"><%= t('admin.index.title') %></h1>
+    </div>
+
+    <!-- Alert für nicht freigegebene Benutzer -->
+    <% unreleased_users = @users.where(released: false) %>
+    <% if unreleased_users.exists? %>
+      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm text-yellow-700">
+              <%= t('admin.index.unreleased_users') %>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Benutzer-Tabelle -->
+    <div class="bg-white shadow overflow-hidden sm:rounded-md">
+      <ul class="divide-y divide-gray-200">
+        <% @users.each do |user| %>
+          <li>
+            <div class="px-4 py-4 sm:px-6">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0">
+                    <div class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
+                      <span class="text-sm font-medium text-gray-700"><%= user.email.first.upcase %></span>
+                    </div>
+                  </div>
+                  <div class="ml-4">
+                    <div class="text-sm font-medium text-gray-900"><%= user.email %></div>
+                    <div class="text-sm text-gray-500">
+                      <%= t('admin.index.role') %>: <%= user.role %>
+                      <% if user.organization.present? %>
+                        | <%= t('admin.index.organization') %>: <%= user.organization.name %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex space-x-2">
+  <% if user.released? %>
+    <%= button_to t('admin.index.lock'), lock_user_admin_path(user), method: :patch, class: "inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+  <% else %>
+    <%= button_to t('admin.index.release'), release_user_admin_path(user), method: :patch, class: "inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" %>
+  <% end %>
+  <%= button_to 'Löschen', delete_admin_path(user), method: :delete, data: { turbo_confirm: 'Willst du den User wirklich löschen?' }, class: "inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

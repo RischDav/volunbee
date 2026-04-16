@@ -323,8 +323,13 @@ de:
     index:
       title: "Offene Stellen"
       no_positions_available: "Es sind derzeit keine offenen Stellen verfügbar."
+      organization_positions: "Stellen meiner Organisation"
+      volunteering_positions: "Ehrenamtliche Aktivitäten"
     
     new:
+      position_hint: "Bei Stellen der Kategorie Freizeit handelt es sich um freizeitaktivitäten, die nicht als Ehrenamt einzustufen sind. Zum Beispiel SPortaktivitäten in der Gruppe oder treffen von Interessensgruppen."
+      subtitle: "Bitte wählen Sie die Art der Position, die Sie erstellen möchten"
+      header: "Neue Position erstellen"
       title: "Neue Position erstellen"
       subtitle: "Bitte achten Sie darauf, dass alle Felder in englischer Sprache ausgefüllt werden!"
       remaining_points: "Verbleibende Punkte: %{remaining_points}"
@@ -348,6 +353,7 @@ de:
         create: "Position erstellen"
     
     show:
+      who_is_it_for: "Für wen ist diese Position geeignet?"
       title: "Positionsdetails"
       general_info: "Allgemeine Informationen"
       description: "Beschreibung"

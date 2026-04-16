@@ -1,5 +1,11 @@
 <!-- Vollständiger aktualisierter Code für _dashboard_sidebar.html.erb -->
 <!-- Dashboard Sidebar -->
+<% 
+  # Logik: Sidebar ausblenden NUR auf der öffentlichen Positions-Show-Seite
+  is_public_position_view = (controller_name == 'positions' && action_name == 'show' && !user_signed_in?)
+%>
+
+<% unless is_public_position_view %>
 <aside class="dashboard-sidebar">
   <div class="sidebar-header">
     <div class="logo">
@@ -546,3 +552,4 @@ document.getElementById('language-select').addEventListener('change', function()
   window.location.href = newUrl;
 });
 </script>
+<% end %>

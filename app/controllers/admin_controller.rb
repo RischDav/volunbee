@@ -15,6 +15,13 @@ class AdminController < ApplicationController
     redirect_to admin_index_path, notice: 'Benutzer wurde freigegeben.'
   end
 
+  #löscht einen Benutzer
+  def delete
+    user = User.find(params[:id])
+    user.destroy
+    redirect_to admin_index_path, notice: 'Benutzer wurde gelöscht.'
+  end
+
   #setzt den Status des Benutzers auf "gesperrt"
   def lock_user
     user = User.find(params[:id])

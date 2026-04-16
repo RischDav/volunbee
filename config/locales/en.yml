@@ -87,6 +87,7 @@ en:
       invalid: "is not valid"
   
   positions:
+
     hours_per_week: "hours/week"
     type_selector:
       label: "Select position type"
@@ -157,7 +158,12 @@ en:
     index:
       title: "Open positions"
       no_positions_available: "There are currently no open positions available."
+      organization_positions: "Positions of my organization"
+      volunteering_positions: "Volunteering positions"
     new:
+      position_hint: "Positions in the Freetime category refer to leisure activities that are not classified as voluntary work. Examples include group sports activities or meetings of interest groups."
+      subtitle: "Please choose the type of position you want to create" 
+      header: "Create new position"
       title: "Create new position"
       subtitle: "Please make sure all fields are filled out in English!"
       confirmation:
@@ -186,6 +192,7 @@ en:
       remaining_points: "Remaining points: %{remaining_points}"
       submit_disabled: "Submit button is disabled. Please check all the boxes."
     show:
+      who_is_it_for: "Who is this position for?"
       title: "Position details"
       no_title: "Title not available"
       general_info: "General information"

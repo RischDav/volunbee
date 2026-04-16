@@ -1,4 +1,3 @@
-<!-- Page main HTML construct -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -10,42 +9,46 @@
     <%= csp_meta_tag %>
     <%= yield :head %>
     <link rel="manifest" href="/manifest.json">
-    <!-- The VolunteerHeilbronn Icon -->
     <link rel="icon" href="<%= asset_path('favicon.png') %>" type="image/png">
-    <!-- Integration of Tailwind css -->
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload', defer: true, 'data-turbolinks-suppress-warning': true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
   </head>
+
+  <% 
+    # Check: Ist es die Positions-Show Seite und der User ist NICHT eingeloggt?
+    @is_public_position_view = (controller_name == 'positions' && action_name == 'show' && !user_signed_in?)
+  %>
 
   <body>
     <% if @custom_navbar %>
-      <!-- Public Layout ohne Header -->
-      
-      <!-- Organization alerts are only showed when there is missing required information for organization -->
       <% unless controller_name == 'organizations' && action_name == 'edit' %>
         <%= render partial: "shared/organization_alert"%>   
       <% end %>
       
       <main class="m-4">
-        <!-- Page Content -->
         <%= yield %>
       </main>
       
       <%= render partial: "shared/public_footer" %>
     <% else %>
-      <!-- Dashboard Layout with Sidebar Only -->
       <div class="dashboard-container">
-        <%= render partial: "shared/dashboard_sidebar" %>
         
-        <div class="dashboard-main">
-          <!-- Mobile Menu Toggle Button -->
-          <button class="mobile-menu-toggle" onclick="toggleSidebar()">
-            <svg class="menu-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+        <% # Sidebar nur ausblenden, wenn es die öffentliche Positions-Show ist %>
+        <% unless @is_public_position_view %>
+          <%= render partial: "shared/dashboard_sidebar" %>
+        <% end %>
+        
+        <div class="dashboard-main <%= 'full-width' if @is_public_position_view %>">
           
-          <!-- Organization alerts für Dashboard -->
+          <% # Mobile Toggle nur zeigen, wenn Sidebar gerendert wurde %>
+          <% unless @is_public_position_view %>
+            <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+              <svg class="menu-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          <% end %>
+          
           <% unless controller_name == 'organizations' && action_name == 'edit' %>
             <div class="dashboard-alerts">
               <%= render partial: "shared/organization_alert"%>   
@@ -53,7 +56,6 @@
           <% end %>
           
           <main class="dashboard-content">
-            <!-- Page Content -->
             <%= yield %>
           </main>
         </div>
@@ -61,18 +63,9 @@
     <% end %>
     
     <style>
-      /* Public Layout Styles */
-      body {
-        display: flex;
-        flex-direction: column;
-        min-height: 99vh;
-      }
+      body { display: flex; flex-direction: column; min-height: 99vh; }
+      main { flex: 1; }
       
-      main {
-        flex: 1;
-      }
-      
-      /* Dashboard Layout Styles */
       .dashboard-container {
         display: flex;
         min-height: 100vh;
@@ -83,8 +76,14 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-        margin-left: 280px; /* Sidebar width */
+        margin-left: 280px;
         position: relative;
+        transition: margin-left 0.3s ease;
+      }
+
+      /* Diese Klasse wird nur auf der öffentlichen Positions-Show aktiv */
+      .dashboard-main.full-width {
+        margin-left: 0 !important;
       }
       
       .mobile-menu-toggle {
@@ -102,45 +101,24 @@
         color: #374151;
       }
       
-      .mobile-menu-toggle:hover {
-        background-color: #f3f4f6;
-      }
+      .dashboard-alerts { padding: 1rem 2rem 0; }
+      .dashboard-content { flex: 1; padding: 2rem; overflow-y: auto; }
       
-      .menu-icon {
-        width: 24px;
-        height: 24px;
-      }
-      
-      .dashboard-alerts {
-        padding: 1rem 2rem 0;
-      }
-      
-      .dashboard-content {
-        flex: 1;
-        padding: 2rem;
-        overflow-y: auto;
-      }
-      
-      /* Mobile Responsive */
       @media (max-width: 768px) {
-        .dashboard-main {
-          margin-left: 0;
-          padding-top: 4rem; /* Space for mobile toggle button */
+        .dashboard-main, .dashboard-main.full-width {
+          margin-left: 0 !important;
+          padding-top: 4rem;
         }
-        
-        .mobile-menu-toggle {
-          display: block;
-        }
-        
-        .dashboard-content {
-          padding: 1rem;
-        }
-        
-        .dashboard-alerts {
-          padding: 0.5rem 1rem 0;
-        }
+        .mobile-menu-toggle { display: block; }
+        .dashboard-content { padding: 1rem; }
       }
     </style>
-    
+
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.querySelector('.dashboard-sidebar');
+        if (sidebar) { sidebar.classList.toggle('mobile-open'); }
+      }
+    </script>
   </body>
 </html>

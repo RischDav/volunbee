@@ -1,5 +1,5 @@
 class PositionsController < ApplicationController
-  before_action :authenticate_user!, except: [:json_output]
+  before_action :authenticate_user!, except: [:json_output, :show]
   before_action :set_position, only: [:show, :edit, :update, :destroy, :release, :lock, :delete_picture]
   before_action :check_edit_permissions, only: [:edit, :update, :destroy]
   before_action :check_admin_permissions, only: [:release, :lock]

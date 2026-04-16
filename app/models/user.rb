@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   # Neue Beziehung zur UserAffiliation
   has_one :affiliation, class_name: "UserAffiliation", dependent: :destroy
+  has_many :messages, dependent: :destroy
+  has_many :positions, dependent: :destroy
   
   # Für Kompatibilität mit bestehenden Formularen
   attr_accessor :organization_name, :university_name
@@ -95,5 +97,21 @@ class User < ApplicationRecord
 
   def university_staff?
     affiliation&.university_staff? || false
+  end
+
+  def role
+    if platform_admin?
+      "Platform Admin"
+    elsif admin?
+      "Admin"
+    elsif university_staff?
+      "Universitätsmitarbeiter"
+    elsif student?
+      "Student"
+    elsif organization?
+      "Organisation"
+    else
+      "Unbekannt"
+    end
   end
 end

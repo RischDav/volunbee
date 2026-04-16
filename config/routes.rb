@@ -69,8 +69,9 @@ Rails.application.routes.draw do
 
     resources :admin, only: [:index] do
       member do
-        patch 'release_user'
-        patch 'lock_user'
+        patch :release_user
+        patch :lock_user
+        delete 'delete'
       end
     end
 

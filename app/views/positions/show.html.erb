@@ -1,7 +1,6 @@
 <div class="min-h-screen bg-gray-50 py-4 sm:py-6">
   <div class="max-w-5xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
     
-    <!-- Header -->
     <div class="mb-4 sm:mb-6 lg:mb-8">
       <h1 class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-900 mb-2">
         <%= t('positions.show.title') %>
@@ -9,12 +8,9 @@
       <div class="w-16 sm:w-20 h-1 bg-gray-900 rounded-full"></div>
     </div>
 
-    <!-- Main Content Card -->
     <div class="bg-white rounded-xl sm:rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-      <!-- Hero Section -->
       <div class="bg-gray-900 px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-12 text-white">
         <div class="max-w-4xl">
-          <!-- Position Type Badge -->
           <div class="mb-3 sm:mb-4">
             <% 
               type_config = case @position.type
@@ -36,17 +32,38 @@
           <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold mb-3 sm:mb-4 leading-tight">
             <%= @position.title.present? ? @position.title : t('positions.show.no_title') %>
           </h2>
-          <% if @position.organization&.name || @position.university&.name %>
-            <div class="flex items-center gap-2 text-gray-300">
-              <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2v8h12V6H4z" clip-rule="evenodd" />
-              </svg>
-              <span class="font-medium text-sm sm:text-base"><%= @position.organization&.name || @position.university&.name %></span>
-            </div>
-          <% end %>
-        </div>
-      </div>
 
+          <div class="flex flex-col gap-4">
+            <% if @position.organization&.name || @position.university&.name %>
+              <div class="flex items-center gap-2 text-gray-300">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2v8h12V6H4z" clip-rule="evenodd" />
+                </svg>
+                <span class="font-medium text-sm sm:text-base"><%= @position.organization&.name || @position.university&.name %></span>
+              </div>
+            <% end %>
+
+            <div class="flex items-center">
+              <div class="relative inline-flex items-center bg-white/10 hover:bg-white/15 rounded-lg border border-white/10 transition-all group">
+                <div class="pl-3 pointer-events-none text-gray-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                  </svg>
+                </div>
+
+                <select id="hero-language-select" class="appearance-none bg-transparent text-sm font-semibold text-white py-1.5 pl-2 pr-10 focus:outline-none cursor-pointer">
+                  <option value="de" <%= I18n.locale == :de ? 'selected' : '' %> class="text-gray-900">Deutsch</option>
+                  <option value="en" <%= I18n.locale == :en ? 'selected' : '' %> class="text-gray-900">English</option>
+                </select>
+                
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 group-hover:text-white transition-colors">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div> </div> </div>
       <!-- Content Sections -->
       <div class="p-4 sm:p-6 lg:p-8 space-y-8 sm:space-y-10 lg:space-y-12">
         
@@ -70,7 +87,7 @@
                 </svg>
                 <h4 class="font-semibold text-sm sm:text-base text-gray-900">
                   <% if @position.type == 'freetime' %>
-                    Beschreibung der Aktivität
+                    <%= t('positions.show.description') %>
                   <% else %>
                     <%= t('positions.show.description') %>
                   <% end %>
@@ -89,7 +106,7 @@
                   <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
-                  <h4 class="font-semibold text-sm sm:text-base text-gray-900">Für wen ist die Aktivität geeignet?</h4>
+                  <h4 class="font-semibold text-sm sm:text-base text-gray-900"><%= t('positions.show.who_is_it_for') %></h4>
                 </div>
                 <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
                   <%= @position.benefits.present? ? simple_format(@position.benefits) : t('positions.show.not_available') %>
@@ -631,3 +648,22 @@
     
   </div>
 </div>
+
+<script>
+  document.addEventListener('turbolinks:load', function() {
+    const heroLangSelect = document.getElementById('hero-language-select');
+    if (heroLangSelect) {
+      heroLangSelect.addEventListener('change', function() {
+        const selectedLocale = this.value;
+        const currentPath = window.location.pathname;
+        const searchParams = window.location.search;
+        
+        // Entfernt /de oder /en am Anfang des Pfades
+        let pathWithoutLocale = currentPath.replace(/^\/(de|en)/, '');
+        
+        // Leitet zur neuen URL weiter
+        window.location.href = '/' + selectedLocale + pathWithoutLocale + searchParams;
+      });
+    }
+  });
+</script>
