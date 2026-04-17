@@ -68,7 +68,7 @@
         { class: "mt-2 block w-full rounded-md border border-blue-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", id: "position_temporary_select" } %>
     <% temporary_visible = ActiveModel::Type::Boolean.new.cast(f.object&.position_temporary) %>
     <p id="temporary-info-text" class="text-sm text-orange-600 leading-relaxed <%= 'hidden' unless temporary_visible %>">
-      ⚠️ Diese Aktivität ist zeitlich begrenzt und endet zu einem bestimmten Datum
+      ⚠️ Vergessen Sie nicht in der Beschreibung das genaue Datum und die Uhrzeit anzugeben, damit die Nutzer wissen, wann die Aktivität stattfindet!
     </p>
     <p class="text-sm text-blue-600 leading-relaxed">Findet die Aktivität dauerhaft oder nur für einen bestimmten Zeitraum statt?</p>
   </div>
