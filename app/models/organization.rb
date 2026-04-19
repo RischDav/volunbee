@@ -1,5 +1,7 @@
 class Organization < ApplicationRecord
     has_many :positions
+    has_many :events 
+    has_many :messages, through: :positions
     self.table_name = "organizations"
     has_one_attached :logo
     has_one_attached :profile_picture

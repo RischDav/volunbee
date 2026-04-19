@@ -63,9 +63,7 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </div> </div> </div>
       <!-- Content Sections -->
       <div class="p-4 sm:p-6 lg:p-8 space-y-8 sm:space-y-10 lg:space-y-12">
         
@@ -88,7 +86,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 <h4 class="font-semibold text-sm sm:text-base text-gray-900">
-                  <% if @position.freetime? %>
+                  <% if @position.type == 'freetime' %>
                     <%= t('positions.show.description') %>
                   <% else %>
                     <%= t('positions.show.description') %>
@@ -101,7 +99,7 @@
             </div>
 
             <!-- Benefits / Who is it for? / Payment (Type-specific) -->
-            <% if @position.freetime? %>
+            <% if @position.type == 'freetime' %>
               <!-- For Freetime: Show "Who is it for?" using benefits field -->
               <div class="bg-gray-50 p-4 sm:p-6 rounded-xl border border-gray-200">
                 <div class="flex items-start gap-2 sm:gap-3 mb-3 sm:mb-4">
@@ -112,33 +110,6 @@
                 </div>
                 <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
                   <%= @position.benefits.present? ? simple_format(@position.benefits) : t('positions.show.not_available') %>
-                </p>
-              </div>
-
-              <!-- For Freetime: Show Location -->
-              <div class="bg-gray-50 p-4 sm:p-6 rounded-xl border border-gray-200">
-                <div class="flex items-start gap-2 sm:gap-3 mb-3 sm:mb-4">
-                  <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  <h4 class="font-semibold text-sm sm:text-base text-gray-900">Ort</h4>
-                </div>
-                <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
-                  <%= @position.location.present? ? @position.location : t('positions.show.not_available') %>
-                </p>
-              </div>
-
-              <!-- For Freetime: Show Schedule -->
-              <div class="bg-gray-50 p-4 sm:p-6 rounded-xl border border-gray-200">
-                <div class="flex items-start gap-2 sm:gap-3 mb-3 sm:mb-4">
-                  <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <h4 class="font-semibold text-sm sm:text-base text-gray-900">Zeitplan</h4>
-                </div>
-                <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
-                  <%= @position.schedule.present? ? simple_format(@position.schedule) : t('positions.show.not_available') %>
                 </p>
               </div>
 
@@ -164,7 +135,7 @@
                   <% end %>
                 </p>
               </div>
-            <% elsif @position.university_position? %>
+            <% elsif @position.type == 'university_position' %>
               <!-- For University Positions: Skip benefits entirely -->
             <% else %>
               <!-- For Volunteering: Show Benefits as normal -->
@@ -182,8 +153,8 @@
               </div>
             <% end %>
 
-            <!-- Time Commitment - Hide for freetime positions -->
-            <% unless @position.freetime? %>
+            <!-- Time Commitment - Hide for students if 0 hours -->
+            <% unless current_user&.student? && @position.weekly_time_commitment == 0 %>
               <div class="bg-gray-50 p-4 sm:p-6 rounded-xl border border-gray-200">
                 <div class="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
                   <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
@@ -197,18 +168,18 @@
               </div>
             <% end %>
 
-            <!-- Status Badges -->
+            <!-- Status Badges - Hide online and released for students -->
             <div class="space-y-3 sm:space-y-4">
               <div class="flex flex-wrap gap-2 sm:gap-3">
-                <!--<div class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full <%= @position.position_temporary ? 'bg-gray-100 text-gray-800' : 'bg-gray-100 text-gray-600' %>">
+                <div class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full <%= @position.position_temporary ? 'bg-gray-100 text-gray-800' : 'bg-gray-100 text-gray-600' %>">
                   <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
                   </svg>
                   <span class="font-medium text-xs sm:text-sm">
-                    <%= t('positions.show.temporary') %>: <%= @position.position_temporary ? t('positions.show.yes') : t('positions.show.no') %> 
+                    <%= t('positions.show.temporary') %>: <%= @position.position_temporary ? t('positions.show.yes') : t('positions.show.no') %>
                   </span>
-                </div>-->
-                
+                </div>
+
                 <% unless current_user&.student? %>
                   <div class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full <%= @position.online ? 'bg-gray-100 text-gray-800' : 'bg-gray-100 text-gray-600' %>">
                     <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -233,206 +204,213 @@
           </div>
         </div>
 
-        <!-- Images Section - Only show if there are images -->
-        <% images = [@position.main_picture, @position.picture1, @position.picture2, @position.picture3].select(&:attached?) %>
-        <% if images.any? %>
-          <div>
-            <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8 flex items-center gap-2 sm:gap-3">
-              <div class="w-7 h-7 sm:w-8 sm:h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
-                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+<!-- Images Section - Only show if there are images -->
+<% images = [@position.main_picture, @position.picture1, @position.picture2, @position.picture3].select(&:attached?) %>
+<% if images.any? %>
+  <div>
+    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8 flex items-center gap-2 sm:gap-3">
+      <div class="w-7 h-7 sm:w-8 sm:h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
+        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <%= t('positions.show.images') %>
+    </h3>
+    
+    <div id="image-carousel" class="relative w-full max-w-2xl mx-auto">
+      <!-- Carousel wrapper -->
+      <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+        <% images.each_with_index do |image, index| %>
+          <div class="carousel-slide <%= 'hidden' if index > 0 %> duration-700 ease-in-out">
+            <% begin %>
+              <%= image_tag image.variant(resize_to_limit: [800, 800]).processed, class: "absolute block w-full h-full object-contain -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" %>
+            <% rescue ActiveStorage::IntegrityError, ActiveStorage::FileNotFoundError => e %>
+              <div class="w-full h-full bg-slate-200 rounded-lg flex items-center justify-center">
+                <svg class="w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
                 </svg>
               </div>
-              <%= t('positions.show.images') %>
-            </h3>
-            
-            <div id="image-carousel" class="relative w-full max-w-2xl mx-auto">
-              <!-- Carousel wrapper -->
-              <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-                <% images.each_with_index do |image, index| %>
-                  <div class="carousel-slide <%= 'hidden' if index > 0 %> duration-700 ease-in-out">
-                    <% begin %>
-                      <%= image_tag image.variant(resize_to_limit: [800, 800]).processed, class: "absolute block w-full h-full object-contain -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" %>
-                    <% rescue ActiveStorage::IntegrityError, ActiveStorage::FileNotFoundError => e %>
-                      <div class="w-full h-full bg-slate-200 rounded-lg flex items-center justify-center">
-                        <svg class="w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
-                        </svg>
-                      </div>
-                    <% end %>
-                  </div>
-                <% end %>
-              </div>
-              <!-- Slider controls -->
-              <% if images.length > 1 %>
-                <button type="button" id="carousel-prev-btn" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
-                  <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                    <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-                    </svg>
-                    <span class="sr-only">Previous</span>
-                  </span>
-                </button>
-                <button type="button" id="carousel-next-btn" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
-                  <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                    <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                    </svg>
-                    <span class="sr-only">Next</span>
-                  </span>
-                </button>
-              <% end %>
-            </div>
+            <% end %>
           </div>
-
-          <% if images.length > 1 %>
-            <script>
-              document.addEventListener('turbolinks:load', function() {
-                const carousel = document.getElementById('image-carousel');
-                if (!carousel) return;
-
-                const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
-                const prevButton = document.getElementById('carousel-prev-btn');
-                const nextButton = document.getElementById('carousel-next-btn');
-                
-                let currentIndex = 0;
-                const totalSlides = slides.length;
-
-                function showSlide(index) {
-                  slides.forEach((slide, i) => {
-                    slide.classList.toggle('hidden', i !== index);
-                  });
-                }
-
-                function showNext() {
-                  currentIndex = (currentIndex + 1) % totalSlides;
-                  showSlide(currentIndex);
-                }
-
-                function showPrev() {
-                  currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-                  showSlide(currentIndex);
-                }
-
-                if (prevButton && nextButton) {
-                  prevButton.addEventListener('click', showPrev);
-                  nextButton.addEventListener('click', showNext);
-                }
-              });
-            </script>
-          <% end %>
         <% end %>
+      </div>
+      <!-- Slider controls -->
+      <% if images.length > 1 %>
+        <button type="button" id="carousel-prev-btn" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+            <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+            </svg>
+            <span class="sr-only">Previous</span>
+          </span>
+        </button>
+        <button type="button" id="carousel-next-btn" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+            <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+            </svg>
+            <span class="sr-only">Next</span>
+          </span>
+        </button>
+      <% end %>
+    </div>
+  </div>
 
-        <% unless @position.freetime? %>
-          <!-- Skills Section -->
-          <div>
-            <h3 class="text-xl sm:text-2xl font-bold text-gray-900 my-6 sm:my-8 flex items-center gap-2 sm:gap-3">
-              <div class="w-7 h-7 sm:w-8 sm:h-8 bg-indigo-100 rounded-lg flex items-center justify-center">
-                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+  <% if images.length > 1 %>
+    <script>
+      document.addEventListener('turbolinks:load', function() {
+        const carousel = document.getElementById('image-carousel');
+        if (!carousel) return;
+
+        const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+        const prevButton = document.getElementById('carousel-prev-btn');
+        const nextButton = document.getElementById('carousel-next-btn');
+        
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+          slides.forEach((slide, i) => {
+            slide.classList.toggle('hidden', i !== index);
+          });
+        }
+
+        function showNext() {
+          currentIndex = (currentIndex + 1) % totalSlides;
+          showSlide(currentIndex);
+        }
+
+        function showPrev() {
+          currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+          showSlide(currentIndex);
+        }
+
+        if (prevButton && nextButton) {
+  console.log('Binding events');
+  prevButton.addEventListener('click', () => {
+    console.log('Prev clicked');
+    showPrev();
+  });
+  nextButton.addEventListener('click', () => {
+    console.log('Next clicked');
+    showNext();
+  });
+} else {
+  console.log('Buttons not found');
+}
+        
+        // Initial state is already set by ERB, so no need to call showSlide(0) here.
+      });
+    </script>
+  <% end %>
+<% end %>
+        <!-- Skills Section -->
+        <div>
+          <h3 class="text-xl sm:text-2xl font-bold text-gray-900 my-6 sm:my-8 flex items-center gap-2 sm:gap-3">
+            <div class="w-7 h-7 sm:w-8 sm:h-8 bg-indigo-100 rounded-lg flex items-center justify-center">
+              <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+            </div>
+            <%= t('positions.show.skills') %>
+          </h3>
+          
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
+            <!-- Creative Skills -->
+            <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-3 sm:p-4 rounded-xl border border-purple-100 text-center">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4 4 4 0 004-4V5z" />
                 </svg>
               </div>
-              <%= t('positions.show.skills') %>
-            </h3>
-            
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
-              <!-- Creative Skills -->
-              <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-3 sm:p-4 rounded-xl border border-purple-100 text-center">
-                <div class="w-10 h-10 sm:w-12 sm:h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
-                  <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4 4 4 0 004-4V5z" />
-                  </svg>
-                </div>
-                <h4 class="font-semibold text-gray-900 text-xs sm:text-sm mb-1"><%= t('positions.show.creative_skills') %></h4>
-                <div class="text-xl sm:text-2xl font-bold text-gray-600">
-                  <%= @position.creative_skills.present? ? @position.creative_skills : '—' %>
-                  <% if @position.creative_skills.present? %>
-                    <span class="text-xs sm:text-sm text-gray-600">/5</span>
-                  <% end %>
-                </div>
+              <h4 class="font-semibold text-gray-900 text-xs sm:text-sm mb-1"><%= t('positions.show.creative_skills') %></h4>
+              <div class="text-xl sm:text-2xl font-bold text-gray-600">
+                <%= @position.creative_skills.present? ? @position.creative_skills : '—' %>
+                <% if @position.creative_skills.present? %>
+                  <span class="text-xs sm:text-sm text-gray-600">/5</span>
+                <% end %>
               </div>
+            </div>
 
-              <!-- Technical Skills -->
-              <div class="bg-gradient-to-br from-blue-50 to-cyan-50 p-3 sm:p-4 rounded-xl border border-blue-100 text-center">
-                <div class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
-                  <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                  </svg>
-                </div>
-                <h4 class="font-semibold text-gray-900 text-xs sm:text-sm mb-1"><%= t('positions.show.technical_skills') %></h4>
-                <div class="text-xl sm:text-2xl font-bold text-gray-600">
-                  <%= @position.technical_skills.present? ? @position.technical_skills : '—' %>
-                  <% if @position.technical_skills.present? %>
-                    <span class="text-xs sm:text-sm text-gray-600">/5</span>
-                  <% end %>
-                </div>
+            <!-- Technical Skills -->
+            <div class="bg-gradient-to-br from-blue-50 to-cyan-50 p-3 sm:p-4 rounded-xl border border-blue-100 text-center">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                </svg>
               </div>
-
-              <!-- Social Skills -->
-              <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-3 sm:p-4 rounded-xl border border-green-100 text-center">
-                <div class="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
-                  <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-                  </svg>
-                </div>
-                <h4 class="font-semibold text-gray-900 text-xs sm:text-sm mb-1"><%= t('positions.show.social_skills') %></h4>
-                <div class="text-xl sm:text-2xl font-bold text-gray-600">
-                  <%= @position.social_skills.present? ? @position.social_skills : '—' %>
-                  <% if @position.social_skills.present? %>
-                    <span class="text-xs sm:text-sm text-gray-600">/5</span>
-                  <% end %>
-                </div>
+              <h4 class="font-semibold text-gray-900 text-xs sm:text-sm mb-1"><%= t('positions.show.technical_skills') %></h4>
+              <div class="text-xl sm:text-2xl font-bold text-gray-600">
+                <%= @position.technical_skills.present? ? @position.technical_skills : '—' %>
+                <% if @position.technical_skills.present? %>
+                  <span class="text-xs sm:text-sm text-gray-600">/5</span>
+                <% end %>
               </div>
+            </div>
 
-              <!-- Language Skills -->
-              <div class="bg-gradient-to-br from-yellow-50 to-orange-50 p-3 sm:p-4 rounded-xl border border-yellow-100 text-center">
-                <div class="w-10 h-10 sm:w-12 sm:h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
-                  <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-                  </svg>
-                </div>
-                <h4 class="font-semibold text-gray-900 text-xs sm:text-sm mb-1"><%= t('positions.show.language_skills') %></h4>
-                <div class="text-xl sm:text-2xl font-bold text-gray-600">
-                  <%= @position.language_skills.present? ? @position.language_skills : '—' %>
-                  <% if @position.language_skills.present? %>
-                    <span class="text-xs sm:text-sm text-gray-600">/5</span>
-                  <% end %>
-                </div>
+            <!-- Social Skills -->
+            <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-3 sm:p-4 rounded-xl border border-green-100 text-center">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                </svg>
               </div>
+              <h4 class="font-semibold text-gray-900 text-xs sm:text-sm mb-1"><%= t('positions.show.social_skills') %></h4>
+              <div class="text-xl sm:text-2xl font-bold text-gray-600">
+                <%= @position.social_skills.present? ? @position.social_skills : '—' %>
+                <% if @position.social_skills.present? %>
+                  <span class="text-xs sm:text-sm text-gray-600">/5</span>
+                <% end %>
+              </div>
+            </div>
 
-              <!-- Flexibility -->
-              <div class="bg-gradient-to-br from-pink-50 to-rose-50 p-3 sm:p-4 rounded-xl border border-pink-100 text-center">
-                <div class="w-10 h-10 sm:w-12 sm:h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
-                  <svg class="w-5 h-5 sm:w-6 sm:h-6 text-pink-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                  </svg>
-                </div>
-                <h4 class="font-semibold text-gray-900 text-xs sm:text-sm mb-1"><%= t('positions.show.flexibility') %></h4>
-                <div class="text-xl sm:text-2xl font-bold text-pink-600">
-                  <%= @position.flexibility.present? ? @position.flexibility : '—' %>
-                  <% if @position.flexibility.present? %>
-                    <span class="text-xs sm:text-sm text-pink-400">/5</span>
-                  <% end %>
-                </div>
+            <!-- Language Skills -->
+            <div class="bg-gradient-to-br from-yellow-50 to-orange-50 p-3 sm:p-4 rounded-xl border border-yellow-100 text-center">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                </svg>
+              </div>
+              <h4 class="font-semibold text-gray-900 text-xs sm:text-sm mb-1"><%= t('positions.show.language_skills') %></h4>
+              <div class="text-xl sm:text-2xl font-bold text-gray-600">
+                <%= @position.language_skills.present? ? @position.language_skills : '—' %>
+                <% if @position.language_skills.present? %>
+                  <span class="text-xs sm:text-sm text-gray-600">/5</span>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- Flexibility -->
+            <div class="bg-gradient-to-br from-pink-50 to-rose-50 p-3 sm:p-4 rounded-xl border border-pink-100 text-center">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-pink-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </div>
+              <h4 class="font-semibold text-gray-900 text-xs sm:text-sm mb-1"><%= t('positions.show.flexibility') %></h4>
+              <div class="text-xl sm:text-2xl font-bold text-pink-600">
+                <%= @position.flexibility.present? ? @position.flexibility : '—' %>
+                <% if @position.flexibility.present? %>
+                  <span class="text-xs sm:text-sm text-pink-400">/5</span>
+                <% end %>
               </div>
             </div>
           </div>
-        <% end %>
+        </div>
 
-        <!-- Contact Information Section -->
-        <% if user_signed_in? && (@position.organization.present? || @position.university.present?) %>
-          <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 mt-6 sm:mt-8">
-            <div class="p-4 sm:p-6 lg:p-8">
-              <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8 flex items-center gap-2 sm:gap-3">
-                <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                  <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                Kontaktinformationen - <%= @position.organization&.name || @position.university&.name %>
-              </h3>
-
-              
+    <!-- Contact Information Section - Only show for organization positions -->
+<% if user_signed_in? %>
+<% if @position.organization.present? || @position.university.present? %>
+  <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 mt-6 sm:mt-8">
+    <div class="p-4 sm:p-6 lg:p-8">
+      <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8 flex items-center gap-2 sm:gap-3">
+        <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+        </div>
+        Kontaktinformationen - <%= @position.organization&.name || @position.university&.name %>
+      </h3>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Contact Person -->
@@ -485,8 +463,14 @@
         <% 
           org = @position.organization
           uni = @position.university
+          address_fields = [
+            org&.street || uni&.street,
+            org&.housenumber || uni&.housenumber, 
+            org&.city || uni&.city,
+            org&.zip || uni&.zip
+          ]
         %>
-        <% if (org&.street && org&.housenumber && org&.city && org&.zip) || (uni&.street && uni&.housenumber && uni&.city && uni&.zip) %>
+        <% if address_fields.any?(&:present?) %>
           <div class="bg-gradient-to-br from-orange-50 to-amber-50 p-6 rounded-xl border border-orange-100">
             <div class="flex items-center gap-3 mb-3">
               <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -496,8 +480,16 @@
               <h4 class="font-semibold text-gray-900">Adresse</h4>
             </div>
             <div class="text-gray-600 space-y-1">
-              <p><%= org&.street || uni&.street %> <%= org&.housenumber || uni&.housenumber %></p>
-              <p><%= org&.zip || uni&.zip %> <%= org&.city || uni&.city %></p>
+              <% street = org&.street || uni&.street %>
+              <% housenumber = org&.housenumber || uni&.housenumber %>
+              <% if street.present? && housenumber.present? %>
+                <p><%= street %> <%= housenumber %></p>
+              <% end %>
+              <% zip = org&.zip || uni&.zip %>
+              <% city = org&.city || uni&.city %>
+              <% if zip.present? && city.present? %>
+                <p><%= zip %> <%= city %></p>
+              <% end %>
             </div>
           </div>
         <% end %>
@@ -543,21 +535,27 @@
               <% instagram = org&.instagram_url || uni&.instagram_url %>
               <% if instagram.present? %>
                 <a href="<%= instagram %>" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all">
-                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
                   Instagram
                 </a>
               <% end %>
               <% linkedin = org&.linkedin_url || uni&.linkedin_url %>
               <% if linkedin.present? %>
                 <a href="<%= linkedin %>" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all">
-                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
                   LinkedIn
                 </a>
               <% end %>
               <% facebook = org&.facebook_link || uni&.facebook_link %>
               <% if facebook.present? %>
                 <a href="<%= facebook %>" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-800 text-white rounded-lg hover:bg-blue-900 transition-all">
-                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
                   Facebook
                 </a>
               <% end %>
@@ -567,7 +565,8 @@
       </div>
     </div>
   </div>
-<% end %>
+<% end %>       
+
         <!-- FAQ Section -->
         <% if @position.frequently_asked_questions.any? %>
           <div>
@@ -595,60 +594,58 @@
             </div>
           </div>
         <% end %>
-  
-        <!-- Application/Registration Button Section -->
-        <div class="mt-8 mb-8">
-          <% case @position.type %>
-          <% when 'volunteering' %>
-            <!-- Volunteer Application Button -->
-            <div class="bg-green-50 border border-green-200 rounded-xl p-4 sm:p-6 lg:p-8 mb-8 text-center">
-              <div class="mb-4 sm:mb-6">
-                <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-600 mb-2">🤝 Ready to Volunteer?</h3>
-                <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">Join us and make a difference in your community</p>
-              </div>
-              <%= link_to "Apply as Volunteer", 
-                  new_position_application_path(@position), 
-                  class: "inline-flex items-center gap-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" %>
-            </div>
-          
-          <% when 'freetime' %>
-            <!-- Freetime Activity Registration Button -->
-            <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 sm:p-6 lg:p-8 mb-8 text-center">
-              <div class="mb-4 sm:mb-6">
-                <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-600 mb-2"><%= t('application_actions.freetime.title') %></h3>
-                <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6"><%= t('application_actions.freetime.subtitle') %></p>
-              </div>
-              <%= link_to t('application_actions.freetime.button'), 
-                  new_position_application_path(@position), 
-                  class: "inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" %>
-            </div>
-          
-          <% when 'university_position' %>
-            <!-- University Assistant Application Button -->
-            <div class="bg-purple-50 border border-purple-200 rounded-xl p-4 sm:p-6 lg:p-8 mb-8 text-center">
-              <div class="mb-4 sm:mb-6">
-                <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-600 mb-2"><%= t('application_actions.assistant.title') %></h3>
-                <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6"><%= t('application_actions.assistant.subtitle') %></p>
-              </div>
-              <%= link_to t('application_actions.assistant.button'), 
-                  new_position_application_path(@position), 
-                  class: "inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" %>
-            </div>
-          <% end %>
+        <% end %>
+    <!-- Application/Registration Button Section -->
+    <div class="mt-8 mb-8">
+      <% case @position.type %>
+      <% when 'volunteering' %>
+        <!-- Volunteer Application Button -->
+        <div class="bg-green-50 border border-green-200 rounded-xl p-4 sm:p-6 lg:p-8 mb-8 text-center">
+          <div class="mb-4 sm:mb-6">
+            <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-600 mb-2">🤝 Ready to Volunteer?</h3>
+            <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">Join us and make a difference in your community</p>
+          </div>
+          <%= link_to "Apply as Volunteer", 
+              new_position_application_path(@position), 
+              class: "inline-flex items-center gap-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" %>
         </div>
-
-        <!-- Back Button -->
-        <div class="mt-8 flex justify-center">
-          <%= link_to positions_path, class: "inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300" do %>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            <%= t('positions.show.back') %>
-          <% end %>
+      
+      <% when 'freetime' %>
+        <!-- Freetime Activity Registration Button -->
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 sm:p-6 lg:p-8 mb-8 text-center">
+          <div class="mb-4 sm:mb-6">
+            <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-600 mb-2"><%= t('application_actions.freetime.title') %></h3>
+            <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6"><%= t('application_actions.freetime.subtitle') %></p>
+          </div>
+          <%= link_to t('application_actions.freetime.button'), 
+              new_position_application_path(@position), 
+              class: "inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" %>
         </div>
-        
-      </div>
+      
+      <% when 'university_position' %>
+        <!-- University Assistant Application Button -->
+        <div class="bg-purple-50 border border-purple-200 rounded-xl p-4 sm:p-6 lg:p-8 mb-8 text-center">
+          <div class="mb-4 sm:mb-6">
+            <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-600 mb-2"><%= t('application_actions.assistant.title') %></h3>
+            <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6"><%= t('application_actions.assistant.subtitle') %></p>
+          </div>
+          <%= link_to t('application_actions.assistant.button'), 
+              new_position_application_path(@position), 
+              class: "inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" %>
+        </div>
+      <% end %>
     </div>
+
+    <!-- Back Button -->
+    <div class="mt-8 flex justify-center">
+      <%= link_to positions_path, class: "inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300" do %>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <%= t('positions.show.back') %>
+      <% end %>
+    </div>
+    
   </div>
 </div>
 
@@ -661,10 +658,10 @@
         const currentPath = window.location.pathname;
         const searchParams = window.location.search;
         
-        // Remove /de or /en from the beginning of the path
+        // Entfernt /de oder /en am Anfang des Pfades
         let pathWithoutLocale = currentPath.replace(/^\/(de|en)/, '');
         
-        // Redirect to the new URL
+        // Leitet zur neuen URL weiter
         window.location.href = '/' + selectedLocale + pathWithoutLocale + searchParams;
       });
     }

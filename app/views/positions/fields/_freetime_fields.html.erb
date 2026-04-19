@@ -54,35 +54,65 @@
     <%= f.hidden_field :flexibility, value: 3 %>
   </div>
 
- <!-- Checkbox-Bereich -->
-          <h2 class="text-2xl font-bold"><%= t('positions.new.confirmation.title') %></h2>
-          <div class="bg-slate-100 rounded-xl p-8 space-y-6">
-            <div class="space-y-6">
-              <!-- Checkbox: Textbeschreibungen in englischer Sprache -->
-              <div class="field space-y-3">
-                <div class="border-2 border-gray-300 p-4 rounded-md">
-                  <label class="inline-flex items-center">
-                    <input type="checkbox" id="english-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
-                    <span class="ml-2 text-sm text-gray-700">
-                      <%= t('positions.new.confirmation.text') %>
-                    </span>
-                  </label>
-                </div>
-              </div>
+  <!-- FAQ Section (neu hinzugefügt) -->
+  <div class="mt-12 space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm lg:p-8">
+    <h2 class="text-2xl font-bold"><%= t('positions.faqs.form.header') %></h2>
+    <p class="text-sm text-gray-700"><%= t('positions.faqs.form.description') %></p>
+    <div id="faqs" class="space-y-5">
+      <% @position.frequently_asked_questions.each_with_index do |faq, index| %>
+        <div class="faq-item field bg-gray-50 p-4 rounded-lg">
+          <%= f.fields_for :frequently_asked_questions, faq do |faq_form| %>
+            <div class="space-y-4">
+              <label class="block text-sm font-medium text-gray-700"><%= t('positions.faqs.form.question_label') %></label>
+              <%= faq_form.text_field :question, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" %>
 
-              <!-- Checkbox: Zustimmung zu AGB und Datenschutz -->
-              <div class="field space-y-3">
-                <div class="border-2 border-gray-300 p-4 rounded-md">
-                  <label class="inline-flex items-center">
-                    <input type="checkbox" id="terms-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
-                    <span class="ml-2 text-sm text-gray-700">
-                      <%= raw t('positions.new.confirmation.terms') %>
-                    </span>
-                  </label>
-                </div>
-              </div>
+              <label class="block text-sm font-medium text-gray-700"><%= t('positions.faqs.form.answer_label') %></label>
+              <%= faq_form.text_area :answer, rows: 2, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" %>
+
+              <%= faq_form.hidden_field :_destroy, value: false, class: "destroy-field" %>
+              <button type="button" class="remove-faq mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                Entfernen
+              </button>
             </div>
-          </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <button type="button" id="add_faq" class="mt-6 inline-flex items-center rounded-md border border-transparent px-5 py-3 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      FAQ hinzufügen
+    </button>
+  </div>
+
+  <!-- Checkbox-Bereich -->
+  <h2 class="text-2xl font-bold"><%= t('positions.new.confirmation.title') %></h2>
+  <div class="bg-slate-100 rounded-xl p-8 space-y-6">
+    <div class="space-y-6">
+      <!-- Checkbox: Textbeschreibungen in englischer Sprache -->
+      <div class="field space-y-3">
+        <div class="border-2 border-gray-300 p-4 rounded-md">
+          <label class="inline-flex items-center">
+            <input type="checkbox" id="english-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+            <span class="ml-2 text-sm text-gray-700">
+              <%= t('positions.new.confirmation.text') %>
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Checkbox: Zustimmung zu AGB und Datenschutz -->
+      <div class="field space-y-3">
+        <div class="border-2 border-gray-300 p-4 rounded-md">
+          <label class="inline-flex items-center">
+            <input type="checkbox" id="terms-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+            <span class="ml-2 text-sm text-gray-700">
+              <%= raw t('positions.new.confirmation.terms') %>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
   function initFreetimeFields() {
@@ -109,6 +139,57 @@
       updateSubmitButtonState();
       termsCheckbox.addEventListener("change", updateSubmitButtonState);
       englishCheckbox.addEventListener("change", updateSubmitButtonState);
+    }
+
+    // FAQ Management (neu hinzugefügt)
+    const addFaqButton = document.getElementById("add_faq");
+    const faqsContainer = document.getElementById("faqs");
+
+    if (addFaqButton && faqsContainer) {
+      if (faqsContainer.dataset.initialized === 'true') return;
+      faqsContainer.dataset.initialized = 'true';
+      let faqCounter = Date.now();
+
+      function addFaqFields() {
+        const newId = faqCounter++;
+        const faqHtml = `
+          <div class="faq-item field bg-gray-50 p-4 rounded-lg">
+            <div class="space-y-4">
+              <label class="block text-sm font-medium text-gray-700">Frage</label>
+              <input type="text" name="position[frequently_asked_questions_attributes][${newId}][question]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+
+              <label class="block text-sm font-medium text-gray-700">Antwort</label>
+              <textarea name="position[frequently_asked_questions_attributes][${newId}][answer]" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+
+              <button type="button" class="remove-faq mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                Entfernen
+              </button>
+            </div>
+          </div>
+        `;
+        faqsContainer.insertAdjacentHTML('beforeend', faqHtml);
+      }
+
+      addFaqButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        addFaqFields();
+      });
+
+      faqsContainer.addEventListener("click", function(e) {
+        const btn = e.target.closest('.remove-faq');
+        if (!btn) return;
+        e.preventDefault();
+        const faqItem = btn.closest('.faq-item');
+        if (faqItem) {
+          const destroyField = faqItem.querySelector('.destroy-field');
+          if (destroyField) {
+            destroyField.value = "1";
+            faqItem.style.display = "none";
+          } else {
+            faqItem.remove();
+          }
+        }
+      });
     }
   }
 

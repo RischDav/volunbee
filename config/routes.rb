@@ -78,12 +78,32 @@ Rails.application.routes.draw do
     # JSON-API
     get 'json_api', to: 'json_api#output'
 
+    resources :organization_applications, only: [:index, :update]
+  # Optional: Kurzname
+    get 'manage_applications', to: 'organization_applications#index', as: 'manage_applications'
+
+    get 'events/new', to: 'events#new', as: 'new_event'
+
+    resources :events do
+      member do
+        patch :release
+        patch :lock
+        patch :online
+        patch :offline
+        delete :delete_picture, constraints: { picture_type: /main_picture|picture1|picture2|picture3/ }
+      end
+    end
+
     # Devise-Routen
     devise_for :users, controllers: {
       registrations: "users/registrations",
       confirmations: "users/confirmations",
       sessions: 'users/sessions'
     }
+
+    resources :events do
+      resources :event_registrations, only: [:new, :create, :show], path: 'registrations'
+    end
 
     # Eigene Devise-Routen im Mapping-Kontext
     devise_scope :user do

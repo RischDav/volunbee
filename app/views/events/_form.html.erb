@@ -1,0 +1,175 @@
+<%= form_with model: event, local: true, multipart: true, class: "space-y-10" do |f| %>
+  
+  <% if event.errors.any? %>
+    <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+      <h3 class="font-bold mb-2">Fehler beim Speichern:</h3>
+      <ul class="list-disc pl-5">
+        <% event.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- Basisinformationen -->
+  <div class="space-y-6">
+    <div>
+      <%= f.label :title, "Titel *", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_field :title, class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500", placeholder: "z.B. Sommerfest im Park" %>
+      <p class="text-xs text-gray-500 mt-1">Mindestens 5, maximal 100 Zeichen.</p>
+    </div>
+
+    <div>
+      <%= f.label :description, "Beschreibung *", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_area :description, rows: 6, class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500", placeholder: "Was erwartet die Teilnehmer? Programm, Highlights, etc." %>
+      <p class="text-xs text-gray-500 mt-1">Mindestens 20 Zeichen.</p>
+    </div>
+
+    <div>
+      <%= f.label :benefits, "Vorteile / Was bietet ihr?", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_area :benefits, rows: 4, class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500", placeholder: "z.B. Freier Eintritt, Verpflegung, Networking..." %>
+    </div>
+  </div>
+
+  <!-- Ort & Zeit -->
+  <div class="rounded-2xl border border-purple-200 bg-purple-50 p-6 space-y-6">
+    <h2 class="text-xl font-bold text-purple-800 flex items-center gap-2">
+      <span>📍</span> Ort & Zeit
+    </h2>
+
+    <div>
+      <%= f.label :location, "Ort", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_field :location, class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500", placeholder: "z.B. Bürgerhaus, Online via Zoom, Park..." %>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <%= f.label :start_date, "Startdatum & -zeit *", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.datetime_local_field :start_date, class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500" %>
+      </div>
+      <div>
+        <%= f.label :end_date, "Enddatum & -zeit *", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.datetime_local_field :end_date, class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500" %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kategorie & Kontakt -->
+  <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6 space-y-6">
+    <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+      <span>🏷️</span> Kategorie & Kontakt
+    </h2>
+
+    <div>
+      <%= f.label :event_type, "Kategorie", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.select :event_type, 
+          options_for_select([
+            ['Workshop', 'workshop'],
+            ['Soziales / Gemeinschaft', 'social'],
+            ['Sport & Bewegung', 'sport'],
+            ['Kultur & Kunst', 'culture'],
+            ['Vortrag / Diskussion', 'talk'],
+            ['Sonstiges', 'other']
+          ], selected: event.event_type),
+          { include_blank: "Bitte wählen" },
+          class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500" %>
+    </div>
+
+    <div>
+      <%= f.label :contact_person, "Ansprechperson (öffentlich)", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_field :contact_person, class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500", placeholder: "z.B. Max Mustermann" %>
+    </div>
+
+    <div>
+      <%= f.label :contact_email, "Kontakt-E-Mail", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.email_field :contact_email, class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500", placeholder: "info@example.org" %>
+    </div>
+
+    <div>
+      <%= f.label :contact_phone, "Telefon (optional)", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.telephone_field :contact_phone, class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500", placeholder: "+49 123 456789" %>
+    </div>
+
+    <div>
+      <%= f.label :website, "Webseite / Link", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.url_field :website, class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500", placeholder: "https://..." %>
+    </div>
+  </div>
+
+  <!-- Bilder (ActiveStorage) -->
+  <div class="rounded-2xl border border-gray-200 bg-white p-6 space-y-6">
+    <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+      <span>🖼️</span> Bilder
+    </h2>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Hauptbild *</label>
+      <%= f.file_field :main_picture, accept: 'image/*', class: "w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100" %>
+      <% if event.main_picture.attached? %>
+        <div class="mt-2 flex items-center gap-2">
+          <%= image_tag event.main_picture.variant(resize_to_limit: [80, 80]), class: "rounded border" %>
+          <span class="text-sm text-gray-500">Bereits hochgeladen</span>
+        </div>
+      <% end %>
+      <p class="text-xs text-gray-500 mt-1">Mindestens ein Bild. Empfohlen: 1200x800px.</p>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Weitere Bilder (optional)</label>
+      <div class="space-y-3">
+        <%= f.file_field :picture1, accept: 'image/*', class: "w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100" %>
+        <%= f.file_field :picture2, accept: 'image/*', class: "w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100" %>
+        <%= f.file_field :picture3, accept: 'image/*', class: "w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100" %>
+      </div>
+      <% if event.picture1.attached? || event.picture2.attached? || event.picture3.attached? %>
+        <p class="text-xs text-gray-500 mt-1">Bestehende Bilder werden beim Aktualisieren nicht überschrieben. Zum Löschen bitte das Kontrollkästchen verwenden (siehe unten).</p>
+      <% end %>
+    </div>
+
+    <!-- Löschen von Bildern (nur bei edit) -->
+    <% if event.persisted? %>
+      <div class="border-t pt-4 mt-4">
+        <p class="text-sm font-medium text-gray-700 mb-2">Bilder entfernen:</p>
+        <div class="flex flex-wrap gap-4">
+          <% if event.main_picture.attached? %>
+            <label class="inline-flex items-center">
+              <%= check_box_tag :delete_main_picture, 1, false, class: "form-checkbox h-4 w-4 text-red-600" %>
+              <span class="ml-2 text-sm text-gray-600">Hauptbild löschen</span>
+            </label>
+          <% end %>
+          <% if event.picture1.attached? %>
+            <label class="inline-flex items-center">
+              <%= check_box_tag :delete_picture1, 1, false, class: "form-checkbox h-4 w-4 text-red-600" %>
+              <span class="ml-2 text-sm text-gray-600">Bild 1 löschen</span>
+            </label>
+          <% end %>
+          <% if event.picture2.attached? %>
+            <label class="inline-flex items-center">
+              <%= check_box_tag :delete_picture2, 1, false, class: "form-checkbox h-4 w-4 text-red-600" %>
+              <span class="ml-2 text-sm text-gray-600">Bild 2 löschen</span>
+            </label>
+          <% end %>
+          <% if event.picture3.attached? %>
+            <label class="inline-flex items-center">
+              <%= check_box_tag :delete_picture3, 1, false, class: "form-checkbox h-4 w-4 text-red-600" %>
+              <span class="ml-2 text-sm text-gray-600">Bild 3 löschen</span>
+            </label>
+          <% end %>
+        </div>
+        <p class="text-xs text-gray-400 mt-2">Achtung: Löschen ist endgültig.</p>
+      </div>
+    <% end %>
+  </div>
+
+    <!-- Buttons -->
+  <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-6">
+    <div class="flex gap-4">
+      <%= link_to "Abbrechen", events_path, class: "text-center px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" %>
+      <% if event.persisted? %>
+        <%= button_to "Event löschen", event_path(event), method: :delete, class: "text-center px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition shadow-md" %>
+      <% end %>
+    </div>
+    <%= f.submit event.new_record? ? "Event erstellen" : "Änderungen speichern", class: "px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition shadow-md" %>
+  </div>
+
+<% end %>

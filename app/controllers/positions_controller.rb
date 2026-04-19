@@ -6,23 +6,29 @@ class PositionsController < ApplicationController
   before_action :check_online_offline_permissions, only: [:online, :offline]
 
   def index
-  if user_signed_in?
-    if current_user.admin?
-      @positions = Position.all
-    elsif current_user.organization?
-      @positions = Position.where(organization_id: current_user.organization&.id)
-    elsif current_user.student?
-      @positions = Position.where(released: true, online: true)
-    elsif current_user.university?
-      @positions = Position.where(university_id: current_user.university&.id)
+    if user_signed_in?
+      if current_user.admin?
+        @positions = Position.all
+        @events = Event.all
+      elsif current_user.organization?
+        @positions = Position.where(organization_id: current_user.organization&.id)
+        @events = Event.where(organization_id: current_user.organization&.id)
+      elsif current_user.student?
+        @positions = Position.where(released: true, online: true)
+        @events = Event.published.upcoming
+      elsif current_user.university?
+        @positions = Position.where(university_id: current_user.university&.id)
+        @events = Event.none   # Universitäten haben erstmal keine Events
+      else
+        @positions = Position.none
+        @events = Event.none
+      end
+      @positions_count = @positions.size
     else
-      @positions = Position.none
+      @positions = nil
+      @events = nil
     end
-    @positions_count = @positions.size
-  else
-    @positions = nil
   end
-end
 
   def new
     @position = Position.new
@@ -47,6 +53,23 @@ end
 
   def create
     @position = Position.new(position_params)
+
+    # Set the appropriate ID based on user role
+    if current_user.organization?
+      @position.organization_id = current_user.organization&.id
+    elsif current_user.university? || current_user.university_staff?
+      @position.university_id = current_user.university&.id
+    end
+
+    # Always set the user_id to the current user
+    @position.user_id = current_user.id
+
+    # Debug: Log FAQ parameters
+    Rails.logger.debug "FAQ parameters: #{params[:position][:frequently_asked_questions_attributes]}"
+    Rails.logger.debug "Position FAQ count after build: #{@position.frequently_asked_questions.size}"
+    Rails.logger.debug "Position valid? #{@position.valid?}"
+    Rails.logger.debug "Position errors: #{@position.errors.full_messages}"
+
 
     # Debug: Log FAQ parameters
     Rails.logger.debug "FAQ parameters: #{params[:position][:frequently_asked_questions_attributes]}"
@@ -284,7 +307,7 @@ def position_params
     :main_picture, :picture1, :picture2, :picture3,
     :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility,
     :released, :online, :visibility, :visible_university_id,
-    :type, :appointment,                                 
+    :type, :appointment, :payment, :activity_type, :location, :schedule,                                 
     frequently_asked_questions_attributes: [:id, :question, :answer, :_destroy]
   )
 end

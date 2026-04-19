@@ -1,0 +1,72 @@
+<div class="min-h-screen bg-gray-50">
+  <div class="max-w-6xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8">
+    <div class="mb-6 sm:mb-8 flex justify-between items-center">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">Events</h1>
+      <% if user_signed_in? && (current_user.organization? || current_user.admin?) %>
+        <%= link_to new_event_path, class: "inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-200" do %>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          </svg>
+          Neues Event
+        <% end %>
+      <% end %>
+    </div>
+
+    <% if @events.empty? %>
+      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-lg">
+        <p class="text-yellow-700">Noch keine Events vorhanden.</p>
+        <% if user_signed_in? && (current_user.organization? || current_user.admin?) %>
+          <p class="mt-2"><%= link_to "Erstelle dein erstes Event", new_event_path, class: "text-purple-600 hover:underline" %></p>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% @events.each do |event| %>
+          <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-200">
+            <% if event.main_picture.attached? %>
+              <%= image_tag event.main_picture.variant(resize_to_limit: [400, 300]), class: "w-full h-48 object-cover" %>
+            <% else %>
+              <div class="w-full h-48 bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
+                <svg class="w-12 h-12 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+            <% end %>
+            <div class="p-5">
+              <div class="flex justify-between items-start mb-2">
+                <h2 class="text-xl font-semibold text-gray-900"><%= link_to event.title, event, class: "hover:text-purple-600" %></h2>
+                <% if !event.released? %>
+                  <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Ausstehend</span>
+                <% elsif !event.online? %>
+                  <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Offline</span>
+                <% end %>
+              </div>
+              <p class="text-gray-600 text-sm mb-3"><%= truncate(event.description, length: 100) %></p>
+              <div class="space-y-1 text-sm text-gray-500">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span><%= event.location.presence || "Ort folgt" %></span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span><%= l(event.start_date, format: :short) %> – <%= l(event.end_date, format: :short) %></span>
+                </div>
+              </div>
+              <div class="mt-4 flex justify-between items-center">
+                <%= link_to "Details ansehen", event, class: "text-purple-600 hover:text-purple-800 text-sm font-medium" %>
+                <% if user_signed_in? && (current_user.admin? || (current_user.organization? && event.organization_id == current_user.organization&.id)) %>
+                  <%= link_to "Bearbeiten", edit_event_path(event), class: "text-gray-500 hover:text-gray-700 text-sm" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

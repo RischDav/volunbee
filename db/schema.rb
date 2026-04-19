@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_29_210041) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_17_231306) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,6 +39,31 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_29_210041) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "events", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.text "benefits"
+    t.string "location"
+    t.datetime "start_date", null: false
+    t.datetime "end_date", null: false
+    t.string "event_type"
+    t.string "contact_person"
+    t.string "contact_email"
+    t.string "contact_phone"
+    t.string "website"
+    t.boolean "released", default: false
+    t.boolean "online", default: true
+    t.integer "organization_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["end_date"], name: "index_events_on_end_date"
+    t.index ["organization_id"], name: "index_events_on_organization_id"
+    t.index ["released", "online"], name: "index_events_on_released_and_online"
+    t.index ["start_date"], name: "index_events_on_start_date"
+    t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
   create_table "frequently_asked_questions", force: :cascade do |t|
     t.string "question"
     t.text "answer"
@@ -50,7 +75,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_29_210041) do
 
   create_table "messages", force: :cascade do |t|
     t.string "sender_phone"
-    t.bigint "position_id", null: false
+    t.bigint "position_id"
     t.datetime "sent_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -70,6 +95,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_29_210041) do
     t.string "email"
     t.integer "age"
     t.string "preferred_language"
+    t.boolean "accepted"
+    t.integer "event_id"
+    t.index ["event_id"], name: "index_messages_on_event_id"
     t.index ["position_id"], name: "index_messages_on_position_id"
     t.index ["type", "position_id"], name: "index_messages_on_type_and_position_id"
     t.index ["type"], name: "index_messages_on_type"
@@ -128,6 +156,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_29_210041) do
     t.integer "type", default: 1, null: false
     t.string "appointment"
     t.string "payment"
+    t.string "activity_type"
+    t.string "location"
+    t.text "schedule"
     t.index ["organization_id", "released"], name: "index_positions_on_org_and_released"
     t.index ["organization_id"], name: "index_positions_on_organization_id"
     t.index ["released", "online"], name: "index_positions_on_released_and_online"
@@ -222,7 +253,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_29_210041) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "events", "organizations"
+  add_foreign_key "events", "users"
   add_foreign_key "frequently_asked_questions", "positions"
+  add_foreign_key "messages", "events"
   add_foreign_key "messages", "positions"
   add_foreign_key "messages", "users"
   add_foreign_key "positions", "organizations"

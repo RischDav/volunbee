@@ -85,19 +85,7 @@ en:
       taken: "is already taken"
       blank: "must be filled in"
       invalid: "is not valid"
-  
-  positions:
 
-    hours_per_week: "hours/week"
-    type_selector:
-      label: "Select position type"
-      help: "Please choose which type of position you want to create."
-      prompt: "Please select"
-      options:
-        volunteering: "Volunteering"
-        freetime: "Free time"
-        university_position: "University position"
-      confirm: "Confirm"
     errors:
       limit_reached: "You have reached the maximum of 3 positions per organization."
     images:
@@ -497,6 +485,16 @@ en:
       closing: "Thank you,\nThe VolunteerHeilbronn-Team"
   
   positions:
+    hours_per_week: "hours/week"
+    type_selector:
+      label: "Select position type"
+      help: "Please choose which type of position you want to create."
+      prompt: "Please select"
+      options:
+        volunteering: "Volunteering"
+        freetime: "Freetime activities"
+        university_position: "University position"
+      confirm: "Confirm"
     admin_unreleased_positions:
       header: "There are some unreleased positions!"
       view: "View"
@@ -601,6 +599,14 @@ en:
       title: "Open Positions"
       no_positions_available: "There are currently no open positions available."
     new:
+      position_hint: "The 'Leisure' category refers to recreational activities that are not classified as volunteer work. Examples include group sports activities or meetings of interest groups."
+      subtitle: "Please select the type of position you would like to create"
+      header: "Create New Position"
+      title: "Create New Position"
+      subtitle: "Please ensure that all fields are filled out in English!"
+      remaining_points: "Remaining points: %{remaining_points}"
+      submit_disabled: "The submit button is disabled. Please check all fields."
+      confirmation: "Confirmation"
       title: "Create New Position"
       subtitle: "Please ensure all fields are filled out in English!"
       confirmation:

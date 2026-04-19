@@ -1,25 +1,24 @@
+# app/models/message.rb
 class Message < ApplicationRecord
-  self.inheritance_column = :_type_disabled
-  
-  belongs_to :position
-  belongs_to :user, optional: true
-  
-  # Validierungen für alle Bewerbungstypen
-  validates :type, presence: true
-  validates :first_name, :last_name, :age, presence: true
-  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  # Deaktiviere Single-Table Inheritance (STI)
+  self.inheritance_column = nil
 
-  # Validierung für Volunteer-Erfahrungstext (nur wenn 'yes' ausgewählt)
-  validates :volunteer_experience_description, presence: true, 
-            if: -> { type == 'volunteer_application' && has_volunteer_experience == 'yes' }
-  
+  belongs_to :position, optional: true
+  belongs_to :event, optional: true
+  belongs_to :user
+
+  # Validierung: Entweder position oder event muss vorhanden sein
+  validate :must_have_position_or_event
+
+  # Scopes für verschiedene Typen
   scope :applications, -> { where(type: ['volunteer_application', 'freetime_registration', 'assistant_application']) }
-  
-  before_create :set_sent_at
-  
+  scope :event_registrations, -> { where(type: 'event_registration') }
+
   private
-  
-  def set_sent_at
-    self.sent_at = Time.current
+
+  def must_have_position_or_event
+    if position_id.blank? && event_id.blank?
+      errors.add(:base, "Die Nachricht muss entweder einer Position oder einem Event zugeordnet sein")
+    end
   end
 end
