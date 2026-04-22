@@ -11,6 +11,7 @@ class User < ApplicationRecord
   
   # Für Kompatibilität mit bestehenden Formularen
   attr_accessor :organization_name, :university_name
+  attr_accessor :is_student_organization, :university_id
 
   # Überschreibt Devise's Standardverhalten für die Authentifizierung
   # Ein User kann sich einloggen, wenn er bestätigt ist

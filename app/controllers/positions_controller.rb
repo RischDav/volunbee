@@ -5,24 +5,27 @@ class PositionsController < ApplicationController
   before_action :check_admin_permissions, only: [:release, :lock]
   before_action :check_online_offline_permissions, only: [:online, :offline]
 
+  # Mapping für die Datenbank (da 'type' ein Integer ist)
+  TYPE_MAPPING = { 'volunteering' => 1, 'freetime' => 2, 'university_position' => 3 }.freeze
+
   def index
-  if user_signed_in?
-    if current_user.admin?
-      @positions = Position.all
-    elsif current_user.organization?
-      @positions = Position.where(organization_id: current_user.organization&.id)
-    elsif current_user.student?
-      @positions = Position.where(released: true, online: true)
-    elsif current_user.university?
-      @positions = Position.where(university_id: current_user.university&.id)
+    if user_signed_in?
+      if current_user.admin?
+        @positions = Position.all
+      elsif current_user.organization?
+        @positions = Position.where(organization_id: current_user.organization&.id)
+      elsif current_user.student?
+        @positions = Position.where(released: true, online: true)
+      elsif current_user.university?
+        @positions = Position.where(university_id: current_user.university&.id)
+      else
+        @positions = Position.none
+      end
+      @positions_count = @positions.size
     else
-      @positions = Position.none
+      @positions = nil
     end
-    @positions_count = @positions.size
-  else
-    @positions = nil
   end
-end
 
   def new
     @position = Position.new
@@ -41,18 +44,22 @@ end
         render 'positions/university_position/new' and return
       end
     end
-    
-    # Default: show type selector
   end
 
   def create
-    @position = Position.new(position_params)
+    pos_params = position_params
 
-    # Debug: Log FAQ parameters
-    Rails.logger.debug "FAQ parameters: #{params[:position][:frequently_asked_questions_attributes]}"
-    Rails.logger.debug "Position FAQ count after build: #{@position.frequently_asked_questions.size}"
-    Rails.logger.debug "Position valid? #{@position.valid?}"
-    Rails.logger.debug "Position errors: #{@position.errors.full_messages}"
+    # 1. URL Protokoll Fix (ergänzt https:// falls vergessen)
+    if pos_params[:signup_page].present? && !pos_params[:signup_page].start_with?('http://', 'https://')
+      pos_params[:signup_page] = "https://#{pos_params[:signup_page]}"
+    end
+
+    # 2. Typ-String in Integer umwandeln für die Datenbank (1, 2 oder 3)
+    if pos_params[:type].present? && TYPE_MAPPING.key?(pos_params[:type])
+      pos_params[:type] = TYPE_MAPPING[pos_params[:type]]
+    end
+
+    @position = Position.new(pos_params)
 
     # Set the appropriate ID based on user role
     if current_user.organization?
@@ -61,128 +68,74 @@ end
       @position.university_id = current_user.university&.id
     end
 
-    # Always set the user_id to the current user
     @position.user_id = current_user.id
-
-    @position.position_code = @position.title.downcase.gsub(/[^a-z0-9\s]/, '').gsub(/\s+/, '_')
+    @position.position_code = @position.title.downcase.gsub(/[^a-z0-9\s]/, '').gsub(/\s+/, '_') if @position.title.present?
 
     if @position.save
-      # Bilder verarbeiten
       [@position.main_picture, @position.picture1, @position.picture2, @position.picture3].each do |picture|
         ProcessPictureJob.set(wait: 5.seconds).perform_later(picture.blob.id) if picture.attached?
       end
   
-      # Erfolgreiche Erstellung
       redirect_to positions_path, notice: "Position wurde erfolgreich erstellt."
       AdminMailer.new_position_email.deliver_later
     else
-      # Benutzerfreundliche Fehlermeldungen generieren
+      # Deine originalen Fehlermeldungen
       error_messages = []
-  
-      # Position Limit Error
       if @position.errors[:base].include?("Maximum of 3 positions allowed per organization")
         error_messages << t('positions.errors.limit_reached')
       end
   
-      # Titel-Validierung
       if @position.errors.include?(:title)
-        if @position.title.blank?
-          error_messages << "Der Titel darf nicht leer sein."
-        else
-          error_messages << "Der Titel muss zwischen 15 und 75 Zeichen lang sein (aktuell: #{@position.title.length} Zeichen)."
-        end
+        error_messages << (@position.title.blank? ? "Der Titel darf nicht leer sein." : "Der Titel muss zwischen 15 und 75 Zeichen lang sein.")
       end
   
-      # Hauptbild-Validierung
-      if @position.errors.include?(:main_picture)
-        error_messages << "Ein Hauptbild muss hochgeladen werden."
-      end
-  
-      # Vorteile-Validierung
-      if @position.errors.include?(:benefits)
-        if @position.benefits.blank?
-          error_messages << t('positions.errors.benefits.blank')
-        else
-          error_messages << t('positions.errors.benefits.length', length: @position.benefits.length)
-        end
-      end
-  
-      # Beschreibung-Validierung
-      if @position.errors.include?(:description)
-        if @position.description.blank?
-          error_messages << t('positions.errors.description.blank')
-        else
-          error_messages << t('positions.errors.description.length', length: @position.description.length)
-        end
-      end
-  
-      # Fähigkeiten-Validierung
-      skill_namen = {
-        creative_skills: t('positions.show.creative_skills'),
-        technical_skills: t('positions.show.technical_skills'),
-        social_skills: t('positions.show.social_skills'),
-        language_skills: t('positions.show.language_skills'),
-        flexibility: t('positions.show.flexibility')
-      }
-  
-      skill_namen.each do |skill, name|
-        if @position.errors.include?(skill)
-          error_messages << t('positions.errors.skills.invalid', name: name)
-        end
-      end
-  
-      # Summe der Fähigkeiten prüfen
-      skills_sum = skill_namen.keys.sum { |skill| @position.send(skill).to_i }
-      if skills_sum > 15
-        error_messages << t('positions.errors.skills.sum_exceeded', sum: skills_sum)
-      end
-  
-      # Bilder-Validierung
-      if @position.errors.include?(:pictures)
-        error_messages << t('positions.errors.pictures.too_large')
-      end
-  
-      # Andere Validierungsfehler
+      error_messages << "Ein Hauptbild muss hochgeladen werden." if @position.errors.include?(:main_picture)
+      
       @position.errors.full_messages.each do |message|
         unless error_messages.any? { |error| error.include?(message) }
           error_messages << message
         end
       end
   
-      # Fehler anzeigen
       flash.now[:alert] = error_messages.join("<br>").html_safe
+      3.times { @position.frequently_asked_questions.build } if @position.frequently_asked_questions.empty?
       
-      # FAQ-Objekte wieder aufbauen, falls sie verloren gegangen sind
-      if @position.frequently_asked_questions.empty?
-        3.times { @position.frequently_asked_questions.build }
-      end
-
       @position.online = true
       @position.is_active = true
       
-      render :new, status: :unprocessable_entity
+      # Korrektes Template zurückgeben basierend auf Typ
+      case params[:position][:type]
+      when 'volunteering' then render 'positions/volunteering/new', status: :unprocessable_entity
+      when 'freetime' then render 'positions/freetime/new', status: :unprocessable_entity
+      when 'university_position' then render 'positions/university_position/new', status: :unprocessable_entity
+      else render :new, status: :unprocessable_entity
+      end
     end
   end
 
   def show
     if user_signed_in? && current_user.student?
-      UserEvent.create!(
-        user_type: :student,
-        action_type: :view_position,
-        position: @position,
-        university: current_user.university,
-      )
+      UserEvent.create!(user_type: :student, action_type: :view_position, position: @position, university: current_user.university)
     end
   end
 
   def edit
     AdminMailer.position_change_email.deliver_later
-
     render_edit_template
   end
 
   def update
-    if @position.update(position_params)
+    upd_params = position_params
+    
+    if upd_params[:signup_page].present? && !upd_params[:signup_page].start_with?('http://', 'https://')
+      upd_params[:signup_page] = "https://#{upd_params[:signup_page]}"
+    end
+
+    if upd_params[:type].present? && TYPE_MAPPING.key?(upd_params[:type])
+      upd_params[:type] = TYPE_MAPPING[upd_params[:type]]
+    end
+
+    if @position.update(upd_params)
       redirect_to positions_path, notice: "Position wurde erfolgreich aktualisiert."
     else
       render_edit_template(status: :unprocessable_entity)
@@ -195,32 +148,27 @@ end
   end
 
   def release
-    position = Position.find(params[:id])
-    position.update(released: true)
+    @position.update(released: true)
     redirect_to positions_path, notice: "Position wurde freigegeben."
   end
 
   def offline
-    position = Position.find(params[:id])
-    position.update(online: false)
+    @position.update(online: false)
     redirect_to positions_path, notice: "Position wurde offline gesetzt."
   end
 
   def online
-    position = Position.find(params[:id])
-    position.update(online: true)
+    @position.update(online: true)
     redirect_to positions_path, notice: "Position wurde online gesetzt."
   end
 
   def lock
-    position = Position.find(params[:id])
-    position.update(released: false)
+    @position.update(released: false)
     redirect_to positions_path, notice: "Position wurde gesperrt."
   end
 
   def delete_picture
     picture_type = params[:picture_type]
-    
     if @position.send(picture_type).attached?
       @position.send(picture_type).purge
       redirect_to edit_position_path(@position), notice: "Bild wurde erfolgreich gelöscht."
@@ -255,55 +203,48 @@ end
   end
 
   def check_online_offline_permissions
-    position = Position.find(params[:id])
-    unless can_edit_position?(position)
+    unless can_edit_position?(@position)
       redirect_to positions_path, alert: 'Sie sind nicht berechtigt, den Status dieser Position zu ändern.'
     end
   end
 
   def can_edit_position?(position)
     return true if current_user.admin?
-    
-    # Organization User kann nur eigene Organisationspositionen bearbeiten
     if current_user.organization? && position.organization_id.present?
       return position.organization_id == current_user.organization&.id
     end
-    
-    # University Staff kann nur eigene Universitätspositionen bearbeiten
     if current_user.university_staff? && position.university_id.present?
       return position.university_id == current_user.university&.id
     end
-    
-    # Normale Students und andere User können nichts bearbeiten
     false
   end
 
-def position_params
-  params.require(:position).permit(
-    :title, :position_temporary, :weekly_time_commitment, :description, :benefits,
-    :main_picture, :picture1, :picture2, :picture3,
-    :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility,
-    :released, :online, :visibility, :visible_university_id,
-    :type, :appointment,                                 
-    frequently_asked_questions_attributes: [:id, :question, :answer, :_destroy]
-  )
-end
-
-private
-
-def render_edit_template(status: nil)
-  template_options = {}
-  template_options[:status] = status if status
-
-  case @position.type
-  when 'volunteering'
-    render 'positions/volunteering/edit', **template_options
-  when 'freetime'
-    render 'positions/freetime/edit', **template_options
-  when 'university_position'
-    render 'positions/university_position/edit', **template_options
-  else
-    render :edit, **template_options
+  def position_params
+    params.require(:position).permit(
+      :title, :position_temporary, :weekly_time_commitment, :description, :benefits,
+      :main_picture, :picture1, :picture2, :picture3,
+      :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility,
+      :released, :online, :visibility, :visible_university_id,
+      :type, :appointment, :has_own_signup_page, :signup_page,
+      :activity_type, :location, :schedule, :payment, # WICHTIG: Diese Felder müssen in die DB
+      frequently_asked_questions_attributes: [:id, :question, :answer, :_destroy]
+    )
   end
-end
+
+  def render_edit_template(status: nil)
+    template_options = { status: status }.compact
+    # Mapping zurück auf Strings für die Pfade
+    type_string = case @position.type
+                  when 1, 'volunteering' then 'volunteering'
+                  when 2, 'freetime' then 'freetime'
+                  when 3, 'university_position' then 'university_position'
+                  end
+
+    case type_string
+    when 'volunteering' then render 'positions/volunteering/edit', **template_options
+    when 'freetime' then render 'positions/freetime/edit', **template_options
+    when 'university_position' then render 'positions/university_position/edit', **template_options
+    else render :edit, **template_options
+    end
+  end
 end

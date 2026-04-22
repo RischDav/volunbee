@@ -1,16 +1,12 @@
-<!-- Freetime-specific fields -->
 <div class="space-y-10">
-  <!-- Basic Information (Freetime-specific) -->
   <%= render 'positions/freetime/form_general_information', f: f %>
   
-  <!-- Freetime-specific section -->
   <div class="space-y-10 rounded-2xl border border-blue-200 bg-blue-50 p-8 shadow-sm lg:p-10">
     <div class="flex items-center gap-3">
       <span class="text-3xl">📍</span>
       <h2 class="text-2xl font-bold text-blue-800">Ort und Zeitplan</h2>
     </div>
     
-    <!-- Activity Type -->
     <div class="field space-y-3">
       <%= f.label :activity_type, "Art der Aktivität", class: "block text-sm font-medium text-gray-700" %>
       <%= f.select :activity_type, 
@@ -24,28 +20,37 @@
           ]),
           { prompt: 'Wähle eine Kategorie' },
           { class: "mt-2 block w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" } %>
-      <p class="text-sm text-gray-500">Welche Art von Freizeitaktivität bietest du an?</p>
     </div>
 
-    <!-- Location -->
     <div class="field space-y-3">
       <%= f.label :location, "Ort der Aktivität", class: "block text-sm font-medium text-gray-700" %>
       <%= f.text_field :location, class: "mt-2 block w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "z.B. Sporthalle, Park, Online..." %>
-      <p class="text-sm text-gray-500">Wo findet die Aktivität statt?</p>
     </div>
 
-    <!-- Schedule -->
     <div class="field space-y-3">
       <%= f.label :schedule, "Zeitplan", class: "block text-sm font-medium text-gray-700" %>
       <%= f.text_area :schedule, rows: 3, class: "mt-2 block w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "z.B. Jeden Dienstag 18:00-20:00 Uhr" %>
-      <p class="text-sm text-gray-500">Wann findet die Aktivität statt?</p>
+    </div>
+
+    <hr class="border-blue-200">
+
+    <div class="field space-y-3 pt-2">
+      <%= f.label :has_own_signup_page, "Haben Sie eine eigene Seite für die Registrierung?", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.select :has_own_signup_page, [["Nein, Standard-Anmeldung über Volunbee", false], ["Ja, externe Registrierungsseite", true]], {}, { id: "has_own_signup_page_select", class: "mt-2 block w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" } %>
+      <p id="volunbee-standard-info" class="text-sm text-blue-600 italic">
+        Bei "Nein" nutzen Studierende den Volunbee-Button und Sie erhalten eine E-Mail.
+      </p>
+    </div>
+
+    <div id="signup_url_container" class="field space-y-3 border-l-4 border-green-500 pl-4 py-2 hidden">
+      <%= f.label :signup_page, "Link zur Registrierung (URL)", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :signup_page, id: "signup_page_input", class: "mt-2 block w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "https://ihre-seite.de/anmeldung" %>
+      <p class="text-sm text-green-700">Studierende werden direkt zu dieser URL weitergeleitet.</p>
     </div>
   </div>
 
-  <!-- Images -->
   <%= render 'positions/shared/form_images', f: f %>
 
-  <!-- Skills (Required but simplified for freetime) -->
   <div class="hidden">
     <%= f.hidden_field :creative_skills, value: 3 %>
     <%= f.hidden_field :technical_skills, value: 3 %>
@@ -54,63 +59,82 @@
     <%= f.hidden_field :flexibility, value: 3 %>
   </div>
 
- <!-- Checkbox-Bereich -->
-          <h2 class="text-2xl font-bold"><%= t('positions.new.confirmation.title') %></h2>
-          <div class="bg-slate-100 rounded-xl p-8 space-y-6">
-            <div class="space-y-6">
-              <!-- Checkbox: Textbeschreibungen in englischer Sprache -->
-              <div class="field space-y-3">
-                <div class="border-2 border-gray-300 p-4 rounded-md">
-                  <label class="inline-flex items-center">
-                    <input type="checkbox" id="english-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
-                    <span class="ml-2 text-sm text-gray-700">
-                      <%= t('positions.new.confirmation.text') %>
-                    </span>
-                  </label>
-                </div>
-              </div>
+  <div class="space-y-6">
+    <h2 class="text-2xl font-bold"><%= t('positions.new.confirmation.title') %></h2>
+    <div class="bg-slate-100 rounded-xl p-8 space-y-6">
+      <div class="field space-y-3">
+        <div class="border-2 border-gray-300 p-4 rounded-md bg-white">
+          <label class="inline-flex items-center cursor-pointer">
+            <input type="checkbox" id="english-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+            <span class="ml-2 text-sm text-gray-700">
+              <%= t('positions.new.confirmation.text') %>
+            </span>
+          </label>
+        </div>
+      </div>
 
-              <!-- Checkbox: Zustimmung zu AGB und Datenschutz -->
-              <div class="field space-y-3">
-                <div class="border-2 border-gray-300 p-4 rounded-md">
-                  <label class="inline-flex items-center">
-                    <input type="checkbox" id="terms-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
-                    <span class="ml-2 text-sm text-gray-700">
-                      <%= raw t('positions.new.confirmation.terms') %>
-                    </span>
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div class="field space-y-3">
+        <div class="border-2 border-gray-300 p-4 rounded-md bg-white">
+          <label class="inline-flex items-center cursor-pointer">
+            <input type="checkbox" id="terms-checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+            <span class="ml-2 text-sm text-gray-700">
+              <%= raw t('positions.new.confirmation.terms') %>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
-  function initFreetimeFields() {
-    // Basic validation for freetime fields
-    const termsCheckbox = document.getElementById("terms-checkbox");
-    const englishCheckbox = document.getElementById("english-checkbox");
-    const submitButton = document.getElementById("submit-button");
+  (function() {
+    function initFreetimeLogic() {
+      const signupSelect = document.getElementById("has_own_signup_page_select");
+      const signupContainer = document.getElementById("signup_url_container");
+      const standardInfo = document.getElementById("volunbee-standard-info");
+      const termsCheckbox = document.getElementById("terms-checkbox");
+      const submitButton = document.getElementById("submit-button");
 
-    function updateSubmitButtonState() {
+      // 1. Signup URL Toggle Logik
+      if (signupSelect && signupContainer) {
+        const toggleSignup = () => {
+          if (signupSelect.value === "true") {
+            signupContainer.classList.remove("hidden");
+            standardInfo.classList.add("hidden");
+          } else {
+            signupContainer.classList.add("hidden");
+            standardInfo.classList.remove("hidden");
+          }
+        };
+        signupSelect.addEventListener("change", toggleSignup);
+        toggleSignup(); // Init
+      }
+
+      // 2. Submit Button Logik
       if (termsCheckbox && submitButton) {
-        if (termsCheckbox.checked) {
-          submitButton.disabled = false;
-          submitButton.classList.remove("bg-gray-400", "cursor-not-allowed");
-          submitButton.classList.add("bg-green-600", "hover:bg-green-700");
-        } else {
-          submitButton.disabled = true;
-          submitButton.classList.remove("bg-green-600", "hover:bg-green-700");
-          submitButton.classList.add("bg-gray-400", "cursor-not-allowed");
-        }
+        const updateButton = () => {
+          if (termsCheckbox.checked) {
+            submitButton.disabled = false;
+            submitButton.classList.remove("bg-gray-400", "cursor-not-allowed");
+            submitButton.classList.add("bg-green-600", "hover:bg-green-700");
+          } else {
+            submitButton.disabled = true;
+            submitButton.classList.remove("bg-green-600", "hover:bg-green-700");
+            submitButton.classList.add("bg-gray-400", "cursor-not-allowed");
+          }
+        };
+        termsCheckbox.addEventListener("change", updateButton);
+        updateButton(); // Init
       }
     }
 
-    if (englishCheckbox && termsCheckbox && submitButton) {
-      updateSubmitButtonState();
-      termsCheckbox.addEventListener("change", updateSubmitButtonState);
-      englishCheckbox.addEventListener("change", updateSubmitButtonState);
+    // Unterstützung für Turbo und normales Laden
+    document.addEventListener('turbo:load', initFreetimeLogic);
+    if (document.readyState !== 'loading') {
+      initFreetimeLogic();
+    } else {
+      document.addEventListener('DOMContentLoaded', initFreetimeLogic);
     }
-  }
-
-  setTimeout(initFreetimeFields, 100);
+  })();
 </script>

@@ -1,5 +1,6 @@
 class University < ApplicationRecord
   has_many :user_affiliations, dependent: :nullify
+  has_many :organizations
   has_many :users, through: :user_affiliations
   has_many :positions
   

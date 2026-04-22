@@ -1,4 +1,5 @@
 class Organization < ApplicationRecord
+    belongs_to :university, optional: true
     has_many :positions
     self.table_name = "organizations"
     has_one_attached :logo

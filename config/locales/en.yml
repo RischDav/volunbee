@@ -600,6 +600,7 @@ en:
     index:
       title: "Open Positions"
       no_positions_available: "There are currently no open positions available."
+      university_positions: "From my university"
     new:
       title: "Create New Position"
       subtitle: "Please ensure all fields are filled out in English!"
@@ -822,6 +823,13 @@ en:
       login_with: "Login with %{provider}"
     registrations:
       new:
+        select_university_label: "Select your university"
+        is_student_organization_label: "Is this a student organization?"
+        is_student_organization_yes: "Yes"
+        is_student_organization_no: "No"
+        please_select: "Please select..."
+        privacy_policy_agreement_html: "I accept the %{link}."
+        privacy_policy_link: "privacy policy"
         title: "Sign up"
         join_as: "Join as"
         organization: "Organization"

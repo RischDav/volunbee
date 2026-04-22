@@ -44,6 +44,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       # Erstelle zuerst die Organisation
       organization = Organization.new(
         name: params[:user][:organization_name],
+        is_student_organization: params[:user][:is_student_organization] == "true",
+        university_id: params[:user][:university_id].presence, # .presence macht aus "" ein nil
         organization_code: params[:user][:organization_name].downcase.gsub(/[^a-z0-9\s]/, '').gsub(/\s+/, '_')
       )
 
@@ -101,7 +103,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       university = resource.determine_university_from_email
       
       unless university
-        resource.errors.add(:email, "Diese E-Mail-Domain wird nicht unterstützt. Bitte verwende eine Hochschul-E-Mail-Adresse (z.B. @tum.de, @hs-heilbronn.de)")
+        resource.errors.add(:email, "Please use your university email address (e.g. @tum.de or @stud.hs-heilbronn.de)")
         clean_up_passwords resource
         set_minimum_password_length
         render 'devise/registrations/new_student', status: :unprocessable_entity
@@ -178,7 +180,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
       :email,
       :password,
       :password_confirmation,
-      :organization_name
+      :organization_name,
+      :is_student_organization,
+      :university_id
     )
   end
 

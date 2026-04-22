@@ -247,6 +247,8 @@ de:
       header: "Es gibt einige noch nicht freigegebene Positionen!"
       view: "Ansehen"
       release: "Freigeben"
+    index:
+      university_positions: "Von deiner Universität"
     
     faqs:
       form:
@@ -657,6 +659,13 @@ de:
       
       registrations:
         new:
+          select_university_label: "Bitte wählen Sie Ihre Universität aus der Liste aus"
+          is_student_organization_label: "Handelt es sich um eine studentische Organisation?"
+          is_student_organization_yes: "Ja"
+          is_student_organization_no: "Nein"
+          please_select: "Bitte auswählen..."
+          privacy_policy_agreement_html: "Ich akzeptiere die %{link}."
+          privacy_policy_link: "Datenschutzerklärung"
           title: "Anmelden"
           join_as: "Registrieren als"
           organization: "Organisation"

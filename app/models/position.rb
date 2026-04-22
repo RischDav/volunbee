@@ -8,6 +8,7 @@ class Position < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :user_events, dependent: :destroy
   accepts_nested_attributes_for :frequently_asked_questions, allow_destroy: true, reject_if: ->(attributes) { attributes['question'].blank? && attributes['answer'].blank? }
+  enum :type, { volunteering: 1, freetime: 2, university_position: 3 }, suffix: true
 
   # Each position can have multiple images
   has_one_attached :main_picture
@@ -22,11 +23,17 @@ class Position < ApplicationRecord
   validate :organization_or_university_present
   validate :student_cannot_create_position, on: :create
 
+  # signup_page muss vorhanden sein, wenn das Flag gesetzt ist
+  validates :signup_page, presence: true, if: :has_own_signup_page?
+  
+  # Optional: Validierung, ob es eine echte URL ist
+  validates :signup_page, format: { with: URI::DEFAULT_PARSER.make_regexp, message: "muss eine gültige URL sein" }, if: -> { signup_page.present? }
+
   # Main picture validations
   # validates :main_picture, presence: true
-validates :main_picture, presence: true
-validate :main_picture_format
-validate :main_picture_size
+  validates :main_picture, presence: true
+  validate :main_picture_format
+  validate :main_picture_size
 
   validates :creative_skills, :technical_skills, :social_skills, :language_skills, :flexibility,
             numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }
@@ -54,6 +61,12 @@ validate :main_picture_size
   scope :published, -> { where(released: true, online: true) }
   scope :draft, -> { where(released: false, online: false) }
   scope :approved_but_offline, -> { where(released: true, online: false) }
+  scope :for_university, ->(uni_id) {
+    left_outer_joins(:organization).where(
+      "positions.university_id = ? OR organizations.university_id = ?", 
+      uni_id, uni_id
+    )
+  }
   
   # Scopes for filtering by relationship
   scope :for_organization, ->(org_id) { where(organization_id: org_id) }

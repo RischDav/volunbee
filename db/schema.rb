@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_29_210041) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_21_212231) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -101,6 +101,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_29_210041) do
     t.string "tiktok_url", default: ""
     t.string "linktree_url", default: ""
     t.integer "positions_count", default: 0, null: false
+    t.boolean "is_student_organization"
+    t.integer "university_id"
+    t.index ["university_id"], name: "index_organizations_on_university_id"
   end
 
   create_table "positions", force: :cascade do |t|
@@ -128,6 +131,11 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_29_210041) do
     t.integer "type", default: 1, null: false
     t.string "appointment"
     t.string "payment"
+    t.boolean "has_own_signup_page", default: false
+    t.string "signup_page"
+    t.string "activity_type"
+    t.string "location"
+    t.text "schedule"
     t.index ["organization_id", "released"], name: "index_positions_on_org_and_released"
     t.index ["organization_id"], name: "index_positions_on_organization_id"
     t.index ["released", "online"], name: "index_positions_on_released_and_online"
@@ -225,6 +233,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_29_210041) do
   add_foreign_key "frequently_asked_questions", "positions"
   add_foreign_key "messages", "positions"
   add_foreign_key "messages", "users"
+  add_foreign_key "organizations", "universities"
   add_foreign_key "positions", "organizations"
   add_foreign_key "positions", "universities", column: "visible_university_id"
   add_foreign_key "positions", "users"

@@ -4,22 +4,30 @@
       <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2"><%= t('positions.index.title') %></h1>
     </div>
 
-  <!-- Button für neue Position -->
   <%= render partial: 'positions/shared/new_position_button' if (!current_user.admin? && !current_user.student?) %>
 
-  <!-- Admin Alert for Unreleased Positions -->
   <%= render partial: 'positions/shared/admin_unreleased_positions', locals: { positions: @positions.where(released: false) } if current_user.admin? && @positions.where(released: false).exists? %>
 
-  <!-- Positionen meiner Uni (nur für Studierende & Personal Uni) -->
   <% if current_user.university.present? %>
-    <% university_positions = @positions.where(university_id: current_user.university.id) %>
+    <% 
+      uni_id = current_user.university.id
+      # 1. Positionen, die direkt der Uni gehören
+      direct_uni_positions = @positions.where(university_id: uni_id)
+      
+      # 2. Positionen von Organisationen, die zu dieser Uni gehören
+      org_uni_positions = @positions.joins(:organization).where(organizations: { university_id: uni_id })
+      
+      # Kombinieren und Duplikate entfernen
+      university_positions = (direct_uni_positions + org_uni_positions).uniq
+    %>
+    
     <% if university_positions.any? %>
       <div class="mb-8 sm:mb-12">
         <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center gap-2">
           <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
           </svg>
-          <span class="text-base sm:text-xl lg:text-2xl">Positionen von <%= current_user.university.name %></span>
+          <span class="text-base sm:text-xl lg:text-2xl"><%= t('positions.index.university_positions') %></span>
         </h2>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           <% university_positions.each do |position| %>
@@ -30,14 +38,13 @@
     <% end %>
   <% end %>
 
-   <!-- Positionen der Organization -->
-  <% if current_user.organization.present? %>
+   <% if current_user.organization.present? %>
     <% organization_positions = @positions.where(organization_id: current_user.organization.id) %>
     <% if organization_positions.any? %>
       <div class="mb-8 sm:mb-12">
         <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center gap-2">
           <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
           </svg>
           <span class="text-base sm:text-xl lg:text-2xl"><%= t('positions.index.organization_positions') %></span>
         </h2>
@@ -56,8 +63,7 @@
       freetime_positions = current_user.admin? ? @positions.by_type('freetime').released : @positions.by_type('freetime')
     %>
 
-    <!-- Ehrenamtliche Aktivitäten -->
-    <% if volunteering_positions.any? %>
+    <% if volunteering_positions.any? && !current_user.organization.present? %>
       <div class="mb-8 sm:mb-12">
         <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center gap-2">
           <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -73,8 +79,7 @@
       </div>
     <% end %>
 
-    <!-- Freizeitaktivitäten -->
-    <% if freetime_positions.any? %>
+    <% if freetime_positions.any? && !current_user.organization.present? %>
       <div class="mb-8 sm:mb-12">
         <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center gap-2">
           <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">

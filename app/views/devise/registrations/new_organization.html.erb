@@ -2,10 +2,11 @@
 <% box_style = "bg-transparent border border-[#2a2b2e] rounded-lg p-8" %>
 <% input_style = "w-full bg-transparent border border-[#2a2b2e] rounded-md py-2 px-3 focus:outline-none focus:border-[#2A9D8F] transition-colors duration-300" %>
 <% label_style = "block text-sm font-medium text-gray-600 mb-2" %>
-<% button_style = "w-full bg-[#2A9D8F] text-white font-bold py-3 px-4 rounded-md hover:bg-[#258a7e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1a1919] focus:ring-[#2A9D8F] transition-all duration-300" %>
+<%# Button ist initial ausgegraut %>
+<% button_style = "w-full bg-[#2A9D8F] text-white font-bold py-3 px-4 rounded-md hover:bg-[#258a7e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1a1919] focus:ring-[#2A9D8F] transition-all duration-300 opacity-50 pointer-events-none" %>
 <% link_style = "font-medium text-[#2A9D8F] hover:text-[#38b8a5] transition-colors duration-300" %>
 
-<div class=" text-gray-700 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+<div class="text-gray-700 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-lg w-full space-y-8">
     <article class="<%= box_style %>">
       <div class="text-center mb-8">
@@ -15,7 +16,7 @@
         <p class="text-gray-700 mt-2"><%= t('devise.registrations.new.organization_register') %></p>
       </div>
 
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-6" }) do |f| %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-6", id: "registration-form" }) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
         <%= f.hidden_field :role, value: "organization" %>
 
@@ -42,8 +43,37 @@
           <%= f.password_field :password_confirmation, autocomplete: "new-password", class: input_style, placeholder: "••••••••" %>
         </div>
 
+        <%# Dropdown für studentische Organisation %>
+        <div>
+          <%= f.label :is_student_organization, t('devise.registrations.new.is_student_organization_label'), class: label_style %>
+          <%= f.select :is_student_organization, 
+                [[t('devise.registrations.new.is_student_organization_no'), false], [t('devise.registrations.new.is_student_organization_yes'), true]], 
+                { include_blank: t('devise.registrations.new.please_select') }, 
+                { class: input_style, id: "is_student_select" } %>
+        </div>
+
+        <%# Dynamisches Uni-Dropdown (initial versteckt) %>
+        <div id="university_select_container" class="hidden transition-all duration-300">
+          <%= f.label :university_id, t('devise.registrations.new.select_university_label'), class: label_style %>
+          <%= f.collection_select :university_id, University.all.order(:name), :id, :name, 
+                { include_blank: t('devise.registrations.new.please_select_university') }, 
+                { class: input_style, id: "university_id_select" } %>
+        </div>
+
+        <%# Datenschutz Checkbox %>
+        <div class="flex items-start space-x-3 py-2">
+          <div class="flex items-center h-5">
+            <input type="checkbox" id="privacy_policy_accepted" class="h-4 w-4 text-[#2A9D8F] focus:ring-[#2A9D8F] border-[#2a2b2e] rounded bg-transparent cursor-pointer">
+          </div>
+          <div class="text-sm">
+            <label for="privacy_policy_accepted" class="font-medium text-gray-700 cursor-pointer">
+              <%= t('devise.registrations.new.privacy_policy_agreement_html', link: link_to(t('devise.registrations.new.privacy_policy_link'), "#", class: link_style)) %>
+            </label>
+          </div>
+        </div>
+
         <div class="actions pt-4">
-          <%= f.submit t('devise.registrations.new.sign_up_button'), class: button_style %>
+          <%= f.submit t('devise.registrations.new.sign_up_button'), id: "submit-button", class: button_style %>
         </div>
       <% end %>
     </article>
@@ -56,3 +86,57 @@
     </div>
   </div>
 </div>
+
+<script>
+  (function() {
+    const startLogic = function() {
+      const studentSelect = document.getElementById('is_student_select');
+      const uniContainer = document.getElementById('university_select_container');
+      const privacyCheckbox = document.getElementById('privacy_policy_accepted');
+      const submitBtn = document.getElementById('submit-button');
+
+      // Falls die Elemente noch nicht da sind, warten wir kurz und versuchen es erneut
+      if (!studentSelect || !uniContainer || !privacyCheckbox || !submitBtn) {
+        setTimeout(startLogic, 50); 
+        return;
+      }
+
+      const updateUni = () => {
+        if (studentSelect.value === "true") {
+          uniContainer.style.display = 'block';
+        } else {
+          uniContainer.style.display = 'none';
+          const selectField = document.getElementById('university_id_select');
+          if (selectField) selectField.value = "";
+        }
+      };
+
+      const updateButton = () => {
+        if (privacyCheckbox.checked) {
+          submitBtn.style.opacity = "1";
+          submitBtn.style.pointerEvents = "auto";
+        } else {
+          submitBtn.style.opacity = "0.5";
+          submitBtn.style.pointerEvents = "none";
+        }
+      };
+
+      studentSelect.addEventListener('change', updateUni);
+      privacyCheckbox.addEventListener('change', updateButton);
+
+      // Initial ausführen
+      updateUni();
+      updateButton();
+    };
+
+    // 1. Für Turbo-Navigation
+    document.addEventListener('turbo:load', startLogic);
+    
+    // 2. Für harten Reload (sofortiger Startversuch)
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', startLogic);
+    } else {
+      startLogic();
+    }
+  })();
+</script>
