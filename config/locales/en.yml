@@ -1073,6 +1073,17 @@ en:
       subtitle: "Start your career as a university assistant"  
       button: "Apply as Assistant"
 
+  navigation:
+    labels:
+      login: "Login"
+      register: "Registration"
+      public_pages: "Public Pages"
+    links:
+      login: "Sign In"
+      register_organization: "Register Organization"
+      register_student: "Register Student"
+      home: "Home"
+
 
 
 

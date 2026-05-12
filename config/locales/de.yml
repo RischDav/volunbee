@@ -919,3 +919,14 @@ de:
       title: "🎓 Für Position bewerben"
       subtitle: "Starte deine Karriere als Universitätsassistent/in"
       button: "Als Assistent/in bewerben"
+
+  navigation:
+      labels:
+        login: "Anmeldung"
+        register: "Registrieren"
+        public_pages: "Öffentliche Seiten"
+      links:
+        login: "Anmelden"
+        register_organization: "Organisation registrieren"
+        register_student: "Student registrieren"
+        home: "Home"

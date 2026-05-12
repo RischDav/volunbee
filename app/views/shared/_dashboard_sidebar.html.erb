@@ -140,42 +140,42 @@
         <% end %>
         
         <% else %>
-        <!-- Not logged in Navigation -->
-        <div class="nav-label">Anmeldung</div>
-        <%= link_to new_user_session_path, class: "nav-item" do %>
-          <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-          </svg>
-          Anmelden
-        <% end %>
-        <div class="nav-divider"></div>
-        <div class="nav-label">Registrieren</div>
-        <%= link_to new_organization_registration_path, class: "nav-item" do %>
-          <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-          </svg>
-          Organisation registrieren
-        <% end %>
-        <%= link_to new_student_registration_path, class: "nav-item" do %>
-          <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
-          </svg>
-          Student registrieren
-        <% end %>
-        
-        <div class="nav-divider"></div>
-        <div class="nav-label">Öffentliche Seiten</div>
-        <%= link_to root_path, class: "nav-item" do %>
-          <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-          </svg>
-          Home
-        <% end %>
-        
-      <% end %>
+        <div class="nav-label"><%= t('navigation.labels.login') %></div>
+<%= link_to new_user_session_path, class: "nav-item" do %>
+  <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+  </svg>
+  <%= t('navigation.links.login') %>
+<% end %>
+
+<div class="nav-divider"></div>
+
+<div class="nav-label"><%= t('navigation.labels.register') %></div>
+<%= link_to new_organization_registration_path, class: "nav-item" do %>
+  <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+  </svg>
+  <%= t('navigation.links.register_organization') %>
+<% end %>
+
+<%= link_to new_student_registration_path, class: "nav-item" do %>
+  <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
+  </svg>
+  <%= t('navigation.links.register_student') %>
+<% end %>
+
+<div class="nav-divider"></div>
+
+<div class="nav-label"><%= t('navigation.labels.public_pages') %></div>
+<%= link_to root_path, class: "nav-item" do %>
+  <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+  </svg>
+  <%= t('navigation.links.home') %>
+<% end %>
+<% end %> 
     </div>
-  </nav>
-  
   <!-- Footer Section -->
   <div class="sidebar-footer">
     <div class="nav-divider"></div>
@@ -218,6 +218,7 @@
     </div>
   </div>
 </aside>
+
 
 <!-- CSS-Styles -->
 <style>
