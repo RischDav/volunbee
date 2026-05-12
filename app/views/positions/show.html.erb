@@ -642,31 +642,51 @@
         <% end %>
         <% end %>
     <!-- Application/Registration Button Section -->
-    <div class="mt-8 mb-8">
-      <% case @position.type %>
-      <% when 'volunteering' %>
-        <!-- Volunteer Application Button -->
-        <div class="bg-green-50 border border-green-200 rounded-xl p-4 sm:p-6 lg:p-8 mb-8 text-center">
-          <div class="mb-4 sm:mb-6">
-            <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-600 mb-2">🤝 Ready to Volunteer?</h3>
-            <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">Join us and make a difference in your community</p>
-          </div>
-          <%= link_to "Apply as Volunteer", 
-              new_position_application_path(@position), 
-              class: "inline-flex items-center gap-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" %>
-        </div>
-      
-      <% when 'freetime' %>
-        <!-- Freetime Activity Registration Button -->
-        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 sm:p-6 lg:p-8 mb-8 text-center">
-          <div class="mb-4 sm:mb-6">
-            <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-600 mb-2"><%= t('application_actions.freetime.title') %></h3>
-            <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6"><%= t('application_actions.freetime.subtitle') %></p>
-          </div>
-          <%= link_to t('application_actions.freetime.button'), 
-              new_position_application_path(@position), 
-              class: "inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" %>
-        </div>
+<div class="mt-8 mb-8">
+  <% case @position.type %>
+  <% when 'volunteering' %>
+    <!-- Volunteer Application Button -->
+    <div class="bg-green-50 border border-green-200 rounded-xl p-4 sm:p-6 lg:p-8 mb-8 text-center">
+      <div class="mb-4 sm:mb-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-600 mb-2">🤝 Ready to Volunteer?</h3>
+        <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">Join us and make a difference in your community</p>
+      </div>
+
+      <% if @position.signup_page.present? %>
+        <%= link_to t('application_actions.volunteering.button'),
+            @position.signup_page,
+            target: "_blank", rel: "noopener noreferrer",
+            class: "inline-flex items-center gap-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" %>
+        <p class="text-xs text-gray-500 mt-3"><%= t('application_actions.external_signup.hint') %></p>
+      <% else %>
+        <%= link_to t('application_actions.volunteering.button'),
+            new_position_application_path(@position),
+            class: "inline-flex items-center gap-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" %>
+      <% end %>
+    </div>
+
+  <% when 'freetime' %>
+    <!-- Freetime Activity Registration Button -->
+    <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 sm:p-6 lg:p-8 mb-8 text-center">
+      <div class="mb-4 sm:mb-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-600 mb-2"><%= t('application_actions.freetime.title') %></h3>
+        <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6"><%= t('application_actions.freetime.subtitle') %></p>
+      </div>
+
+      <% if @position.signup_page.present? %>
+        <%= link_to t('application_actions.freetime.button'),
+            @position.signup_page,
+            target: "_blank", rel: "noopener noreferrer",
+            class: "inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" %>
+        <p class="text-xs text-gray-500 mt-3"><%= t('application_actions.external_signup.hint') %></p>
+      <% else %>
+        <%= link_to t('application_actions.freetime.button'),
+            new_position_application_path(@position),
+            class: "inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
       
       <% when 'university_position' %>
         <!-- University Assistant Application Button -->

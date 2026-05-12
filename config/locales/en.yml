@@ -1073,6 +1073,16 @@ en:
       subtitle: "Start your career as a university assistant"  
       button: "Apply as Assistant"
 
+  application_actions:
+    volunteering:
+      button: "Apply as Volunteer"
+    freetime:
+      title: "🎉 Free Time Activity"
+      subtitle: "Sign up now and create unforgettable memories"
+      button: "Register now"
+    external_signup:
+      hint: "You will be redirected to an external registration page."
+      
   navigation:
     labels:
       login: "Login"

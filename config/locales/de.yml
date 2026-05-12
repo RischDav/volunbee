@@ -5,7 +5,17 @@ de:
       default: "%d.%m.%Y"
       short: "%d.%m."
       long: "%d. %B %Y"
-  
+
+  application_actions:
+    volunteering:
+      button: "Als Freiwilliger bewerben"
+    freetime:
+      title: "🎉 Freizeitaktivität"
+      subtitle: "Melde dich jetzt an und erlebe unvergessliche Momente"
+      button: "Jetzt anmelden"
+    external_signup:
+      hint: "Du wirst zu einer externen Anmeldeseite weitergeleitet."
+      
   confirmations:
     confirmed: "Ihre E-Mail-Adresse wurde erfolgreich bestätigt."
     send_instructions: "Sie erhalten in wenigen Minuten eine E-Mail mit Anweisungen, wie Sie Ihre E-Mail-Adresse bestätigen können."
