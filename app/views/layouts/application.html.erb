@@ -39,16 +39,13 @@
         <% end %>
         
         <div class="dashboard-main <%= 'full-width' if @is_public_position_view %>">
-          
-          <% # Mobile Toggle nur zeigen, wenn Sidebar gerendert wurde %>
           <% unless @is_public_position_view %>
-            <button class="mobile-menu-toggle" onclick="toggleSidebar()">
-              <svg class="menu-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          <% end %>
-          
+  <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+    <svg class="menu-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  </button>
+<% end %>
           <% unless controller_name == 'organizations' && action_name == 'edit' %>
             <div class="dashboard-alerts">
               <%= render partial: "shared/organization_alert"%>   
@@ -63,55 +60,103 @@
     <% end %>
     
     <style>
-      body { display: flex; flex-direction: column; min-height: 99vh; }
-      main { flex: 1; }
-      
-      .dashboard-container {
-        display: flex;
-        min-height: 100vh;
-        background-color: #f8f9fa;
-      }
-      
-      .dashboard-main {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        margin-left: 280px;
-        position: relative;
-        transition: margin-left 0.3s ease;
-      }
+      /* --- Basis Layout & Body --- */
+body { 
+  display: flex; 
+  flex-direction: column; 
+  min-height: 99vh; 
+}
 
-      /* Diese Klasse wird nur auf der öffentlichen Positions-Show aktiv */
-      .dashboard-main.full-width {
-        margin-left: 0 !important;
-      }
-      
-      .mobile-menu-toggle {
-        display: none;
-        position: fixed;
-        top: 1rem;
-        left: 1rem;
-        z-index: 1001;
-        background: white;
-        border: 1px solid #e5e7eb;
-        border-radius: 8px;
-        padding: 0.5rem;
-        cursor: pointer;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        color: #374151;
-      }
-      
-      .dashboard-alerts { padding: 1rem 2rem 0; }
-      .dashboard-content { flex: 1; padding: 2rem; overflow-y: auto; }
-      
-      @media (max-width: 768px) {
-        .dashboard-main, .dashboard-main.full-width {
-          margin-left: 0 !important;
-          padding-top: 4rem;
-        }
-        .mobile-menu-toggle { display: block; }
-        .dashboard-content { padding: 1rem; }
-      }
+main { 
+  flex: 1; 
+}
+
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.dashboard-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 280px; /* Breite deiner Sidebar */
+  position: relative;
+  transition: margin-left 0.3s ease;
+}
+
+/* Spezialfall: Öffentliche Ansicht ohne Sidebar */
+.dashboard-main.full-width {
+  margin-left: 0 !important;
+}
+
+.dashboard-alerts { 
+  padding: 1rem 2rem 0; 
+}
+
+.dashboard-content { 
+  flex: 1; 
+  padding: 2rem; 
+  overflow-y: auto; 
+}
+
+/* --- Mobile Menu Toggle (Button) --- */
+.mobile-menu-toggle {
+  /* Desktop-Standard: Versteckt */
+  display: none; 
+  
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1001;
+  background: white;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  
+  /* Optik & Größe */
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+  /* Zentrierung des Icons */
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.mobile-menu-toggle .menu-icon {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2.5; /* Macht das Burger-Icon deutlicher */
+}
+
+/* Feedback beim Klicken */
+.mobile-menu-toggle:active {
+  background-color: #f3f4f6;
+  transform: scale(0.95);
+}
+
+/* --- Media Query für Tablets & Handys (max 768px) --- */
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    /* Jetzt erst auf flex schalten, damit es sichtbar wird */
+    display: flex;
+  }
+
+  .dashboard-main, 
+  .dashboard-main.full-width {
+    margin-left: 0 !important;
+    padding-top: 4rem; /* Platz für den fixierten Button oben */
+  }
+
+  .dashboard-content { 
+    padding: 1rem; 
+  }
+}
     </style>
 
     <script>
